@@ -7,7 +7,7 @@
 
 inherit LIB_STORAGE;
 
-static void create() {
+protected void create() {
     storage::create();
     SetKeyName("chest");
     SetId( ({ "chest" }) );

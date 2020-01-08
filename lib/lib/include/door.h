@@ -1,7 +1,7 @@
 #ifndef l_door_h
 #define l_door_h
 
-static void create();
+protected void create();
 
 mixed CanLock(object who, string id);
 mixed CanUnlock(object who, string id);

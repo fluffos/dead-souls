@@ -11,14 +11,14 @@ inherit LIB_DAEMON;
 
 private mapping Verbs;
 
-static void create() {
+protected void create() {
     daemon::create();
     Verbs = ([]);
     SetNoClean(1);
     eventReloadVerbs();
 }
 
-static int ScheduledVerbLoad(string *cache){
+protected int ScheduledVerbLoad(string *cache){
     foreach(string verb in cache){
         object ob;
         string *verb_list;

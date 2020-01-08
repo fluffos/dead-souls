@@ -17,10 +17,10 @@ inherit LIB_DAEMON;
 
 private mapping Classes = ([]);
 private int converted = 0;
-static string SaveFile;
-static int player, foo;
+nosave string SaveFile;
+nosave int player, foo;
 
-static void create() {
+protected void create() {
     daemon::create();
     SaveFile = save_file(SAVE_CLASSES);
     if( unguarded((: file_exists(SaveFile) :)) ){
@@ -41,7 +41,7 @@ static void create() {
     SaveObject(SaveFile);
 }
 
-static private void validate() {
+protected private void validate() {
     if( !(master()->valid_apply(({ PRIV_ASSIST }))) )
         error("Illegal attempt to modify class data");
 }

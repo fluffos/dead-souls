@@ -11,10 +11,10 @@
 
 inherit LIB_DAEMON;
 
-private static string LocalZone;
-private static mapping Zones;
+private nosave string LocalZone;
+private nosave mapping Zones;
 
-static void create() {
+protected void create() {
     string *lines;
     mixed *tmp;
     int i, x;

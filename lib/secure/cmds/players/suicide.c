@@ -14,9 +14,9 @@
 
 inherit LIB_DAEMON;
 
-static private void GetPassword(string input);
-static private void GetYesOrNo(string input);
-static private void EndSuicide(string who);
+protected private void GetPassword(string input);
+protected private void GetYesOrNo(string input);
+protected private void EndSuicide(string who);
 
 string home_dir = "";
 string newfile, tmp, gwho = "";
@@ -56,7 +56,7 @@ mixed cmd(string str) {
     return 1;
 }
 
-static private void GetPassword(string input) {
+protected private void GetPassword(string input) {
     string tmp;
     if( !sizeof(input) ) {
         this_player()->eventPrint("Suicide aborted.");
@@ -73,7 +73,7 @@ static private void GetPassword(string input) {
     return;
 }
 
-static private void GetYesOrNo(string input) {
+protected private void GetYesOrNo(string input) {
     tmp = this_player()->GetKeyName();
     if( !sizeof(input) || (input = lower_case(input))[0] != 'y' ) {
         if( input && input[0] == 'a' ) {
@@ -90,7 +90,7 @@ static private void GetYesOrNo(string input) {
     this_player()->eventEdit(DIR_TMP + "/" + tmp, (: EndSuicide, tmp :));
 }
 
-static private void EndSuicide(string who) {
+protected private void EndSuicide(string who) {
     string file;
     object *ob;
     string whocheck = cleaned_end(base_name(this_player()));

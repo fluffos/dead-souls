@@ -19,7 +19,7 @@ int SignRead(){
     return 1;
 }
 
-static void create() {
+protected void create() {
     object ob;
     room::create();
     SetClimate("indoors");

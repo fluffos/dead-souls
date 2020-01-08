@@ -12,7 +12,7 @@ inherit LIB_LEVEL;
 
 private int            Level       = 1;
 private mapping        Skills      = ([]);
-private static mapping SkillsBonus = ([]);
+private nosave mapping SkillsBonus = ([]);
 
 // abstract methods
 varargs void eventPrint(string str, mixed args...);
@@ -36,7 +36,7 @@ int GetLevel(){
     return Level;
 }
 
-/* static int ResetLevel()
+/* protected int ResetLevel()
  *
  * description
  * takes the average skill level of the primary skills and divided by 4
@@ -368,6 +368,6 @@ varargs void  eventTrainSkill(string skill, int pro, int con, int array a...){
 }
 
 /* ****************** abilities.c driver applies **************** */
-static void create(){
+protected void create(){
 }
 

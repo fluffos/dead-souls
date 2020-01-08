@@ -2,7 +2,7 @@
 
 inherit LIB_ITEM;
 
-static void create() {
+protected void create() {
     item::create();
     SetKeyName("silver key");
     SetId( ({ "key", "mansion key" }) );

@@ -21,8 +21,8 @@ inherit LIB_LANGUAGE;
 inherit LIB_TALK;
 
 private string Town, Race, Gender;
-private static int Bulk, Respiration;
-private static int MaximumHealth = 0;
+private nosave int Bulk, Respiration;
+private nosave int MaximumHealth = 0;
 
 int GetRespiration(){
     int resp = RACES_D->GetRaceRespirationType(this_object()->GetRace());
@@ -95,7 +95,7 @@ varargs int CanBreathe(object what, object where, int dbg){
 int GetParalyzed();
 // end abstract methods
 
-static void create(){
+protected void create(){
     body::create();
     genetics::create();
     Race = "blob";
@@ -353,7 +353,7 @@ int GetStatLevel(string stat){ return genetics::GetStatLevel(stat); }
 
 int GetAlcohol(){ return body::GetAlcohol(); }
 
-static void heart_beat(){
+protected void heart_beat(){
     body::heart_beat();
     genetics::heart_beat();
     set_heart_beat(GetHeartRate());

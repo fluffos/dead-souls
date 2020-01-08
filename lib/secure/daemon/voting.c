@@ -16,9 +16,9 @@ inherit LIB_DAEMON;
 
 private mapping mapVoting;
 private mapping mapCouncil;
-static string SaveFile;
+nosave string SaveFile;
 
-static void create() {
+protected void create() {
     daemon::create();
     SaveFile = save_file(SAVE_VOTES);
     SetNoClean(1);

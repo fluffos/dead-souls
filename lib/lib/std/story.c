@@ -22,7 +22,7 @@ string SetNoTaleMessage(string notalemessage);
 string GetNoTaleMessage();
 int GetTellingTale();
 
-static void create(){
+protected void create(){
     AlreadyTellingTale = 0;
     TalesDir = "";
     Tales = ([ ]);

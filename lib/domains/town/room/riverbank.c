@@ -1,7 +1,7 @@
 #include <lib.h>
 inherit LIB_FISHING;
 
-static void create() {
+protected void create() {
     ::create();
     SetTown("town");
     SetClimate("temperate");

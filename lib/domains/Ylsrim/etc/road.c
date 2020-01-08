@@ -20,7 +20,7 @@ int eventJump(object who) {
     return 1;
 }
 
-static void create() {
+protected void create() {
     dummy::create();
     SetKeyName("road");
     SetId("road");

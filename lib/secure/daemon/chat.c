@@ -30,14 +30,14 @@
 inherit LIB_DAEMON;
 
 string suspect,site,chan;
-static private mapping Channels;
-static private mapping chanlast;
+nosave private mapping Channels;
+nosave private mapping chanlast;
 
-static private string *local_chans = ({});
-static private string *remote_chans = ({});
-static string *syschans = ({});
+nosave private string *local_chans = ({});
+nosave private string *remote_chans = ({});
+nosave string *syschans = ({});
 
-static private mapping localchans = ([
+nosave private mapping localchans = ([
         //I3 Channels
         "imud_code": "intercre",
         "imud_gossip": "intergossip",
@@ -62,7 +62,7 @@ static private mapping localchans = ([
 
         ]);
 
-        static private mapping remotechans = ([
+        nosave private mapping remotechans = ([
                 //I3 Channels
                 "intercre": "imud_code",
                 "intergossip": "imud_gossip",
@@ -87,7 +87,7 @@ static private mapping localchans = ([
                 "ifree2": "Server01:ifree",
                 ]);
 
-static private mapping tags = ([
+nosave private mapping tags = ([
         "intermud"    : "%^B_BLACK%^WHITE%^",
         "muds"        : "%^B_BLACK%^WHITE%^",
         "connections" : "%^B_BLACK%^BOLD%^WHITE%^",
@@ -118,7 +118,7 @@ static private mapping tags = ([
         "default-IMC2" : "%^BOLD%^WHITE%^%^B_BLUE%^",
         ]);
 
-static void Setup(){
+protected void Setup(){
     mixed rchan2 = ({});
     mixed rchan3 = ({});
     remote_chans = ({});
@@ -166,7 +166,7 @@ static void Setup(){
     local_chans = distinct_array(local_chans);
 }
 
-static void create() {
+protected void create() {
     object pl;
     string *tmp_arr = ({});
     daemon::create();
@@ -336,7 +336,7 @@ int cmdLast(string feep){
     return 1;
 }
 
-static int LogIt(string what, string where, string canale){
+nosave int LogIt(string what, string where, string canale){
     if( (member_array(canale,local_chans) != -1 && LOG_LOCAL_CHANS) ||
             ( member_array(GetRemoteChannel(canale),remote_chans) != -1 && LOG_REMOTE_CHANS) ){
         unguarded( (: write_file($(where), $(what)) :) );

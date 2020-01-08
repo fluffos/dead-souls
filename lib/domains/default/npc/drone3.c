@@ -19,7 +19,7 @@ string LongDesc(){
     return "drone "+file_name();
 }
 
-static void create() {
+protected void create() {
     sentient::create();
     SetKeyName("drone");
     SetAdjectives( ({"small","metal"}) );

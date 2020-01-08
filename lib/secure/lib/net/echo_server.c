@@ -36,7 +36,7 @@ void StartServer(){
 
 }
 
-static void listen_callback(int fd){
+protected void listen_callback(int fd){
     int sockstat = socket_accept(fd,"read_callback","write_callback");
 
     if(sockstat < 0){
@@ -47,11 +47,11 @@ static void listen_callback(int fd){
     debug("echo server: listening.");
 }
 
-static void close_callback(int fd){
+protected void close_callback(int fd){
     debug("I'm wanting to close fd"+fd+" now.");
 }
 
-static mixed read_callback(int fd, mixed data){
+nosave mixed read_callback(int fd, mixed data){
     int i;
     string tmp="";
     mixed tmp2;

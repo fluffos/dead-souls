@@ -10,7 +10,7 @@
 
 inherit LIB_DAEMON;
 
-static void eventChat(string args);
+protected void eventChat(string args);
 
 mixed cmd(string args) {
     message("system", "Entering conversation mode.  Continue entering things "
@@ -23,7 +23,7 @@ mixed cmd(string args) {
     return 1;
 }
 
-static void eventChat(string args) {
+protected void eventChat(string args) {
     if( trim(args) == "." ) {
         message("system", "Exiting conversation mode.", this_player());
         return;

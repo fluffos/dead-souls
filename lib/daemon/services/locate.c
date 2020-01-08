@@ -12,9 +12,9 @@
 #include ROOMS_H
 #include <message_class.h>
 
-static mapping locate_user_table = ([]);
+nosave mapping locate_user_table = ([]);
 
-static string eventLookupLocateUser(string str){
+protected string eventLookupLocateUser(string str){
     if(!locate_user_table) locate_user_table = ([]);
     if(!locate_user_table[str]) return str;
     else {

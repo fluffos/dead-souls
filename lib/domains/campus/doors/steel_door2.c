@@ -8,7 +8,7 @@
 
 inherit LIB_DOOR;
 
-static void create() {
+protected void create() {
     door::create();
     SetSide("east", ([ "id" : ({ "east door" , "second door" }),
                 "short" : "a steel door leading east",

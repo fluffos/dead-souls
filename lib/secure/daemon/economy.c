@@ -12,9 +12,9 @@ inherit LIB_DAEMON;
 private mapping Currencies;
 int LastInflation;
 string oba; 
-static string SaveFile;
+nosave string SaveFile;
 
-static void create() {
+protected void create() {
     string *borg;
     float temps, tmp;
     int i;
@@ -46,7 +46,7 @@ string ewrite(string str){
     return read_file("/save/test.txt");
 }
 
-static private void validate() {
+protected private void validate() {
     if( !(master()->valid_apply(({ PRIV_ASSIST }))) ){
         write(identify(previous_object(-1)));
         error("Illegal attempt to modify economy data");

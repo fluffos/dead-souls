@@ -1,7 +1,7 @@
 #ifndef l_interactive_h
 #define l_interactive_h
 
-static void create();
+protected void create();
 int inventory_accessible();
 int inventory_visible();
 
@@ -10,7 +10,7 @@ mixed CanGet();
 mixed CanMarry();
 
 int Setup();
-static void net_dead();
+protected void net_dead();
 void eventReconnect();
 void eventDescribeEnvironment(int brief);
 int eventDestruct();

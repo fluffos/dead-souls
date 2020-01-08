@@ -21,8 +21,8 @@ private mapping     EmoteResponses   = ([]);
 private mapping     RequestResponses = ([]);
 private mapping     TalkResponses    = ([]);
 private mapping     ConsultResponses = ([]);
-static private int  WanderCount      = 0;
-static private int  WanderMarker     = 0;
+nosave private int  WanderCount      = 0;
+nosave private int  WanderMarker     = 0;
 private mixed array WanderPath       = ({});
 private int         WanderRecurse    = 0;
 private int         WanderSpeed      = 0;
@@ -35,7 +35,7 @@ private int      SpellChance      = 50;
  * the NPC to keep its heart beat going.
  * @return true if the heart beat should continue
  */
-static int ContinueHeart(){
+protected int ContinueHeart(){
     if( WanderSpeed ){
         return 1;
     }
@@ -444,7 +444,7 @@ mixed eventWander(){
 }
 
 /********************** sentient.c driver applies ************************/
-static void heart_beat(){
+protected void heart_beat(){
     if( !this_object() || !environment() ){
         return;
     }

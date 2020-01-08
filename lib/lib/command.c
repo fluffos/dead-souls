@@ -14,20 +14,20 @@
 #define OLD_STYLE_PLURALS 1
 
 int Paused = 0;
-private static int Forced = 0;
-private static int StillTrying = 0;
-private static int ParseRecurse = 0;
-private static string CommandFail;
-private static string *SearchPath;
-private static int last_cmd_time = 0;
-private static int cmd_count = 1;
+private nosave int Forced = 0;
+private nosave int StillTrying = 0;
+private nosave int ParseRecurse = 0;
+private nosave string CommandFail;
+private nosave string *SearchPath;
+private nosave int last_cmd_time = 0;
+private nosave int cmd_count = 1;
 private string *localcmds = ({});
 private string parsed_command = "";
-private static string *QueuedCommands = ({});
-static string current_command = "";
-static string original_command = "";
-static int Charmode = 0;
-static string Charbuffer = "";
+private nosave string *QueuedCommands = ({});
+nosave string current_command = "";
+nosave string original_command = "";
+nosave int Charmode = 0;
+nosave string Charbuffer = "";
 
 int direct_force_liv_str(){ return 1; }
 int direct_force_liv_to_str(){ return 1; }
@@ -35,13 +35,13 @@ int direct_force_liv_to_str(){ return 1; }
 
 /*  ***************  /lib/command.c driver applies  ***************  */
 
-static void create(){
+protected void create(){
     SetCommandFail(0);
     SearchPath = ({ DIR_PLAYER_CMDS, DIR_SECURE_PLAYER_CMDS, DIR_CLAN_CMDS,
             DIR_COMMON_CMDS, DIR_SECURE_COMMON_CMDS });
 }
 
-static string process_input(string args){ 
+protected string process_input(string args){ 
     string verb, real_verb, tmpalias, orig;
     object env = environment(this_object());
     string *talks = ({ "emote", "tell", "reply", "say", "whisper",
@@ -149,7 +149,7 @@ static string process_input(string args){
 
 /*  ***************  /lib/command.c command lfuns  ***************  */
 
-static int cmdAll(string args){
+protected int cmdAll(string args){
     object old_agent, env;
     mixed err;
     string verb, file;

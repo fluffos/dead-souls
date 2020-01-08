@@ -17,7 +17,7 @@ string SetSpouse(string str);
 string GetSpouse();
 string RealLong();
 
-static void create() {
+protected void create() {
     armor::create();
     AddSave( ({ "Spouse" }) );
     SetKeyName("wedding ring");

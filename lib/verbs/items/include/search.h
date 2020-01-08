@@ -1,7 +1,7 @@
 #ifndef l_search_h
 #define l_search_h
 
-static void create();
+protected void create();
 
 mixed can_search();
 mixed can_search_obj();

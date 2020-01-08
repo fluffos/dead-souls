@@ -7,7 +7,7 @@ inherit LIB_MANIPULATE;
 
 int MoveBed();
 int PushBed();
-static void create() {
+protected void create() {
     ::create();
     SetKeyName("king-sized bed");
     SetId( ({ "cot","bed" }) );

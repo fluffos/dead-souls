@@ -13,7 +13,7 @@ inherit LIB_DAEMON;
 
 private string __Owner;
 private mapping *__Posts;
-static private string __CurrentID;
+nosave private string __CurrentID;
 string list_new_posts(string id);
 string Location;
 
@@ -25,7 +25,7 @@ void create() {
     __Posts = ({});
 }
 
-static private void save_board() {
+protected private void save_board() {
     if(!__CurrentID){
         return;
     }
@@ -46,7 +46,7 @@ static private void save_board() {
     SaveObject(save_file(DIR_BOARDS+"/"+__CurrentID));
 }
 
-static private int restore_board() {
+protected private int restore_board() {
     if(!__CurrentID){
         return 0;
     }
@@ -63,7 +63,7 @@ static private int restore_board() {
     return 1;
 }
 
-static private int valid_access() {
+protected private int valid_access() {
     string str;
     //tc("stack: "+get_stack(1));
     if(this_player() && adminp(this_player())) true();

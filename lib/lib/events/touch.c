@@ -8,8 +8,8 @@
 
 #include <function.h>
 
-static private mixed Touch     = 0;
-static private mapping Touches = ([]);
+nosave private mixed Touch     = 0;
+nosave private mapping Touches = ([]);
 
 // abstract methods
 string GetShort();
@@ -106,7 +106,7 @@ varargs mixed eventTouch(object who, string str){
     return 1;
 }
 
-static void create(){
+protected void create(){
     Touches = ([]);
 }
 

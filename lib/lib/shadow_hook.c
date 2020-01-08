@@ -1,4 +1,4 @@
-static mapping Shadows = ([]);
+nosave mapping Shadows = ([]);
 
 nomask int AddShadow(object sombra){
     if(!sombra) return 0;

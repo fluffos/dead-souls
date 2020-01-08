@@ -139,10 +139,10 @@
 inherit LIB_DAEMON;
 
 string tmpstr, host, who_str;
-static string SaveFile, serverpass, clientpass;
+nosave string SaveFile, serverpass, clientpass;
 
-static int socket_num, counter;
-static int heart_count = 0;
+nosave int socket_num, counter;
+nosave int heart_count = 0;
 int mode, autodisabled = 1;
 mapping ping_requests; // Keeps track of who sent a ping request.
 // Ping requests aren't labelled with names, so replies are destined to this MUD
@@ -150,12 +150,12 @@ mapping ping_requests; // Keeps track of who sent a ping request.
 string buf=""; // Buffer for incoming packets (aren't always sent 1 at a time)
 
 // Variables
-static int xmit_to_network_room = 1; //enable this to make a lot of noise
-static string hub_name, network_name;
+nosave int xmit_to_network_room = 1; //enable this to make a lot of noise
+nosave string hub_name, network_name;
 float server_version;
-static string lterm;
-static float client_version = IMC_VERSION;
-static mapping chaninfo;
+nosave string lterm;
+nosave float client_version = IMC_VERSION;
+nosave mapping chaninfo;
 mapping localchaninfo; // (["chan": ([ "perm":1, "name":"something", "users":({ }) ]) ])
 mapping mudinfo;
 mapping genders;
@@ -196,7 +196,7 @@ private void send_ice_refresh();
 private void resolve_callback(string address, string resolved, int key);
 
 // Sanity check: a null socket write tends to be a crasher
-varargs static void validate(int i){
+varargs protected void validate(int i){
     if(i){
         if(!socket_status(i) || !socket_status(i)[5]){
             tn("%^RED%^BAD SOCKET ALERT. fd "+i+":  "+
@@ -666,7 +666,7 @@ void remove(){
 #endif
 }
 
-static mixed GetChanInfo(){
+protected mixed GetChanInfo(){
     mixed foo = copy(chaninfo);
     return 1;
 }
@@ -878,7 +878,7 @@ void start_logon(){
         send_packet(user,"ice-msg-b","*","*", sprintf("channel=%s text=%s emote=%d echo=0", chan,escape(pinkfish_to_imc2(msg)),emote));
     }
 
-    varargs static void tell_out(object from, string targname, string targmud, string msg, int reply, int emote){
+    varargs nosave void tell_out(object from, string targname, string targmud, string msg, int reply, int emote){
         string ret = "%^BOLD%^RED%^You tell " + capitalize(targname) +
           "@" + targmud + ":%^RESET%^ " + msg;
 
@@ -1662,7 +1662,7 @@ EndText, NETWORK_ID,COMMAND_NAME);
 
     void forget_user(string str){ map_delete(tells,str); }
 
-    static void eventChangeIMC2Passwords(){
+    protected void eventChangeIMC2Passwords(){
         clientpass = alpha_crypt(10);
         serverpass = alpha_crypt(10);
         SECRETS_D->SetSecret("IMC2_CLIENT_PW", clientpass);

@@ -25,7 +25,7 @@ object cmd = load_object(CMD_ROUTER);
 object rsocket = find_object(RSOCKET_D);
 object ssocket = find_object(SSOCKET_D);
 
-static void validate(){
+protected void validate(){
     if( previous_object() != cmd && previous_object() != rsocket &&
             previous_object() != this_object() && previous_object() != ssocket &&
             !((int)master()->valid_apply(({ "ASSIST" }))) ){
@@ -44,7 +44,7 @@ mapping connected_muds;
 // (key=mudname, value=fd)
 string router_name; // Name of the router.
 string router_ip;
-static string *router_list = ({}); // Ordered list of routers to use.
+nosave string *router_list = ({}); // Ordered list of routers to use.
 mapping mudinfo = ([]); // Info about all the muds which the router knows about.
 mapping channels; // Info about all the channels the router handles.
 mapping channel_updates; // Tells when a channel was last changed.
@@ -53,43 +53,43 @@ int channel_update_counter; // Counter for the most recent change.
 // Because I need to remember that some channels got deleted.
 mapping mudinfo_updates; // Like channel_updates except for muds.
 int mudinfo_update_counter; // Similar to channel_update_counter
-static int max_age = 604800;
-//static int max_age = 86400;
+nosave int max_age = 604800;
+//nosave int max_age = 86400;
 mapping Blacklist = ([]);
 
 //Unsaved globals
-static mapping gtargets = ([]);
+nosave mapping gtargets = ([]);
 
 // Prototypes
-static mapping muds_on_this_fd(int fd);
-static mapping muds_not_on_this_fd(int fd);
+protected mapping muds_on_this_fd(int fd);
+protected mapping muds_not_on_this_fd(int fd);
 void write_data(int fd, mixed data);
-static void close_connection(int fd);
-static void broadcast_data(mapping targets, mixed data);
+protected void close_connection(int fd);
+nosave void broadcast_data(mapping targets, mixed data);
 
 // Ones with their own files...
 string clean_fd(string fd);
-static void broadcast_chanlist(string channame);
+protected void broadcast_chanlist(string channame);
 void broadcast_mudlist(string mudname);
-static varargs void Debug(string str, int level);
-static void process_channel(int fd, mixed *info);
-static void process_startup_req(int protocol, mixed info, int fd);
-static void read_callback(int fd, mixed info);
-static void remove_mud(string mudname, int forced);
-static void send_chanlist_reply(string mudname, int old_chanid);
-static void send_mudlist(string mudname);
-static void send_mudlist_updates(string updating_mudname, int old_mudlist_id);
-static void send_startup_reply(string mudname);
-static void send_error(string mud, string user, string errcode, string errmsg, mixed *info);
+nosave varargs void Debug(string str, int level);
+nosave void process_channel(int fd, mixed *info);
+nosave void process_startup_req(int protocol, mixed info, int fd);
+nosave void read_callback(int fd, mixed info);
+nosave void remove_mud(string mudname, int forced);
+nosave void send_chanlist_reply(string mudname, int old_chanid);
+protected void send_mudlist(string mudname);
+nosave void send_mudlist_updates(string updating_mudname, int old_mudlist_id);
+protected void send_startup_reply(string mudname);
+nosave void send_error(string mud, string user, string errcode, string errmsg, mixed *info);
 void send_full_mudlist(string mud);
 // core_stuff.h...
-static void create();
-static void setup();
+protected void create();
+protected void setup();
 void remove();
 // funcs.h...
-static mapping muds_on_this_fd(int fd);
+protected mapping muds_on_this_fd(int fd);
 int value_equals(string a,int b, int c);
-static mapping muds_not_on_this_fd(int fd);
+protected mapping muds_not_on_this_fd(int fd);
 int value_not_equals(string a,int b, int c);
 // socket_stuff.h
 varargs string *SetList();
@@ -115,7 +115,7 @@ varargs string *SetList();
 #include "./hosted_channels.h"
 #include "./send_full_mudlist.h"
 
-static void close_connection(int fd){
+protected void close_connection(int fd){
     if(!socket_status(fd) || socket_status(fd)[0] == -1) return;
     trr("trying to close "+fd);
     if(base_name(socket_status(fd)[5]) == RSOCKET_D){
@@ -160,7 +160,7 @@ varargs void write_data(int fd, mixed data, int override){
     }
 }
 
-static void broadcast_data(mapping targets, mixed data){
+nosave void broadcast_data(mapping targets, mixed data){
     object imc2d = find_object(IMC2_SERVER_D);
     RSOCKET_D->broadcast_data(targets, data);
     if(imc2d) imc2d->broadcast_data(targets, data);

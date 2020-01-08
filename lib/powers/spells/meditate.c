@@ -5,7 +5,7 @@
 
 inherit LIB_SPELL;
 
-static void create() {
+protected void create() {
     spell::create();
     SetSpell("meditate");
     SetRules("", "LIV");

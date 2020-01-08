@@ -20,7 +20,7 @@ void validate(){
     }
 }
 
-static void create() {
+protected void create() {
     daemon::create();
     set_heart_beat(1);
 }
@@ -35,11 +35,11 @@ varargs string convname(string raw, int rev){
     return ret;
 }
 
-static void LUReport(string str){
+protected void LUReport(string str){
     if(upgrading) lucmd->eventReceiveReport(str);
 }
 
-static int ProcessData(int fd){
+protected int ProcessData(int fd){
     int i;
     int nullify = 0;
     string where;
@@ -134,7 +134,7 @@ varargs int GetFile(string source, string file, string host, string where, int p
     return fd;
 }
 
-static varargs void RetryGet(int i){
+protected varargs void RetryGet(int i){
     mixed *queue = keys(FileQueue);
     if(!i) i = 2;
     if(i > max_outbound) i = max_outbound;
@@ -151,7 +151,7 @@ static varargs void RetryGet(int i){
     }
 }
 
-static void CleanFD(int fd){
+protected void CleanFD(int fd){
     if(!FilesMap[fd]) socket_close(fd);
     else if(!socket_status(fd)) map_delete(FilesMap,fd);
     else if(socket_status(fd)[1] != "DATA_XFER"){

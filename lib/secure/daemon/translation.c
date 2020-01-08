@@ -41,7 +41,7 @@ string *eventCompileList(string str){
 }
 
 
-static void create() {
+protected void create() {
     daemon::create();
 }
 

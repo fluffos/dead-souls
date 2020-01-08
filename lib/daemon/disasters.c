@@ -12,13 +12,13 @@ inherit LIB_DAEMON;
 
 void checkDisaster();
 
-static void create() {
+protected void create() {
     daemon::create();
     SetNoClean(1);
     call_out((: checkDisaster :), 300);
 }
 
-static void checkDisaster() {
+protected void checkDisaster() {
     object array rooms = objects((: $1->GetMedium() :));
     int chance = 100 - random(100) + 1;
     int count = 100; // check at most 100 rooms

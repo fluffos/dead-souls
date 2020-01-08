@@ -15,7 +15,7 @@ inherit LIB_FALL;
 inherit LIB_SINK;
 
 private int           Position = POSITION_STANDING;
-private static object Chair    = 0;
+private nosave object Chair    = 0;
 
 // abstract methods
 varargs mixed eventPrint(string str, mixed args...);

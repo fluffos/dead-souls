@@ -1,8 +1,8 @@
 #ifndef l_history_h
 #define l_history_h
 
-static string eventHistory(string str);
-nomask private static string Push(string cmd);
+protected string eventHistory(string str);
+nomask private protected string Push(string cmd);
 private string GetHistory(mixed val);
 
 /* pure abstract */ varargs int eventPrint(string msg, int cl);

@@ -20,7 +20,7 @@ mixed direct_enter_into_obj(){
     return direct_enter_obj();
 }
 
-static void create() {
+protected void create() {
     base_dummy::create();
     flask::create();
     SetKeyName("seawater");

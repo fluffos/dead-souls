@@ -11,7 +11,7 @@
 #include <privs.h>
 
 private mixed array Inventory = 0;
-private static int  LastSave  = time();
+private nosave int  LastSave  = time();
 
 // abstract methods
 string GetKeyName();
@@ -78,7 +78,7 @@ nomask void save_player(string nom){
     Inventory = 0;
 }
 
-static void heart_beat(){
+protected void heart_beat(){
     int x = time();
     if( x - LastSave < AUTOSAVE_TIME ){
         return;

@@ -1,6 +1,6 @@
 #include <function.h>
 
-static private mapping Knock = ([]);
+nosave private mapping Knock = ([]);
 
 // abstract methods
 string GetDefiniteShort();

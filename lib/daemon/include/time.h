@@ -6,7 +6,7 @@ class timezone {
     string Name;
 }
 
-static void create();
+protected void create();
 int GetOffset(string tzone);
 string GetName(string tzone);
 string *GetTimeZones();

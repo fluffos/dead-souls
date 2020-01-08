@@ -11,14 +11,14 @@
 
 inherit LIB_SAVE;
 
-private static int NoClean = 0; 
+private nosave int NoClean = 0; 
 
 /* ******************* clean.c attributes ************************* */
 int GetNoClean(){
     return NoClean;
 }  
 
-static int SetNoClean(int x){
+protected int SetNoClean(int x){
     return (NoClean = x);
 } 
 
@@ -31,7 +31,7 @@ static int SetNoClean(int x){
  * purposes.  To destruct this_object(), call Destruct().  To destruct
  * another object, call ob->eventDestruct().
  */
-static int Destruct(){
+protected int Destruct(){
     object env, furn; 
     int pers;
 

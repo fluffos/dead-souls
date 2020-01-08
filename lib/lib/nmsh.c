@@ -19,19 +19,19 @@ inherit LIB_HISTORY;
 #define CHAR_LIMIT               1024
 
 private mapping Nicknames, Aliases, Xverbs, Directories; 
-private static int CWDCount, CWDBottom, CWDTop, CmdNumber; 
+private nosave int CWDCount, CWDBottom, CWDTop, CmdNumber; 
 private string Prompt; 
-private static string *Stack; 
-static int histmatch = 0; 
-static string recalled_command = ""; 
-static string recalled_command_sub = ""; 
-static int recalled_command_num = 0; 
-private static int noecho = 1; 
-private static mapping Termstuff;
+private nosave string *Stack; 
+nosave int histmatch = 0; 
+nosave string recalled_command = ""; 
+nosave string recalled_command_sub = ""; 
+nosave int recalled_command_num = 0; 
+private nosave int noecho = 1; 
+private nosave mapping Termstuff;
 
-static int *GetScreen(){ return ({ 79, 24 }); }
+nosave int *GetScreen(){ return ({ 79, 24 }); }
 
-static void create(){
+protected void create(){
     Nicknames = ([]); 
     Termstuff = ([]); 
     Directories = ([ "current" : "/", "previous" : "/", "home" : 0 ]);
@@ -89,7 +89,7 @@ int Setup(){
     return 1;
 } 
 
-nomask static int cmd_alias(string str){ 
+nomask protected int cmd_alias(string str){ 
     string *a, *b;
     string key, thing; 
     int i;
@@ -147,7 +147,7 @@ nomask static int cmd_alias(string str){
     return 1; 
 } 
 
-nomask static int cmd_unalias(string str){ 
+nomask protected int cmd_unalias(string str){ 
     if(this_player() != this_object()) return 0; 
     if(!str){
         write("Unalias what?");
@@ -172,13 +172,13 @@ nomask static int cmd_unalias(string str){
     return 1; 
 } 
 
-nomask static int cmd_cd(string str){ 
+nomask protected int cmd_cd(string str){ 
     if(this_player() != this_object()) return 0; 
     set_cwd(str); 
     return 1; 
 } 
 
-nomask static int cmd_nickname(string str){ 
+nomask protected int cmd_nickname(string str){ 
     string *cles;
     string key, thing; 
     int i;
@@ -213,7 +213,7 @@ nomask static int cmd_nickname(string str){
     return 1; 
 } 
 
-nomask static int cmd_nmsh(string str){ 
+nomask protected int cmd_nmsh(string str){ 
     string *lines; 
     string tmp;
     int i, maxi; 
@@ -235,26 +235,26 @@ nomask static int cmd_nmsh(string str){
     return 1; 
 } 
 
-nomask static int cmd_pushd(string str){ 
+nomask protected int cmd_pushd(string str){ 
     if(this_player() != this_object()) return 0; 
     if(!set_cwd(str)) return 0; 
     pushd(str); 
     return 1; 
 } 
 
-nomask static int cmd_popd(){ 
+nomask protected int cmd_popd(){ 
     if(this_player() != this_object()) return 0; 
     set_cwd(popd()); 
     return 1; 
 } 
 
-nomask static int cmd_pwd(){
+nomask protected int cmd_pwd(){
     if(!query_cwd()) message("system", "No current directory.", this_object());
     else message("system", query_cwd()+":", this_object());
     return 1;
 }
 
-nomask static int cmd_work(string str){
+nomask protected int cmd_work(string str){
     string *tmp;
     object ob;
     string file;
@@ -453,7 +453,7 @@ string process_input(string str){
     return do_alias(do_nickname(tmp));
 } 
 
-nomask static void process_request(string request, string xtra){
+nomask nosave void process_request(string request, string xtra){
     switch(request){
         case "ALIAS":
             receive("<ALIAS>[n,go north] [s,go south] [e,go east] [w,go west] "
@@ -484,15 +484,15 @@ nomask static void process_request(string request, string xtra){
     }
 }
 
-static int request_vis(object ob){
+protected int request_vis(object ob){
     return (userp(ob) && !(ob->GetInvis(this_object())));
 }
 
-static string user_names(object ob){
+protected string user_names(object ob){
     return ob->GetName();
 }
 
-private static int set_cwd(string str){ 
+private protected int set_cwd(string str){ 
     int x;
     string tmpstr = str;
     if(str == "~-" || str == "-") str = Directories["previous"];
@@ -529,7 +529,7 @@ string SetUserPath(string str){
     return Directories["home"] = str; 
 }
 
-private static void pushd(string str){ 
+private protected void pushd(string str){ 
     if(CWDCount++ == DIRECTORY_STACK_SIZE){ 
         CWDCount--; 
         CWDBottom = (++CWDBottom) % DIRECTORY_STACK_SIZE; 
@@ -538,19 +538,19 @@ private static void pushd(string str){
     CWDTop = (++CWDTop) % DIRECTORY_STACK_SIZE; 
 } 
 
-private static string popd(){ 
+private protected string popd(){ 
     if(!CWDCount) return 0; 
     CWDCount--; 
     return Stack[--CWDTop]; 
 } 
 
-nomask private static string do_nickname(string str){ 
+nomask private protected string do_nickname(string str){ 
     if(!Nicknames) return str; 
     if(str[0..7] == "nickname") return str; 
     return implode(map_array(explode(str, " "), "replace_nickname", this_object()), " "); 
 } 
 
-nomask private static string do_alias(string str){ 
+nomask private protected string do_alias(string str){ 
     string *words; 
     string tmp, ret; 
     int x; 
@@ -580,7 +580,7 @@ string GetXverb(string xverb){
     else return ret; 
 } 
 
-nomask static string replace_nickname(string str){ 
+nomask protected string replace_nickname(string str){ 
     if(str == "") return str; 
     if(str[0] == '\\') return str[1..(strlen(str)-1)]; 
     else if(Nicknames[str]) return Nicknames[str]; 
@@ -624,7 +624,7 @@ string fail(){
 }
 #endif
 
-static void EchoCommand(string str){
+protected void EchoCommand(string str){
     mixed clr, ret;
     if(clr = (this_object()->GetProperty("commandecho"))){
         clr = lower_case(clr);
@@ -673,7 +673,7 @@ mixed RecalculateHist(int x){
     return recalled_command;
 }
 
-static int rBackspace(){
+protected int rBackspace(){
     string cb = this_object()->GetCharbuffer();
     if(!sizeof(cb)) return 0;
     recalled_command_sub = "";
@@ -685,14 +685,14 @@ static int rBackspace(){
     return 1;
 }
 
-static int rDel(){
+protected int rDel(){
     histmatch = 0;
     erase_prompt();
     write_prompt();
     return 1;
 }
 
-static int rEnter(){
+protected int rEnter(){
     string charbuffer = this_object()->GetCharbuffer();
     string tmp;
     this_object()->SetNoEcho(0);
@@ -734,7 +734,7 @@ static int rEnter(){
     write_prompt();
 }
 
-static int rCtrl(string str){
+protected int rCtrl(string str){
     string charbuffer = this_object()->GetCharbuffer();
     if(str == "d"){ /* Ctrl-D */
         write("Canceling charmode!");
@@ -982,7 +982,7 @@ static int rCtrl(string str){
     return 1;
 }
 
-static int rArrow(string str){
+protected int rArrow(string str){
     string charbuffer;
     if(!str) return 0;
     switch(str){
@@ -1018,13 +1018,13 @@ static int rArrow(string str){
     return 0;
 }
 
-static int rAscii(string str){
+protected int rAscii(string str){
     if(!histmatch) histmatch = 1;
     erase_prompt();
     write_prompt();
     return 1;
 }
 
-static int rAnsi(string str){
+protected int rAnsi(string str){
     return 1;
 }

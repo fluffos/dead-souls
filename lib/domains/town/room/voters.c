@@ -6,7 +6,7 @@ inherit LIB_ROOM;
 
 mixed ReadList();
 
-static void create() {
+protected void create() {
     room::create();
     SetTown("town");
     SetClimate("indoors");

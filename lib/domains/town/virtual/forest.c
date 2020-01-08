@@ -4,8 +4,8 @@
 
 inherit LIB_VIRT_LAND;
 
-static private int XPosition, YPosition, found;
-static string lupus;
+nosave private int XPosition, YPosition, found;
+nosave string lupus;
 int max_north = 25;
 int max_south = 1;
 int max_east = -3;
@@ -33,7 +33,7 @@ mixed SearchFun(object who, string str){
     return "You find a fishing pole!";
 }
 
-varargs static void create(int x, int y) {
+varargs nosave void create(int x, int y) {
     string n, s, e, w;
     string ne, nw, se, sw;
     string fly;

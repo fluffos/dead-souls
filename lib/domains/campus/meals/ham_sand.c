@@ -9,7 +9,7 @@
 inherit LIB_MEAL;
 
 
-static void create() {
+protected void create() {
     meal::create();
     SetKeyName("sandwich");
     SetId(({"sandwich","ham sandwich"}));

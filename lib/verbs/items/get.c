@@ -10,7 +10,7 @@
 inherit LIB_VERB;
 int yes;
 
-static void create() {
+protected void create() {
     verb::create();
     SetVerb("get");
     SetRules("OBS OBJ", "WRD from OBJ", "WRD out of OBJ", "WRD WRD from OBJ", "WRD WRD out of OBJ",

@@ -6,7 +6,7 @@
  *    Last modified: 97/01/01
  */
 
-private static mixed Dig = 0;
+private nosave mixed Dig = 0;
 
 // abstract methods
 string GetShort();

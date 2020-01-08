@@ -5,7 +5,7 @@
 
 inherit LIB_VERB;
 
-static void create() {
+protected void create() {
     verb::create();
     SetVerb("dismount");
     SetRules("","LIV", "from LIV");

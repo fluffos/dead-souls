@@ -21,7 +21,7 @@ string LongD(){
     return ret;
 }
 
-static void create(){
+protected void create(){
     armor::create();
     if(!Directions) Directions = ([]);
     SetKeyName("rocket pack");

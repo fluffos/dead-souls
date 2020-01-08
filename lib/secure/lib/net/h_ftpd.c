@@ -60,14 +60,14 @@ inherit LIB_SOCKET;
 private void eventCmdPasv(string arg);
 
 private        string      Password  = 0;
-private static class       ftp_session Session;
-private static string      host_ip  = HOST_IP;
-private static mixed       outfile   = ([]);
-private static int         MaxBuffer = get_config(__MAX_BYTE_TRANSFER__);
-private static int         MaxFile   = get_config(__MAX_READ_FILE_SIZE__);
-private static int         PassivePort = -1;
-private static int         passive = 0;
-private static mapping     dispatch  = ([
+private nosave class       ftp_session Session;
+private nosave string      host_ip  = HOST_IP;
+private nosave mixed       outfile   = ([]);
+private nosave int         MaxBuffer = get_config(__MAX_BYTE_TRANSFER__);
+private nosave int         MaxFile   = get_config(__MAX_READ_FILE_SIZE__);
+private nosave int         PassivePort = -1;
+private nosave int         passive = 0;
+private nosave mapping     dispatch  = ([
         "user" : (: eventCmdUser :), "pass" : (: eventCmdPass :),
         "retr" : (: eventCmdRetr :), "stor" : (: eventCmdStor :),
         "nlst" : (: eventCmdNlst :), "list" : (: eventCmdList :),
@@ -81,7 +81,7 @@ private static mapping     dispatch  = ([
         "pasv" : (: eventCmdPasv :), "passive" : (: eventCmdPasv :)
         ]);
 
-static void create(int fd, object owner){
+nosave void create(int fd, object owner){
     socket::create(fd, owner); 
     Session = new(class ftp_session);
     Session->cmdPipe = owner;
@@ -137,7 +137,7 @@ private void eventCmdPasv(string arg)
     return;
 }
 
-nomask static int check_privs(string file, string oper) {
+nomask nosave int check_privs(string file, string oper) {
     string nom, tmp;
     int x;
 

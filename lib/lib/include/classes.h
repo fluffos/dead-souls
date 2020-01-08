@@ -1,12 +1,12 @@
 #ifndef l_classes_h
 #define l_classes_h
 
-static void create();
+protected void create();
 
 int eventMoralAct(int degree);
 
 int AddSkillPoints(string skill, int x);
-static string SetSkillModifier(string skill, string stat);
+nosave string SetSkillModifier(string skill, string stat);
 string GetSkillModifier(string skill);
 string SetClass(string classes);
 string GetClass();

@@ -24,7 +24,7 @@ mapping TranslatedFiles = ([]);
 
 int eventDumpFiles();
 
-static private void validate() {
+protected private void validate() {
     if( !(master()->valid_apply(({ "SECURE" }))) )
         error("Illegal attempt to access LIB_OOB: "+get_stack()+" "+identify(previous_object(-1)));
 }
@@ -34,7 +34,7 @@ void eventID(string str){
     mud = str;
 }
 
-static void create(mixed alpha, mixed beta, mixed gamma, mixed delta){
+nosave void create(mixed alpha, mixed beta, mixed gamma, mixed delta){
     trr("LIB_OOB.create: I am a new OOB object, name: "+file_name(),mcolor,MSG_OOB);
     set_heart_beat(1);
     if(clonep()){

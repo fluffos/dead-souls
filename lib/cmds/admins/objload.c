@@ -12,7 +12,7 @@
 
 inherit LIB_DAEMON;
 
-static private int Realms = strlen(REALMS_DIRS);
+nosave private int Realms = strlen(REALMS_DIRS);
 
 mixed cmd(string args) {
     string array output = ({ "Creator Files:" });

@@ -4,7 +4,7 @@
 
 inherit LIB_SENTIENT;
 
-static void create() {
+protected void create() {
     sentient::create();
     SetKeyName("drone");
     SetAdjectives( ({"small","metal"}) );

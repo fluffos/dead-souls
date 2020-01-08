@@ -8,10 +8,10 @@
 #include "include/history.h"
 
 private int HistorySize = MIN_HISTORY_SIZE;
-private static int CommandNumber = 1;
+private nosave int CommandNumber = 1;
 private mapping History = ([]);
 
-static string eventHistory(string str){
+protected string eventHistory(string str){
     string cmd, args, old, neu;
     int len, num;
     CommandNumber = sizeof(History);
@@ -125,7 +125,7 @@ static string eventHistory(string str){
     return Push(cmd);
 }
 
-static string Push(string cmd){
+protected string Push(string cmd){
     int j, crunch;
     CommandNumber = sizeof(History);
     if(CommandNumber && History[CommandNumber-1] == cmd){

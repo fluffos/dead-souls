@@ -17,15 +17,15 @@ class client {
     mixed *Buffer;
 }
 
-private static int DestructOnClose, SocketType = -1;
-private static string LogFile;
-private static function Read;
-private static class client Socket;
+private nosave int DestructOnClose, SocketType = -1;
+private nosave string LogFile;
+private nosave function Read;
+private nosave class client Socket;
 
-static void eventClose(class client sock);
-static void eventRead(mixed val);
-static void eventSocketClose();
-static void eventSocketError(string str, int x);
+protected void eventClose(class client sock);
+protected void eventRead(mixed val);
+protected void eventSocketClose();
+nosave void eventSocketError(string str, int x);
 
 function SetRead(function f) { return (Read = f); }
 
@@ -62,20 +62,20 @@ int eventCreateSocket(string host, int port) {
     return ret;
 }
 
-static void eventAbortCallback(int fd) {
+protected void eventAbortCallback(int fd) {
     if( !Socket ) return;
     if( fd != Socket->Descriptor ) return;
     eventClose(Socket);
 }
 
-static void eventReadCallback(int fd, mixed val) {
+nosave void eventReadCallback(int fd, mixed val) {
     if( functionp(Read) ) evaluate(Read, val);
     else eventRead(val);
 }
 
-static void eventRead(mixed val) { }
+protected void eventRead(mixed val) { }
 
-static void eventWriteCallback(int fd) {
+protected void eventWriteCallback(int fd) {
     int x;
     if( !Socket ) return;
     Socket->Blocking = 0;
@@ -107,7 +107,7 @@ static void eventWriteCallback(int fd) {
     }
 }
 
-static void eventWrite(mixed val) {
+protected void eventWrite(mixed val) {
     if( !Socket ) return;
     if( Socket->Buffer ) Socket->Buffer += ({ val });
     else Socket->Buffer = ({ val });
@@ -119,7 +119,7 @@ static void eventWrite(mixed val) {
     }
 }
 
-static void eventClose(mixed arg) {
+protected void eventClose(mixed arg) {
     class client sock;
     if(!arg) return;
     if(classp(arg)) sock = arg; 
@@ -138,14 +138,14 @@ static void eventClose(mixed arg) {
     if( DestructOnClose ) Destruct();
 }
 
-static void eventSocketClose() { }
+protected void eventSocketClose() { }
 
 int eventDestruct() {
     eventClose(Socket);
     return daemon::eventDestruct();
 }
 
-static void eventSocketError(string str, int x) { 
+nosave void eventSocketError(string str, int x) { 
     if( LogFile ) 
         log_file(LogFile, ctime(time()) + "\n" + socket_error(x) + "\n");
 }

@@ -4,7 +4,7 @@
 inherit LIB_MEAL;
 
 
-static void create() {
+protected void create() {
     meal::create();
     SetKeyName("special");
     SetId( ({ "special of the house", "bottle", "bourbon" }) );

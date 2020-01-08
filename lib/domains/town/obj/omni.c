@@ -4,7 +4,7 @@ inherit LIB_ITEM;
 inherit LIB_PRESS;
 int check_environs();
 int vanish_count;
-static void create() {
+protected void create() {
     item::create();
     SetKeyName("omni");
     SetId(({"omni","Omni","device"}));

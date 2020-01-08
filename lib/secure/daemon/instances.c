@@ -14,12 +14,12 @@ inherit LIB_DAEMON;
 
 mapping InstData = ([]);
 mapping sockets = ([]);
-static string SaveFile;
+nosave string SaveFile;
 string Name, Myname;
-static int verbose = 0;
-static private int icp_socket;
+nosave int verbose = 0;
+nosave private int icp_socket;
 
-varargs static void yenta(string arg, string clr){
+varargs nosave void yenta(string arg, string clr){
     if(verbose){
         debug_message(arg);
     }
@@ -27,7 +27,7 @@ varargs static void yenta(string arg, string clr){
                     " " + strip_colours($(arg)) + "\n") :) );
 }
 
-varargs static int validate(int i, int soft){
+varargs nosave int validate(int i, int soft){
     if(!undefinedp(i)){
         if(!socket_status(i) || !socket_status(i)[5]){
             yenta(mud_name()+" stack: "+get_stack());
@@ -46,7 +46,7 @@ varargs static int validate(int i, int soft){
     return 1;
 }
 
-static void create() {
+protected void create() {
     daemon::create();
     Myname = "global";
     if(!sizeof(InstData)) InstData = ([]);
@@ -212,7 +212,7 @@ mapping GetInstData(){
     return ret;
 }
 
-static void SendData(mixed fd, mixed data){
+nosave void SendData(mixed fd, mixed data){
     int array targets = ({});
     if(stringp(fd) && !undefinedp(InstData[fd])) fd = InstData[fd]["fd"];
     if(fd == -2) return;
@@ -289,7 +289,7 @@ varargs void SendTell(string who, string msg, string interwho){
     SendData(-1, ({ "tell", 5, Myname, sender, 0, who, vname, msg }) );
 }
 
-static void ProcessStartup(mixed data, string addy, int port, int fd){
+nosave void ProcessStartup(mixed data, string addy, int port, int fd){
     string name = data[2];
     InstData[name] = ([]);
     InstData[name]["addy"] = addy;
@@ -309,7 +309,7 @@ static void ProcessStartup(mixed data, string addy, int port, int fd){
     }
 }
 
-static void ProcessClose(string name){
+protected void ProcessClose(string name){
     if(!sizeof(InstData[name])) return;
     if(InstData[name]["fd"] > -1){
         this_object()->close_connection(InstData[name]["fd"]);
@@ -318,7 +318,7 @@ static void ProcessClose(string name){
     InstData[name]["online"] = 0;
 }
 
-static void ProcessWhoUpdate(mixed data){
+protected void ProcessWhoUpdate(mixed data){
     if(!sizeof(InstData[data[2]])) return;
     if(!sizeof(InstData[data[2]]["users"])){
         InstData[data[2]]["users"] = ([]);
@@ -326,7 +326,7 @@ static void ProcessWhoUpdate(mixed data){
     InstData[data[2]]["users"][data[3]] = data[6];
 }
 
-static void ProcessTell(mixed data){
+protected void ProcessTell(mixed data){
     object who = find_player(data[5]);
     string ret;
     if(!who) return;
@@ -338,7 +338,7 @@ static void ProcessTell(mixed data){
     who->eventTellHist(ret);
 }
 
-static void ProcessShout(mixed data){
+protected void ProcessShout(mixed data){
     Name = capitalize(data[3]);
     users()->eventHearTalk(this_object(), 0, TALK_WORLD,
             "shout", data[6][0], data[6][1]);
@@ -348,7 +348,7 @@ string GetName(){
     return Name;
 }
 
-static void ReceiveICPData(mixed data, string addy, int port, int fd){
+nosave void ReceiveICPData(mixed data, string addy, int port, int fd){
     string name;
     if(!arrayp(data)){
         return;
@@ -427,11 +427,11 @@ void eventSendShout(string msg, string lang){
     SendData(-1, ({ "shout", 5, Myname, name, 0, 0, packet }) );
 }
 
-static void eventWrite(mixed *packet){
+protected void eventWrite(mixed *packet){
     SendData(packet[4], packet);
 }
 
-static void close_connection(int fd){
+protected void close_connection(int fd){
     int sockerr;
     mixed *sockstat = ({});
     validate();
@@ -448,7 +448,7 @@ static void close_connection(int fd){
     yenta("---\n","white");
 }
 
-static void close_callback(int fd){
+protected void close_callback(int fd){
     yenta("close_callback: fd="+fd+"\n");
     if(fd < 0 || !sizeof(socket_status(fd))) return;
     if(socket_status(fd)[1] == "LISTEN") return;
@@ -456,7 +456,7 @@ static void close_callback(int fd){
     close_connection(fd);
 }
 
-static void listen_callback(int fd){
+protected void listen_callback(int fd){
     mixed fdstat,newfd;
     validate();
 
@@ -469,7 +469,7 @@ static void listen_callback(int fd){
     }
 }
 
-static void read_callback(int fd, mixed info){
+nosave void read_callback(int fd, mixed info){
     mixed sstat;
     string addy;
     int port;
@@ -492,7 +492,7 @@ static void read_callback(int fd, mixed info){
     ReceiveICPData(info, addy, port, fd);
 }
 
-static void write_callback(int fd){
+protected void write_callback(int fd){
     validate(fd);
     if(!sockets[fd]) return;
     if(sockets[fd]["write_status"] == EEALREADY) {
@@ -504,7 +504,7 @@ static void write_callback(int fd){
     }
 }
 
-static void write_data_retry(int fd, mixed data, int counter){
+nosave void write_data_retry(int fd, mixed data, int counter){
     int rc;
     int maxtry = 20;
     if(fd < 0) return;
@@ -543,7 +543,7 @@ static void write_data_retry(int fd, mixed data, int counter){
     }
 }
 
-static int write_data(int fd, mixed data){
+nosave int write_data(int fd, mixed data){
     int ret;
     if(fd < 0) return;
     if(!validate(fd, 1)) return 0;
@@ -551,7 +551,7 @@ static int write_data(int fd, mixed data){
     return ret;
 }
 
-static void Setup(){
+protected void Setup(){
     //yenta("icp setup got called");
     if ((icp_socket = socket_create(MUD, "read_callback", "close_callback")) < 0){
         log_file(LOG_ICP, "setup: Failed to create socket.\n");
@@ -605,7 +605,7 @@ int DoConnect(string ip, int port, string myname, string name){
     return sstat;
 }
 
-static void InstConnect(string wat){
+protected void InstConnect(string wat){
     int ret = DoConnect(InstData[wat]["addy"],
             InstData[wat]["port"],"global",wat);
     if(ret > -1){
@@ -617,7 +617,7 @@ static void InstConnect(string wat){
     }
 }
 
-static void SendStartup(int fd){
+protected void SendStartup(int fd){
     string name;
     foreach(mixed key, mixed val in InstData){
         if(key && val["fd"] == fd){
@@ -633,7 +633,7 @@ static void SendStartup(int fd){
     }
 }
 
-static void CheckConnections(){
+protected void CheckConnections(){
     mixed socks = socket_names();
     mapping conns = ([]);
     if(ENABLE_INSTANCES){

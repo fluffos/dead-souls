@@ -45,7 +45,7 @@ int AnswerFunc(){
         default : eventForce("shake");
     }
 }
-static void create() {
+protected void create() {
     sentient::create();
     SetKeyName("hans");
     SetId(({"hans"}));

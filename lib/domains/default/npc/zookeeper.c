@@ -2,7 +2,7 @@
 
 inherit LIB_BOT;
 
-static void create() {
+protected void create() {
     ::create();
     SetKeyName("zookeeper bot");
     SetId( ({"bot", "robot", "zookeeper", "keeper"}) );

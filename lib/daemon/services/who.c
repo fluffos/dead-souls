@@ -8,11 +8,11 @@
 
 #include <daemons.h>
 #include ROOMS_H
-static mapping user_table = ([]);
+nosave mapping user_table = ([]);
 
 int mini;
 
-static string eventLookupUser(string str){
+protected string eventLookupUser(string str){
     if(!user_table) user_table = ([]);
     if(!user_table[str]) return str;
     else {

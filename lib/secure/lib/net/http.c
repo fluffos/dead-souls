@@ -140,7 +140,7 @@ int GetPort(){
     return port;
 }
 
-private static void eventError(string name) {
+private protected void eventError(string name) {
     object file = new(LIB_FILE, name);
 
     eventWrite(file->GetBuffer(), 1);
@@ -191,7 +191,7 @@ void eventRemoveTmp(string file){
     rm(file);
 }
 
-varargs private static mixed eventGetFile(string name, string type, string payload) {
+varargs private nosave mixed eventGetFile(string name, string type, string payload) {
     string array parts;
     string tmpfile, orig, requested;
     object file;

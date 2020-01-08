@@ -2,7 +2,7 @@
 inherit LIB_BANK;
 
 int ReadSign();
-static void create() {
+protected void create() {
     bank::create();
     SetClimate("indoors");
     SetAmbientLight(30);

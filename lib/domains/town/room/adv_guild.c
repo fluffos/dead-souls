@@ -7,7 +7,7 @@ mapping Levels = PLAYERS_D->GetLevelList();
 int ReadSign();
 int ReadScroll();
 
-static void create() {
+protected void create() {
     room::create();
     SetClimate("indoors");
     SetAmbientLight(30);

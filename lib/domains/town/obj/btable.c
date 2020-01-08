@@ -29,7 +29,7 @@ int read(string args) {
     return 1;
 }
 
-static void create() {
+protected void create() {
     ::create();
     SetShort("a blackjack table");
     SetLong("A small mechanical blackjack table lies here, "

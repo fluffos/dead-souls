@@ -5,7 +5,7 @@
 inherit LIB_ITEM;
 inherit LIB_READ;
 
-static void create() {
+protected void create() {
     item::create();
     SetKeyName("Orc Slayer");
     SetId( ({ "orcslayer", "orc slayer","sword", "short sword", "shortsword"}));

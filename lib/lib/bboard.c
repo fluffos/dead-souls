@@ -10,10 +10,10 @@
 
 inherit LIB_ITEM;
 
-static private string tmpdir;
-static private string __BoardID;
-static private string *__EditOK;
-static string gstr, gfile, gdude;
+nosave private string tmpdir;
+nosave private string __BoardID;
+nosave private string *__EditOK;
+nosave string gstr, gfile, gdude;
 string Location;
 
 void create(){
@@ -51,7 +51,7 @@ void init(){
     RegisterLocation();
 }
 
-static private int valid_edit(string author){
+protected private int valid_edit(string author){
     string who = this_player()->GetKeyName();
     if(who == author) return 1;
     if(archp(this_player())) return 1;
@@ -77,7 +77,7 @@ int cmd_post(string str){
     return 1;
 }
 
-static void begin_post(string cmd, string subj, string file, function f){
+nosave void begin_post(string cmd, string subj, string file, function f){
     if(cmd == "" || !cmd) cmd = "n";
     else cmd = cmd[0..0];
     if(cmd != "n" && cmd != "e"){
@@ -191,7 +191,7 @@ void continue_mail(mapping post, string subj, string file){
     input_to("check_include_text", subj, file, post, 1);
 }
 
-static void check_include_text(string ans, string subj, string file, mapping
+nosave void check_include_text(string ans, string subj, string file, mapping
         post, int mail){
 
     string msg;

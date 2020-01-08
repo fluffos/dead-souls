@@ -11,7 +11,7 @@ inherit LIB_ROOM;
 string CheckOpen(string str);
 string CheckItem(string str);
 
-static void create() {
+protected void create() {
     room::create();
     SetTown("Ylsrim");
     SetClimate("indoors");

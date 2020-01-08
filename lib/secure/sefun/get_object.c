@@ -20,7 +20,7 @@
 //            like referencing the monster attacking someone.
  */
 
-private static string gstr;
+private nosave string gstr;
 
 varargs object get_object( string str, object player, int living )
 {

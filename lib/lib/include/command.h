@@ -1,10 +1,10 @@
 #ifndef __COMMAND_H__
 #define __COMMAND_H__
 
-static void create();
-static string process_input(string cmd);
+protected void create();
+protected string process_input(string cmd);
 
-static int cmdAll(string arg);
+protected int cmdAll(string arg);
 
 int eventForce(string cmd);
 

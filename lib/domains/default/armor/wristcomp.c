@@ -7,7 +7,7 @@ inherit LIB_ACTIVATE;
 inherit LIB_INSTALL;
 inherit LIB_WORN_STORAGE;
 
-static int active = 0;
+nosave int active = 0;
 int lupus;
 mapping SpecialFuns = ([]);
 
@@ -21,7 +21,7 @@ int CheckPanel(){
     return 1;
 }
 
-static void create() {
+protected void create() {
     worn_storage::create();
     SetKeyName("wrist computer");
     SetId( ({ "computer", "bracer","comp","wristcomp","system" }) );

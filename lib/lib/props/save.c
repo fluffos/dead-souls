@@ -3,9 +3,9 @@
 #include <privs.h>
 
 private mixed array PersistentInventory = 0;
-private static int  LastSave  = time();
+private nosave int  LastSave  = time();
 private int PersistentInventoryEnabled = 0;
-private static string wut, savename, nom = "";
+private nosave string wut, savename, nom = "";
 
 string GetSaveName(){
     mixed tmp = directory_exists(domain(this_object(),1)+"/save");
@@ -25,7 +25,7 @@ int GetLastSave(){
     return LastSave;
 }
 
-static varargs int SaveObject(mixed str, int i){
+nosave varargs int SaveObject(mixed str, int i){
     int ret;
     savename = GetSaveName();
     if(!undefinedp(str) && intp(str)) i = str;
@@ -54,7 +54,7 @@ mixed GetPersistentInventory(){
     return copy(PersistentInventory);
 }
 
-static varargs int RestoreObject(mixed str, int i){
+nosave varargs int RestoreObject(mixed str, int i){
     object env;
     int ret;
     if(!undefinedp(str) && intp(str)) i == str;

@@ -3,7 +3,7 @@
 inherit LIB_DAEMON;
 
 
-static void create() {
+protected void create() {
     daemon::create();
 }
 

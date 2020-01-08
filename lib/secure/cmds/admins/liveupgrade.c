@@ -11,16 +11,16 @@
 string array allnames = ({});
 string array tmpnames;
 string reverts_dir, revert_name;
-static string upgrade_prefix = "/code/upgrades/"+mudlib_version();
-static string reverts_prefix = "/secure/upgrades/reverts/"+mudlib_version();
-static string upgrades_txt = "/secure/upgrades/txt";
-static string upgrades_files = "/secure/upgrades/files";
-static int i = 0;
-static int oob = 0;
-static object player = 0;
+nosave string upgrade_prefix = "/code/upgrades/"+mudlib_version();
+nosave string reverts_prefix = "/secure/upgrades/reverts/"+mudlib_version();
+nosave string upgrades_txt = "/secure/upgrades/txt";
+nosave string upgrades_files = "/secure/upgrades/files";
+nosave int i = 0;
+nosave int oob = 0;
+nosave object player = 0;
 int patched, transver = 0;
-static mapping NewFiles = ([]);
-static string SaveFile;
+nosave mapping NewFiles = ([]);
+nosave string SaveFile;
 
 void create(){
 #ifdef ENABLE_INSTANCES

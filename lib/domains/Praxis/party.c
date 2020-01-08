@@ -2,7 +2,7 @@
 
 inherit LIB_ROOM;
 
-static private int __EntryAllowed, __PartyTime;
+nosave private int __EntryAllowed, __PartyTime;
 
 int query_party_time();
 int x;
@@ -69,7 +69,7 @@ void start_party(string msg) {
     call_out("deny_entry", 120);
 }
 
-static void deny_entry() { __EntryAllowed = 0; }
+nosave void deny_entry() { __EntryAllowed = 0; }
 
 int query_party_time() { return __PartyTime; }
 

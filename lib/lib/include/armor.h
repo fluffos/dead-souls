@@ -1,7 +1,7 @@
 #ifndef l_armor_h
 #define l_armor_h
 
-static void create();
+protected void create();
 mixed direct_remove_obj();
 mixed direct_wear_obj();
 mixed direct_wear_obj_on_str(mixed fix...);

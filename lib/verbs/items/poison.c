@@ -14,7 +14,7 @@
 
 inherit LIB_VERB;
 
-static void create() {
+protected void create() {
     verb::create();
     SetVerb("poison");
     SetRules("OBJ with OBJ");

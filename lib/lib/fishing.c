@@ -11,10 +11,10 @@
 
 inherit LIB_ROOM;
 
-static private int MaxFishing, Speed, Chance, fishing_counter;
-static private mapping Fishing, Fish;
+nosave private int MaxFishing, Speed, Chance, fishing_counter;
+nosave private mapping Fishing, Fish;
 
-static void create(){
+protected void create(){
     room::create();
     MaxFishing = 10;
     Speed = 10;
@@ -135,7 +135,7 @@ mixed eventCast(object who, object pole, string str){
     return 1;
 }
 
-static void eventCatch(object who, string fish, object pole){
+nosave void eventCatch(object who, string fish, object pole){
     object food;
 
     if( !who || !present(who) ) return;

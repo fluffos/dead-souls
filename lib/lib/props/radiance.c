@@ -6,7 +6,7 @@
  *    Last modified: 96/12/22
  */
 
-private static int RadiantLight = 0;
+private nosave int RadiantLight = 0;
 
 int GetRadiantLight(int ambient){
     return RadiantLight;

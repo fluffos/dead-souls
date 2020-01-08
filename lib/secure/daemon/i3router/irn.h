@@ -3,36 +3,36 @@
 #include <daemons.h>
 #include <secrets.h>
 
-static string my_name = ROUTER_NAME;
-static string my_password = IRN_PASSWORD;
-static string *ok_ips = ({});
-static string *desynced = ({});
-static int irn_reconnect = 0;
-static int irn_timeout = 120;
-static int irn_maxtry = 32;
-static int convert_channel = 1;
-static int convert_channel2 = 0;
-static int last_check = time() + random(1000);
+nosave string my_name = ROUTER_NAME;
+nosave string my_password = IRN_PASSWORD;
+nosave string *ok_ips = ({});
+nosave string *desynced = ({});
+nosave int irn_reconnect = 0;
+nosave int irn_timeout = 120;
+nosave int irn_maxtry = 32;
+nosave int convert_channel = 1;
+nosave int convert_channel2 = 0;
+nosave int last_check = time() + random(1000);
 mapping PingMap = ([]);
 
 #ifndef PRODUCTION_ROUTER
-static int irn_enabled = 0;
-static int irn_ping_enabled = 0;
-static mapping routers = ([
+nosave int irn_enabled = 0;
+nosave int irn_ping_enabled = 0;
+nosave mapping routers = ([
         "*i6" : ([ "ip" : "149.152.218.102", "port" : 25, "password" : IRN_PASSWORD1 ]),
         "*i5" : ([ "ip" : "204.209.44.3", "port" : 8180, "password" : IRN_PASSWORD2 ]),
         ]);
 #else
-static int irn_enabled = 1;
-static int irn_ping_enabled = 1;
-static mapping routers = ([
+nosave int irn_enabled = 1;
+nosave int irn_ping_enabled = 1;
+nosave mapping routers = ([
         //"*wpr" : ([ "ip" : "195.242.99.94", "port" : 8080, "password" : IRN_PASSWORD1 ]),
         "*i4" : ([ "ip" : "204.209.44.3", "port" : 8080, "password" : IRN_PASSWORD2 ]),
         "*dalet" : ([ "ip" : "97.107.133.86", "port" : 8787, "password" : IRN_PASSWORD3 ])
         ]);
 #endif
 
-static mapping chan_conv = ([
+nosave mapping chan_conv = ([
         //"*adsr" : ([ "imud_gossip" : "free_speech" ]),
         //"*i4" : ([ "free_speech" : "imud_gossip", "imud_gossip" : "free_speech" ]),
         //"*yatmim" : ([ "free_speech" : "imud_gossip", "imud_gossip" : "free_speech" ]),
@@ -43,10 +43,10 @@ static mapping chan_conv = ([
 mapping irn_connections = ([]);
 mapping irn_sockets = ([]);
 
-static void write_data(int fd, mixed data);
-static varargs void SendList(mixed data, int fd, string type);
+nosave void write_data(int fd, mixed data);
+nosave varargs void SendList(mixed data, int fd, string type);
 varargs void SendWholeList(int fd,string type);
-static void begin_socket_handoff(int i);
+protected void begin_socket_handoff(int i);
 
 void build_ok_ips(){
     ok_ips = ({});
@@ -188,7 +188,7 @@ void check_desync(){
     }
 }
         
-static int GoodPeer(int fd, mixed data){
+nosave int GoodPeer(int fd, mixed data){
     string ip = explode(socket_address(fd)," ")[0];
     if(!irn_enabled) return 0;
     if(member_array(ip,ok_ips) == -1){
@@ -219,7 +219,7 @@ static int GoodPeer(int fd, mixed data){
     return 1;
 }
 
-varargs static int ValidatePeer(int fd, mixed data, int outbound){
+varargs nosave int ValidatePeer(int fd, mixed data, int outbound){
     string ip = explode(socket_address(fd)," ")[0];
     mixed tmp;
     mixed name;
@@ -263,7 +263,7 @@ varargs static int ValidatePeer(int fd, mixed data, int outbound){
     return 1;
 }
 
-static string id_mud(int fd){
+protected string id_mud(int fd){
     string *ret = ({});
     foreach(mixed element in keys(irn_connections)){
         if(irn_connections[element]["fd"] == fd) ret += ({ element });
@@ -420,10 +420,10 @@ varargs void eventSendStartup(int fd){
     }
 }
 
-static void irn_write_callback(int fd){
+protected void irn_write_callback(int fd){
 }
 
-static void irn_close_callback(int fd){
+protected void irn_close_callback(int fd){
     if(!irn_enabled) return;
     if(irn_connections[id_mud(fd)]){
         irn_connections[id_mud(fd)]["fd"] = -1;
@@ -436,7 +436,7 @@ static void irn_close_callback(int fd){
     trr("I'm wanting to close "+id_mud(fd)+" on fd"+fd+" now.");
 }
 
-static void irn_read_callback(int fd, mixed data){
+nosave void irn_read_callback(int fd, mixed data){
     int i;
     string tmp="";
     mapping MudList = ([]);
@@ -594,7 +594,7 @@ static void irn_read_callback(int fd, mixed data){
     }
 }
 
-static varargs void SendList(mixed data, int fd, string type){
+nosave varargs void SendList(mixed data, int fd, string type){
     int *targets = ({});
     string *cmuds = this_object()->query_connected_muds();
     mixed *outbound = ({});
@@ -685,7 +685,7 @@ varargs void SendWholeList(int fd, string type){
     }
 }
 
-static void SendMessage(mixed data){
+protected void SendMessage(mixed data){
     string routername, cible;
     mapping tmpinfo = this_object()->query_mudinfo();
     mixed tmpdata; 
@@ -786,7 +786,7 @@ string Report(){
     return ret;
 }
 
-static void begin_socket_handoff(int fd){
+protected void begin_socket_handoff(int fd){
     object rsock = find_object(RSOCKET_D);
     if(!irn_enabled) return;
     if(!rsock) rsock = load_object(RSOCKET_D);

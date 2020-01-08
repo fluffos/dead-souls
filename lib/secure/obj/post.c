@@ -11,13 +11,13 @@
 
 inherit LIB_ITEM;    
 
-static private int __Screen, __Lines, __NumLetters;   
-static private int __Begin,__Current,__CommandLine,__FromMenu,__IncomingFlag;
-static private string __Folder, __Owner, __CurrentMenu;    
-static private mapping __Options, __TmpPost, __ChangedOptions;    
-static private int *__Delete; 
-static private string *__FwdRply;    
-static private mapping *__BoxInfo, *__PostalOptions;    
+nosave private int __Screen, __Lines, __NumLetters;   
+nosave private int __Begin,__Current,__CommandLine,__FromMenu,__IncomingFlag;
+nosave private string __Folder, __Owner, __CurrentMenu;    
+nosave private mapping __Options, __TmpPost, __ChangedOptions;    
+nosave private int *__Delete; 
+nosave private string *__FwdRply;    
+nosave private mapping *__BoxInfo, *__PostalOptions;    
 
 void create() {    
     item::create();    
@@ -78,7 +78,7 @@ void init() {
     if((__NumLetters = __Lines - 10) < 0) __NumLetters = 5;   
 }    
 
-static private void restore_box(string folder) {    
+protected private void restore_box(string folder) {    
     int x;    
 
     if(!pointerp(__BoxInfo=FOLDERS_D->query_box_info(__Owner, folder)))    
@@ -91,16 +91,16 @@ static private void restore_box(string folder) {
     __Begin = 0;    
 }    
 
-static private void save_box() {    
+protected private void save_box() {    
     FOLDERS_D->delete_posts(__Owner, __Folder, __Delete);    
 }    
 
-static private void destruct_box(string str) {
+protected private void destruct_box(string str) {
     message("mail", str, this_player());
     this_object()->eventDestruct();
 }
 
-static private int valid_folder(string str) {    
+protected private int valid_folder(string str) {    
     int i;
 
     if(str == "" || !str) return 0;    
@@ -110,7 +110,7 @@ static private int valid_folder(string str) {
     return 1;    
 }    
 
-static private int set_current(mixed val) {
+protected private int set_current(mixed val) {
     int i;
 
     if(intp(val)) __Current = val;
@@ -174,31 +174,31 @@ void start_post(string str) {
     indices(0);    
 }    
 
-static private void primary_prompt() {     
+protected private void primary_prompt() {     
     message("prompt", "\nCommand: \n", this_player());    
 }    
 
-static private void secondary_prompt() {    
+protected private void secondary_prompt() {    
     message("prompt", sprintf("\nCommand (%s for %s menu): \n",   
                 __CurrentMenu[0..0],  __CurrentMenu),    
             this_player());    
 }    
 
-varargs static private void postal_error(string str, string ind, mixed args) {
+varargs nosave private void postal_error(string str, string ind, mixed args) {
     message("mail", sprintf("\n%%^RED%%^%s\n", str), this_player());   
     primary_prompt();  
     if(args) input_to(sprintf("%s_cmd", (ind ? ind : __CurrentMenu)), args);  
     else input_to(sprintf("%s_cmd", (ind ? ind : __CurrentMenu)));  
 }  
 
-varargs static private void postal_success(string str,string ind,mixed args) {
+varargs nosave private void postal_success(string str,string ind,mixed args) {
     message("mail", sprintf("\n%%^GREEN%%^%s\n", str), this_player());  
     secondary_prompt();  
     if(args) input_to(sprintf("%s_cmd", (ind ? ind : __CurrentMenu)), args);  
     else input_to(sprintf("%s_cmd", (ind ? ind : __CurrentMenu)));  
 }  
 
-varargs static void indices(int x, string str) {    
+varargs nosave void indices(int x, string str) {    
     int i, maxi;    
 
     __CurrentMenu = "index";  
@@ -226,7 +226,7 @@ varargs static void indices(int x, string str) {
     index_menu();    
 }    
 
-varargs static void aliases(string str) {  
+varargs protected void aliases(string str) {  
     __CurrentMenu = "alias";    
     if(str && str != "") {    
         alias_cmd(str);    
@@ -242,7 +242,7 @@ varargs static void aliases(string str) {
     alias_menu();    
 }    
 
-varargs static void options(string str) {    
+varargs protected void options(string str) {    
     string tmp;    
     int i, maxi;    
 
@@ -268,7 +268,7 @@ varargs static void options(string str) {
     option_menu();    
 }    
 
-static private void help(string arg, string ind) {    
+nosave private void help(string arg, string ind) {    
     if(!ind) ind = __CurrentMenu;    
     if(arg && arg != "") {    
         help_cmd(arg, ind);    
@@ -281,7 +281,7 @@ static private void help(string arg, string ind) {
     help_menu(ind);    
 }    
 
-static private void index_menu() {    
+protected private void index_menu() {    
     if(__Options["commands"]) {
         primary_prompt();
         input_to("index_cmd");
@@ -299,7 +299,7 @@ static private void index_menu() {
     input_to("index_cmd");    
 }    
 
-static private void alias_menu() {    
+protected private void alias_menu() {    
     if(__Options["commands"]) {
         primary_prompt();
         input_to("alias_cmd");
@@ -314,7 +314,7 @@ static private void alias_menu() {
     input_to("alias_cmd");    
 }    
 
-static private void option_menu() {    
+protected private void option_menu() {    
     if(__Options["commands"]) {
         primary_prompt();
         input_to("option_cmd");
@@ -329,7 +329,7 @@ static private void option_menu() {
     input_to("option_cmd");    
 }    
 
-static private void help_menu(string ind) {  
+protected private void help_menu(string ind) {  
     int i, maxi;
 
     message("help", "\n\n\tEnter one of the following to visit "  
@@ -374,7 +374,7 @@ static private void help_menu(string ind) {
     input_to("help_cmd", ind);    
 }  
 
-static void index_cmd(string str) {    
+protected void index_cmd(string str) {    
     string cmd, args;    
     string *tmp;    
     int x;    
@@ -441,7 +441,7 @@ static void index_cmd(string str) {
     }    
 }    
 
-static void alias_cmd(string str) {    
+protected void alias_cmd(string str) {    
     string cmd, args;    
     string *tmp;    
 
@@ -471,7 +471,7 @@ static void alias_cmd(string str) {
     }    
 }    
 
-static void option_cmd(string str) {    
+protected void option_cmd(string str) {    
     string cmd, args;    
     string *tmp;    
     int x;    
@@ -502,7 +502,7 @@ static void option_cmd(string str) {
     }    
 }    
 
-static void help_cmd(string str, string ind) {    
+nosave void help_cmd(string str, string ind) {    
     string tmp, file;      if(str == "" || !str) {    
         postal_error("Invalid help command.", "help", ind);  
         return;    
@@ -522,7 +522,7 @@ void end_help() {
     input_to("help_cmd");
 }
 
-static private string postal_time(mixed val) {    
+protected private string postal_time(mixed val) {    
     string *parts;    
     string heure;    
     int x;    
@@ -534,7 +534,7 @@ static private string postal_time(mixed val) {
     return sprintf("%s %s", parts[2], parts[1]);    
 }    
 
-static private string header(mapping borg) {    
+protected private string header(mapping borg) {    
     int x;
 
     return sprintf("%s from %%^GREEN%%^%s%%^RESET%%^\nTo: %s%s"    
@@ -546,7 +546,7 @@ static private string header(mapping borg) {
                                                         __Screen)) : ""), borg["subject"]);    
 }    
 
-static void change_folder(string str) {    
+protected void change_folder(string str) {    
     if(str == "" || !str) {    
         message("prompt", "Change to which folder? \n", this_player());    
         input_to("get_folder");    
@@ -566,7 +566,7 @@ static void change_folder(string str) {
     }
 }
 
-static void next_folder(string str, string folder) {
+nosave void next_folder(string str, string folder) {
     if(str == "" || !str) str = "y";
     else str = (lower_case(str)[0..0]);
     if(str == "y") save_box();
@@ -578,7 +578,7 @@ static void next_folder(string str, string folder) {
     indices(__Begin);    
 }    
 
-static void get_folder(string str) {    
+protected void get_folder(string str) {    
     if(str == "" || !str) {  
         __FromMenu = 1;  
         postal_error("Invalid folder name.");  
@@ -587,7 +587,7 @@ static void get_folder(string str) {
     change_folder(str);    
 }     
 
-static private void delete_letter(string cmd, string args) {    
+nosave private void delete_letter(string cmd, string args) {    
     int x, i, from, to, maxi;    
 
     if(args == "" || !args) {    
@@ -648,7 +648,7 @@ static private void delete_letter(string cmd, string args) {
                 (from+1), (to+1), (cmd == "d" ? "marked for deletion" : "undeleted")));  
 }    
 
-static void unread_delete(string str, int *milk) {    
+nosave void unread_delete(string str, int *milk) {    
     if(str == "" || !str) str = "y";    
     else str = lower_case(str[0..0]);    
     if(str == "y") __Delete[milk[0]-1] = 1;    
@@ -661,7 +661,7 @@ static void unread_delete(string str, int *milk) {
     input_to("index_cmd");    
 }    
 
-static private void quit_box(string cmd) {   
+protected private void quit_box(string cmd) {   
     int i;   
 
     if(__Options["quit"]) {   
@@ -673,7 +673,7 @@ static private void quit_box(string cmd) {
     really_quit(cmd);   
 }   
 
-static private void really_quit(string cmd) {   
+protected private void really_quit(string cmd) {   
     int i;
 
     if(cmd == "Q") {   
@@ -702,7 +702,7 @@ static private void really_quit(string cmd) {
     this_object()->eventDestruct();   
 }   
 
-static void confirm_quit(string str, string cmd) {   
+nosave void confirm_quit(string str, string cmd) {   
     if(str == "" || !str) str = "n";   
     else str = lower_case(str)[0..0];   
     if(str == "y") {
@@ -718,7 +718,7 @@ static void confirm_quit(string str, string cmd) {
     input_to("confirm_quit", cmd);   
 }   
 
-static void confirm_delete(string str) {   
+protected void confirm_delete(string str) {   
     if(str == "" || !str) str = "y";   
     else str = lower_case(str)[0..0];   
     if(str == "y") {   
@@ -737,7 +737,7 @@ static void confirm_delete(string str) {
     input_to("confirm_delete");   
 }   
 
-static private void save_letter(string cmd, string args) {   
+nosave private void save_letter(string cmd, string args) {   
     string *tmp;   
     string folder;   
     int letter, i, maxi;   
@@ -802,7 +802,7 @@ static private void save_letter(string cmd, string args) {
     input_to("index_cmd");
 }   
 
-static void get_save_location(string str, mixed *vals) {   
+nosave void get_save_location(string str, mixed *vals) {   
     if(str == "" || !str) {   
         if(vals[1] == "s")   
             str = sprintf("=%s", convert_name(__BoxInfo[vals[0]]["from"]));   
@@ -814,7 +814,7 @@ static void get_save_location(string str, mixed *vals) {
     save_letter(vals[1], sprintf("%d %s", vals[0]+1, str));
 }   
 
-static private void read_letter(int x) {   
+protected private void read_letter(int x) {   
     string tmp;   
 
     if(__Options["content"])
@@ -835,7 +835,7 @@ void end_read() {
     input_to("index_cmd");   
 }      
 
-static private void alias_members(string cmd, string args) {   
+nosave private void alias_members(string cmd, string args) {   
     string *members, *old_members;   
     string grp;
 
@@ -885,7 +885,7 @@ static private void alias_members(string cmd, string args) {
     }   
 }   
 
-static void get_alias(string str, string cmd) {   
+nosave void get_alias(string str, string cmd) {   
     if(str == "" || !str) { 
         if(__CommandLine) destruct_box("Invalid alias name.");
         else postal_error("Invalid alias name.");  
@@ -894,7 +894,7 @@ static void get_alias(string str, string cmd) {
     alias_members(cmd, str);   
 }   
 
-static void get_members(string str, string *args) {   
+nosave void get_members(string str, string *args) {   
     if(str == "" || !str) { 
         if(__CommandLine) destruct_box("Invalid alias members.");
         else postal_error("Invalid alias members.");  
@@ -903,7 +903,7 @@ static void get_members(string str, string *args) {
     alias_members(args[0], sprintf("%s %s", args[1], str));   
 }   
 
-static private void alias_creation(string cmd, string args) {  
+nosave private void alias_creation(string cmd, string args) {  
     string *members;
 
     if(args == "" || !args) {  
@@ -943,7 +943,7 @@ static private void alias_creation(string cmd, string args) {
         postal_success(sprintf("Alias %s.", (cmd == "m" ? "made" : "removed")));
 }           
 
-static void get_alias_name(string str, string cmd) {  
+nosave void get_alias_name(string str, string cmd) {  
     if(str == "" || !str) {
         if(__CommandLine) destruct_box("Invalid alias name.");
         else postal_error("Invalid alias name.");  
@@ -952,7 +952,7 @@ static void get_alias_name(string str, string cmd) {
     alias_creation(cmd, lower_case(str));  
 }  
 
-static void get_new_alias_members(string str, string *args) {  
+nosave void get_new_alias_members(string str, string *args) {  
     if(str == "" || !str) { 
         if(__CommandLine) destruct_box("Invalid alias members.");
         else postal_error("Invalid alias members.");  
@@ -961,7 +961,7 @@ static void get_new_alias_members(string str, string *args) {
     alias_creation(args[0], sprintf("%s %s", args[1], lower_case(str)));  
 }  
 
-static private void list_alias(string str) {  
+protected private void list_alias(string str) {  
     string *who;  
 
     if(str == "" || !str) {
@@ -987,7 +987,7 @@ static private void list_alias(string str) {
     }
 }  
 
-static private void save_options() {  
+protected private void save_options() {  
     string *cles;
     int i;
 
@@ -1002,7 +1002,7 @@ static private void save_options() {
     postal_success("New options now saved.");  
 }  
 
-static private void change_option(int x) {  
+protected private void change_option(int x) {  
     if(pointerp(__PostalOptions[x]["value"])) {  
         message("mail", sprintf("%s\n\t0) %s\n\t1) %s\n", 
             __PostalOptions[x]["desc"],
@@ -1014,7 +1014,7 @@ static private void change_option(int x) {
     input_to("really_change_option", 0, x);  
 }  
 
-static void really_change_option(string str, int x) {  
+nosave void really_change_option(string str, int x) {  
     int y;
 
     if(!__ChangedOptions) __ChangedOptions = ([]);
@@ -1029,7 +1029,7 @@ static void really_change_option(string str, int x) {
     postal_success("You must remember to save for this option to take effect.");  
 }  
 
-static private void reply(string str) {
+protected private void reply(string str) {
     int x, i;
 
     if(str == "" || !str) x = __Current;
@@ -1046,7 +1046,7 @@ static private void reply(string str) {
     input_to("get_reply_confirm");
 }
 
-static void get_reply_confirm(string str) {
+protected void get_reply_confirm(string str) {
     if(str == "" || !str) str = "n";
     else str = lower_case(str)[0..0];
     if(str == "y") __FwdRply = ({ "r", query_reply_text() });
@@ -1062,7 +1062,7 @@ static void get_reply_confirm(string str) {
     input_to("get_reply_list");
 }
 
-static void get_reply_list(string str) {
+protected void get_reply_list(string str) {
     int i;
 
     if(str == "" || !str) str = "s";
@@ -1091,14 +1091,14 @@ static void get_reply_list(string str) {
     }  
 }
 
-static private string query_reply_text() {
+protected private string query_reply_text() {
     string tmp;
 
     tmp = LETTERS_D->query_letter(__BoxInfo[__Current]["id"]);
     return sprintf("\n>%s\n", replace_string(tmp, "\n", "\n>"));
 }
 
-static private void forward_letter(string str, int flag) {
+nosave private void forward_letter(string str, int flag) {
     string *args;
     int i, x;
 
@@ -1144,7 +1144,7 @@ static private void forward_letter(string str, int flag) {
     input_to("confirm_comments");
 }
 
-static void get_forward_list(string str) {
+protected void get_forward_list(string str) {
     if(str == "" || !str) {
         message("prompt","Invalid recipients.  Abort forward (default 'y')? \n",
                 this_player());
@@ -1154,7 +1154,7 @@ static void get_forward_list(string str) {
     else forward_letter(str, 1);
 }
 
-static void confirm_comments(string str) {
+protected void confirm_comments(string str) {
     if(str == "" || !str) str = "n";
     else str = lower_case(str)[0..0];
     if(str == "y") __FwdRply = ({ "f", query_forward_text() });
@@ -1174,7 +1174,7 @@ static void confirm_comments(string str) {
     }
 }
 
-static private string query_forward_text() {
+protected private string query_forward_text() {
     string tmp;
 
     tmp = LETTERS_D->query_letter(__BoxInfo[__Current]["id"]);
@@ -1185,7 +1185,7 @@ static private string query_forward_text() {
             center("---  ---    Begin Forwarded Text    ---  ---"), tmp);
 }
 
-static void confirm_forward_abort(string str) {
+protected void confirm_forward_abort(string str) {
     if(str == "" || !str) str = "y";
     else str = lower_case(str)[0..0];
     if(str == "y") {
@@ -1201,7 +1201,7 @@ static void confirm_forward_abort(string str) {
     input_to("get_forward_list");
 }
 
-static private void send_letter(string *args) { 
+protected private void send_letter(string *args) { 
     string flag, tmp; 
     int j, i, maxi, x; 
 
@@ -1301,7 +1301,7 @@ static private void send_letter(string *args) {
     } 
 } 
 
-static void get_to(string str) { 
+protected void get_to(string str) { 
     if(str == "" || !str) { 
         if(__CommandLine) { 
             this_object()->eventDestruct(); 
@@ -1313,7 +1313,7 @@ static void get_to(string str) {
     send_letter(explode(str, ",")); 
 } 
 
-static void get_subject(string str) { 
+protected void get_subject(string str) { 
     string tmp; 
 
     if(str == "" || !str) { 
@@ -1337,7 +1337,7 @@ static void get_subject(string str) {
     } 
 } 
 
-static void confirm_subject(string str) { 
+protected void confirm_subject(string str) { 
     if(str == "" || !str) str = "n"; 
     else str = lower_case(str)[0..0]; 
     if(str == "n") { 
@@ -1357,7 +1357,7 @@ static void confirm_subject(string str) {
     } 
 } 
 
-static void get_cc(string str) { 
+protected void get_cc(string str) { 
     string tmp; 
 
     if(!__TmpPost["cc"]) __TmpPost["cc"] = ({});
@@ -1395,7 +1395,7 @@ void complete_send() {
     confirm_send(); 
 } 
 
-static private string query_signature() { 
+protected private string query_signature() { 
     string tmp; 
 
     if(!__Options["sig file"]) return ""; 
@@ -1409,13 +1409,13 @@ static private string query_signature() {
     return read_file(tmp); 
 } 
 
-static private void confirm_send() {
+protected private void confirm_send() {
     message("mail", center("e)dit, f)orget, s)end", __Screen), this_player());
     message("prompt", "\nCommand (default 's'): \n", this_player());
     input_to("handle_send_choice");
 }
 
-static void handle_send_choice(string str) {
+protected void handle_send_choice(string str) {
     string tmp = tmpmail();
 
     if(str == "" || !str) str = "s";
@@ -1441,7 +1441,7 @@ static void handle_send_choice(string str) {
     }
 }
 
-static private void notify_send(string *failures) { 
+protected private void notify_send(string *failures) { 
     string *arr; 
     string tmp; 
 

@@ -4,7 +4,7 @@
 #include <dirs.h>
 inherit LIB_FIREARM;
 
-static void create(){
+protected void create(){
     ::create();
 }
 

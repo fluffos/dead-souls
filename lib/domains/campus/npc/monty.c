@@ -4,20 +4,20 @@
 
 inherit LIB_NPC;
 
-static string firstchoice, secondchoice,mm, vv, printvar;
-static string response,s1,s2,s3;
-static object ww;
-static int playing, smart;
+nosave string firstchoice, secondchoice,mm, vv, printvar;
+nosave string response,s1,s2,s3;
+nosave object ww;
+nosave int playing, smart;
 int runs,switches,stays,percent;
 int fred,fgreen,fblue;
 int wins,losses,red_wins,green_wins,blue_wins;
-static string SaveFile = "";
+nosave string SaveFile = "";
 
 string GetSaveFile(){
     return SaveFile;
 }
 
-static string SetSaveFile(string str){
+protected string SetSaveFile(string str){
     return (SaveFile = str);
 }
 
@@ -31,7 +31,7 @@ mixed do_thing(string str){
     return ret;
 }
 
-static void create() {
+protected void create() {
     npc::create();
     smart = 1;
     SetKeyName("test subject");

@@ -37,21 +37,21 @@ private function        Bury          = 0;
 private string          Climate       = "temperate";
 private int             DayLight      = -1970;
 private int             counter       = 0;
-private static string   DayLong       = 0;
+private nosave string   DayLong       = 0;
 private object array    DummyItems    = ({});
-private static int      GasCheck      = time();
+private nosave int      GasCheck      = time();
 private float           Gravity       = 1.0;
-private static mixed    Listen        = 0;
+private nosave mixed    Listen        = 0;
 private int             NightLight    = -1970;
-private static string   NightLong     = 0;
-private static int      NoReplace     = 0;
-private static int      PlayerKill    = 0;
-private static int      PoisonGas     = 0;
-private static int      ResetNumber   = 0;
-private static mixed    Search        = 0;
-private static int      Shade         = 0;
-private static mixed    Smell         = 0;
-private static mixed    Touch         = 0;
+private nosave string   NightLong     = 0;
+private nosave int      NoReplace     = 0;
+private nosave int      PlayerKill    = 0;
+private nosave int      PoisonGas     = 0;
+private nosave int      ResetNumber   = 0;
+private nosave mixed    Search        = 0;
+private nosave int      Shade         = 0;
+private nosave mixed    Smell         = 0;
+private nosave mixed    Touch         = 0;
 private string          Town          = "wilderness";
 private int		DefaultExits  = 1;
 private int		Flying        = 1;
@@ -62,8 +62,8 @@ private int		Swimming      = 0;
 private int		ObviousVisible       = 1;
 private int		ActionChance  = 10;
 mapping			ItemsMap      = ([]);
-private static mixed    global_item;
-private static mixed	Action;
+private nosave mixed    global_item;
+private nosave mixed	Action;
 private int		tick_resolution	= 5;
 private int		TerrainType	= T_OUTDOORS;
 private int		RespirationType;
@@ -218,7 +218,7 @@ function SetBury(function what){
     Bury = what;
 }
 
-static string GetExtraLong(){
+protected string GetExtraLong(){
     int i;
     string *l = ({}),*tmp;
     string ret;
@@ -284,7 +284,7 @@ int GetDayLight(){
     return DayLight;
 }
 
-static int SetDayLight(int x){
+protected int SetDayLight(int x){
     return (DayLight = x);
 }
 
@@ -507,7 +507,7 @@ int GetClimateExposed(){
     return 1;
 }
 
-static int SetNightLight(int x){
+protected int SetNightLight(int x){
     return (NightLight = x);
 }
 
@@ -597,7 +597,7 @@ int GetShade(){
     return Shade;
 }
 
-static int SetShade(int x){
+protected int SetShade(int x){
     return (Shade = x);
 }
 
@@ -940,7 +940,7 @@ varargs int eventPrint(string msg, mixed arg2, mixed arg3){
     return 1;
 }
 
-static void create(){
+protected void create(){
     exits::create();
     inventory::reset(query_reset_number());
     set_heart_beat(0);
@@ -1315,7 +1315,7 @@ void SetSky(){
     }
 }
 
-static void init(){
+protected void init(){
     object prev = previous_object();
     SetSky();
     if(undefinedp(RespirationType)){

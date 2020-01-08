@@ -1,7 +1,7 @@
 #ifndef l_wear_h
 #define l_wear_h
 
-static void create();
+protected void create();
 
 mixed can_wear_obj();
 mixed can_wear_obj_on_str(string str);

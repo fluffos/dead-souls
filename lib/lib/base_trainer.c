@@ -12,7 +12,7 @@
 private string array TrainingSkills;
 private mapping Students;
 int NoSpells = 0;
-private static object me;
+private nosave object me;
 
 /**** driver applies ****/
 
@@ -32,7 +32,7 @@ void create(){
                 ]) );
 }
 
-static void init(){
+protected void init(){
     string str;
     if( !living(this_player()) ) return;
     str = this_player()->GetKeyName();
@@ -204,7 +204,7 @@ int eventTrain(object who, string verb, string skill){
     return 1;
 }
 
-static int ContinueTraining(object who, string skill, int x){
+nosave int ContinueTraining(object who, string skill, int x){
     if( !who || !Students[who->GetKeyName()] ) return 0;
     if( !present(who, environment()) ||
             member_array(who, this_object()->GetEnemies()) != -1){

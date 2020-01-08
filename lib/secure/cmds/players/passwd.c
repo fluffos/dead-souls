@@ -39,7 +39,7 @@ mixed cmd(string args) {
     return 1;
 }
 
-static void OldPass(string pass, object who) {
+nosave void OldPass(string pass, object who) {
     string oldpass;
 
     if( who != this_player() ) return;
@@ -56,7 +56,7 @@ static void OldPass(string pass, object who) {
     input_to((: NewPass :), I_NOECHO | I_NOESC, who);
 }
 
-static void NewPass(string pass, mixed who) {
+nosave void NewPass(string pass, mixed who) {
     if( !pass || strlen(pass) < 5 ) {
         this_player()->eventPrint("Password must be at least 5 "
                 "characters, password change failed.",
@@ -67,7 +67,7 @@ static void NewPass(string pass, mixed who) {
     input_to( (: ConfirmPass :), I_NOECHO | I_NOESC, who, pass);
 }
 
-static void ConfirmPass(string str, mixed who, string newpass) {
+nosave void ConfirmPass(string str, mixed who, string newpass) {
     if( str != newpass ) {
         this_player()->eventPrint("Passwords do not match.", MSG_SYSTEM);
         return;

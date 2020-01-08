@@ -1,6 +1,6 @@
 #include <function.h>
 
-static private mapping Consult = ([]);
+nosave private mapping Consult = ([]);
 
 // abstract methods
 string GetDefiniteShort();

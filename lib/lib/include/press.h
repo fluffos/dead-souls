@@ -1,7 +1,7 @@
 #ifndef l_press_h
 #define l_press_h
 
-static void create();
+protected void create();
 mixed direct_press_obj(object target);
 mixed direct_press_str_on_obj(string str, object target);
 

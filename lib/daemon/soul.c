@@ -27,7 +27,7 @@ class rule {
 private mapping Emotes = ([]);
 private string array Adverbs = ({});
 
-static private void validate() {
+protected private void validate() {
     if(!this_player()) return 0;
     if( !(master()->valid_apply(({ "ASSIST" }))) && 
             !member_group(this_player(), "EMOTES") )
@@ -425,7 +425,7 @@ varargs mixed do_verb_rule(string verb, string rle, mixed args...) {
     return 1;
 }
 
-static void create() {
+protected void create() {
     SetSaveFile(SAVE_SOUL);
     daemon::create();
     if(!file_exists(GetSaveFile()) && 

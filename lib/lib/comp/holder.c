@@ -13,7 +13,7 @@ inherit LIB_CONTAINER;  // Determines whether something can be contained
 inherit LIB_GET_FROM;   // Let's players things from it and put them in
 inherit LIB_INVENTORY;  // Let's cres specify an initial inventory
 
-private static int Persist = 0;
+private nosave int Persist = 0;
 
 int isBag(){
     return 1;
@@ -55,7 +55,7 @@ varargs string GetInternalDesc(){
     return desc;
 }
 
-static mixed array AddSave(mixed array vars){
+protected mixed array AddSave(mixed array vars){
     return ({});
 }
 
@@ -70,7 +70,7 @@ int CanReceive(object ob){
     return container::CanReceive(ob);
 }
 
-static void eventLoadInventory(){
+protected void eventLoadInventory(){
     if( !environment() || Persist ){
         return;
     }
@@ -102,7 +102,7 @@ int eventReleaseObject(object ob){
     return x;
 }
 
-static void create(){
+protected void create(){
     AddSave(({ "Persist" }));
     SetSaveRecurse(1);
     call_out((: reset :), 0);

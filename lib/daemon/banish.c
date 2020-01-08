@@ -24,9 +24,9 @@ inherit LIB_DAEMON;
 string *__Names, *__Sites, *__WatchNames, *__WatchSites; 
 string *__Allowed, *__Guests, *__IllegalSubStrings; 
 mapping __TmpBanish;
-static string SaveFile;
+nosave string SaveFile;
 
-static private int valid_access(object ob);
+protected private int valid_access(object ob);
 void register_site(string str);
 void temporary_register(string str, int time);
 string query_temp_sites();
@@ -52,11 +52,11 @@ string *query_illegal_substrings();
 void add_guest(string str);
 void remove_guest(string str);
 string *query_guests();
-static private void save_banish();
+protected private void save_banish();
 int GetGuest(string str);
 int valid_name(string str);
 int eventConnect(string nom, string ip);
-static private int match_ip(string ip, string *sites);
+nosave private int match_ip(string ip, string *sites);
 void setup_blacklist();
 
 void create() { 
@@ -87,7 +87,7 @@ void setup_blacklist(){
     save_banish();
 }
 
-static private int valid_access(object ob) { 
+protected private int valid_access(object ob) { 
     return master()->valid_apply( ({ "ASSIST" }) );
 } 
 
@@ -280,7 +280,7 @@ string *query_guests() {
     else return __Guests; 
 } 
 
-static private void save_banish() { 
+protected private void save_banish() { 
     SaveObject(SaveFile);
 } 
 
@@ -338,7 +338,7 @@ int eventConnect(string nom, string ip) {
     return 1; 
 } 
 
-static private int match_ip(string ip, string *sites) { 
+nosave private int match_ip(string ip, string *sites) { 
     foreach(string site in sites) {
         int i;
 

@@ -17,7 +17,7 @@ inherit LIB_WIELD;
 private int          	Hands      = 1;
 int			Wielded    = 0;
 private string       	WeaponType = "blunt";
-private static mixed 	Wield      = 0;
+private nosave mixed 	Wield      = 0;
 
 // abstract methods
 string GetDefiniteShort();

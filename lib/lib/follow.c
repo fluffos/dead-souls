@@ -7,9 +7,9 @@
 #include <lib.h>
 #include "include/follow.h"
 
-private static object Leader;
+private nosave object Leader;
 
-static void create(){ Leader = 0; }
+nosave void create(){ Leader = 0; }
 
 mixed direct_follow_liv(){
     if( this_object() == this_player() )

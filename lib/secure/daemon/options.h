@@ -1,10 +1,10 @@
 #ifndef __OPTIONS_D_H
 #define __OPTIONS_D_H
 
-static private int valid_access();
+protected private int valid_access();
 void assure_box_exists(string who);
-static private void load_options(string who);
-static private void save_options();
+protected private void load_options(string who);
+protected private void save_options();
 void set_option(string who, string option, mixed value);
 mixed query_option(string who, string option);
 void set_group(string who, string group, string *members);

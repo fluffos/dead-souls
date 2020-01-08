@@ -1,7 +1,7 @@
 #ifndef l_items_h
 #define l_items_h
 
-static void create();
+protected void create();
 mixed direct_look_at_str_on_obj(string str, object target);
 
 varargs mixed eventShow(object who, string component);

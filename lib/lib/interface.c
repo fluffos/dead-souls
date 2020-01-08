@@ -21,13 +21,13 @@ inherit LIB_CEDIT;
 private string Terminal;
 private mapping Blocked;
 private int *Screen;
-private static int LogHarass, Client;
-private static mapping TermInfo;
+private nosave int LogHarass, Client;
+private nosave mapping TermInfo;
 string MessageQueue;
 int PauseMessages, annoyblock;
 int MessageExceptions, BlockAnnoying;
 
-static void create(){
+protected void create(){
     chat::create();
     command::create();
     editor::create();
@@ -37,7 +37,7 @@ static void create(){
     Blocked = ([]);
 }
 
-static string process_input(string str){
+protected string process_input(string str){
     command::SetCommandFail(0);
     str = command::process_input(str);
     if( Client ){
@@ -58,12 +58,12 @@ static string process_input(string str){
     }
 }
 
-static void terminal_type(string str){
+protected void terminal_type(string str){
     if( !stringp(str) ) return;
     else SetTerminal(lower_case(str));
 }
 
-static void window_size(int width, int height){ 
+nosave void window_size(int width, int height){ 
     if(query_verb() == "screen" || 
             !this_object()->GetProperty("screenlock")){
         SetScreen(width, height); 
@@ -183,7 +183,7 @@ void receive_message(mixed msg_class, string msg){
     eventPrint(msg, cl);
 }
 
-static void receive_snoop(string str){ receive_message("snoop", "%"+str); } 
+nosave void receive_snoop(string str){ receive_message("snoop", "%"+str); } 
 
 int Setup(){
     command::Setup();
@@ -210,7 +210,7 @@ varargs int eventPauseMessages(int x, int exceptions){
     return PauseMessages;
 }
 
-static varargs int PassengerPrint(string msg, mixed arg2, 
+nosave varargs int PassengerPrint(string msg, mixed arg2, 
         mixed arg3, object *riders){
     object *targs = ({});
     if(riders && sizeof(riders)){
@@ -421,7 +421,7 @@ int GetAnnoyblock(){
     return annoyblock;
 }
 
-static int rArrow(string str){
+protected int rArrow(string str){
     int ret, cedmode = this_object()->GetCedmode();
     switch(cedmode){
         case 0 : ret = nmsh::rArrow(str); break;
@@ -430,7 +430,7 @@ static int rArrow(string str){
     return ret;
 }
 
-static int rCtrl(string str){
+protected int rCtrl(string str){
     int ret, cedmode = this_object()->GetCedmode();
     switch(cedmode){
         case 0 : ret = nmsh::rCtrl(str); break;
@@ -439,7 +439,7 @@ static int rCtrl(string str){
     return ret;
 }
 
-static int rBackspace(){
+protected int rBackspace(){
     int ret, cedmode = this_object()->GetCedmode();
     switch(cedmode){
         case 0 : ret = nmsh::rBackspace(); break;
@@ -448,7 +448,7 @@ static int rBackspace(){
     return ret;
 }
 
-static int rEnter(){
+protected int rEnter(){
     int ret, cedmode = this_object()->GetCedmode();
     switch(cedmode){
         case 0 : ret = nmsh::rEnter(); break;
@@ -457,7 +457,7 @@ static int rEnter(){
     return ret;
 }
 
-static int rAscii(string str){
+protected int rAscii(string str){
     int ret, cedmode = this_object()->GetCedmode();
     switch(cedmode){
         case 0 : ret = nmsh::rAscii(str); break;
@@ -466,7 +466,7 @@ static int rAscii(string str){
     return ret;
 }
 
-static int rDel(){
+protected int rDel(){
     int ret, cedmode = this_object()->GetCedmode();
     switch(cedmode){
         case 0 : ret = nmsh::rDel(); break;
@@ -475,7 +475,7 @@ static int rDel(){
     return ret;
 }
 
-static int rAnsi(string str){
+protected int rAnsi(string str){
     int ret, cedmode = this_object()->GetCedmode();
     switch(cedmode){
         case 0 : ret = nmsh::rAnsi(str); break;

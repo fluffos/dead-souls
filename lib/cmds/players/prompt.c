@@ -19,7 +19,7 @@ string GetHelp() {
         "prompt %%^^YELLOW%%^^$N $P >%%^^RESET%%^^";
     if(!creatorp(this_player())) cre = "";
     return ("Syntax: prompt [options]\n\n"
-            "This command allows you to customize your prompt. You may use a static prompt:\n"
+            "This command allows you to customize your prompt. You may use a protected prompt:\n"
             "prompt >\n"
             "Or you may choose special tokens for an active prompt. The tokens available are:\n"
             "$V shows invis status\n"

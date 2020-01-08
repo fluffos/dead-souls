@@ -16,9 +16,9 @@ inherit LIB_DAEMON;
 private string __Letter;
 private mapping __Folders; 
 private string *__Undeleted; 
-static private string __LetterId;
-static private mapping __LettersDir, __PostalDir; 
-static private mixed *__LetterPtr, *__PostalPtr;
+nosave private string __LetterId;
+nosave private mapping __LettersDir, __PostalDir; 
+nosave private mixed *__LetterPtr, *__PostalPtr;
 
 void create() { 
     string *tmp;
@@ -45,7 +45,7 @@ void create() {
     } 
 } 
 
-static private int valid_access() {
+protected private int valid_access() {
     switch(base_name(previous_object(0))) {
         case OBJ_POST: case LETTERS_D: case FOLDERS_D:
         case LOCALPOST_D: case REMOTEPOST_D: case OPTIONS_D:
@@ -71,7 +71,7 @@ string create_letter(string str) {
     return id; 
 } 
 
-static private void save_letter() { 
+protected private void save_letter() { 
     string file;
     int x;
 
@@ -80,7 +80,7 @@ static private void save_letter() {
     SaveObject(file);
 } 
 
-static private int restore_letter(string id) { 
+protected private int restore_letter(string id) { 
     string dir; 
     int x; 
 
@@ -149,7 +149,7 @@ void add_folder(string who, string folder, string id) {
     save_letter();
 }
 
-static void manage_letters() { 
+protected void manage_letters() { 
     string str, ext, file; 
     string *tmp; 
     int x, i; 
@@ -183,7 +183,7 @@ static void manage_letters() {
     }
 } 
 
-static void manage_postal() { 
+protected void manage_postal() { 
     string pl, ext, file; 
     string *tmp;
     int x, i; 

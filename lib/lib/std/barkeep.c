@@ -225,7 +225,7 @@ int eventSpecialList(object who, string cmd){
 }
 
 /* ********************* barkeep.c driver applies *********************** */
-static void create(){
+protected void create(){
     sentient::create();
     SetCommandResponses( ([
                 ({ "list", "show", "browse" }) : (: eventList :),

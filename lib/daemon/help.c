@@ -11,16 +11,16 @@
 
 inherit LIB_DAEMON;
 
-static private string Error, SeeAlso = "";
-static private mapping Indices;
+nosave private string Error, SeeAlso = "";
+nosave private mapping Indices;
 
-static private void LoadIndices();
+protected private void LoadIndices();
 string GetHelp(string str);
 string GetHelpByIndex(string index, string topic);
 string GetTopic(string index, string topic);
 varargs string array GetIndices(string topic);
 
-static void create() {
+protected void create() {
     daemon::create();
     SetNoClean(1);
     Error = 0;
@@ -44,7 +44,7 @@ int CanAccess(object who, string index) {
     }
 }
 
-static private void LoadIndices() {
+protected private void LoadIndices() {
     string array tmp;
     function f;
     string dir;

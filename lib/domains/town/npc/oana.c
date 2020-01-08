@@ -4,7 +4,7 @@
 inherit LIB_VENDOR;
 
 
-static void create() {
+protected void create() {
     ::create();
     SetKeyName("oana");
     SetId( ({ "shopkeep","shopkeeper","keeper","vendor"}) );

@@ -29,13 +29,13 @@ string *PendingUnpauses = ({});
 string *players = ({});
 string *creators = ({});
 string *user_list = ({});
-static object ob;
-static string gplayer, SaveFile;
-static int maxlevel, override;
-static string home_dir, LevelList = "";
+nosave object ob;
+nosave string gplayer, SaveFile;
+nosave int maxlevel, override;
+nosave string home_dir, LevelList = "";
 
 string player_save_file;
-static string namestr = "";
+nosave string namestr = "";
 
 //Player vars
 string InternalDesc, Short, CapName, ExternalDesc, CurrentWorkingDirectory, PreviousWorkingDirectory, Terminal;
@@ -57,7 +57,7 @@ mapping Currency, Bank, SpellBook;
 //end player vars
 
 mapping Levels = ([]);
-static mapping LevelTitles = ([
+nosave mapping LevelTitles = ([
         1:"the utter novice",
         2:"the simple novice",
         3:"the beginner",
@@ -80,7 +80,7 @@ static mapping LevelTitles = ([
         20:({"the Caesar","the Caesara"}),
         ]);
 
-static mapping QuestLevels = ([
+nosave mapping QuestLevels = ([
         10:5,
         12:12,
         14:21,
@@ -160,7 +160,7 @@ mapping CompileLevelList(){
     return copy(Levels);
 }
 
-static void ScheduledPlayerAdd(string *plays){
+protected void ScheduledPlayerAdd(string *plays){
     foreach(string play in plays){
         this_object()->AddPlayerInfo(play);
     }
@@ -287,7 +287,7 @@ string *eventDecre(string str){
     return players + ({});
 }
 
-static int AutoAdvance(object ob, int level){
+nosave int AutoAdvance(object ob, int level){
     int ret;
     ob->ChangeLevel(level);
     ret = ob->GetLevel();
@@ -556,7 +556,7 @@ string *GetPendingDecres(){
     return copy(PendingDecres);
 }
 
-static int LoadPlayer(string str){
+protected int LoadPlayer(string str){
     string arg = "", initial = "";
     arg = last_string_element(lower_case(replace_string("/"+str,".o","")),"/");
 #if ENABLE_INSTANCES
@@ -593,7 +593,7 @@ int eventDestruct(){
     return ::eventDestruct();
 }
 
-static mixed GetVariable(string val){
+protected mixed GetVariable(string val){
     if(!val){
         return variables(this_object());
     }
@@ -613,7 +613,7 @@ mixed GetPlayerVariables(){
     return vars;
 }
 
-static mixed GetPlayerVariable(string val){
+protected mixed GetPlayerVariable(string val){
     string vars = GetPlayerVariables();
     mixed ret;
     if(!val) return vars;
@@ -725,7 +725,7 @@ string GetHomeRoom(string name){
     return ret;
 }
 
-static void UserUpdate(string name, int status){
+nosave void UserUpdate(string name, int status){
     object ob = find_player(name);
     if(member_array(name, local_users()) != -1) status = 1;
     else if(ob && !interactive(ob)) status = -1;
@@ -737,7 +737,7 @@ void PlayerUpdate(string name, int status){
     call_out("UserUpdate", 1, name, status);
 }
 
-static mapping GatherUserData(){
+protected mapping GatherUserData(){
     mapping cands = ([]);
     foreach(string user in user_list){         
         reset_eval_cost();

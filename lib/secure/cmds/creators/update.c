@@ -20,9 +20,9 @@ inherit LIB_HELP;
 
 mapping LocationsMap = ([]);
 
-varargs static int eventUpdate(string args, int flags, string virt);
+varargs nosave int eventUpdate(string args, int flags, string virt);
 
-static void CacheAndCarry(object *obs){
+protected void CacheAndCarry(object *obs){
     if(!sizeof(obs)) return;
     foreach(object fellow in obs){
         string ubi = fellow->GetProperty("LastLocation");
@@ -31,7 +31,7 @@ static void CacheAndCarry(object *obs){
     }
 }
 
-static void ReturnAndRelease(object *dudes, string file){
+nosave void ReturnAndRelease(object *dudes, string file){
     if(!sizeof(dudes)) return;
     if(!file) return;
     dudes->eventMove(file);
@@ -42,7 +42,7 @@ static void ReturnAndRelease(object *dudes, string file){
     }
 }
 
-static void create() {
+protected void create() {
     SetHelp("Syntax: update [-r] [file list]\n\n"
             "Destructs the master copy of the file named "
             "and then attempts to reload a new version "
@@ -118,7 +118,7 @@ mixed cmd(string args) {
     return 1;
 }
 
-varargs static int eventUpdate(string args, int flags, string virt) {
+varargs nosave int eventUpdate(string args, int flags, string virt) {
     object ob;
     string tmp;
 

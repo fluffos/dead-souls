@@ -8,7 +8,7 @@
 
 inherit LIB_DAEMON;
 
-static void GetFAQ(string args);
+protected void GetFAQ(string args);
 
 mixed cmd(string args) {
     if( !args || args == "" ) {
@@ -30,7 +30,7 @@ mixed cmd(string args) {
     return 1;
 }
 
-static void GetFAQ(string args) {
+protected void GetFAQ(string args) {
     string file;
     //bugfix courtesy of Manchi
     if( !args || args == "" || args == "y" || args == "Y" || lower_case(args) == "yes")

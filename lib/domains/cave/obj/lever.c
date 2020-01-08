@@ -5,7 +5,7 @@ inherit LIB_DUMMY; // These do not show up in desc, but you can look at them
 inherit LIB_PULL; // Makes the item pullable
 inherit LIB_PRESS; // Makes the item pressable
 
-private static int Sprung = 0;
+private nosave int Sprung = 0;
 object chiefroom = load_object("/domains/cave/room/chieftain");
 
 int GetSprung(){
@@ -46,7 +46,7 @@ int closeDoor(object who){
     return 1;
 }
 
-static void create() {
+protected void create() {
     dummy::create();
     SetKeyName("lever");
     SetId(({"lever","lever on the wall" }));

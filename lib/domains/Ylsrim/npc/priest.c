@@ -8,7 +8,7 @@
 
 inherit LIB_LEADER;
 
-static void create() {
+protected void create() {
     leader::create();
     SetKeyName("ixtala");
     SetId("ixtala", "priest");

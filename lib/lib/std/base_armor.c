@@ -42,9 +42,9 @@ private int            Fingers       = 5;
 private mapping        Protection    = ([]);
 private string array   RestrictLimbs = 0;
 private string array   BaseLimbs     = 0;
-private static mixed   Wear          = 0;
-private static mapping MaxProtection = ([]);
-private static mixed my_save = ({});
+private nosave mixed   Wear          = 0;
+private nosave mapping MaxProtection = ([]);
+private nosave mixed my_save = ({});
 
 int GetMaxProtection(int type);
 
@@ -274,7 +274,7 @@ string array GetSave(){
     return persist::GetSave();
 }
 
-static mixed array AddSave(mixed array vars){
+protected mixed array AddSave(mixed array vars){
     if(!vars) vars = ({});
     my_save = distinct_array( my_save + vars );
     return persist::AddSave(my_save);
@@ -364,7 +364,7 @@ mixed CanSteal(object who){
 }
 
 /* ********************* armor.c events *********************** */ 
-static int Destruct(){
+protected int Destruct(){
     if( GetWorn() && environment() ){
         eventUnequip(environment());
     }
@@ -516,7 +516,7 @@ varargs int restrict(mixed arg, int i){
 }
 
 /* ******************** armor.c driver applies ******************** */
-static void create(){
+protected void create(){
     steal::create();
     object::create();
     my_save = equip::GetSave() + value::GetSave() + mass::GetSave() +

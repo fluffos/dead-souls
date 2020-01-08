@@ -8,8 +8,8 @@
 
 #include <function.h>
 
-static private mixed   Listen  = 0;
-static private mapping Listens = ([]);
+nosave private mixed   Listen  = 0;
+nosave private mapping Listens = ([]);
 
 // abstract methods
 string GetShort();

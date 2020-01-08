@@ -12,7 +12,7 @@ inherit LIB_SENTIENT;
 // the SetAction() function in create().  It checks to see if
 // someone is around from whom this guy can steal
 
-static void Steal() {
+protected void Steal() {
     object array obs;
     object target;
     string cmd;
@@ -57,7 +57,7 @@ static void Steal() {
     // now do the steal or pick
     eventForce(cmd);
 }
-static void create() {
+protected void create() {
     sentient::create();
     SetKeyName("traveler");
     SetId( ({"traveller", "human", "npc"}) );

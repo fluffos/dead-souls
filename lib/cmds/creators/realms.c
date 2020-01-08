@@ -3,7 +3,7 @@
  *    created by Blitz@Dead Souls
  */
 
-static mapping Stats = ([ ]);
+nosave mapping Stats = ([ ]);
 
 int sortFunction(string a, string b) {
     if( Stats[a]["moves"] > Stats[b]["moves"] ) return -1;

@@ -27,7 +27,7 @@ mapping GetServices();
 #include "/daemon/services/who.c"
 #include "/daemon/services/auth.c"
 
-static void create() {
+protected void create() {
     SetSaveFile(SAVE_SERVICES);
     daemon::create();
     SetNoClean(1);

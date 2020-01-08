@@ -6,12 +6,12 @@
 
 inherit LIB_VIRT_LAND;
 
-varargs static void create(int x, int y,int z){
+varargs nosave void create(int x, int y,int z){
     virt_land::create( x,  y, z);
     SetMedium(MEDIUM_WATER);
 }
 
-varargs static void Setup(int x, int y,int z){
+varargs nosave void Setup(int x, int y,int z){
     virt_land::create( x,  y, z);
     SetMedium(MEDIUM_WATER);
 }

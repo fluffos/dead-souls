@@ -8,7 +8,7 @@
 
 inherit LIB_MEAL;
 
-static void create() {
+protected void create() {
     meal::create();
     SetKeyName("shark");
     SetId( ({ "blue shark", "shark", "fish" }) );

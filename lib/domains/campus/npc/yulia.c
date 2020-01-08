@@ -8,7 +8,7 @@
 
 inherit LIB_VENDOR;
 
-static void create() {
+protected void create() {
     ::create();
     SetKeyName("yulia");
     SetId( ({ "vendor","secretary","assistant","manager" }) );

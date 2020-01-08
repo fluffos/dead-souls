@@ -6,13 +6,13 @@
 inherit LIB_DAEMON;
 string *all_dirs = ({});
 string *all_files = ({});
-static string SaveFiles = save_file(SAVE_FILES);
+nosave string SaveFiles = save_file(SAVE_FILES);
 int ftilt, dtilt;
 string globaltemp;
 
-static mixed Report();
+protected mixed Report();
 
-static private void validate() {
+protected private void validate() {
     if( !(master()->valid_apply(({ "ASSIST" }))) ){
         log_file("adm/file","Illegal attempt to access FILE_D: "+get_stack()+" "+identify(previous_object(-1))+"\n");
         error("Illegal attempt to access FILE_D: "+get_stack()+" "+identify(previous_object(-1)));
@@ -77,7 +77,7 @@ mixed ReadDir(string str){
     return 1;
 }
 
-static mixed Report(){
+protected mixed Report(){
     //log_file("adm/file","FILE_D Report accessed and run by: "+identify(previous_object(-1))+"\n");
     foreach(mixed arr in call_out_info()){
         if(arr[0] == this_object()){
@@ -161,7 +161,7 @@ int SearchFiles(string str){
     return 1;
 }
 
-static void create() {
+protected void create() {
     object fun_d = find_object(FUNCTION_D);
 #ifndef __FLUFFOS__
     return 0;

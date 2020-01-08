@@ -1,17 +1,17 @@
-private static mapping Inventory = ([]);
-private static mapping InventoryCheck = ([]);
-private static string gkey = "";
-private static int counter = 0;
+private nosave mapping Inventory = ([]);
+private nosave mapping InventoryCheck = ([]);
+private nosave string gkey = "";
+private nosave int counter = 0;
 
-static void eventLoadInventory();
+protected void eventLoadInventory();
 
-static void eventLoadItem(string file, mixed args, int count);
+nosave void eventLoadItem(string file, mixed args, int count);
 
 mapping GetInventory(){
     return Inventory;
 }
 
-static void eventLoadItem(string file, mixed args, int count){
+nosave void eventLoadItem(string file, mixed args, int count){
     object ob;
     int u;
 
@@ -40,7 +40,7 @@ static void eventLoadItem(string file, mixed args, int count){
     }
 }
 
-static void eventLoadInventory(){
+protected void eventLoadInventory(){
     int filtersize, i;
     object array stuff,items,tmp;
 

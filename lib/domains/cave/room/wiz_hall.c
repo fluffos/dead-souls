@@ -3,7 +3,7 @@
 
 inherit "/domains/cave/etc/cave_room";
 
-static void create() {
+protected void create() {
     object ob;
     ::create();
     SetClimate("indoors");

@@ -7,7 +7,7 @@
 
 inherit "/lib/bboard";
 
-static void create()
+protected void create()
 {
     ::create();
     SetKeyName("bulletin board");

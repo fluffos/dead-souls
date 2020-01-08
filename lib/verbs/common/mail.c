@@ -13,7 +13,7 @@
 
 inherit LIB_VERB;
 
-static void create() {
+protected void create() {
     verb::create();
     SetVerb("mail");
     SetRules("","STR");

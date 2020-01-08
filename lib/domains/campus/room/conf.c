@@ -6,7 +6,7 @@ object *ejected_players = ({});
 
 string ReadSign();
 
-static void create() {
+protected void create() {
     room::create();
     SetClimate("indoors");
     SetAmbientLight(50);

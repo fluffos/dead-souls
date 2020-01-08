@@ -1,7 +1,7 @@
 #ifndef l_get_h
 #define l_get_h
 
-static void create();
+protected void create();
 
 mixed can_get_obj(string verb);
 mixed can_get_obj_from_obj(string verb);

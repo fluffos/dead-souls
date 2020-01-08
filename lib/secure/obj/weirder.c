@@ -10,7 +10,7 @@
 #include <vendor_types.h>
 inherit LIB_ITEM;
 
-static int numstress = 1;
+nosave int numstress = 1;
 string savefile = save_file(SAVE_WEIRDER);
 string *lib_dirs = ({ "/lib/comp","/lib/daemons","/lib/events/",
         "/lib/lvs", "/lib/lvs", "/lib/props", "/lib/std", 
@@ -58,7 +58,7 @@ string *verbs = ({});
 string *powers = ({});
 int nomore, yeik = 0;
 string *exceptions = ({});
-static private string gstr;
+nosave private string gstr;
 
 void validate(){
     if(!this_player() || !archp(this_player())){
@@ -138,7 +138,7 @@ void init(){
     add_action("perfcheck","perfcheck");
 }
 
-static int loadthing(string str){
+protected int loadthing(string str){
     if(last(str,2) == ".c"){
         gstr = str;
         if(unguarded( (: find_object(truncate(gstr,2)) :)) ) return 1;

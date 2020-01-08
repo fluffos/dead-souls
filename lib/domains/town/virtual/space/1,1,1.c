@@ -9,7 +9,7 @@ mixed CanGo(object who, string dir) {
     return CanFly(who, dir);
 }
 
-static void create() {
+protected void create() {
     object ob;
     room::create();
     SetAmbientLight(30);

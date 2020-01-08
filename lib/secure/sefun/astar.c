@@ -3,16 +3,16 @@
 #include <astar.h>
 
 /* ([ mappos: ({ parent, x, y, g_cost, h_cost, f_cost }), ... ]) */
-static mapping data;
+nosave mapping data;
 
 /* ([ id: ([ "pos": mappos, "fcost": f ]), ... ]) */
-static mapping binaryHeap;
+nosave mapping binaryHeap;
 
 /* Number of items on the binary heap. */
-static int numItems;
-static int maxItems;
+nosave int numItems;
+nosave int maxItems;
 
-static int l1, l2;
+nosave int l1, l2;
 
 void initHeap()
 {

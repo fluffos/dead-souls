@@ -8,9 +8,9 @@
 
 inherit LIB_DAEMON;
 mapping MapMap, MapCache;
-static int heart_count = 1, sweepflag, roomcount, caching = 0;
-static string SaveFile;
-static string *sweeprooms = ({});
+nosave int heart_count = 1, sweepflag, roomcount, caching = 0;
+nosave string SaveFile;
+nosave string *sweeprooms = ({});
 
 void create(){
 #if WIZMAP

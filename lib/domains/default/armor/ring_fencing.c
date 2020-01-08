@@ -6,7 +6,7 @@ inherit LIB_ARMOR;
 varargs int DoWear(object who, string where);
 int CheckRing(string skill);
 
-static void create(){
+protected void create(){
     armor::create();
     SetKeyName("ring");
     SetId(({"ring"}));

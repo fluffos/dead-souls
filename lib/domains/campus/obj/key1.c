@@ -8,7 +8,7 @@
 inherit LIB_ITEM;
 
 
-static void create() {
+protected void create() {
     item::create();
     SetKeyName("key");
     SetId(({"key","locker_key_1"}));

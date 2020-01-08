@@ -9,7 +9,7 @@ inherit LIB_VERB;
 string libfile = "foo";
 int quiet = 0;
 
-static void create() {
+protected void create() {
     verb::create();
     SetVerb("reload");
     SetRules("OBJ", "STR OBJ", "STR here", "here", "every STR");

@@ -1,7 +1,7 @@
 #ifndef l_holder_h
 #define l_holder_h
 
-static void create();
+protected void create();
 varargs void reset(int count);
 int inventory_accessible();
 int inventory_visible();
@@ -32,7 +32,7 @@ int SetMaxCarry(int x);
 int GetMaxCarry();
 
 /* pure virtual */ int GetInvis(object ob);
-/* pure virtual */ static mixed *AddSave(mixed *vars);
+/* pure virtual */ protected mixed *AddSave(mixed *vars);
 /* pure virtual */ int SetSaveRecurse(int x);
 /* pure virtual */ string GetShort();
 

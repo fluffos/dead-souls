@@ -10,7 +10,7 @@
 inherit LIB_BURN;
 inherit LIB_ITEM;
 
-static void create(){
+protected void create(){
     item::create();
     burn::create();
 }

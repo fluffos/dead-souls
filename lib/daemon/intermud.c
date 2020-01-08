@@ -23,22 +23,22 @@
 
 inherit LIB_CLIENT;
 
-static private int Password;
+nosave private int Password;
 private mapping MudList, ChannelList;
 private mapping Banned;
 private mixed *Nameservers;
-private static int Tries;
-private static int SocketStat = -1;
-private static int Online = 0;
-private static string my_ip;
-static string SaveFile;
+private nosave int Tries;
+private nosave int SocketStat = -1;
+private nosave int Online = 0;
+private nosave string my_ip;
+nosave string SaveFile;
 
 mapping ExtraInfo();
 void ConvertLists();
 int GetStatus(string mud);
-static mixed SetStatus(string mud, int status);
+nosave mixed SetStatus(string mud, int status);
 
-static void create(){
+protected void create(){
     client::create();
     Password = SECRETS_D->GetSecret("I3_SERVER_PW");
     SaveFile = save_file(SAVE_INTERMUD);
@@ -72,7 +72,7 @@ void FirstPing(){
     PING_D->eventPing();
 }
 
-static void Setup(){
+protected void Setup(){
     string ip;
     int port;
 
@@ -115,7 +115,7 @@ void eventClearVars(){
     SaveObject(SaveFile);
 }
 
-static void eventRead(mixed *packet){
+protected void eventRead(mixed *packet){
     mixed val;
     string cle;
     int mudpacket;
@@ -333,11 +333,11 @@ static void eventRead(mixed *packet){
     }
 }
 
-static void eventSocketClose(){
+protected void eventSocketClose(){
     Online = 0;
 }
 
-static void eventConnectionFailure(){
+protected void eventConnectionFailure(){
     Online = 0;
     tn("INTERMUD_D: CONNECTION FAILED","red");
     error("Failed to find a useful name server.\n");
@@ -345,7 +345,7 @@ static void eventConnectionFailure(){
 
 int SetDestructOnClose(int x){ return 0; }
 
-static void eventClose(mixed arg){
+protected void eventClose(mixed arg){
     SocketStat = -1;
     Online = 0;
     tn("INTERMUD_D: socket closing!");
@@ -374,7 +374,7 @@ string GetMudName(string mud){
     else return uc[x];
 }
 
-static mixed SetStatus(string mud, int status){
+nosave mixed SetStatus(string mud, int status){
     mapping mlist = copy(MudList["List"]);
     mixed array newmud = ({});
     if(!sizeof(newmud = mlist[mud])) return 0;
@@ -521,7 +521,7 @@ void eventWrite(mixed val){
     }
 }
 
-static void eventSocketError(string str, int x) {
+nosave void eventSocketError(string str, int x) {
     //debug_message(timestamp()+" i3 "+socket_error(x) + "\n");
     if(query_os_type() == "windows" && grepp(socket_error(x), "Problem with connect")){
         load_object("/secure/cmds/admins/mudconfig")->cmd("intermud disable");

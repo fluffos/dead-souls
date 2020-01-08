@@ -7,7 +7,7 @@
 
 inherit LIB_VIRT_LAND;
 
-varargs static void create(int x, int y) {
+varargs nosave void create(int x, int y) {
     SetNoReplace(1);
     virt_land::create();
     SetClimate("temperate");

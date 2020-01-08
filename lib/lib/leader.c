@@ -15,7 +15,7 @@ inherit LIB_SENTIENT;
 
 int eventTeachPlayer(object who, string spell);
 
-static void create(){
+protected void create(){
     sentient::create();
 }
 

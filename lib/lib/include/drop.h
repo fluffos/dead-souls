@@ -1,7 +1,7 @@
 #ifndef l_drop_h
 #define l_drop_h
 
-static void create();
+protected void create();
 mixed direct_drop_obj(object target);
 
 mixed CanDrop(object who);

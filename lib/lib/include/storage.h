@@ -1,7 +1,7 @@
 #ifndef l_storage_h
 #define l_storage_h
 
-static void create();
+protected void create();
 varargs void reset(int count);
 
 mixed direct_close_obj(object ob, string id);
@@ -29,7 +29,7 @@ void SetKey(string str);
 varargs string GetLong(string str);
 int GetOpacity();
 int GetRadiantLight(int ambient);
-static mixed *AddSave(mixed *val);
+protected mixed *AddSave(mixed *val);
 int SetSaveRecurse(int x);
 
 #endif /* l_storage_h */

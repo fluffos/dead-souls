@@ -43,7 +43,7 @@ varargs string array SetId(mixed ids...){
 //}
 
 /* ********************* dummy.c events ****************** */
-static int Destruct(){
+protected int Destruct(){
     object env;
     int x;
 
@@ -95,7 +95,7 @@ mixed eventMove(mixed dest){
 }
 
 /* ******************* dummy.c driver applies ******************** */
-varargs static void create(string array id, mixed long, string array adj){
+varargs nosave void create(string array id, mixed long, string array adj){
     string str;
     str = "I am "+file_name(this_object())+" and I have been created ";
     str += "by "+identify(previous_object(-1));

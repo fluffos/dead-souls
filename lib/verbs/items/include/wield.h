@@ -1,7 +1,7 @@
 #ifndef l_wield_h
 #define l_wield_h
 
-static void create();
+protected void create();
 
 mixed can_wield_obj();
 mixed can_wield_obj_word_str(string str);

@@ -1,6 +1,6 @@
 #include <function.h>
 
-static private mapping Manipulate = ([]);
+nosave private mapping Manipulate = ([]);
 
 // abstract methods
 string GetDefiniteShort();

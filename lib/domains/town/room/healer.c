@@ -22,7 +22,7 @@ int ReadList(){
          );
     return 1;
 }
-static void create() {
+protected void create() {
     ::create();
     SetClimate("indoors");
     SetAmbientLight(30);

@@ -16,14 +16,14 @@ class moon {
     string Color;
 }
 
-static void create();
-static void eventConfigure();
-static void eventDawn();
-static void eventMorning();
-static void eventNoon();
-static void eventTwilight();
-static void eventNight();
-static void eventMidnight();
+protected void create();
+protected void eventConfigure();
+protected void eventDawn();
+protected void eventMorning();
+protected void eventNoon();
+protected void eventTwilight();
+protected void eventNight();
+protected void eventMidnight();
 int GetCurrentDay();
 string GetCurrentDayName();
 string GetCurrentMonth();

@@ -11,7 +11,7 @@ int CheckOrc(mixed val){
     return 1;
 }
 
-static void create() {
+protected void create() {
     barkeep::create();
     SetKeyName("orc cook");
     SetAdjectives( ({ "orc" }) );

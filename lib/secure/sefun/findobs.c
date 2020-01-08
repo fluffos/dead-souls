@@ -1,5 +1,5 @@
 #include <lib.h>
-private static string source;
+private nosave string source;
 
 mixed *findobs(mixed arg){
     object target;

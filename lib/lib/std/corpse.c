@@ -68,7 +68,7 @@ int eventDecay(){
     return Count;
 }
 
-static int Destruct(){
+protected int Destruct(){
     return ::Destruct();
 }
 
@@ -142,7 +142,7 @@ string GetSaveString(){ return 0; }
 int CanReceive(object ob){ return 1; }
 
 
-static void create(){
+protected void create(){
     ::create();
     SetId( ({ "corpse", "flesh", "remains" }) );
     SetAdjectives( ({"pile of", "rotting", "stinky"}) );

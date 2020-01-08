@@ -4,7 +4,7 @@
 
 inherit LIB_POTION;
 
-static void create() {
+protected void create() {
     potion::create();
     SetKeyName("eve tonic");
     SetId( ({ "bottle", "liquid", "eve", "tonic"}) );

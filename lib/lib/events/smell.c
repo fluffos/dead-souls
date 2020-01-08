@@ -8,8 +8,8 @@
 
 #include <function.h>
 
-static private mixed Smell    = 0;
-static private mapping Smells = ([]);
+nosave private mixed Smell    = 0;
+nosave private mapping Smells = ([]);
 
 // abstract methods
 string GetShort();

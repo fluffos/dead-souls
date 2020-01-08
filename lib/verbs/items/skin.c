@@ -14,7 +14,7 @@ inherit LIB_VERB;
 
 string skin; 
 
-static void create() {
+protected void create() {
     verb::create();
     SetVerb("skin");
     SetRules("STR with OBJ", "OBJ with OBJ");
@@ -28,7 +28,7 @@ static void create() {
 }
 
 
-static void eventSkin(object who, object tool, object target, object check) {
+nosave void eventSkin(object who, object tool, object target, object check) {
     if( !who || check != environment(who) ) {
         return;
     }
@@ -43,7 +43,7 @@ static void eventSkin(object who, object tool, object target, object check) {
     }
 }
 
-varargs static void eventPrepareSkin(object who, object tool, object what) {
+varargs nosave void eventPrepareSkin(object who, object tool, object what) {
     function f = (: eventSkin($(who), $(tool), $(what), environment($(who))) :);
     if( this_player()->GetInCombat() ) {
         send_messages("start", "$agent_name $agent_verb to skin with " +

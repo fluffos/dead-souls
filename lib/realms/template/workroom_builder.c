@@ -6,7 +6,7 @@ inherit LIB_ROOM;
 int ReadSign();
 int ReadSheet();
 
-static void create() {
+protected void create() {
     room::create();
 
     SetClimate("indoors");

@@ -1,8 +1,8 @@
 #ifndef l_barkeep_h
 #define l_barkeep_h
 
-static void create();
-static void init();
+protected void create();
+protected void init();
 int cmdBuy(object who, string cmd, string args);
 int cmdList(object who, string cmd, string args);
 string SetLocalCurrency(string str);

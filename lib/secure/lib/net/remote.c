@@ -10,21 +10,21 @@
 inherit LIB_SOCKET;
 
 private string Password;
-private static mapping Connections;
-private static int FD = -1;
+private nosave mapping Connections;
+private nosave int FD = -1;
 
-static void Setup();
+protected void Setup();
 
 void eventRead(int fd, string str);
-static void eventProcess(int fd, string str);
+nosave void eventProcess(int fd, string str);
 
-static void create(int fd, object owner){
+nosave void create(int fd, object owner){
     socket::create(fd, owner);
     FD = fd;
     Connections = ([]);
 }
 
-static void eventSocketClosed(int fd) {
+protected void eventSocketClosed(int fd) {
     map_delete(Connections, fd);
 }
 
@@ -37,7 +37,7 @@ void eventRead(string str) {
     eventProcess(FD, str);
 }
 
-static private void eventProcess(int fd, string str) {
+nosave private void eventProcess(int fd, string str) {
     string tmp, cmd, arg, file, val;
     int x;
     if( Connections[fd] && Connections[fd]["in edit"] > 0 ) {

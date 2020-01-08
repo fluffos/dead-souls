@@ -5,9 +5,9 @@
 #include <medium.h>
 #include <position.h>
 
-private static mixed globaltmp, tmp;
-private static string desc, smell, sound, touch;
-private static int i, maxi;
+private nosave mixed globaltmp, tmp;
+private nosave string desc, smell, sound, touch;
+private nosave int i, maxi;
 
 void eventDescribeEnvironment(int brief){
     object env, transport;

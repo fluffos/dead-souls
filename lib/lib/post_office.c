@@ -12,7 +12,7 @@
 
 inherit LIB_ROOM;
 
-static void create(){
+protected void create(){
     room::create();
 }
 

@@ -15,7 +15,7 @@ private int CanClose = 0;
 private int CanLock  = 0;
 private int MaxRecurseDepth  = 3;
 private int RecurseDepth  = 1;
-private static mixed my_save = ({});
+private nosave mixed my_save = ({});
 
 int GetMaxRecurseDepth(){
     return MaxRecurseDepth;
@@ -82,7 +82,7 @@ int GetRadiantLight(int ambient){
 //    return my_save;
 //}
 
-//static mixed array AddSave(mixed array vars){
+//protected mixed array AddSave(mixed array vars){
 //    my_save = distinct_array(my_save + vars);
 //    return item::AddSave(my_save);
 //}

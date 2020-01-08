@@ -13,7 +13,7 @@ inherit LIB_ROOM;
 
 mixed ReadList();
 
-static void create() {
+protected void create() {
     ::create();
     SetTown("Ylsrim");
     SetClimate("indoors");

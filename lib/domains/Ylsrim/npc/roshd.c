@@ -7,8 +7,8 @@
 #include <lib.h>
 inherit LIB_TRAINER;
 
-static string save_file = save_file("/domains/Ylsrim/save/roshd");
-static string quest_object = "/domains/town/armor/orc_helmet";
+nosave string save_file = save_file("/domains/Ylsrim/save/roshd");
+nosave string quest_object = "/domains/town/armor/orc_helmet";
 string *ok_join = ({});
 
 int JoinGuild(object ob, string verb, string what);
@@ -23,7 +23,7 @@ int CheckVisitor(object who){
     return 1;
 }
 
-static void create() {
+protected void create() {
     trainer::create();
     RestoreObject(save_file);
     if(!ok_join) ok_join = ({});

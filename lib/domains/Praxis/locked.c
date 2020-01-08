@@ -19,7 +19,7 @@ void create() {
             (["square" : "/domains/Praxis/square"]) );
 }
 
-static int any_hook(string str) {
+protected int any_hook(string str) {
     message("prompt", sprintf("\n(%s) Password: ", mud_name()),
             this_player());
     return 1;

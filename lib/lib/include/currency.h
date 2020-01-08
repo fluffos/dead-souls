@@ -1,7 +1,7 @@
 #ifndef __CURRENCY_H__
 #define __CURRENCY_H__
 
-static void create();
+protected void create();
 
 int CanCarry(int amount);
 

@@ -6,7 +6,7 @@ inherit LIB_CHAMBER;
 mapping Floors;
 int elevator_speed;
 
-static void create() {
+protected void create() {
     chamber::create();
     SetKeyName("elevator");
     SetId(({"box"}));

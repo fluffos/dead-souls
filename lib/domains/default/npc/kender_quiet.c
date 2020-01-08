@@ -25,7 +25,7 @@ int StealAttempt(){
     return 1;
 }
 
-static void create() {
+protected void create() {
     sentient::create();
     SetKeyName("kender");
     SetId(({"npc","mob","character","mobile"}));

@@ -15,7 +15,7 @@ string LongD(){
     return ret;
 }
 
-static void create(){
+protected void create(){
     armor::create();
     SetKeyName("breathing mask");
     SetId(({"mask","breather","a99","apparatus","device"}));

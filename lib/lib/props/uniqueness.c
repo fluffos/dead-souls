@@ -8,9 +8,9 @@
 
 #include <daemons.h>
 
-private static int array Rarity = 0;
-private static int       Unique = 0;
-private static int       MaxClones = 0;
+private nosave int array Rarity = 0;
+private nosave int       Unique = 0;
+private nosave int       MaxClones = 0;
 
 int array GetRarity(){
     return Rarity;

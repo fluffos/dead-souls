@@ -5,11 +5,11 @@ inherit LIB_DAEMON;
 
 mapping Books = ([]);
 
-static string *globalheader;
-static string globalstr, globalstr2;
-static string SaveFile = save_file(SAVE_BOOKS);
+nosave string *globalheader;
+nosave string globalstr, globalstr2;
+nosave string SaveFile = save_file(SAVE_BOOKS);
 
-static void create() {
+protected void create() {
     daemon::create();
     if(unguarded( (: file_exists(SaveFile) :) ) ){
         RestoreObject(SaveFile);

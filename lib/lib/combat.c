@@ -30,12 +30,12 @@ inherit LIB_COMBATMSG;
 
 private int Wimpy, Dead;
 private string WimpyCommand;
-private static int cParalyzed, tNextRound, AttacksPerHB;
-private static string TargetLimb, Party;
-private static object CurrentEnemy, genv;
-private static function fParalyzed, fNextRound;
-private static object *Hostiles, *Enemies, *SpecialTargets, *NonTargets;
-private static object *PriorEnemies;
+private nosave int cParalyzed, tNextRound, AttacksPerHB;
+private nosave string TargetLimb, Party;
+private nosave object CurrentEnemy, genv;
+private nosave function fParalyzed, fNextRound;
+private nosave object *Hostiles, *Enemies, *SpecialTargets, *NonTargets;
+private nosave object *PriorEnemies;
 
 string GetName();
 mixed GetProperty(string key);
@@ -50,7 +50,7 @@ void eventMeleeAttack(object target, string limb);
 int eventMagicRound(mixed target, function f);
 int eventWimpy(int i);
 
-static void create(){
+protected void create(){
     race::create();
     classes::create();
     Hostiles = ({});
@@ -121,7 +121,7 @@ object SetCurrentEnemy(object ob){
     return (CurrentEnemy = ob);
 }
 
-static object ResetCurrentEnemy(){
+protected object ResetCurrentEnemy(){
     object array obs;
     mixed ret;
 
@@ -138,7 +138,7 @@ object GetCurrentEnemy(){
     return CurrentEnemy;
 }
 
-private static void SortEnemies(){
+private protected void SortEnemies(){
     if( !sizeof(Enemies = filter(Enemies, (: ($1 && living($1)) :))) ){
         Hostiles = ({});
         CurrentEnemy = 0;
@@ -405,7 +405,7 @@ int GetCombatBonus(int level){
     }
 }
 
-static int GetDamage(int power, string skill){
+nosave int GetDamage(int power, string skill){
     int x = GetSkillLevel(skill);
 
     if( power < 1 ){
@@ -523,7 +523,7 @@ int CanMelee(object target){
     }
 }
 
-static int Destruct(){
+protected int Destruct(){
     if( GetParty() ) PARTY_D->eventLeaveParty(this_object());
     return 1;
 }
@@ -1144,7 +1144,7 @@ int eventWimpy(int i){
     return eventForce(cmd);
 }
 
-static void heart_beat(){
+protected void heart_beat(){
     race::heart_beat();
     AttacksPerHB = 0;
     if( GetSleeping() || GetDying() ){

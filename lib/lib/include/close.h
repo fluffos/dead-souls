@@ -1,7 +1,7 @@
 #ifndef l_close_h
 #define l_close_h
 
-static void create();
+protected void create();
 int inventory_accessible();
 int inventory_visible();
 mixed direct_close_obj(object target, string id);
@@ -17,7 +17,7 @@ varargs mixed eventOpen(object who, string id, object tool);
 int SetClosed(int x);
 int GetClosed();
 
-/* pure virtual */ static mixed *AddSave(mixed *vars);
+/* pure virtual */ protected mixed *AddSave(mixed *vars);
 /* pure virtual */ string GetShort();
 
 #endif /* l_close_h */

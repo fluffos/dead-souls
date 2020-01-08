@@ -204,7 +204,7 @@ string array eventReadFunctions(string source){
     headers = "";
     line = "";
     fun_arr =  allocate(999);
-    primitives = ({"private","static","nomask","varargs"});
+    primitives = ({"private","nosave","nomask","varargs"});
     types = ({"int","void","buffer","mapping","mixed","string","array","float"});
     beginners = primitives + types;
 
@@ -291,7 +291,7 @@ string array eventReadFunctions(string source){
                     temparray = ({});
                     temparray2 = ({});
                     contents = unguarded( (: eventReadFunctions(globalstr2) :) );
-                    beginners = ({"private","static","nomask","varargs"});
+                    beginners = ({"private","nosave","nomask","varargs"});
                     beginners += ({"int","void","buffer","mapping","mixed","string","array","float"});
 
                     foreach(string func in contents){
@@ -481,7 +481,7 @@ int eventAddCreate(string file){
     temparray = ({});
     temparray2 = ({});
     contents = unguarded( (: eventReadFunctions(globalstr2) :) );
-    beginners = ({"private","static","nomask","varargs"});
+    beginners = ({"private","nosave","nomask","varargs"});
     beginners += ({"int","void","buffer","mapping","mixed","string","array","float"});
 
     foreach(string func in contents){

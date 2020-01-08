@@ -16,14 +16,14 @@
 
 inherit LIB_DAEMON;
 
-static void eventReap() {
+protected void eventReap() {
     call_out((: eventReap :), 300);
     reap_dummies();
     reap_other();
     reclaim_objects();
 }
 
-static void CheckMem(){
+protected void CheckMem(){
     call_out((: CheckMem :), 60);
     if(MEMUSE_SOFT_LIMIT && memory_info() > MEMUSE_SOFT_LIMIT){
         reap_dummies();
@@ -50,7 +50,7 @@ static void CheckMem(){
     }
 }
 
-static void create() {
+protected void create() {
     daemon::create();
     SetNoClean(1);
     call_out((: eventReap :), 300);
@@ -58,7 +58,7 @@ static void create() {
     set_heart_beat(5);
 }
 
-static void heart_beat(){
+protected void heart_beat(){
 #ifdef __FLUFFOS__
     if(sizeof(get_garbage()) > 20000){
         reap_other();

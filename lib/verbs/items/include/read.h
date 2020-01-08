@@ -1,7 +1,7 @@
 #ifndef l_read_h
 #define l_read_h
 
-static void create();
+protected void create();
 
 mixed can_read_obj(string verb, string id);
 mixed can_read_str_word_obj(string str, string verb);

@@ -1,8 +1,8 @@
 #ifndef l_burn_h
 #define l_burn_h
 
-static void create();
-static void heart_beat();
+protected void create();
+protected void heart_beat();
 
 mixed direct_burn_obj_with_obj();
 mixed indirect_burn_obj_with_obj(object target, object source);
@@ -18,15 +18,15 @@ mixed eventLight(object who, object what);
 
 int GetBurning();
 int GetBurnRate();
-static int SetBurnRate(int x);
+protected int SetBurnRate(int x);
 int GetBurntValue();
-static int SetBurntValue(int x);
+protected int SetBurntValue(int x);
 int GetFuelRequired();
-static int SetFuelRequired(int x);
+protected int SetFuelRequired(int x);
 int GetHeat();
-static int SetHeat(int x);
+protected int SetHeat(int x);
 int GetMinHeat();
-static int SetMinHeat(int x);
+protected int SetMinHeat(int x);
 
 /* pure virtual */ string GetShort();
 /* pure virtual */ int SetValue(int x);

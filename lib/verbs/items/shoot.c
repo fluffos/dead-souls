@@ -7,7 +7,7 @@ mixed can_shoot_obj_at_obj(mixed shooter,mixed target);
 varargs mixed do_shoot_obj_at_obj(mixed args...);
 varargs mixed do_shoot_obj_with_obj(mixed args...);
 
-static void create() {
+protected void create() {
     verb::create();
     SetVerb("shoot");
     SetRules("OBJ at OBJ", "OBJ with OBJ",

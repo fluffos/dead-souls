@@ -4,7 +4,7 @@
 
 inherit LIB_VIRT_SKY;
 
-static private int XPosition, YPosition, ZPosition;
+nosave private int XPosition, YPosition, ZPosition;
 
 varargs void SetLongAndItems(int x, int y, int z);
 
@@ -15,7 +15,7 @@ varargs int LimitTravel(int requested, int maximum, int lessthan){
     else return requested;
 }
 
-varargs static void create(int x, int y, int z) {
+varargs nosave void create(int x, int y, int z) {
     string n, s, e, w, u, d;
     string ne, nw, se, sw;
 

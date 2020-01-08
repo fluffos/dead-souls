@@ -22,15 +22,15 @@ private mapping         Custom           = ([]);
 private int array       LightSensitivity = ({ 25, 75 });
 private mapping         Resistance       = ([]);
 private mapping         Stats            = ([]);
-private static mapping  StatsBonus       = ([]);
-private static int      VisionBonus      = 0;
+private nosave mapping  StatsBonus       = ([]);
+private nosave int      VisionBonus      = 0;
 
 // abstract methods
 string GetName();
 varargs void eventPrint(string message, mixed args...);
 // end abstract methods
 
-static void create(){
+protected void create(){
     Custom = ([
             "stats" : 15,
             "deviations" : 4,
@@ -49,7 +49,7 @@ int GetBlind(){
     }
 }
 
-static void RemoveBlindness(){
+protected void RemoveBlindness(){
     mixed val = Blind->end;
 
     Blind = 0;
@@ -337,7 +337,7 @@ int array GetLightSensitivity(){
     else return LightSensitivity;
 }
 
-varargs static int array SetLightSensitivity(mixed array val...){
+varargs protected int array SetLightSensitivity(mixed array val...){
     if( !val ) error("Null argument to SetLightSensitivity().\n");
     if( sizeof(val) == 1 ) val = val[0];
     if( sizeof(val) != 2 )
@@ -354,7 +354,7 @@ int GetVisionBonus(){
     return VisionBonus;
 }
 
-static void heart_beat(){
+protected void heart_beat(){
     if( Blind ){
         Blind->count--;
         if( Blind->count < 1 ){

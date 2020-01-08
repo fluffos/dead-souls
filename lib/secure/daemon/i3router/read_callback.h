@@ -1,6 +1,6 @@
 string *blacklisted_muds = ({});
-static string *graylisted_muds = ({});
-static mapping packet_counter = ([]); 
+nosave string *graylisted_muds = ({});
+nosave mapping packet_counter = ([]); 
 
 void setup_blacklist(){
     if(file_exists(ROUTER_BLACKLIST)){

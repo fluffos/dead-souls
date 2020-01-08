@@ -17,7 +17,7 @@ string LongRet(mixed whom){
     return ret;
 }
 
-static void create(){
+protected void create(){
     armor::create();
     SetKeyName("jade ring");
     SetId(({"ring","ward","jade"}));

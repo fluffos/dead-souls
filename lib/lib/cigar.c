@@ -6,7 +6,7 @@ inherit LIB_SMOKE;
 
 int lastpuff;
 
-static void create(){
+protected void create(){
     item::create();
     burn::create();
 }

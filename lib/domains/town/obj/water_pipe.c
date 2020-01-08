@@ -2,7 +2,7 @@
 #include <vendor_types.h>
 
 inherit LIB_ITEM;
-static int open = 0;
+nosave int open = 0;
 
 void create(){
     ::create();

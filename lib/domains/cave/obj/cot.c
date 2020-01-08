@@ -3,7 +3,7 @@
 
 inherit LIB_BED;
 
-static void create() {
+protected void create() {
     ::create();
     SetKeyName("cot");
     SetId( ({ "cot","bed" }) );

@@ -1,7 +1,7 @@
 #ifndef l_lock_h
 #define l_lock_h
 
-static void create();
+protected void create();
 mixed direct_lock_obj_with_obj(object target, object tool, string id);
 mixed direct_pick_str_on_obj(string str, object target, string str2,
   string id);

@@ -30,7 +30,7 @@
 
 #define CHAR_DEBUG 0
 
-private static mapping CharStuff;
+private nosave mapping CharStuff;
 
 int rEsc();
 
@@ -44,7 +44,7 @@ void create(){
             ]);
 }
 
-static int ReceiveChars(string str){
+protected int ReceiveChars(string str){
     string s;
     int c;
 
@@ -192,22 +192,22 @@ int GetCharmode(){
     return CharStuff["charmode"];
 }
 
-static string GetCharbuffer(){
+protected string GetCharbuffer(){
     if(!CharStuff) CharStuff = ([]);
     return (CharStuff["charbuffer"] || "" );
 }
 
-static string SetCharbuffer(string str){
+protected string SetCharbuffer(string str){
     if(!CharStuff) CharStuff = ([]);
     return CharStuff["charbuffer"] = ( str || "" );
 }
 
-static string GetTempbuffer(){
+protected string GetTempbuffer(){
     if(!CharStuff) CharStuff = ([]);
     return (CharStuff["tempbuffer"] || "" );
 }
 
-static string SetTempbuffer(string str){
+protected string SetTempbuffer(string str){
     if(!CharStuff) CharStuff = ([]);
     return CharStuff["tempbuffer"] = ( str || "" );
 }

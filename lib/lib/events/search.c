@@ -9,8 +9,8 @@
 #include <lib.h>
 #include <function.h>
 
-static private mixed Search     = 0;
-static private mapping Searches = ([]);
+nosave private mixed Search     = 0;
+nosave private mapping Searches = ([]);
 
 // abstract methods
 string GetShort();

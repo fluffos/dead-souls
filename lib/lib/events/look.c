@@ -13,8 +13,8 @@
 
 private mixed   ExternalDesc = 0;
 private int     Invisible    = 0;
-private static string  look_globalval;
-static function f;
+private nosave string  look_globalval;
+nosave function f;
 mapping Items        = ([]);
 
 // abstract methods
@@ -102,7 +102,7 @@ varargs mixed AddItem(mixed item, mixed val){
 }
 
 //TMI2 back-compat hack
-static mixed AddItem_func(mixed foo){
+protected mixed AddItem_func(mixed foo){
     foreach(mixed key, mixed val in foo){
         look_globalval = val;
         AddItem(key, (: look_globalval :) );
@@ -110,7 +110,7 @@ static mixed AddItem_func(mixed foo){
     return foo;
 }
 
-static mixed SetItem_func(mixed foo){
+protected mixed SetItem_func(mixed foo){
     foreach(mixed key, mixed val in foo){
         look_globalval = val;
         f =  bind( (: call_other, this_object(), look_globalval :), this_object() );

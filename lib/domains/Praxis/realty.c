@@ -96,7 +96,7 @@ void reset() {
     ob->eventForce("wear plate");
 }
 
-static int cmd_buy(string str) {
+protected int cmd_buy(string str) {
     object ob;
 
     if(!present("atmos", this_object())) 
@@ -152,7 +152,7 @@ string at_desk(string str) {
     else tmp += "No one seems to be around.";
     return tmp;
 }
-static int read_list(string str) {
+protected int read_list(string str) {
     string tmp;
 
     if(str != "list") return 0;

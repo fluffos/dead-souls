@@ -15,7 +15,7 @@ private int AllowSacrifice, SacrificeType;
 private string array Classes, Religion, Deities, DeityIds;
 
 /*     **********  /lib/chapel.c apply methods  **********     */
-static void create(){
+protected void create(){
     room::create();
     Classes = ({});
     Religion = allocate(2);

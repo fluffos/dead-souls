@@ -6,8 +6,8 @@ inherit LIB_ITEM;
 string array chapters, globalheader;
 string Title = "Generic Book";
 string Source = "/obj/book_source";
-static mapping BookItems = ([]);
-static mapping BookReads = ([]);
+nosave mapping BookItems = ([]);
+nosave mapping BookReads = ([]);
 
 string globalstr, globalstr2;
 

@@ -13,7 +13,7 @@ int ReadSign() {
     return 1;
 }
 
-static void create() {
+protected void create() {
     object ob; // this will be used to create dummy items
 
     // setup the stuff you inherit

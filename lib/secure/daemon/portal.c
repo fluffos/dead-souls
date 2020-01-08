@@ -8,8 +8,8 @@ inherit LIB_DAEMON;
 object blue, orange, bportal, oportal;
 string oroom = "/domains/town/room/wtunnel3";
 string broom = "/domains/campus/room/hazlab";
-static int heart_count;
-static string SaveFile;
+nosave int heart_count;
+nosave string SaveFile;
 
 void CheckPortals(){
     mixed *tmp;

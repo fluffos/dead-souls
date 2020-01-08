@@ -7,7 +7,7 @@
  */
 
 int Mass = 0;
-static int zpg = 0;
+nosave int zpg = 0;
 
 int SetZPG(int x){
     if(x > 0) zpg = 1;

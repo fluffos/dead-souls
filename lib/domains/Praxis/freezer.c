@@ -3,7 +3,7 @@
 
 inherit LIB_ROOM;
 
-static private object *old;
+nosave private object *old;
 
 void create() {
     ::create();
@@ -16,7 +16,7 @@ void create() {
     call_out("clean_room", MAX_NET_DEAD_TIME);
 }
 
-static void clean_room() {
+protected void clean_room() {
     object *in_here, *to_clean;
     int i;
 

@@ -8,7 +8,7 @@
 
 inherit LIB_CHAIR;
 
-static void create() {
+protected void create() {
     chair::create();
     SetKeyName("stool");
     SetId("stool");

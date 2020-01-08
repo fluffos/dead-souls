@@ -5,7 +5,7 @@ inherit LIB_ARMOR;
 
 varargs int CheckOrc(object who, mixed where);
 
-static void create(){
+protected void create(){
     armor::create();
     SetKeyName("orc helmet");
     SetId(({"helmet","skull"}));

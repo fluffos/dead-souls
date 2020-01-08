@@ -2,7 +2,7 @@
 
 inherit LIB_PILE;
 
-static void create(){
+protected void create(){
     pile::create();
     SetKeyName("money");
 }

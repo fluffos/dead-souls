@@ -9,11 +9,11 @@
 
 inherit LIB_VIRT_LAND;
 
-static private int XPosition, YPosition;
+nosave private int XPosition, YPosition;
 
 varargs void SetLongAndItems(int x, int y, int z);
 
-varargs static void create(int x, int y) {
+varargs nosave void create(int x, int y) {
     string n, s, e, w;
 
     SetNoReplace(1);

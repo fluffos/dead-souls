@@ -1,7 +1,7 @@
 #ifndef l_pistol_h
 #define l_pistol_h
 
-static void create();
+protected void create();
 
 int eventShoot(object who);
 

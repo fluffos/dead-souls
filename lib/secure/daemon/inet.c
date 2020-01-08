@@ -17,7 +17,7 @@ class service {
     int    SocketType;
 }
 
-private static mapping Servers  = ([]);
+private nosave mapping Servers  = ([]);
 private mapping        Services = ([]);
 mapping BlockedIps = ([]);
 
@@ -155,7 +155,7 @@ int eventStopServer(string svc) {
     }
 }
 
-static void create() {
+protected void create() {
     SetSaveFile(SAVE_INET);
     daemon::create();
     if(!BlockedIps) BlockedIps = ([]);

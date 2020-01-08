@@ -97,7 +97,7 @@ int ActivateTurret(){
     return 1;
 }
 
-static void create() {
+protected void create() {
     sentient::create();
     SetKeyName("gun turret");
     SetId( ({"bot", "robot","turret"}) );

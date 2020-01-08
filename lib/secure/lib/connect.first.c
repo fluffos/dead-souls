@@ -13,9 +13,9 @@ string Name, CapName, Password;
 object Admin;
 int blindmode;
 
-static void InputName(string str);
+protected void InputName(string str);
 
-static void logon() {
+protected void logon() {
     receive("Welcome to the Dead Souls " + mudlib_version() +
             " installation process!!\n\n");
     receive("You will be asked a series of questions for creating an "
@@ -24,9 +24,9 @@ static void logon() {
     input_to((: InputName :), I_NOESC);
 }
 
-static void InputPassword(string str);
+protected void InputPassword(string str);
 
-static void CheckBlind(string str){
+protected void CheckBlind(string str){
     if( !str || str == "" || lower_case(str)[0..0] == "y" ) {
         receive("\nOk, disabling default overhead map.\n");
         blindmode = 1;
@@ -36,7 +36,7 @@ static void CheckBlind(string str){
     input_to((: InputPassword :), I_NOECHO | I_NOESC);
 }
 
-static void InputName(string str) {
+protected void InputName(string str) {
     if( !(BANISH_D->valid_name(Name = convert_name(CapName = str))) 
             || lower_case(str) == "guest") {
         receive("That is not a valid name.\n");
@@ -51,9 +51,9 @@ static void InputName(string str) {
     input_to((: CheckBlind :), I_NOESC);
 }
 
-static void ConfirmPassword(string str);
+protected void ConfirmPassword(string str);
 
-static void InputPassword(string str) {
+protected void InputPassword(string str) {
     if( strlen(str) < 5 ) {
         receive("Password must be at least 5 letters.\n");
         receive("Password: ");
@@ -65,9 +65,9 @@ static void InputPassword(string str) {
     input_to((: ConfirmPassword :), I_NOECHO | I_NOESC);
 }
 
-static void InputCapName(string str);
+protected void InputCapName(string str);
 
-static void ConfirmPassword(string str) {
+protected void ConfirmPassword(string str) {
     if( str != Password) {
         receive("\nPasswords do not match.  Password: ");
         input_to((: InputPassword :), I_NOECHO | I_NOESC);
@@ -79,9 +79,9 @@ static void ConfirmPassword(string str) {
     input_to((: InputCapName :), I_NOESC);
 }
 
-static void InputGender(string str);
+protected void InputGender(string str);
 
-static void InputCapName(string str) {
+protected void InputCapName(string str) {
     if( !str || str == "" ) str = CapName;
     if( convert_name(str) != Name ) {
         receive("\nYou cannot do that! Display name (hit Enter for default): ");
@@ -93,9 +93,9 @@ static void InputCapName(string str) {
     input_to((: InputGender :), I_NOESC);
 }
 
-static void InputRealName(string str);
+protected void InputRealName(string str);
 
-static void InputGender(string str) {
+protected void InputGender(string str) {
     if( str ) str = lower_case(str);
     if( !str || str == "" || ((str[0] != 'f' && str[0] != 'm') &&
                 member_array(str, ({"male","female","neutral","none"})) == -1)){
@@ -112,16 +112,16 @@ static void InputGender(string str) {
     input_to((: InputRealName :), I_NOESC);
 }
 
-static void InputEmail(string str);
+protected void InputEmail(string str);
 
-static void InputRealName(string str) {
+protected void InputRealName(string str) {
     if( !str || str == "" ) str = "Unknown";
     Admin->SetRealName(str);
     receive("What is your email address? ");
     input_to((: InputEmail :), I_NOESC);
 }
 
-static void InputEmail(string str) {
+protected void InputEmail(string str) {
     object ob, tool;
     string tmp = "";
     string filep = DIR_PLAYERS "/"+Name[0..0]+"/"+Name+__SAVE_EXTENSION__;

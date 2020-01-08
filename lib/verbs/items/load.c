@@ -3,7 +3,7 @@
 
 inherit LIB_VERB;
 
-static void create() {
+protected void create() {
     verb::create();
     SetVerb("load");
     SetSynonyms("charge", "recharge");

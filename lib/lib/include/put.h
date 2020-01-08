@@ -1,7 +1,7 @@
 #ifndef l_put_h
 #define l_put_h
 
-static void create();
+protected void create();
 mixed direct_put_obj_word_obj();
 
 mixed CanPut(object who);

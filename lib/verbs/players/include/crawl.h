@@ -1,7 +1,7 @@
 #ifndef l_crawl_h
 #define l_crawl_h
 
-static void create();
+protected void create();
 
 mixed can_crawl_str(string str);
 mixed can_crawl_into_str(string str);

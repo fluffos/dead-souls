@@ -12,20 +12,20 @@
 
 inherit LIB_DAEMON;
 
-static void MainMenu();
-static void EditErrorMessage(string emote);
-static void ShowEmote(string emote);
-static void AddEmote(string emote);
-static void AddRule(string rule, string emote);
+protected void MainMenu();
+protected void EditErrorMessage(string emote);
+protected void ShowEmote(string emote);
+protected void AddEmote(string emote);
+nosave void AddRule(string rule, string emote);
 
-static private void validate() {
+protected private void validate() {
     if(!this_player()) return 0;
     if( !(master()->valid_apply(({ "ASSIST" }))) &&
             !member_group(this_player(), "EMOTES") )
         error("Illegal attempt to access addemote: "+get_stack()+" "+identify(previous_object(-1)));
 }
 
-static void EnterEmote(string emote, string array emotes) {
+nosave void EnterEmote(string emote, string array emotes) {
     int x = to_int(emote);
     validate();
     if( x < 1 || x > sizeof(emotes) ) {
@@ -43,7 +43,7 @@ static void EnterEmote(string emote, string array emotes) {
     ShowEmote(emote);
 }
 
-static void EnterEditChoice(string str, string array rules, string emote) {
+nosave void EnterEditChoice(string str, string array rules, string emote) {
     int x = to_int(str);
     validate();
     if( x < 1 || x > sizeof(rules) ) {
@@ -76,7 +76,7 @@ static void EnterEditChoice(string str, string array rules, string emote) {
     }
 }
 
-static void AddAdverbs(string adv, string emote, string array rules,
+nosave void AddAdverbs(string adv, string emote, string array rules,
         string array verbs, string msg) {
     string array adverbs;
     validate();
@@ -92,7 +92,7 @@ static void AddAdverbs(string adv, string emote, string array rules,
     this_player()->eventPrint("Emote '" + emote + "' added.");
 }
 
-static void AddMessage(string msg, string emote, string array rules,
+nosave void AddMessage(string msg, string emote, string array rules,
         string array verbs) {
     validate();
     if( !msg || msg == "" ) {
@@ -108,7 +108,7 @@ static void AddMessage(string msg, string emote, string array rules,
     input_to((: AddAdverbs :), emote, rules, verbs, msg);
 }
 
-static void AddVerbs(string list, string emote, string array rules) {
+nosave void AddVerbs(string list, string emote, string array rules) {
     string array verbs = map(explode(list, ","), (: trim :));
     validate();
 
@@ -116,7 +116,7 @@ static void AddVerbs(string list, string emote, string array rules) {
     input_to((: AddMessage :), emote, rules, verbs);
 }
 
-static void AddRule(string rule, string emote) {
+nosave void AddRule(string rule, string emote) {
     string array rules = map(explode(rule, ","), (: trim :));
     validate();
 
@@ -127,7 +127,7 @@ static void AddRule(string rule, string emote) {
     input_to((: AddVerbs :), emote, rules);
 }
 
-static void AddErrorMessage(string msg, string emote) {
+nosave void AddErrorMessage(string msg, string emote) {
     validate();
     if( !msg || msg == "" ) {
         this_player()->eventPrint("Which message? [q to quit] ", MSG_PROMPT);
@@ -150,7 +150,7 @@ static void AddErrorMessage(string msg, string emote) {
     input_to((: AddRule :), emote);
 }
 
-static void AddEmote(string emote) {
+protected void AddEmote(string emote) {
     validate();
     if( !emote || emote == "" ) {
         this_player()->eventPrint("Which emote? [q to quit] ", MSG_PROMPT);
@@ -166,7 +166,7 @@ static void AddEmote(string emote) {
     input_to((: AddErrorMessage :), emote);
 }
 
-static void MainMenu() {
+protected void MainMenu() {
     string array emotes = SOUL_D->GetEmotes();
     string array display = allocate(sizeof(emotes));
     int array screen = this_player()->GetScreen() || ({ 80, 25 });
@@ -184,7 +184,7 @@ static void MainMenu() {
     input_to((: EnterEmote :), emotes);
 }
 
-static void EditErrorMessage(string emote) {
+protected void EditErrorMessage(string emote) {
     validate();
     this_player()->eventPrint("Enter new error message: ", MSG_PROMPT);
     input_to(function(string str, string emote) {
@@ -195,7 +195,7 @@ static void EditErrorMessage(string emote) {
             }, emote);
 }
 
-static void ShowEmote(string emote) {
+protected void ShowEmote(string emote) {
     string err = SOUL_D->GetErrorMessage(emote);
     mapping rules = SOUL_D->GetRules(emote);
     int array screen = this_player()->GetScreen() || ({ 80, 25 });

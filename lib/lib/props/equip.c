@@ -36,7 +36,7 @@ string array GetWorn(){
     return Worn;
 }
 
-static string array SetWorn(string array limbs){
+protected string array SetWorn(string array limbs){
     Worn = limbs;
     return Worn;
 }
@@ -71,7 +71,7 @@ mixed eventEquip(object who, string array limbs){
     return 1;
 }
 
-static void eventRestoreEquip(string array limbs){
+protected void eventRestoreEquip(string array limbs){
     mixed tmp;
 
     if( !limbs || !environment() ){

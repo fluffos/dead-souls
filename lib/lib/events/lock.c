@@ -10,7 +10,7 @@
 private string array    Keys         = ({});
 private int             Locked       = 0;
 private int             LockStrength = 0;
-private static function Pick         = 0;
+private nosave function Pick         = 0;
 
 // abstract methods
 string GetDefiniteShort();

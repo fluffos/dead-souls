@@ -6,24 +6,24 @@
 
 inherit LIB_ITEM;
 
-static int observing = 0;
-static int counter = 0, attempting, connected, socket ;
-static int dud_count = 0, spawning, last_action, loop_count = 0;
-static int maxbox = 32;
-static int newbot = 1;
-static object person, player;
-static string preset, name, passwd, gender;
-static string display_name, email, real_name, race;
-static string *exits, previous_command;
-static string travel = "go ";
-static int enable = 0;
-static string ip = "127.0.0.1 1111";
-static string local_currency = "silver";
-static string watching = "";
-static int broadcast, onhand, open_account, balance, wander;
-static int pocket_money = 600;
-static int spent, in_combat, recursion_brake;
-static mixed *socks_array = ({});
+nosave int observing = 0;
+nosave int counter = 0, attempting, connected, socket ;
+nosave int dud_count = 0, spawning, last_action, loop_count = 0;
+nosave int maxbox = 32;
+nosave int newbot = 1;
+nosave object person, player;
+nosave string preset, name, passwd, gender;
+nosave string display_name, email, real_name, race;
+nosave string *exits, previous_command;
+nosave string travel = "go ";
+nosave int enable = 0;
+nosave string ip = "127.0.0.1 1111";
+nosave string local_currency = "silver";
+nosave string watching = "";
+nosave int broadcast, onhand, open_account, balance, wander;
+nosave int pocket_money = 600;
+nosave int spent, in_combat, recursion_brake;
+nosave mixed *socks_array = ({});
 
 mapping AnsiMap1 =
 ([ "RESET":ANSI("0"), "BOLD":ANSI(1), "FLASH":ANSI(5),
@@ -58,7 +58,7 @@ int report(string str){
     return 1;
 }
 
-varargs static void validate(int i){
+varargs protected void validate(int i){
     if(i){
         if(!socket_status(i) || !socket_status(i)[5]){
             error("Bad socket, fd "+i);
@@ -66,7 +66,7 @@ varargs static void validate(int i){
     }
 }
 
-static void create(mixed arg)
+protected void create(mixed arg)
 {
     item::create();
     AnsiMap2 = ([]);

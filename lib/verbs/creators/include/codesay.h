@@ -1,7 +1,7 @@
 #ifndef l_codesay_h
 #define l_codesay_h
 
-static void create();
+protected void create();
 mixed can_codesay();
 mixed can_codesay_str(string str);
 mixed do_codesay();

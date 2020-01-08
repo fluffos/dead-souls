@@ -10,9 +10,9 @@
 
 inherit LIB_DAEMON;
 
-static private int *__SortFlags;
+nosave private int *__SortFlags;
 
-static private string query_people_time();
+protected private string query_people_time();
 private string calculateFormatString(int screenSize);
 object *whom, *who, *display;
 string *args;
@@ -113,7 +113,7 @@ int cmd(string str) {
     return 1;
 }
 
-static int filter_invis(object ob) {
+protected int filter_invis(object ob) {
     if(!ob || !sizeof(base_name(ob))) return 0;
     if(!(ob->GetKeyName())) return 0;
     if(!(ob->GetInvis(this_player()))) return 1;
@@ -122,28 +122,28 @@ static int filter_invis(object ob) {
     return 1;
 }
 
-static int filter_arches(object ob) { return archp(ob); }
+protected int filter_arches(object ob) { return archp(ob); }
 
-static int filter_ambass(object ob) { return ambassadorp(ob); }
+protected int filter_ambass(object ob) { return ambassadorp(ob); }
 
-static int filter_cres(object ob) { return (creatorp(ob) && !archp(ob)); }
+protected int filter_cres(object ob) { return (creatorp(ob) && !archp(ob)); }
 
-static int filter_hms(object ob) { return high_mortalp(ob); }
+protected int filter_hms(object ob) { return high_mortalp(ob); }
 
-static int filter_newbie(object ob) {
+protected int filter_newbie(object ob) {
     return (!creatorp(ob) && !ambassadorp(ob) && (MAX_NEWBIE_LEVEL >=
                 ob->GetLevel()));
 }
 
-static int filter_mortal(object ob) {
+protected int filter_mortal(object ob) {
     if(creatorp(ob) || high_mortalp(ob) || ambassadorp(ob)) return 0;
     if(ob->GetLevel() <= MAX_NEWBIE_LEVEL) return 0;
     return 1;
 }
 
-static int filter_undead(object ob) { return ob->query_ghost(); }
+protected int filter_undead(object ob) { return ob->query_ghost(); }
 
-static int general_sort(object alpha, object beta) {
+nosave int general_sort(object alpha, object beta) {
     int x, y;
 
     if(archp(alpha)) {
@@ -171,7 +171,7 @@ static int general_sort(object alpha, object beta) {
             GetBaseName(beta));
 }
 
-static int special_sort(object alpha, object beta) {
+nosave int special_sort(object alpha, object beta) {
     string a, b;
     int x, y;
 
@@ -221,7 +221,7 @@ private string calculateFormatString(int screenSize) {
         + "s %:-5s %:-3s %:-" + envSize + "s";
 }
 
-static string map_info(object ob, string formatString) {
+nosave string map_info(object ob, string formatString) {
     string age, nom, blk, lev, ip, env, idle;
     int x;
 
@@ -265,7 +265,7 @@ static string map_info(object ob, string formatString) {
     return sprintf(formatString, age, lev, nom, ip, idle, blk, env);
 }
 
-static private string query_people_time() {
+protected private string query_people_time() {
     string tzone;
     if(this_player()) tzone = this_player()->GetProperty("timezone");
     if(!tzone || !valid_timezone(tzone)) tzone = query_tz();

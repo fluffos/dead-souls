@@ -7,7 +7,7 @@
 #include <combat_messages.h>
 #include "include/combatmsg.h"
 
-static mixed GetMissData(object targ, int type, string limb){
+nosave mixed GetMissData(object targ, int type, string limb){
     string targ_name = targ->GetName(); 
 
     if(targ->GetDead() || this_object()->GetDead()) return 0;
@@ -92,7 +92,7 @@ static mixed GetMissData(object targ, int type, string limb){
     return 0;
 }
 
-static void eventSendMissMessages(object target, int x, string limb){
+nosave void eventSendMissMessages(object target, int x, string limb){
     mixed data;
     object env = room_environment();
 

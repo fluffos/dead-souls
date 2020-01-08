@@ -17,7 +17,7 @@ private int mag,cloned;
 private int autohit;
 private int dam, last_shot;
 
-static void create(){
+protected void create(){
     string *s_save, *a_save;
 
     ::create();

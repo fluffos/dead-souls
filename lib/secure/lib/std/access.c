@@ -12,16 +12,16 @@
 inherit LIB_DAEMON;
 
 private mapping         ReadAccess    = ([]);
-private static function ReadFunction  = 0;
+private nosave function ReadFunction  = 0;
 private mapping         WriteAccess   = ([]);
-private static function WriteFunction = 0;
+private nosave function WriteFunction = 0;
 
 /* ****************** access.c attributes ****************** */
 /*
  * Note: this uses the old NM 3 naming scheme and is not worth the
  * trouble of changing
  */
-static void set_access(string type, function f) {
+nosave void set_access(string type, function f) {
     if( type == "read" ) {
         ReadFunction = f;
     }

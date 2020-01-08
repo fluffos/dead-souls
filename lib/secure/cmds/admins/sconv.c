@@ -164,7 +164,7 @@ int ConvertArea(string arg){
 
         header += "#include <lib.h>\n\n";
         header += "inherit "+(Types[item_type] || "LIB_ITEM")+";\n\n";
-        header += "static void create() {\n";
+        header += "nosave void create() {\n";
         header += "    ::create();\n";
         header += "    SetKeyName(\""+ob_name+"\");\n";
         header += "    SetId( "+identify(ob_id)+" );\n";
@@ -225,7 +225,7 @@ int ConvertArea(string arg){
 
             header += "#include <lib.h>\n\n";
             header += "inherit LIB_SENTIENT;\n\n";
-            header += "static void create(){\n";
+            header += "nosave void create(){\n";
             header += "    ::create();\n";
             header += "    SetKeyName(\""+ob_name+"\");\n";
             header += "    SetId( "+identify(ob_id)+" );\n";

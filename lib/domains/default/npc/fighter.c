@@ -1,7 +1,7 @@
 #include <lib.h>
 inherit LIB_NPC;
 
-static void create(){
+protected void create(){
     npc::create();
     SetKeyName("fighter");
     SetId( ({"human","npc","warrior","fighter"}) );

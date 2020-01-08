@@ -20,21 +20,21 @@ int ftp_port = PORT_FTP;
 mapping ServerMap = ([]);
 mapping Listen = ([]);
 
-private static int          DestructOnClose= 0;
-private static int          MaxBytes       = get_config(__MAX_BYTE_TRANSFER__);
-private static int          Port           = 0;
-private static string       SocketObject   = 0;
-private static int          SocketType     = STREAM;
-private static mapping      Sockets        = ([]);
+private nosave int          DestructOnClose= 0;
+private nosave int          MaxBytes       = get_config(__MAX_BYTE_TRANSFER__);
+private nosave int          Port           = 0;
+private nosave string       SocketObject   = 0;
+private nosave int          SocketType     = STREAM;
+private nosave mapping      Sockets        = ([]);
 
-static void eventSocketError(string msg, int code);
+nosave void eventSocketError(string msg, int code);
 
 /* ******************* server.c attributes ************************ */
 int GetDestructOnClose() {
     return DestructOnClose;
 }
 
-static int SetDestructOnClose(int x) {
+protected int SetDestructOnClose(int x) {
     return (DestructOnClose = x);
 }
 
@@ -42,12 +42,12 @@ int GetSocketType() {
     return SocketType;
 }
 
-static int SetSocketType(int x ) {
+protected int SetSocketType(int x ) {
     return (SocketType = x);
 }
 
 /* ******************** server.c events *************************** */
-static int eventClose(mixed sock) {
+protected int eventClose(mixed sock) {
     mapping s; 
 
     trr("LIB_SERVER: eventClose trying to close: "+identify(sock),mcolor,mclass);
@@ -106,7 +106,7 @@ int eventCreateSocket(int port) {
     trr("LIB_SERVER: eventCreateSocket, port: "+port+", x: "+x,mcolor,mclass);
 }
 
-static int Destruct() {
+protected int Destruct() {
     if( daemon::Destruct() ) {
         foreach(int fd, mapping socket in Sockets) {
             trr("server:Destruct: fd: "+fd+", "+socket_address(fd),mcolor,mclass);
@@ -128,7 +128,7 @@ int eventDestruct() {
     return daemon::eventDestruct();
 }
 
-static void eventNewConnection(object socket) {
+protected void eventNewConnection(object socket) {
     int fd = socket->GetDescriptor();
     if(!Sockets[fd]) Sockets[fd] = ([]);
     trr("LIB_SERVER: eventNewConnection, socket: "+identify(socket),mcolor,mclass);
@@ -139,7 +139,7 @@ static void eventNewConnection(object socket) {
     socket->StartService(); // added for welcome
 }
 
-static void eventServerAbortCallback(int fd) {
+protected void eventServerAbortCallback(int fd) {
     trr("server:eventServerAbortCallback: fd: "+fd+", "+socket_address(fd),mcolor,mclass);
     eventClose(fd);
 }
@@ -152,7 +152,7 @@ int eventShutdown() {
     return 1;
 }
 
-static void eventServerListenCallback(int fd) {
+protected void eventServerListenCallback(int fd) {
     int x;
 
     trr("server:eventServerListenCallback: fd: "+fd+", "+socket_address(fd),mcolor,mclass);
@@ -171,7 +171,7 @@ static void eventServerListenCallback(int fd) {
     eventNewConnection(new(SocketObject, x, this_object()));
 }
 
-static void eventServerReadCallback(int fd, mixed val) {
+nosave void eventServerReadCallback(int fd, mixed val) {
     trr("server:eventServerReadCallback: fd: "+fd+", "+socket_address(fd),mcolor,mclass);
     trr("server: I think that Sockets["+fd+"] is: "+identify(Sockets[fd]),mcolor,mclass);
     if( !Sockets[fd] || !Sockets[fd]["Owner"] ) {
@@ -189,7 +189,7 @@ static void eventServerReadCallback(int fd, mixed val) {
     }
 }
 
-static void eventServerWriteCallback(int fd) {
+protected void eventServerWriteCallback(int fd) {
     int x;
     mapping sock;
 
@@ -239,7 +239,7 @@ static void eventServerWriteCallback(int fd) {
     }
 }
 
-static void eventSocketError(string msg, int code) {
+nosave void eventSocketError(string msg, int code) {
     log_file("servers", "Error code: " + code + "\n" + msg + "\n");
     trr("LIB_SERVER Error code: " + code + "\n" + msg + "\n","red",mclass);
 }
@@ -305,7 +305,7 @@ varargs int eventWrite(object owner, mixed val, int close) {
 }
 
 /* ******************** server.c driver applies ******************* */
-varargs static void create(int port, int type, string socket_obj) {
+varargs nosave void create(int port, int type, string socket_obj) {
     daemon::create();
     SetNoClean(1);
 

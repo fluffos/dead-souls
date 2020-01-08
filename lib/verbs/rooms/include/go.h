@@ -1,7 +1,7 @@
 #ifndef l_go_h
 #define l_go_h
 
-static void create();
+protected void create();
 
 mixed can_go_str(string str);
 mixed can_go_into_str(string str);

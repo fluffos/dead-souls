@@ -14,12 +14,12 @@
 inherit LIB_DAEMON;
 
 private mapping __MailQueue; 
-static private mapping __IncomingMail; 
+nosave private mapping __IncomingMail; 
 mapping Old = ([]);
 mapping Outgoing = ([]);
-static string SaveFile;
+nosave string SaveFile;
 
-static int count = 0;
+nosave int count = 0;
 
 void create() {
     string *muds; 
@@ -173,7 +173,7 @@ int incoming_post(mixed *packet){
     return 1; 
 } 
 
-static private string *local_targets(string *str) {
+protected private string *local_targets(string *str) {
     string a, b; 
     int i;
 
@@ -186,11 +186,11 @@ static private string *local_targets(string *str) {
     return str;
 } 
 
-static private void save_mailqueue() { 
+protected private void save_mailqueue() { 
     SaveObject(SaveFile);
 } 
 
-static private void restore_mailqueue() { 
+protected private void restore_mailqueue() { 
     RestoreObject(SaveFile);
 } 
 

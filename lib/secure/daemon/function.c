@@ -5,18 +5,18 @@
 
 inherit LIB_DAEMON;
 
-static string globaltmp;
-static string *files = ({});
-static string SaveFuns = save_file(SAVE_FUNCTIONS);
-static int seeking = 0;
-static int count = 0;
+nosave string globaltmp;
+nosave string *files = ({});
+nosave string SaveFuns = save_file(SAVE_FUNCTIONS);
+nosave int seeking = 0;
+nosave int count = 0;
 mapping FileSize = ([]);
 mapping FunctionCache = ([]);
 mixed *Functions = ({});
 mapping LCFunctions = ([]);
 mapping TmpMap = ([]);
 
-static private void validate() {
+protected private void validate() {
     if(!this_player()) return 0;
     if( !(master()->valid_apply(({ "ASSIST" }))) )
         error("Illegal attempt access FUNCTIONS_D: "+get_stack()+" "+identify(previous_object(-1)));
@@ -118,7 +118,7 @@ mixed ReadFuns(string str){
     return 1;
 }
 
-static void create() {
+protected void create() {
     daemon::create();
     if(!file_exists(SaveFuns) && file_exists(old_savename(SaveFuns))){
         cp(old_savename(SaveFuns), SaveFuns);

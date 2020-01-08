@@ -2,7 +2,7 @@
 
 inherit LIB_SENTIENT;
 
-static void create() {
+protected void create() {
     sentient::create();
     SetKeyName("elephant");
     SetAdjectives( ({"docile", "pink", "friendly", "large", "very large"}) );

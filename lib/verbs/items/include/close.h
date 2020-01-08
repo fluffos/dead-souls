@@ -1,7 +1,7 @@
 #ifndef l_close_h
 #define l_close_h
 
-static void create();
+protected void create();
 
 mixed can_close(string verb);
 

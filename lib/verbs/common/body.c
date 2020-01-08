@@ -13,13 +13,13 @@ inherit LIB_VERB;
 
 varargs void eventCheckBody(object ob, object receiver);
 
-static void create() {
+protected void create() {
     verb::create();
     SetVerb("body");
     SetRules("", "LIV");
 }
 
-static string *DamageDegree = ({
+nosave string *DamageDegree = ({
         "is in critical condition!",
         "is battered beyond recognition.",
         "is severely wounded",

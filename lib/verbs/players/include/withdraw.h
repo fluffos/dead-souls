@@ -1,7 +1,7 @@
 #ifndef l_withdraw_h
 #define l_withdraw_h
 
-static void create();
+protected void create();
 mixed can_withdraw();
 mixed do_withdraw();
 

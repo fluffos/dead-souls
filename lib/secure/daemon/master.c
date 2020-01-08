@@ -43,18 +43,18 @@
 inherit LIB_DAEMON;
 #include <mssp.h>
 
-private static int incept_date, ResetNumber, heart_count, in_reset;
-private static int eval_threshold, reset_handle = -1;
+private nosave int incept_date, ResetNumber, heart_count, in_reset;
+private nosave int eval_threshold, reset_handle = -1;
 private int BootScore, PerformanceScore, globalpmsg;
-private static object Unguarded, gguy;
-private static string PlayerName, rlog, gcmd, bname, gstr;
-private static object NewPlayer;
-private static mapping Groups, ReadAccess, WriteAccess, CostErr;
-private static string *ParserDirs = ({ "secure", "verbs", "daemon", "lib", "powers" });
-private static string array efuns_arr = ({});
-private static string MudName, mconfig;
+private nosave object Unguarded, gguy;
+private nosave string PlayerName, rlog, gcmd, bname, gstr;
+private nosave object NewPlayer;
+private nosave mapping Groups, ReadAccess, WriteAccess, CostErr;
+private nosave string *ParserDirs = ({ "secure", "verbs", "daemon", "lib", "powers" });
+private nosave string array efuns_arr = ({});
+private nosave string MudName, mconfig;
 
-static void Setup(){
+protected void Setup(){
     if(uptime() < 30) MudName = 0;
 }
 
@@ -100,7 +100,7 @@ void create() {
     ReadName();
 }
 
-static void heart_beat(){
+protected void heart_beat(){
     heart_count++;
     if(!(heart_count % 60)){
         CostErr = ([]);
@@ -133,7 +133,7 @@ void new_groups() {
     Groups = tmp;
 }
 
-private static void load_access(string cfg, mapping resource) {
+private nosave void load_access(string cfg, mapping resource) {
     string *lines;
     string file;
 
@@ -385,7 +385,7 @@ int check_access(object ob, string fun, mixed file, string *ok, string oper) {
     return 1;
 }
 
-nomask static int check_user(object ob, string fun, string file, string oper){
+nomask nosave int check_user(object ob, string fun, string file, string oper){
     string nom, tmp;
     int x;
     if(interactive(ob) && !creatorp(ob)){
@@ -400,7 +400,7 @@ nomask static int check_user(object ob, string fun, string file, string oper){
     return x;
 }
 
-nomask static int check_domain(object ob, string fun, string file, string o) {
+nomask nosave int check_domain(object ob, string fun, string file, string o) {
     string nom;
     int x;
     if( !sscanf(file, DOMAINS_DIRS+"/%s/%*s", nom) ) return 0;
@@ -489,7 +489,7 @@ object compile_object(string str) {
     return call_other(tmp, "compile_object", str);               
 }
 
-static void crash(mixed args...) {
+protected void crash(mixed args...) {
     string err;
     string guilty_stack = get_stack();
     string guilty_obs = identify(previous_object(-1));
@@ -781,7 +781,7 @@ string author_file(string str) {
     return 0;
 }
 
-static int slow_shutdown() {
+protected int slow_shutdown() {
     write_file(DIR_LOGS "/audit", 
             "Armageddon loaded by master: "+ctime(time())+".\n");
     EVENTS_D->eventRebootMud(2);
@@ -1014,7 +1014,7 @@ string *query_group(string grp) { return copy(Groups[grp]); }
 
 mapping query_groups() { return copy(Groups); }
 
-static void eventReset(){
+protected void eventReset(){
     object *obs;
     object ob;
     int x, y, z = 0;

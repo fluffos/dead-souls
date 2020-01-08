@@ -14,7 +14,7 @@ inherit LIB_ITEM;
 int __Light, __Indoors;
 string __Short, __Long, __Exit, __NewRoom, __EstateLong;
 
-static private string create_file();
+protected private string create_file();
 
 void create() {
     ::create();
@@ -38,7 +38,7 @@ void init() {
     add_action("cmd_build", "build");
 }
 
-static int cmd_build(string str) {
+protected int cmd_build(string str) {
     if(str != "estate") return 0;
     if(!high_mortalp(this_player())) 
         return notify_fail("Only high mortals may build!\n");
@@ -64,7 +64,7 @@ static int cmd_build(string str) {
     return 1;
 }
 
-static void input_long(string str) {
+protected void input_long(string str) {
     if(str == "") {
         message("system", "Invalid entry.", this_player());
         return;
@@ -78,14 +78,14 @@ static void input_long(string str) {
     input_to("input_short");
 }
 
-static void input_short(string str) {
+protected void input_short(string str) {
     __Short = str;
     message("prompt", "Is the room 0) outdoors, or 1) indoors? ", this_player());
     input_to("input_indoors");
     return;
 }
 
-static void input_indoors(string str) {
+protected void input_indoors(string str) {
     int x;
 
     x = to_int(str);
@@ -100,7 +100,7 @@ static void input_indoors(string str) {
     input_to("input_light");
 }
 
-static void input_light(string str) {
+protected void input_light(string str) {
     int x;
 
     x = to_int(str);
@@ -149,7 +149,7 @@ void done_edit(mixed *unused) {
     this_object()->remove();
 }
 
-static private string create_file() {
+protected private string create_file() {
     string dir, str;
     int x;
 
@@ -158,6 +158,6 @@ static private string create_file() {
     return str;
 }
 
-static int estates(object ob) {
+protected int estates(object ob) {
     return ob->id("estate");
 }

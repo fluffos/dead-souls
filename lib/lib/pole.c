@@ -9,9 +9,9 @@
 
 inherit LIB_BAIT;
 
-static private int PoleStrength, CatchChance;
+nosave private int PoleStrength, CatchChance;
 
-static void create(){
+protected void create(){
     string *bait_save = bait::GetSave();
     PoleStrength = 0;
     CatchChance = 0;

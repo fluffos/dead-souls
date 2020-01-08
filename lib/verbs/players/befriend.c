@@ -2,7 +2,7 @@
 
 inherit LIB_VERB;
 
-static void create() {
+protected void create() {
     ::create();
     SetVerb("befriend");
     SetRules("LIV");

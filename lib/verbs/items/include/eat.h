@@ -1,7 +1,7 @@
 #ifndef l_eat_h
 #define l_eat_h
 
-static void create();
+protected void create();
 
 mixed can_eat_obj(string verb);
 

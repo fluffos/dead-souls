@@ -10,7 +10,7 @@ int CheckRat(mixed val){
     return 1;
 }
 
-static void create() {
+protected void create() {
     sentient::create();
     SetKeyName("rat");
     SetMaxHealthPoints(10);

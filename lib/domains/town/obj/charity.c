@@ -2,7 +2,7 @@
 
 inherit LIB_STORAGE;
 
-static int maxlevel = 5;
+nosave int maxlevel = 5;
 
 string ReadSign(){
     string ret = "Only players of level "+cardinal(maxlevel)+" and below "+

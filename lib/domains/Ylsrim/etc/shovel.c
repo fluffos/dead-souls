@@ -9,7 +9,7 @@
 inherit LIB_ITEM;
 inherit LIB_DIG_WITH;
 
-static void create() {
+protected void create() {
     item::create();
     SetKeyName("shovel");
     SetId("shovel", "spade");

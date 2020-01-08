@@ -7,18 +7,18 @@
 
 inherit LIB_DAEMON;
 
-static private int router_socket;
-static private mapping sockets = ([]);
-static private int incept_date;
+nosave private int router_socket;
+nosave private mapping sockets = ([]);
+nosave private int incept_date;
 int verbose = 0;
 
-static void close_callback(int fd, int force);
+nosave void close_callback(int fd, int force);
 void write_data(int fd, mixed data);
 varargs void yenta(mixed arg1, mixed arg2);
 object cmd = load_object(CMD_ROUTER);
 object router = find_object(IMC2_SERVER_D);
 
-varargs static void validate(int i){
+varargs protected void validate(int i){
     if(i){
         if(!socket_status(i) || !socket_status(i)[5]){
             server_log("%^RED%^BAD SOCKET ALERT. fd "+i+":  "+
@@ -35,7 +35,7 @@ varargs static void validate(int i){
     }
 }
 
-static void create(){
+protected void create(){
     incept_date = time();
     call_out("setup",1);
     SetNoClean(1);
@@ -63,7 +63,7 @@ void close_connection(int fd){
     yenta("%^WHITE%^---\n","ssocket");
 }
 
-static void close_callback(int fd, int force){
+nosave void close_callback(int fd, int force){
     string mudname;
     mapping muds_on_this_fd = ([]);
 
@@ -84,7 +84,7 @@ static void close_callback(int fd, int force){
     close_connection(fd);
 }
 
-static void listen_callback(int fd){
+protected void listen_callback(int fd){
     int fdstat;
 
     validate(fd);
@@ -99,7 +99,7 @@ static void listen_callback(int fd){
     }
 }
 
-static void read_callback(int fd, mixed info){
+nosave void read_callback(int fd, mixed info){
 
     validate(fd);
     if(bufferp(info)){
@@ -112,7 +112,7 @@ static void read_callback(int fd, mixed info){
     IMC2_SERVER_D->read_callback(fd,info);
 }
 
-static void write_callback(int fd){
+protected void write_callback(int fd){
 
     validate(fd);
 
@@ -126,7 +126,7 @@ static void write_callback(int fd){
     }
 }
 
-static void write_data_retry(int fd, mixed data, int counter){
+nosave void write_data_retry(int fd, mixed data, int counter){
     int rc;
     int maxtry;
 
@@ -188,7 +188,7 @@ void broadcast_data(mapping targets, mixed data){
             }
             }
 
-            static void setup(){
+            protected void setup(){
             int router_port;
 
             if(!find_object(IMC2_SERVER_D)) return;

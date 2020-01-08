@@ -1,7 +1,7 @@
 #ifndef l_dig_h
 #define l_dig_h
 
-static void create();
+protected void create();
 
 mixed can_dig_with_obj(string verb);
 mixed can_dig_obj_with_obj(string verb);

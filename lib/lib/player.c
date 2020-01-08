@@ -28,12 +28,12 @@ private string *Titles;
 string *Muffed = ({});
 private mapping *Deaths;
 private int TrainingPoints, TitleLength;
-private static int heartcount;
+private nosave int heartcount;
 private mixed telopt_ip;
 
 /* *****************  /lib/player.c driver applies  ***************** */
 
-static void create(){
+protected void create(){
     interactive::create();
     living::create();
 
@@ -41,7 +41,7 @@ static void create(){
     TitleLength = 1;
 }
 
-static void heart_beat(){
+protected void heart_beat(){
     mixed heartping;
     int idle;
 
@@ -76,12 +76,12 @@ static void heart_beat(){
 #endif
 }
 
-static void net_dead(){
+protected void net_dead(){
     interactive::net_dead();
     set_heart_beat(0);
 }
 
-static int Destruct(){
+protected int Destruct(){
     CHARACTER_D->eventSaveTime();
     living::Destruct();
     return interactive::Destruct();
@@ -148,7 +148,7 @@ varargs mixed eventDisplayStatus(int simple){
     return str;
 }
 
-static void eventDestroyUndead(object agent){
+protected void eventDestroyUndead(object agent){
 }
 
 varargs int eventDie(mixed agent){
@@ -609,7 +609,7 @@ varargs mixed GetEffectiveVision(mixed location, int raw_score){
     else return living::GetEffectiveVision();
 }
 
-varargs static int AddHealthPoints(int x, string limb, object agent){
+varargs nosave int AddHealthPoints(int x, string limb, object agent){
     int hp, ret, undead;
     hp = GetHealthPoints();
     undead = GetUndead();

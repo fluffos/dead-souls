@@ -82,7 +82,7 @@ void init() {
     add_action("cmd_quit", "quit");
 }
 
-static int cmd_quit(string str) {
+protected int cmd_quit(string str) {
     message("system", "You cannot quit from the sheriff's office.",
             this_player());
     return 1;

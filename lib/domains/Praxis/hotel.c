@@ -15,9 +15,9 @@ int query_occupied(int chambre);
 string query_key_id(int chambre);
 object query_room(int chambre);
 void check_out();
-static private void random_key(int chambre);
+protected private void random_key(int chambre);
 
-static private mapping __Rooms;
+nosave private mapping __Rooms;
 void create() {
     int x;
 

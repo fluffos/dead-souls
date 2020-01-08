@@ -9,9 +9,9 @@
 
 inherit LIB_DAEMON;
 
-static void eventOrderTitles(string *titles, int maxi);
-static void GetTitle(string which, string *titles, int maxi);
-static void GetDest(string which, string *titles, int i, int maxi);
+nosave void eventOrderTitles(string *titles, int maxi);
+nosave void GetTitle(string which, string *titles, int maxi);
+nosave void GetDest(string which, string *titles, int i, int maxi);
 
 mixed cmd(string args) {
     string *titles;
@@ -64,7 +64,7 @@ mixed cmd(string args) {
     return 1;
 }
 
-static void eventOrderTitles(string *titles, int maxi) {
+nosave void eventOrderTitles(string *titles, int maxi) {
     int i;
 
     message("system", "You have the following titles:", this_player());
@@ -75,7 +75,7 @@ static void eventOrderTitles(string *titles, int maxi) {
     input_to((: GetTitle :), titles, maxi);
 }
 
-static void GetTitle(string which, string *titles, int maxi) {
+nosave void GetTitle(string which, string *titles, int maxi) {
     int x;
 
     if( which == "q" ) {
@@ -96,7 +96,7 @@ static void GetTitle(string which, string *titles, int maxi) {
     input_to( (: GetDest :), titles, x, maxi );
 }
 
-static void GetDest(string which, string *titles, int i, int maxi) {
+nosave void GetDest(string which, string *titles, int i, int maxi) {
     string *tmp;
     int j, maxj, x;
 

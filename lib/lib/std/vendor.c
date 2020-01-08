@@ -7,11 +7,11 @@
 inherit LIB_SENTIENT;
 inherit LIB_MANYCOINS;
 
-private static int MaxItems, VendorType, bargain;
-private static string StorageRoom, LocalCurrency;
-private static mapping Costs, Values;
+private nosave int MaxItems, VendorType, bargain;
+private nosave string StorageRoom, LocalCurrency;
+private nosave mapping Costs, Values;
 
-static void create(){
+protected void create(){
     sentient::create();
     Costs = ([]);
     Values = ([]);

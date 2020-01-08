@@ -15,9 +15,9 @@ inherit LIB_DAEMON;
 
 private int NextID;
 private mapping Bugs;
-static string SaveFile;
+nosave string SaveFile;
 
-static void create() {
+protected void create() {
     mapping bug;
     int t, bug_id;
     SaveFile = save_file(SAVE_BUGS);

@@ -13,10 +13,10 @@
 inherit LIB_DAEMON;
 
 mapping Parties;
-static string SaveFile;
+nosave string SaveFile;
 string *old_parties;
 
-static void create() {
+protected void create() {
     daemon::create();
     SaveFile = save_file(SAVE_PARTIES);
     Parties = ([]);
@@ -30,7 +30,7 @@ static void create() {
     SaveObject(SaveFile);
 }
 
-static void eventDestroyParty(string party){
+protected void eventDestroyParty(string party){
     if(!party || !Parties[party]) return;
     foreach(mixed member in this_object()->GetPartyMembers(party)){
         if(member){
@@ -51,7 +51,7 @@ string *GetOldParties(){
     return sort_array((copy(old_parties || ({})) - keys(Parties || ([]))),1);
 }
 
-static void eventCleanParties(){
+protected void eventCleanParties(){
     foreach(mixed key, mixed val in Parties){
         mixed array members = this_object()->GetPartyMembers(key);
         members -= ({ 0 });
@@ -270,7 +270,7 @@ object *GetPartyMembers(string name) {
     return 0;
 }
 
-static void RemoveInvitiation(string name, object who) {
+nosave void RemoveInvitiation(string name, object who) {
     if( !Parties[name] ) return;
     if( member_array(who, ((class party)Parties[name])->Invited) == -1 )
         return;

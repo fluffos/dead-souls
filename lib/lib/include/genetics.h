@@ -1,7 +1,7 @@
 #ifndef l_genetics_h
 #define l_genetics_h
 
-static void create();
+protected void create();
 
 mixed eventCustomizeStat(string stat, int amount);
 

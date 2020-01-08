@@ -56,12 +56,12 @@
 
 inherit LIB_SOCKET;
 
-private static class  ftp_session Session;
+private nosave class  ftp_session Session;
 private        string      Password  = 0;
-private static mixed       outfile   = ([]);
-private static int         MaxBuffer = get_config(__MAX_BYTE_TRANSFER__);
-private static int         MaxFile   = get_config(__MAX_READ_FILE_SIZE__);
-private static mapping     dispatch  = ([
+private nosave mixed       outfile   = ([]);
+private nosave int         MaxBuffer = get_config(__MAX_BYTE_TRANSFER__);
+private nosave int         MaxFile   = get_config(__MAX_READ_FILE_SIZE__);
+private nosave mapping     dispatch  = ([
         "user" : (: eventCmdUser :), "pass" : (: eventCmdPass :),
         "retr" : (: eventCmdRetr :), "stor" : (: eventCmdStor :),
         "nlst" : (: eventCmdNlst :), "list" : (: eventCmdList :),
@@ -74,14 +74,14 @@ private static mapping     dispatch  = ([
         "pwd"  : (: eventCmdPwd  :), "rmd"  : (: eventCmdRmd  :),
         ]);
 
-static void create(int fd, object owner){
+nosave void create(int fd, object owner){
     socket::create(fd, owner); 
     Session = new(class ftp_session);
     Session->cmdPipe = owner;
     Session->idleTime = 0;
 }
 
-nomask static int check_privs(string file, string oper) {
+nomask nosave int check_privs(string file, string oper) {
     string nom, tmp;
     int x;
 

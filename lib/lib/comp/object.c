@@ -31,7 +31,7 @@ mixed indirect_dest_obj(){ return CanDest(); }
 mixed direct_dest_obj(){ return CanDest(); }
 
 /* ************************ object.c events ********************* */
-static int Destruct(){
+protected int Destruct(){
     object env;
     int x;
 
@@ -47,6 +47,6 @@ static int Destruct(){
 }
 
 /* ******************* object.c driver applies **************** */
-static void create(){
+protected void create(){
     parse_init();
 }

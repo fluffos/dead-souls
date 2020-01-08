@@ -12,10 +12,10 @@
 int heart_count = 0;
 
 string router_port;
-static mixed alternates = ({});
-static int allow_multi_routers = 0;
+nosave mixed alternates = ({});
+nosave int allow_multi_routers = 0;
 
-static void create(){ 
+protected void create(){ 
     object rsock = find_object(RSOCKET_D);
     object ssock = find_object(SSOCKET_D);
     object sserver = find_object(IMC2_SERVER_D);
@@ -103,7 +103,7 @@ void heart_beat(){
     }
 }
 
-    static void setup(){
+    protected void setup(){
         if( file_size( SAVE_ROUTER __SAVE_EXTENSION__ ) > 0 )
             unguarded( (: RestoreObject, SAVE_ROUTER, 1 :) );
         call_out("SetList",1);

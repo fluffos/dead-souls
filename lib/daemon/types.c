@@ -43,7 +43,7 @@ mapping Types = ([]);
 int eventReadTypes();
 int eventReadConfigs();
 
-static void create() {
+protected void create() {
     ::create();
     SetSaveFile(SAVE_TYPES);
     if(!Types) Types = ([]);

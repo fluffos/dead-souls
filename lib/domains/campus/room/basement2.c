@@ -10,7 +10,7 @@ int push_it(string str){
     }
 }
 
-static void create() {
+protected void create() {
     room::create();
     SetClimate("indoors");
     SetAmbientLight(5);

@@ -1,7 +1,7 @@
 #ifndef l_read_h
 #define l_read_h
 
-static void create();
+protected void create();
 
 mixed direct_read_obj();
 mixed direct_read_str_word_obj(string str);

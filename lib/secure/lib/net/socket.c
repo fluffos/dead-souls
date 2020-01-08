@@ -10,8 +10,8 @@
 
 inherit LIB_DAEMON;
 
-private static int    Descriptor = -1;
-private static object Owner      = 0;
+private nosave int    Descriptor = -1;
+private nosave object Owner      = 0;
 
 /* *********************** socket.c attributes ********************* */
 string GetAddress() {
@@ -23,7 +23,7 @@ int GetDescriptor() {
 }
 
 /* ************************* socket.c events *********************** */
-static int eventCloseSocket() {
+protected int eventCloseSocket() {
     if(!Owner) return 0;
     Owner->eventClose(this_object());
 }
@@ -48,7 +48,7 @@ int eventSocketClosed() {
 }
 
 
-varargs static int eventWrite(mixed data, int close) {
+varargs nosave int eventWrite(mixed data, int close) {
     if(!close) close = 0;
     if(!data) data = ({});
     if(Owner && this_object()) return Owner->eventWrite(this_object(), data, close);
@@ -56,7 +56,7 @@ varargs static int eventWrite(mixed data, int close) {
 }
 
 /* ******************** socket.c driver applies ****************** */
-static void create(int fd, object owner) {
+nosave void create(int fd, object owner) {
     daemon::create();
     SetNoClean(1);
     Descriptor = fd;

@@ -74,7 +74,7 @@ mixed eventGet(object who){
     return 1;
 }
 
-static void create(){
+protected void create(){
     PreventGet = 0;
 }
 

@@ -1,6 +1,6 @@
 #include <function.h>
 
-static private mapping Pull = ([]);
+nosave private mapping Pull = ([]);
 
 // abstract methods
 string GetDefiniteShort();

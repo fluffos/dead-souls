@@ -13,10 +13,10 @@
 #include <position.h>
 #include "include/exits.h"
 
-private static string Obvious, GoMessage, EnterMessage, Dir, Sky;
-private static mapping Exits, Doors;
+private nosave string Obvious, GoMessage, EnterMessage, Dir, Sky;
+private nosave mapping Exits, Doors;
 
-static void create(){
+protected void create(){
     Exits = ([]);
     Doors = ([]);
     Obvious = "";
@@ -223,7 +223,7 @@ string GetEnter(string dir){
     }
 }
 
-static mapping GetEnterData(string dir){
+protected mapping GetEnterData(string dir){
     object ob = GetDummyItem(dir);
 
     if( !ob ){

@@ -6,7 +6,7 @@
 
 inherit LIB_VERB;
 
-static void create(){
+protected void create(){
     verb::create();
     SetVerb("swim");
     SetRules("", "STR", "into STR");

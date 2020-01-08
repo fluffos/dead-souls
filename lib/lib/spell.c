@@ -40,7 +40,7 @@ int GetAutoDamage(){
     return AutoDamage;
 }
 
-static int SetAutoDamage(int x){
+protected int SetAutoDamage(int x){
     return (AutoDamage = x);
 }
 
@@ -48,7 +48,7 @@ int GetAutoHeal(){
     return AutoHeal;
 }
 
-static int SetAutoHeal(int x){
+protected int SetAutoHeal(int x){
     return (AutoHeal = x);
 }
 
@@ -56,7 +56,7 @@ string GetConjure(){
     return Conjure;
 }
 
-static string SetConjure(string str){
+protected string SetConjure(string str){
     return (Conjure = str);
 }
 
@@ -76,7 +76,7 @@ int GetDamage(){
     return damage;
 }
 
-varargs static void SetDamage(int type, mixed array rest...){
+varargs nosave void SetDamage(int type, mixed array rest...){
     DamageType = type;
     if( arrayp(rest[0]) ){
         rest = rest[0];
@@ -96,7 +96,7 @@ int GetDifficulty(){
     return Difficulty;
 }
 
-static int SetDifficulty(int x){
+protected int SetDifficulty(int x){
     return (Difficulty = x);
 }
 
@@ -163,7 +163,7 @@ int GetHealing(){
     return Healing[0] + random(Healing[1]);
 }
 
-static varargs int array SetHealing(mixed args...){
+protected varargs int array SetHealing(mixed args...){
     Healing[0] = args[0];
     if( sizeof(args) == 2 ){
         Healing[1] = args[1];
@@ -175,7 +175,7 @@ int GetMagicCost(){
     return MagicCost[0] + random(MagicCost[1]);
 }
 
-static varargs int array SetMagicCost(mixed args...){
+protected varargs int array SetMagicCost(mixed args...){
     MagicCost[0] = args[0];
     if( sizeof(args) == 2 ){
         MagicCost[1] = args[1];
@@ -206,7 +206,7 @@ varargs string array GetMessage(int damage, int healing){
     return Messages[i];
 }
 
-static mixed array SetMessages(mixed array messages){
+protected mixed array SetMessages(mixed array messages){
     return (Messages = messages);
 }
 
@@ -214,7 +214,7 @@ int GetMorality(){
     return Morality;
 }
 
-static int SetMorality(int x){
+protected int SetMorality(int x){
     return (Morality = x);
 }
 
@@ -222,7 +222,7 @@ string array GetReligions(){
     return copy(Religions);
 }
 
-varargs static string array SetReligions(string array religions...){
+varargs protected string array SetReligions(string array religions...){
     return (Religions = religions);
 }
 
@@ -230,7 +230,7 @@ int GetRemoteTargets(){
     return RemoteTargets;
 }
 
-static int SetRemoteTargets(int x){
+protected int SetRemoteTargets(int x){
     return (RemoteTargets = x);
 }
 
@@ -238,7 +238,7 @@ int GetRequiredMagic(){
     return RequiredMagic;
 }
 
-static int SetRequiredMagic(int x){
+protected int SetRequiredMagic(int x){
     return (RequiredMagic = x);
 }
 
@@ -246,7 +246,7 @@ int GetRequiredStamina(){
     return RequiredStamina;
 }
 
-static int SetRequiredStamina(int x){
+protected int SetRequiredStamina(int x){
     return (RequiredStamina = x);
 }
 
@@ -258,7 +258,7 @@ string array GetRules(){
     return Rules;
 }
 
-varargs static string array SetRules(mixed args...){
+varargs protected string array SetRules(mixed args...){
     if( !args ){
         args = ({ "" });
     }
@@ -272,7 +272,7 @@ string array GetSkills(){
     return keys(Skills);
 }
 
-static mapping SetSkills(mapping mp){
+protected mapping SetSkills(mapping mp){
     return (Skills = mp);
 }
 
@@ -280,7 +280,7 @@ string GetSpell(){
     return SpellName;
 }
 
-static string SetSpell(string str){
+protected string SetSpell(string str){
     return (SpellName = str);
 }
 
@@ -288,7 +288,7 @@ int GetSpellType(){
     return SpellType;
 }
 
-static int SetSpellType(int x){
+protected int SetSpellType(int x){
     return (SpellType = x);
 }
 
@@ -296,7 +296,7 @@ int GetStaminaCost(){
     return StaminaCost[0] + random(StaminaCost[1]);
 }
 
-static varargs int array SetStaminaCost(mixed args...){
+protected varargs int array SetStaminaCost(mixed args...){
     StaminaCost[0] = args[0];
     if( sizeof(args) == 2 ){
         StaminaCost[1] = args[1];
@@ -420,7 +420,7 @@ varargs object array GetTargets(object who, mixed args...){
     return 0;
 }
 
-static int SetTrainingModifier(int modifier){
+protected int SetTrainingModifier(int modifier){
     return TrainingModifier = modifier;
 }
 
@@ -432,12 +432,12 @@ string GetVerb(){
     return Verb;
 }
 
-static string SetVerb(string verb){
+protected string SetVerb(string verb){
     return (Verb = verb);
 }
 
 /* ******************** spell.c modals *************************** */
-static int CanSpellAttack(object who, object array enemies, int power){
+nosave int CanSpellAttack(object who, object array enemies, int power){
     int i, maxi = sizeof(enemies);
     int hits = 0;
     int misses = 0;
@@ -777,7 +777,7 @@ varargs mixed eventParse(object who, mixed array args...){
 }
 
 /* ***************** spell.c driver applies ******************** */
-static void create(){
+protected void create(){
     daemon::create();
     SetNoClean(1);
 }

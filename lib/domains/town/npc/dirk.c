@@ -33,7 +33,7 @@ int TalkFunc(){
     return 1;
 }
 
-static void create() {
+protected void create() {
     int i;
     sentient::create();
     Levels = PLAYERS_D->GetLevelList();

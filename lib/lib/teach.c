@@ -1,7 +1,7 @@
 #include <lib.h>
 
-private static mapping Teaching = ([]);
-private static int OfferExpires = 60;
+private nosave mapping Teaching = ([]);
+private nosave int OfferExpires = 60;
 
 int direct_teach_str_to_liv(){ return 1;}
 int direct_teach_liv_to_str(){ return 1;}

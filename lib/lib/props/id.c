@@ -9,15 +9,15 @@
 #include <lib.h>
 #include <daemons.h>
 
-private static string array Adjectives   = ({});
+private nosave string array Adjectives   = ({});
 private string              CapName      = 0;
-private static string array Id           = ({});
-private static string array CanonicalId  = ({});
-private static string array ExcludedIds  = ({});
-private static string       KeyName      = 0;
-private static int          Matching     = 1;
-private static object array NotifiedObjects = ({});
-private static mixed array  rfn          = ({});
+private nosave string array Id           = ({});
+private nosave string array CanonicalId  = ({});
+private nosave string array ExcludedIds  = ({});
+private nosave string       KeyName      = 0;
+private nosave int          Matching     = 1;
+private nosave object array NotifiedObjects = ({});
+private nosave mixed array  rfn          = ({});
 
 string GetKeyName();
 

@@ -23,8 +23,8 @@ int GetStaminaPoints();
 void SetAttack(object array e, function f, int type);
 // end abstract methods
 
-static varargs void eventCast(object spell, string limb, object array targs);
-static void eventTrainSpell(object spell);
+nosave varargs void eventCast(object spell, string limb, object array targs);
+protected void eventTrainSpell(object spell);
 
 mapping GetSpellBook(){
     return copy(SpellBook);
@@ -152,7 +152,7 @@ varargs mixed eventPrepareCast(string verb, mixed array args...){
     return 1;
 }
 
-static varargs void eventCast(object spell, string limb, object array targs){
+nosave varargs void eventCast(object spell, string limb, object array targs){
     string name = spell->GetSpell();
 
     if( this_object()->GetSpellBook()[name] < 100 ){
@@ -181,7 +181,7 @@ mixed eventLearnSpell(string spell){
     return 1;
 }
 
-static void eventTrainSpell(object spell){
+protected void eventTrainSpell(object spell){
     string name = spell->GetSpell();
     int x = SpellBook[name] + 1;
 

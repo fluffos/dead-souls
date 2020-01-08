@@ -8,7 +8,7 @@
 #include <lib.h>
 #include <daemons.h>
 
-private static string keyname;
+private nosave string keyname;
 
 string SetKeyName(string str){
     if(base_name(previous_object()) != RELOAD_D) return "";

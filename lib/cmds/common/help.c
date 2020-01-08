@@ -55,7 +55,7 @@ mixed cmd(string arg) {
     return 1;
 }
 
-static int CanAccess(object who, string index) {
+nosave int CanAccess(object who, string index) {
     return HELP_D->CanAccess(who, index);
 }
 

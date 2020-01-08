@@ -1,7 +1,7 @@
 #ifndef l_scroll_h
 #define l_scroll_h
 
-static void create();
+protected void create();
 mixed direct_use_obj_to_str(string str);
 
 mixed CanUse(object who, string str);

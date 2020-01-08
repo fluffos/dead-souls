@@ -1,6 +1,6 @@
 #include <function.h>
 
-static private mapping Scratch = ([]);
+nosave private mapping Scratch = ([]);
 
 // abstract methods
 string GetDefiniteShort();

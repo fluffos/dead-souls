@@ -21,7 +21,7 @@ private string EmptyItem, EmptyName, OtherMessage;
 private mixed EmptyShort, EmptyLong, MyMessage;
 function MealAction;
 
-static void create(){
+protected void create(){
     item::create();
     MealType = MEAL_ALCOHOL;
     EmptyItem = 0;
@@ -57,7 +57,7 @@ mixed direct_eat_obj(){
     return this_player()->CanEat(this_object());
 }
 
-static mixed AddSave(mixed *vars){ return item::AddSave(vars); }
+protected mixed AddSave(mixed *vars){ return item::AddSave(vars); }
 
 string GetShort(){ return item::GetShort(); }
 

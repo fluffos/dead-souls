@@ -14,7 +14,7 @@ inherit LIB_DAEMON;
 
 private mapping __MyGroups;
 private mapping __Options;
-static private string __Owner;
+nosave private string __Owner;
 
 void create() {
     daemon::create();
@@ -24,7 +24,7 @@ void create() {
     __Owner = 0;
 }
 
-static private int valid_access() {
+protected private int valid_access() {
     switch(base_name(previous_object(0))) {
         case OBJ_POST: case FOLDERS_D: case LETTERS_D:
         case LOCALPOST_D: case REMOTEPOST_D: case OPTIONS_D:
@@ -50,7 +50,7 @@ void assure_box_exists(string who) {
     SaveObject(file+"/postalrc");
 }
 
-static private void load_options(string who) {
+protected private void load_options(string who) {
     string file;
     if(who == __Owner) return;
     this_object()->assure_box_exists(who);
@@ -62,7 +62,7 @@ static private void load_options(string who) {
     RestoreObject(file);
 }
 
-static private void save_options() {
+protected private void save_options() {
     string file;
     file = DIR_POSTAL+"/"+__Owner[0..0]+"/"+__Owner+"/postalrc";
     SaveObject(file);

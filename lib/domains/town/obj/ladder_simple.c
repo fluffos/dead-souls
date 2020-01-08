@@ -4,7 +4,7 @@
 inherit LIB_ITEM;
 inherit LIB_CLIMB;
 
-static void create() {
+protected void create() {
     ::create();
     SetKeyName("ladder");
     SetId("ladder");

@@ -1,7 +1,7 @@
 #ifndef l_get_h
 #define l_get_h
 
-static void create();
+protected void create();
 mixed direct_get_obj(object target);
 mixed direct_get_obj_from_obj(object target, object src);
 mixed direct_get_obj_out_of_obj(object target, object src);

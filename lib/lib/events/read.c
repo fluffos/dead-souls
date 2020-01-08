@@ -1,9 +1,9 @@
 #include <function.h>
 #include <message_class.h>
 
-static private string Language;
-static private mixed Read    = 0;
-static private mapping Reads = ([]);
+nosave private string Language;
+nosave private mixed Read    = 0;
+nosave private mapping Reads = ([]);
 
 private string tmpfile;
 

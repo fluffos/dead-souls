@@ -20,19 +20,19 @@ class data_conn {
     mixed array Buffer;
 }
 
-private static int DestructOnClose, SocketType = -1;
+private nosave int DestructOnClose, SocketType = -1;
 
-private static int PassiveMode = 0;
-private static string LogFile = "inet/ftp_data_conn_error";
-private static function Read;
-private static function Write;
-private static function Close;
-private static class data_conn Socket;
+private nosave int PassiveMode = 0;
+private nosave string LogFile = "inet/ftp_data_conn_error";
+private nosave function Read;
+private nosave function Write;
+private nosave function Close;
+private nosave class data_conn Socket;
 
-varargs static int eventClose(class data_conn sock, int aboted);
-static void eventRead(mixed val);
-static void eventSocketClose();
-static void eventSocketError(string str, int x);
+varargs nosave int eventClose(class data_conn sock, int aboted);
+protected void eventRead(mixed val);
+protected void eventSocketClose();
+nosave void eventSocketError(string str, int x);
 int eventWriteDestruct();
 function SetRead(function f) { return (Read = f); }
 
@@ -99,7 +99,7 @@ int eventCreateSocket(string host, int port) {
     }
 }
 
-static void eventAbortCallback(int fd) {
+protected void eventAbortCallback(int fd) {
     if( !Socket ) return;
     if( !PassiveMode && fd != Socket->Descriptor ) return;
     if( PassiveMode && fd != Socket->PassiveDescriptor ) return;
@@ -107,7 +107,7 @@ static void eventAbortCallback(int fd) {
 }
 
 /* Added by Zaxan@Haven */
-static void eventListenCallback(int fd)
+protected void eventListenCallback(int fd)
 {
     int x;
 
@@ -121,14 +121,14 @@ static void eventListenCallback(int fd)
     }
 }
 
-static void eventReadCallback(int fd, mixed val) {
+nosave void eventReadCallback(int fd, mixed val) {
     if( functionp(Read) ) evaluate(Read, val);
     else eventRead(val);
 }
 
-static void eventRead(mixed val) { }
+protected void eventRead(mixed val) { }
 
-static void eventWriteCallback(int fd) {
+protected void eventWriteCallback(int fd) {
     int x;
     if( !Socket ){
         eventDestruct();
@@ -196,7 +196,7 @@ void eventWrite(mixed val) {
             Socket->Descriptor);
 }
 
-varargs static int eventClose(class data_conn sock, int aborted) {
+varargs nosave int eventClose(class data_conn sock, int aborted) {
     if( !sock ) return 0;
     if( !aborted && socket_close(sock->Descriptor) != EESUCCESS ) {
         return 0;
@@ -209,7 +209,7 @@ varargs static int eventClose(class data_conn sock, int aborted) {
 }
 
 
-static void eventSocketClose() { }
+protected void eventSocketClose() { }
 
 int eventDestruct() {
     eventClose(Socket);
@@ -221,7 +221,7 @@ int eventWriteDestruct() {
     return eventDestruct();
 }
 
-static void eventSocketError(string str, int x) { 
+nosave void eventSocketError(string str, int x) { 
     if( LogFile ) 
         log_file(LogFile, ctime(time()) + " - " + str + " (" + socket_error(x)
             + ")\n");

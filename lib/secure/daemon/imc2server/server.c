@@ -7,16 +7,16 @@
 #define CALL_OUT_COMPLETE_STARTUP 1
 
 inherit LIB_DAEMON;
-static string router_port = "8888";
+nosave string router_port = "8888";
 mapping mudinfo;
-static int lastel = 40;
+nosave int lastel = 40;
 
 object cmd = find_object(CMD_IMC_SERVER_D);
 object rsocket = find_object(RSOCKET_D);
 object ssocket = find_object(SSOCKET_D);
 object router = find_object(ROUTER_D);
 
-static void validate(){
+protected void validate(){
     if( previous_object() != cmd && previous_object() != rsocket &&
             previous_object() != this_object()  &&
             previous_object() != ssocket && previous_object() != router &&
@@ -369,7 +369,7 @@ varargs void write_data(int fd, mixed data, int startack, float vers){
     }
 }
 
-static void delayed_write(mixed data, int fd, string targetmud){
+nosave void delayed_write(mixed data, int fd, string targetmud){
     string checkmud = ROUTER_D->query_connected_fds()[fd];
     if(checkmud != targetmud) return;
     foreach(mixed element in data){
@@ -377,7 +377,7 @@ static void delayed_write(mixed data, int fd, string targetmud){
     }
 }
 
-static void close_connection(int fd){
+protected void close_connection(int fd){
     SSOCKET_D->close_connection(fd);
 }
 
@@ -485,7 +485,7 @@ varargs void construct_startup(mixed fd, mixed info, string client){
 }
 
 #if CALL_OUT_COMPLETE_STARTUP
-static complete_startup(int fd, mixed packet, string s1, mixed other){
+nosave complete_startup(int fd, mixed packet, string s1, mixed other){
     string checkmud = ROUTER_D->query_connected_fds()[fd]; 
     if(checkmud){
         return;

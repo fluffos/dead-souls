@@ -1,8 +1,8 @@
 #ifndef l_item_h
 #define l_item_h
 
-static void create();
-static void init();
+protected void create();
+protected void init();
 varargs void reset(int count);
 mixed direct_bury_obj_with_obj();
 mixed indirect_give_liv_obj(object target);
@@ -27,7 +27,7 @@ varargs mixed eventThrow(object who, object target);
 mixed eventPoison(object who, object agent, int strength);
 varargs mixed eventRepair(object who, int strength, int type);
 
-static int Destruct();
+protected int Destruct();
 
 string GetWornDescription();
 string GetItemCondition();

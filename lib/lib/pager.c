@@ -10,7 +10,7 @@
 #include <message_class.h>
 #include "include/pager.h"
 
-static private int InPager = 0;
+nosave private int InPager = 0;
 
 mixed more(mixed val, string cl, function f, mixed args){
     log_file("more", sprintf("%O", previous_object()) + "\n");
@@ -86,7 +86,7 @@ varargs mixed eventPage(mixed val, mixed msg_class, function f,mixed args...){
     return Page(files[0]+([]));
 }
 
-static int Page(mixed tmpfile){
+protected int Page(mixed tmpfile){
     string page, prompt, key;
     int endline, tmpcurrline, err;
     mixed tmparr, tmparr2;
@@ -131,7 +131,7 @@ static int Page(mixed tmpfile){
     return 1;
 }
 
-static void cmdPage(string str, mapping file){
+nosave void cmdPage(string str, mapping file){
     string *tmp;
     string cmd, args;
     int fp, x, scrlen;
@@ -324,7 +324,7 @@ static void cmdPage(string str, mapping file){
     }
 }
 
-varargs static private void RazzleDazzle(mixed args...){
+varargs protected private void RazzleDazzle(mixed args...){
     function f;
     InPager = 0;
     if(args && sizeof(args)){
@@ -338,7 +338,7 @@ varargs static private void RazzleDazzle(mixed args...){
     this_object()->CheckCharmode();
 }
 
-static private string GetPagerPrompt(mapping file){
+protected private string GetPagerPrompt(mapping file){
     int x;
 
     if( creatorp() && file["Name"] != "" )

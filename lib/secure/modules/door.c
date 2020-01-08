@@ -114,7 +114,7 @@ varargs int eventProcessDoor(mixed door, string property, mixed value, string co
 
     contents = "#include <lib.h>\n\n";
     contents += "inherit LIB_DOOR;\n\n";
-    contents += "static void create() {\n";
+    contents += "nosave void create() {\n";
     contents += "door::create();\n\n";
     if(cote) contents += this_object()->eventChangeDoor(door, property, value, cote)+"\n";
     else contents += this_object()->eventChangeDoor(door, property, value)+"\n";

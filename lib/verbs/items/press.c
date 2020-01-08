@@ -9,7 +9,7 @@
 
 inherit LIB_VERB;
 
-static void create() {
+protected void create() {
     verb::create();
     SetVerb("press");
     SetRules("OBJ", "STR on OBJ");

@@ -13,7 +13,7 @@ inherit LIB_ITEM;
 int __Light, __Indoors;
 string __Short, __Long, __Exit, __NewRoom;
 
-static private string create_file();
+protected private string create_file();
 
 void create() {
     ::create();
@@ -39,7 +39,7 @@ void init() {
     add_action("cmd_build", "build");
 }
 
-static int cmd_build(string str) {
+protected int cmd_build(string str) {
     if(!str) return notify_fail("Build which room?\n");
     if(file_size(ESTATES_DIRS+"/"+geteuid(this_player())) != -2)
         return notify_fail("You need an estates directory!\n");
@@ -56,7 +56,7 @@ static int cmd_build(string str) {
     return 1;
 }
 
-static void input_indoors(string str) {
+protected void input_indoors(string str) {
     int x;
 
     x = to_int(str);
@@ -71,7 +71,7 @@ static void input_indoors(string str) {
     input_to("input_light");
 }
 
-static void input_light(string str) {
+protected void input_light(string str) {
     int x;
 
     x = to_int(str);
@@ -110,7 +110,7 @@ void done_edit(mixed *unused) {
     input_to("input_exit");
 }
 
-static void input_exit(string str) {
+protected void input_exit(string str) {
     mapping valid_exits;
     string file;
 
@@ -143,7 +143,7 @@ static void input_exit(string str) {
     this_object()->remove();
 }
 
-static private string create_file() {
+protected private string create_file() {
     string dir, str;
     int x;
 

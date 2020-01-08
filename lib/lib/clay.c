@@ -1,8 +1,8 @@
 #include <lib.h>
 inherit LIB_SURFACE;
 
-private static string Composition, Name, ShortDesc, Desc;
-private static string *Nouns, *Adjs;
+private nosave string Composition, Name, ShortDesc, Desc;
+private nosave string *Nouns, *Adjs;
 
 varargs string SetComposition(string comp, string name, string *nouns, string *adjs, string
         short, string desc);

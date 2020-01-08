@@ -4,11 +4,11 @@
 #endif
 #define CED_DEBUG 0
 
-private static mapping FileData = ([]);
-private static mapping ScreenData = ([]);
+private nosave mapping FileData = ([]);
+private nosave mapping ScreenData = ([]);
 
-static int *GetScreen(){ return ({ 79, 24 }); }
-private static int ReceiveChars(string c);
+nosave int *GetScreen(){ return ({ 79, 24 }); }
+private protected int ReceiveChars(string c);
 
 void create(){
     mixed tmp = GetScreen();
@@ -97,7 +97,7 @@ varargs int RedrawScreen(int topline){
     return 1;
 }
 
-static int UpdateScreen(){
+protected int UpdateScreen(){
     if(ScreenData["row"] > (ScreenData["maxrow"] - 1)){ 
         if(!ScreenData["goto"] && !ScreenData["searching"])
             ScreenData["row"] = (ScreenData["maxrow"] - 1);
@@ -128,7 +128,7 @@ static int UpdateScreen(){
     StatReport();
 }
 
-static varargs int CeditCollate(int x){ /* when lines need to be resorted */
+protected varargs int CeditCollate(int x){ /* when lines need to be resorted */
     int i; 
     string tmp = "";
     string *lns = sort_array(keys(FileData["map"]), 1);
@@ -150,7 +150,7 @@ static varargs int CeditCollate(int x){ /* when lines need to be resorted */
     return i;
 }
 
-static varargs int CeditSave(string file){
+protected varargs int CeditSave(string file){
     string ret = "";
     int i;
     string *lns = sort_array(keys(FileData["map"]), 1);
@@ -168,7 +168,7 @@ static varargs int CeditSave(string file){
     return i;
 }
 
-static int rBackspace(){
+protected int rBackspace(){
     int col, row;
     string begin, end;
     col = ScreenData["col"];
@@ -192,7 +192,7 @@ static int rBackspace(){
     ScreenData["backspace"] = 0;
 } 
 
-static int rEnter(){
+protected int rEnter(){
     if(!ScreenData["sessionbuffer"]) ScreenData["sessionbuffer"] = "";
     if(ScreenData["searching"]){
         int end, i, start = ScreenData["pregoto"][0];
@@ -260,7 +260,7 @@ static int rEnter(){
     return 1;
 }
 
-static int rAscii(string c){
+protected int rAscii(string c){
     string tmp = c;
     int row, col, arrowed;
     if(!ScreenData["charbuffer"]) ScreenData["charbuffer"] = "";
@@ -326,7 +326,7 @@ static int rAscii(string c){
     return 1;
 }
 
-static int rDel(){
+protected int rDel(){
     string begin, end;
     int col, row;
     col = ScreenData["col"];
@@ -484,7 +484,7 @@ int rCtrl(string c){
     return 1;
 }
 
-static int rArrow(string str){
+protected int rArrow(string str){
     switch(str){
         int lasty;
         case "up" : ScreenData["row"]--; break;
@@ -558,7 +558,7 @@ int GetCedmode(){
     return ScreenData["cedmode"];
 }
 
-static int rAnsi(string str){
+protected int rAnsi(string str){
     return 1;
 }
 

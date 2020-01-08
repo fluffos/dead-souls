@@ -1,7 +1,7 @@
 #ifndef l_corpse_h
 #define l_corpse_h
 
-static void create();
+protected void create();
 
 int eventDecay();
 int eventDestruct();

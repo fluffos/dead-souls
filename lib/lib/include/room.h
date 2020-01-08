@@ -1,9 +1,9 @@
 #ifndef l_room_h
 #define l_room_h
 
-static void create();
+protected void create();
 varargs void reset(int count);
-static void init();
+protected void init();
 int id(string str);
 
 varargs mixed eventHearTalk(object who, object target, int cls, string verb, string msg, string lang);
@@ -12,7 +12,7 @@ varargs int eventPrint(string msg, mixed arg2, mixed arg3);
 varargs int eventShow(object who, string str);
 int CanAttack(object attacker, object who);
 
-static void LoadInventory();
+protected void LoadInventory();
 
 int GetAmbientLight();
 void SetShort(string str);
@@ -34,12 +34,12 @@ float GetGravity();
 mapping SetInventory(mapping mp);
 mapping GetInventory();
 int GetDayLight();
-static int SetDayLight(int x);
+protected int SetDayLight(int x);
 int GetNightLight();
-static int SetNightLight(int x);
+protected int SetNightLight(int x);
 int SetNoReplace(int x);
 int GetNoReplace();
 int GetShade();
-static int SetShade(int x);
+protected int SetShade(int x);
 
 #endif /* l_room_h */

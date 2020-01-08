@@ -4,9 +4,9 @@
 #include <privs.h>
 
 inherit LIB_DAEMON;
-static string SaveFile;
+nosave string SaveFile;
 
-static void create() {
+protected void create() {
     daemon::create();
     SaveFile = save_file("/domains/learning/save/analytics");
     SetSaveFile(SaveFile);

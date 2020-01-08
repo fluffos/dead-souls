@@ -13,7 +13,7 @@
 inherit LIB_VERB;
 string *eligible;
 
-static void create() {
+protected void create() {
     verb::create();
     SetVerb("put");
     SetSynonyms("place", "stick");

@@ -1,6 +1,6 @@
 #include <function.h>
 
-static private mapping Shake = ([]);
+nosave private mapping Shake = ([]);
 
 // abstract methods
 string GetDefiniteShort();

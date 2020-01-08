@@ -2,7 +2,7 @@
 
 inherit LIB_VERB;
 
-static void create() {
+protected void create() {
     verb::create();
     SetVerb("force");
     SetRules("LIV STR", "LIV to STR");

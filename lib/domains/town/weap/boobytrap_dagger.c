@@ -20,7 +20,7 @@ void boobytrap_me(){
     shadowtrap->eventShadow(this_object());
 }
 
-static void create() {
+protected void create() {
     item::create();
     AddSave(({ "AlreadyTrapped" }) ); /* Shouldn't re-arm when you relog */
     SetKeyName("sharp dagger");

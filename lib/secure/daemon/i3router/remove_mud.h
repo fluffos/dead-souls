@@ -1,5 +1,5 @@
-static void validate();
-static int *conn_fds = ({});
+protected void validate();
+nosave int *conn_fds = ({});
 
 varargs void remove_mud(mixed mudname, int forced){
     int targetfd;

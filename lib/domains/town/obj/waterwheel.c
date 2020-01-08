@@ -4,7 +4,7 @@
 inherit LIB_ITEM;
 inherit LIB_TURN;
 
-static int turned = 0;
+nosave int turned = 0;
 object Turner;
 
 void create(){

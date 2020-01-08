@@ -13,7 +13,7 @@ inherit LIB_READ;
 
 private object array    DummyItems    = ({});
 mapping			ItemsMap      = ([]);
-private static mixed    global_item;
+private nosave mixed    global_item;
 string VehicleInterior = "";
 
 mixed GetVehicleInterior();

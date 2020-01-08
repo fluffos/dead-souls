@@ -3,7 +3,7 @@
 inherit LIB_BASE_STORAGE;
 inherit LIB_ITEM;
 
-static private mixed my_save = ({});
+nosave private mixed my_save = ({});
 
 void create(){
     //parse_init();
@@ -25,7 +25,7 @@ string array GetSave(){
     return my_save;
 }
 
-static mixed array AddSave(mixed array vars){
+protected mixed array AddSave(mixed array vars){
     my_save = distinct_array(my_save + vars);
     return item::AddSave(my_save);
 }

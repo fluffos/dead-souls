@@ -4,7 +4,7 @@
 inherit LIB_BED;
 inherit LIB_SMELL;
 
-static void create() {
+protected void create() {
     bed::create();
     SetKeyName("altar");
     SetId( ({ "altar","platform","pedestal" }) );

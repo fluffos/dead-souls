@@ -4,7 +4,7 @@
 inherit LIB_ARMOR;
 
 
-static void create(){
+protected void create(){
     armor::create();
     SetKeyName("gold necklace");
     SetId(({"necklace"}));

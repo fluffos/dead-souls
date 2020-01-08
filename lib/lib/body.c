@@ -42,21 +42,21 @@ private int Alcohol, Caffeine, Food, Drink, Poison, Sleeping;
 private float StaminaPoints;
 private string Torso, Biter, keepalive;
 private mapping Fingers, Limbs, MissingLimbs;
-private static int Dying, LastHeal, Encumbrance, DeathEvents;
-private static function Protect;
-private static mapping WornItems;
-private static class MagicProtection *Protection;
-static private int HeartModifier = 0;
-private static string PoliticalParty, BodyComposition;
-private static int Pacifist, wearbit;
-private static mapping Dimensions = ([]);
+private nosave int Dying, LastHeal, Encumbrance, DeathEvents;
+private nosave function Protect;
+private nosave mapping WornItems;
+private nosave class MagicProtection *Protection;
+nosave private int HeartModifier = 0;
+private nosave string PoliticalParty, BodyComposition;
+private nosave int Pacifist, wearbit;
+private nosave mapping Dimensions = ([]);
 private int firearms_wounds, Falling, FallCount = 1;
 string *ExtraChannels;
 mixed Agent;
 
 string GetRace();
 
-static void create(){
+protected void create(){
     PoliticalParty = "UNDECIDED";
     firearms_wounds = 0;
     DeathEvents = 0;
@@ -310,7 +310,7 @@ void eventCheckEnvironment(){
     }
 }
 
-static void heart_beat(){
+protected void heart_beat(){
     int i;
     undead::heart_beat();
     if(!GetDying()){
@@ -1651,7 +1651,7 @@ varargs mixed GetWielded(string limb){
     }
 }
 
-/* varargs static int AddHealthPoints(int x, string limb, object agent)
+/* varargs nosave int AddHealthPoints(int x, string limb, object agent)
  * int x - number of points being added, may be negative (required)
  * string limb - the limb to which health is being added (optional)
  * object agent - the living responsible for this damage
@@ -1668,7 +1668,7 @@ varargs mixed GetWielded(string limb){
  * or for the overall health points
  */
 
-varargs static int AddHealthPoints(int x, string limb, mixed agent){
+varargs nosave int AddHealthPoints(int x, string limb, mixed agent){
     int y = 0;
     string agentname;
 

@@ -17,7 +17,7 @@ string array GetFreeLimbs(object who) {
     return limbs;
 }
 
-static void create() {
+protected void create() {
     verb::create();
     SetVerb("wield");
     SetRules("OBS", "OBS in STR", "OBS with STR");

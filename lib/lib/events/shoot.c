@@ -1,4 +1,4 @@
-static int mustcarry = 1,mustwield = 1;
+nosave int mustcarry = 1,mustwield = 1;
 
 int MustCarry(int i){
     if(i) mustcarry = i;

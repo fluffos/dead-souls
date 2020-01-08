@@ -4,7 +4,7 @@
 inherit LIB_BASE_DUMMY;
 inherit LIB_FLASK; 
 
-static void create() {
+protected void create() {
     base_dummy::create();
     flask::create();
     SetKeyName("water");

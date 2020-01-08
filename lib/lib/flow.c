@@ -18,10 +18,10 @@ mixed *first = ({});
 mixed *second = ({});
 mixed *third = ({});
 mixed *fourth = ({});
-static int press;
-static string FlowType = "water";
-static string ThisFile;
-static int HBOverride, orig_medium, orig_resp, DoorStopped = 1;
+nosave int press;
+nosave string FlowType = "water";
+nosave string ThisFile;
+nosave int HBOverride, orig_medium, orig_resp, DoorStopped = 1;
 
 void shb(int i){
     if(!HBOverride) set_heart_beat(i);

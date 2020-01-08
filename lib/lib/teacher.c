@@ -68,7 +68,7 @@ int SetTeachingFee(int i){
 
 /**** driver applies ****/
 
-static void create(){
+protected void create(){
     sentient::create();
     TeachingLanguages = ({});   
     Students = ([]);
@@ -85,7 +85,7 @@ static void create(){
                 ]) );
 }
 
-static void init(){
+protected void init(){
     string str;
     sentient::init();
     if( !living(this_player()) ) return;
@@ -186,7 +186,7 @@ int eventTeachLanguage(object who, string verb, string language){
     return 1;
 }
 
-static int ContinueTeaching(object who, string language, int x){
+nosave int ContinueTeaching(object who, string language, int x){
     language = capitalize(language);
     if( !who || !Students[who->GetKeyName()] ) return 0;
     if( !present(who, environment()) ||

@@ -1,7 +1,7 @@
 #ifndef l_unwield_h
 #define l_unwield_h
 
-static void create();
+protected void create();
 
 mixed can_unwield_obj(string verb);
 

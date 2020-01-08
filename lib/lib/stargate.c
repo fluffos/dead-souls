@@ -51,8 +51,8 @@
 
 inherit LIB_ITEM;
 
-static private string origin;
-static private int connect_time;
+nosave private string origin;
+nosave private int connect_time;
 
 string displayLong();
 string displayShort();

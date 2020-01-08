@@ -1,7 +1,7 @@
 #ifndef __LIMB_H__
 #define __LIMB_H__
 
-static void create();
+protected void create();
 
 int eventDecay();
 

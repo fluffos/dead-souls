@@ -2,7 +2,7 @@
 
 inherit LIB_MATCH;
 
-static void create() {
+protected void create() {
     match::create();
     SetKeyName("match");
     SetId("match");

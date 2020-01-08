@@ -12,7 +12,7 @@
 #include ROOMS_H
 #include <message_class.h>
 
-static private string *local_chans = ({"newbie","cre","gossip","admin","error",
+nosave private string *local_chans = ({"newbie","cre","gossip","admin","error",
         "priest", "mage", "explorer", "thief", "fighter", "death" });
 
 

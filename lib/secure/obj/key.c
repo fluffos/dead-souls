@@ -6,7 +6,7 @@ string RetStr(){
     return file_name(this_object());
 }
 
-static void create() {
+protected void create() {
     item::create();
     SetKeyName("key");
     SetId( ({ "key", "sample key" }) );

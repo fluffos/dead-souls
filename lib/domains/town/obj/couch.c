@@ -4,7 +4,7 @@
 inherit LIB_BED;
 inherit LIB_SMELL;
 
-static void create() {
+protected void create() {
     ::create();
     SetKeyName("beat up couch");
     SetId( ({ "couch","sofa","recliner" }) );

@@ -5,7 +5,7 @@ inherit LIB_BASE_ARMOR;
 inherit LIB_SHADOW_HOOK;
 inherit LIB_MONEY;
 
-private static mixed *my_save = ({});
+private nosave mixed *my_save = ({});
 
 void create(){
     mixed a_save, s_save;

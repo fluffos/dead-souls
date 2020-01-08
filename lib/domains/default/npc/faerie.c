@@ -3,7 +3,7 @@
 
 inherit LIB_SENTIENT;
 
-static void create() {
+protected void create() {
     sentient::create();
     SetKeyName("faerie");
     SetAdjectives( ({"fragile", "beautiful", "incredibly beautiful", "insubstantial", "tiny"}) );

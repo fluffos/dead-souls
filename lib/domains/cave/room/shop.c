@@ -2,7 +2,7 @@
 inherit LIB_SHOP;
 
 int read_sign();
-static void create() {
+protected void create() {
     ::create();
     SetClimate("indoors");
     SetAmbientLight(30);

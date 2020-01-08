@@ -22,12 +22,12 @@ private string Rank, WebPage, tmpfile;
 private string array Titles, Religion;
 private class marriage array Marriages;
 
-static void create() {
+protected void create() {
     daemon::create();
     SetNoClean(1);
 }
 
-static int LoadPlayer(string path){
+protected int LoadPlayer(string path){
     return unguarded( (: RestoreObject($(path)) :) );
 }
 

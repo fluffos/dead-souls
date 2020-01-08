@@ -14,7 +14,7 @@
 inherit LIB_DAEMON;
 
 private mapping *__BoxInfo;
-static private string __Folder, __Owner;
+nosave private string __Folder, __Owner;
 
 void create() {
     daemon::create();
@@ -24,7 +24,7 @@ void create() {
     __Owner = 0;
 }
 
-static private void load_folder(string who, string folder) {
+nosave private void load_folder(string who, string folder) {
     string file;
 
     if(who == __Owner && folder == __Folder) return;
@@ -42,7 +42,7 @@ static private void load_folder(string who, string folder) {
     }
 }
 
-static private void save_folder() {
+protected private void save_folder() {
     string file;
 
     if(!__Owner || !__Folder) return;

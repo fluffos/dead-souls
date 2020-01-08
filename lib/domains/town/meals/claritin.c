@@ -6,7 +6,7 @@ inherit LIB_MEAL;
 
 int MealCure(object who);
 
-static void create() {
+protected void create() {
     meal::create();
     SetKeyName("pill");
     SetId(({"claritin","loratidine","dose","drug"}));

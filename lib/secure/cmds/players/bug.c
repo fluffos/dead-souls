@@ -11,18 +11,18 @@
 inherit LIB_DAEMON;
 
 void PreMenu(string str);
-static varargs void MainMenu(string str);
-static void Assign(string *args);
-static void EndAssign(string *args);
-static void Complete(string *args);
+protected varargs void MainMenu(string str);
+protected void Assign(string *args);
+protected void EndAssign(string *args);
+protected void Complete(string *args);
 void EndComplete(int x);
-static void Delete(string *args);
-static void Report(string *args);
-static void EndReport(string type, string data, string file);
-varargs static void View(string *args, int print);
-static string GetBugString(int id, mapping bugs);
+protected void Delete(string *args);
+protected void Report(string *args);
+nosave void EndReport(string type, string data, string file);
+varargs nosave void View(string *args, int print);
+nosave string GetBugString(int id, mapping bugs);
 
-static void create() {
+protected void create() {
     daemon::create();
     SetNoClean(1);
 }
@@ -61,7 +61,7 @@ void PreMenu(string str) {
     MainMenu(); 
 }
 
-varargs static void MainMenu(string str) {
+varargs protected void MainMenu(string str) {
     string tmp;
     int cols;
 
@@ -94,7 +94,7 @@ varargs static void MainMenu(string str) {
     input_to( (: MainMenu :) );
 }
 
-static void Assign(string *args) {
+protected void Assign(string *args) {
     int i;
 
     if( !creatorp(this_player()) ) {
@@ -192,7 +192,7 @@ static void Assign(string *args) {
     }
 }
 
-static void EndAssign(string *args) {
+protected void EndAssign(string *args) {
     string file, contents;
 
     file = DIR_TMP "/" + this_player()->GetKeyName();
@@ -201,7 +201,7 @@ static void EndAssign(string *args) {
     Assign(args + ({ contents }));
 }
 
-static void Complete(string *args) {
+protected void Complete(string *args) {
     string file;
     int x;
 
@@ -246,7 +246,7 @@ void EndComplete(int x) {
     message("system", "Bug marked completed!", this_player());
 }
 
-static void Delete(string *args) {
+protected void Delete(string *args) {
     if( !archp(this_player()) ) {
         message("system","You must be an arch to delete bugs.", this_player());
         return;
@@ -268,7 +268,7 @@ static void Delete(string *args) {
     }
 }
 
-static void Report(string *args) {
+protected void Report(string *args) {
     if( archp(this_player()) && sizeof(args) ) {
         string data;
         string bug;
@@ -290,7 +290,7 @@ static void Report(string *args) {
     else EndReport(0, "Room: " + file_name(environment(this_player())), 0);
 }
 
-static void EndReport(string type, string data, string file) {
+nosave void EndReport(string type, string data, string file) {
     string tmp;
     int x;
 
@@ -339,7 +339,7 @@ static void EndReport(string type, string data, string file) {
             x + ".", this_player());
 }
 
-varargs static void View(string *args, int print) {
+varargs nosave void View(string *args, int print) {
     mapping bugs;
     function f;
 
@@ -460,7 +460,7 @@ varargs static void View(string *args, int print) {
     }
 }
 
-static string GetBugString(int id, mapping bugs) {
+nosave string GetBugString(int id, mapping bugs) {
     string tmp;
 
     tmp = "%^YELLOW%^Bug ID:%^RESET%^ " + id + "\n";

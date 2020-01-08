@@ -9,7 +9,7 @@ string test_string = "cnn.com";
 
 mixed eventResolve(string str);
 
-static void create(){
+protected void create(){
     daemon::create();
     if(!Requests) Requests = ([]);
     if(!Cache) Cache = ([]);

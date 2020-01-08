@@ -9,7 +9,7 @@ int GetMaxLiers(){
     return MaxLiers;
 }
 
-static int SetMaxLiers(int x){
+protected int SetMaxLiers(int x){
     return (MaxLiers = x);
 }
 

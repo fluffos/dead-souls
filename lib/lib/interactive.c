@@ -37,17 +37,17 @@ inherit LIB_SHADOW_HOOK;
 
 private int Age, WhereBlock, Brief, LoginTime, BirthTime, RescueBit;
 private string Password, Email, RealName, Rank, LoginSite, HostSite, WebPage;
-private static string globaltmp;
+private nosave string globaltmp;
 private mapping News;
 private class marriage *Marriages;
-private static int LastAge, Setup, quitting;
-private static object NetDiedHere;
-private static mapping LastError;
-private static string *UserId;
+private nosave int LastAge, Setup, quitting;
+private nosave object NetDiedHere;
+private nosave mapping LastError;
+private nosave string *UserId;
 private mapping Paranoia = ([]); 
-private static mapping PlayerStatus = ([]);
+private nosave mapping PlayerStatus = ([]);
 
-static void create(){
+protected void create(){
     object::create();
     messages::create();
     interface::create();
@@ -165,7 +165,7 @@ int Setup(){
     return 1;
 }
 
-static void net_dead(){
+protected void net_dead(){
     object env = environment();
     interface::net_dead();
     Age += time() - LastAge;
@@ -521,7 +521,7 @@ string SetWebPage(string page){
     return (WebPage = page);
 }
 
-varargs nomask static void validate_paranoia(int prev){
+varargs nomask protected void validate_paranoia(int prev){
     object ob = ( prev ? previous_object() : this_player() );
     if( !this_player() || (!archp(this_player()) &&
                 ob != this_object()) ){
@@ -545,7 +545,7 @@ mixed SetParanoia(string str, mixed val){
     return copy(Paranoia[str]);
 }
 
-static nomask void NotifyReceipt(object ob){
+protected nomask void NotifyReceipt(object ob){
     string what, msg;
     if(playerp(this_object())) what = ob->GetShort();
     if(creatorp(this_object())) what = identify(ob);
@@ -566,7 +566,7 @@ nomask int eventReceiveObject(object ob){
     return ret;
 }
 
-static void heart_beat(){
+protected void heart_beat(){
     string tip = this_object()->GetTeloptIp();
     if(tip && tip != HostSite){
         HostSite = tip;
@@ -623,7 +623,7 @@ static void heart_beat(){
     autosave::heart_beat();
 }
 
-static string process_input(string str){
+protected string process_input(string str){
     if(PlayerStatus["Idling"]){
         PlayerStatus["Idling"] = 0;
         if(find_object(INSTANCES_D)){

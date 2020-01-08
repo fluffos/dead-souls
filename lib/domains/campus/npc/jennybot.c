@@ -3,10 +3,10 @@ inherit LIB_BOT;
 inherit LIB_ACTIVATE;
 
 object player, bot, ob, noobster;
-static string name, watchline;
-static int count, active, tip, tipnumber, current_tip, hb, mooch, greeting, greetwait;
+nosave string name, watchline;
+nosave int count, active, tip, tipnumber, current_tip, hb, mooch, greeting, greetwait;
 string *watchlist = ({});
-static string save_file = save_file("/domains/campus/save/jennybot");
+nosave string save_file = save_file("/domains/campus/save/jennybot");
 
 mixed GreetingResponse(object who, mixed foo, string message, mixed bar){
     int greet;
@@ -39,7 +39,7 @@ string LongDesc(){
 }
 
 
-static void create(){
+protected void create(){
     watchlist = ({});
     ::create();
     RestoreObject(save_file);

@@ -95,8 +95,8 @@ mixed globalmixed, gargs, gfun, gdelay;
 int last_regexp = time();
 int regexp_count = 1;
 int max_regexp = 200;
-private static string *blacklist = ({});
-private static string *jokes = ({"bind","call_out","call_other",
+private nosave string *blacklist = ({});
+private nosave string *jokes = ({"bind","call_out","call_other",
         "unguarded","evaluate"});
 
 #ifdef __FLUFFOS__
@@ -513,7 +513,7 @@ int valid_event(object dester, object dested){
 }
 
 
-static void shutdown_logic(int code){
+protected void shutdown_logic(int code){
     efun::shutdown(code);
 }
 

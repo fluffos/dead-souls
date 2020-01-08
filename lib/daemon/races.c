@@ -18,19 +18,19 @@
 inherit LIB_DAEMON;
 
 private mapping Races = ([]);
-static private mapping Resistances = ([]);
-static private mapping Armors = ([]);
-static private mapping Sizes = ([]);
-static private mapping Btypes = ([]);
+nosave private mapping Resistances = ([]);
+nosave private mapping Armors = ([]);
+nosave private mapping Sizes = ([]);
+nosave private mapping Btypes = ([]);
 string array FlyingRaces = ({});
 string array LimblessCombatRaces = ({});
 string array LimblessRaces = ({});
 string array NonBitingRaces = ({});
 string array SwimmingRaces = ({});
 string array NonMeatRaces = ({});
-static string SaveFile;
+nosave string SaveFile;
 
-static void ReloadRaces(){
+protected void ReloadRaces(){
     string *races = get_dir(CFG_RACES+"/");
     Races = ([]);
     foreach(string race in races){
@@ -41,7 +41,7 @@ static void ReloadRaces(){
     }
 }
 
-static void create() {
+protected void create() {
     daemon::create();
     SaveFile = save_file(SAVE_RACES);
     if(file_exists(SaveFile)){
@@ -61,7 +61,7 @@ static void create() {
     SaveObject(SaveFile);
 }
 
-static private void validate() {
+protected private void validate() {
     if( !(master()->valid_apply(({ PRIV_ASSIST }))) )
         error("Illegal attempt to modify race data");
 }

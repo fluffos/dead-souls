@@ -1,12 +1,12 @@
 #include <daemons.h>
 #include <position.h>
 
-private static mixed GuardAction;
-private static mixed globalwhat;
-private static array PendingGuard = ({});
-private static mixed gwhat;
-private static object Principal;
-private static mapping GuardMap = ([]);
+private nosave mixed GuardAction;
+private nosave mixed globalwhat;
+private nosave array PendingGuard = ({});
+private nosave mixed gwhat;
+private nosave object Principal;
+private nosave mapping GuardMap = ([]);
 
 int AllowPass(object who, object what){
     string race = this_object()->GetRace();

@@ -21,7 +21,7 @@
 inherit LIB_ITEM;
 mixed globalvar;
 
-static void create() {
+protected void create() {
     item::create();
     SetKeyName("object");
     SetId( ({ "example", "sample" }) );

@@ -5,7 +5,7 @@
 
 inherit LIB_VIRT_LAND;
 
-static private int XPosition, YPosition;
+nosave private int XPosition, YPosition;
 
 int max_north = 4999;
 int max_south = 4989;
@@ -33,7 +33,7 @@ int PreExit(mixed arg1, mixed arg2){
 }
 #endif
 
-varargs static void create(int x, int y) {
+varargs nosave void create(int x, int y) {
     string n, s, e, w;
     string ne, nw, se, sw;
     string fly;

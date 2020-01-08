@@ -4,7 +4,7 @@
 inherit LIB_MEAL;
 
 
-static void create() {
+protected void create() {
     meal::create();
     SetKeyName("firebreather bourbon");
     SetId( ({ "bottle", "bourbon" ,"fire","firebreather",

@@ -16,9 +16,9 @@ inherit LIB_KNOCK;
 inherit LIB_SCRATCH;
 
 private mapping Sides;
-private static int Hidden = 1;
-private static int Opacity = 100;
-private static int Perforated = 0;
+private nosave int Hidden = 1;
+private nosave int Opacity = 100;
+private nosave int Perforated = 0;
 
 int GetOpacity(){
     return Opacity;
@@ -59,7 +59,7 @@ string *GetSides(){
 
 /*  ***************  /lib/door.c driver applies  ***************  */
 
-static void create(){
+protected void create(){
     daemon::create();
     parse_init();
     SetNoClean(0);

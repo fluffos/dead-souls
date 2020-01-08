@@ -16,7 +16,7 @@ int CanCarry(int amount);
 
 /* ***************  /lib/currency.c driver applies  *************** */
 
-static void create(){
+protected void create(){
 }
 
 /* ***************  /lib/currency.c data manipulation funcs  *************** */

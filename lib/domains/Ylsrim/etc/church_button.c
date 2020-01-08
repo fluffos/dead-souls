@@ -27,7 +27,7 @@ int openDoor(object who) {
     return 1;
 }
 
-static void create() {
+protected void create() {
     dummy::create();
     SetKeyName("button");
     SetId("button");

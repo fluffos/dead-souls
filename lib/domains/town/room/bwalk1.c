@@ -9,7 +9,7 @@ varargs string readSign() {
     return ret;
 }
 
-static void create() {
+protected void create() {
     fishing::create();
     SetClimate("outdoors");
     SetAmbientLight(30);

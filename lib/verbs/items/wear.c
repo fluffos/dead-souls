@@ -11,7 +11,7 @@
 
 inherit LIB_VERB;
 
-static void create() {
+protected void create() {
     verb::create();
     SetVerb("wear");
     SetRules("OBS", "OBJ on STR");

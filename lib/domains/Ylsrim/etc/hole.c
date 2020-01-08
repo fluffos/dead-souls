@@ -10,7 +10,7 @@
 inherit LIB_DUMMY; // These do not show up in desc, but you can look at them
 inherit LIB_JUMP; // This makes it jumpable
 
-static void create() {
+protected void create() {
     dummy::create();
     SetKeyName("hole");
     SetId("hole", "bank");

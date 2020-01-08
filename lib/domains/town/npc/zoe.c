@@ -4,7 +4,7 @@
 inherit LIB_TELLER;
 
 
-static void create() {
+protected void create() {
     ::create();
     SetKeyName("zoe");
     SetId( ({ "teller","banker","executive","shawty" }) );

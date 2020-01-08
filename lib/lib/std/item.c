@@ -115,7 +115,7 @@ int SetRetainOnDeath(int x){
     return (RetainOnDeath = x);
 }
 
-static mixed array AddSave(mixed array vars){
+protected mixed array AddSave(mixed array vars){
     if(!vars) vars = ({});
     //vars += ({ "Properties" });
     return persist::AddSave(vars);
@@ -144,7 +144,7 @@ varargs mixed CanThrow(object who, object target){
 }
 
 /* ********************* item.c events ************************ */ 
-static int Destruct(){
+protected int Destruct(){
     if( GetWorn() && environment() ){
         eventUnequip(environment());
     }
@@ -279,7 +279,7 @@ mixed eventShow(object who, string component){
 }
 
 /* ***************** item.c driver applies ****************** */
-static void create(){
+protected void create(){
     AddSave(weapon::GetSave() + value::GetSave() + mass::GetSave() +
             deterioration::GetSave());
     steal::create();

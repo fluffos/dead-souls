@@ -10,12 +10,12 @@
 
 inherit LIB_SENTIENT;
 
-static void EvaluateCitizenshipRequest();
+protected void EvaluateCitizenshipRequest();
 
 int Tax = 0;
 string LocalCurrency = "gold";
 
-static void create(){
+protected void create(){
     sentient::create();
     SetRequestResponses(([ "citizenship" : (: EvaluateCitizenshipRequest :),
                 "help" : (: this_object()->eventForce("say You can request "
@@ -55,7 +55,7 @@ mixed eventRequestCitizenship(object who){
     return 1;
 }
 
-static void EvaluateCitizenshipRequest(){
+protected void EvaluateCitizenshipRequest(){
     mixed tmp = CanRequestCitizenship(this_player());
 
     if( tmp != 1 ){
@@ -74,7 +74,7 @@ string GetLocalCurrency(){
     return LocalCurrency;
 }
 
-static string SetLocalCurrency(string str){
+protected string SetLocalCurrency(string str){
     return (LocalCurrency = str);
 }
 
@@ -82,6 +82,6 @@ int GetTax(){
     return Tax;
 }
 
-static int SetTax(int x){
+protected int SetTax(int x){
     return (Tax = x);
 }

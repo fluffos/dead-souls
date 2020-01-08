@@ -35,17 +35,17 @@ inherit LIB_SHADOW_HOOK;
 private int CustomXP, ActionChance, CombatActionChance, AutoStand;
 private mixed Encounter;
 private string *EnemyNames;
-private static int NPCLevel, Unique;
-private static mixed Die, Action, CombatAction;
-private static mapping Inventory;
-private static string MountStyle = "ridden";
+private nosave int NPCLevel, Unique;
+private nosave mixed Die, Action, CombatAction;
+private nosave mapping Inventory;
+private nosave string MountStyle = "ridden";
 private int VisibleRiders = 1;
 private int actions_enabled = 1;
 mapping Equipped = ([]);
 
 int eventExtraAction(){ return 1; }
 
-static void create(){
+protected void create(){
     SetSaveRecurse(1);
     chat::create();
     command::create();
@@ -113,12 +113,12 @@ void CheckEncounter(){
     }
 }
 
-static void init(){
+protected void init(){
     guard::init();
     CheckEncounter();
 }
 
-static void heart_beat(){
+protected void heart_beat(){
     int position;
     living::heart_beat();
     guard::heart_beat();
@@ -182,7 +182,7 @@ static void heart_beat(){
     }
 }
 
-static int Destruct(){
+protected int Destruct(){
     if( GetParty() ) PARTY_D->eventLeaveParty(this_object());
     living::Destruct();
     return object::Destruct();
@@ -191,7 +191,7 @@ static int Destruct(){
 void eventReconnect(){ }
 
 /* ***************  /lib/npc.c command functions  ************** */
-static int cmdAll(string arg){
+protected int cmdAll(string arg){
     object env;
     string verb;
 
@@ -402,7 +402,7 @@ int CanReceive(object ob){ return CanCarry(ob->GetMass()); }
 
 /*  ***************  /lib/npc.c lfuns  ***************  */
 
-static int ContinueHeart(){
+protected int ContinueHeart(){
     object env;
 
     if( !(env = environment()) ) return 0;

@@ -9,7 +9,7 @@
 inherit LIB_POLE;
 inherit LIB_ITEM;
 
-static void create() {
+protected void create() {
     pole::create();
     item::create();
     SetKeyName("bamboo pole");
@@ -25,6 +25,6 @@ static void create() {
     SetChance(20);
 }
 
-static mixed AddSave(mixed *var) {
+protected mixed AddSave(mixed *var) {
     return item::AddSave(var);
 }

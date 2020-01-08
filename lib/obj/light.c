@@ -31,7 +31,7 @@ int eventDematerialize(){
     return 1;
 }
 
-static void create() {
+protected void create() {
     item::create();
     AddSave( ({ "Duration" }) );
     SetKeyName("magic glow");

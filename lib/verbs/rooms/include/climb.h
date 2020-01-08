@@ -1,7 +1,7 @@
 #ifndef l_climb_h
 #define l_climb_h
 
-static void create();
+protected void create();
 
 mixed can_climb_obj(string verb);
 mixed can_climb_word_obj(string verb, string word);

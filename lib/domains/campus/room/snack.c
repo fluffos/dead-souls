@@ -4,7 +4,7 @@
 inherit LIB_ROOM;
 
 int eventReadMenu(string str);
-static void create() {
+protected void create() {
     room::create();
     SetClimate("indoors");
     SetAmbientLight(40);

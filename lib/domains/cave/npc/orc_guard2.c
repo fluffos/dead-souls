@@ -2,7 +2,7 @@
 
 inherit "/domains/cave/etc/cave_orc";
 
-static void create() {
+protected void create() {
     ::create();
     SetKeyName("orc");
     SetId(({"orc"}));

@@ -7,11 +7,11 @@
 
 inherit LIB_DAEMON;
 
-static private mapping file_mapping(string *files);
-static private string display_ls(mixed targ, int aflag, int lflag, int tflag,
+protected private mapping file_mapping(string *files);
+nosave private string display_ls(mixed targ, int aflag, int lflag, int tflag,
         int nflag, int bflag, int sflag);
-static private string long_list(string dir, mixed *files);
-static private string short_list(string dir, mixed *files, int n, int s);
+nosave private string long_list(string dir, mixed *files);
+nosave private string short_list(string dir, mixed *files, int n, int s);
 
 int cmd(string str) {
     string *args, *paths, *options, *files, *tmp, *dirs;
@@ -69,9 +69,9 @@ int cmd(string str) {
     return 1;
 }
 
-static int is_dir(string str) { return (file_size(str) == -2); }
+nosave int is_dir(string str) { return (file_size(str) == -2); }
 
-static private mapping file_mapping(string *files) {
+protected private mapping file_mapping(string *files) {
     mapping borg;
     string *tmp;
     string dir;
@@ -87,7 +87,7 @@ static private mapping file_mapping(string *files) {
     return borg;
 }
 
-static private string display_ls(mixed targ, int aflag, int lflag, int tflag,
+nosave private string display_ls(mixed targ, int aflag, int lflag, int tflag,
         int nflag, int bflag, int sflag) {
     string *cles;
     string ret = "";
@@ -111,15 +111,15 @@ static private string display_ls(mixed targ, int aflag, int lflag, int tflag,
     return ret;
 }
 
-static int filter_dots(mixed *file) { return (file[0][0] != '.'); }
+nosave int filter_dots(mixed *file) { return (file[0][0] != '.'); }
 
-static int time_sort(mixed *alpha, mixed *beta) {
+nosave int time_sort(mixed *alpha, mixed *beta) {
     if(alpha[2] < beta[2]) return 1;
     else if(alpha[2] > beta[2]) return -1;
     else return 0;
 }
 
-static private string long_list(string dir, mixed *files) {
+nosave private string long_list(string dir, mixed *files) {
     string ret, acc, loaded;
     int i, maxi;
 
@@ -144,7 +144,7 @@ static private string long_list(string dir, mixed *files) {
     return ret;
 }
 
-static private string short_list(string dir, mixed *files, int n, int s) {
+nosave private string short_list(string dir, mixed *files, int n, int s) {
     string *newfiles;
     string ret, tmp;
     int i, j, max, x, long, ind, cols, rows;
@@ -170,7 +170,7 @@ static private string short_list(string dir, mixed *files, int n, int s) {
     return ret;
 }
 
-static string map_files(mixed *file, int *flags) {
+nosave string map_files(mixed *file, int *flags) {
     string tmp;
 
     if(flags[1] && flags[2]) {

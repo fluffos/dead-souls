@@ -2,7 +2,7 @@
 
 inherit LIB_CIGAR;
 
-static void create() {
+protected void create() {
     ::create();
     SetKeyName("cigar");
     SetId( ({ "cigar", "cylinder" }) );

@@ -8,7 +8,7 @@
 
 #include <function.h>
 
-static private mapping Press = ([]);
+nosave private mapping Press = ([]);
 
 // abstract methods
 string GetDefiniteShort();

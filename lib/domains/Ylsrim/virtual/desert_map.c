@@ -20,7 +20,7 @@ varargs string array BaseMap(){ //override with actual map
 }
 
 
-varargs static void create() {
+varargs protected void create() {
     ::create();
     //SetNoClean(1);
     //SetVirtFile(base_name(this_object()));

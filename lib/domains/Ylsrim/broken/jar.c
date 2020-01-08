@@ -7,7 +7,7 @@ inherit LIB_CAPTURE;
 
 int BugDies = 0;
 
-static void create() {
+protected void create() {
     AddSave(({ "BugDies" }));
     item::create();
     close::create();
@@ -28,7 +28,7 @@ static void create() {
     }
 }
 
-static void heart_beat() {
+protected void heart_beat() {
     BugDies -= 2;
     if( BugDies < 1 ) {
         eventDarken();

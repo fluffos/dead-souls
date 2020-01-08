@@ -13,16 +13,16 @@
 
 inherit LIB_DAEMON;
 
-private static int CurrentDay, CurrentYear; 
-private static int Dawn, Morning, Noon, Twilight, Night;
-private static int ticktock, pending;
-private static string CurrentSeason, TimeOfDay;
-private static mapping Moons;
-private static class month CurrentMonth;
-private static string *Days;
-private static function *DawnCalls, *MorningCalls, *NoonCalls;
-private static function *TwilightCalls, *NightCalls, *MidnightCalls;
-private static class month *Months;
+private nosave int CurrentDay, CurrentYear; 
+private nosave int Dawn, Morning, Noon, Twilight, Night;
+private nosave int ticktock, pending;
+private nosave string CurrentSeason, TimeOfDay;
+private nosave mapping Moons;
+private nosave class month CurrentMonth;
+private nosave string *Days;
+private nosave function *DawnCalls, *MorningCalls, *NoonCalls;
+private nosave function *TwilightCalls, *NightCalls, *MidnightCalls;
+private nosave class month *Months;
 
 int eventTickTock(int tick){
     if(!this_player() || !archp(this_player())) return 0;
@@ -41,7 +41,7 @@ int *GetMudTime(){
     return ({ GetHour(time()+ticktock), GetMinutes(time()+ticktock) });
 }
 
-static void create() {
+protected void create() {
     string *lines;
     int i, maxi;
 
@@ -77,7 +77,7 @@ static void create() {
     eventConfigure();
 }
 
-static void eventConfigure() {
+protected void eventConfigure() {
     int i, x, days, tot, maxi;
 
     DawnCalls = ({});
@@ -140,7 +140,7 @@ static void eventConfigure() {
     }
 }
 
-static void eventDawn() {
+protected void eventDawn() {
     object *obs;
     int i;
 
@@ -157,7 +157,7 @@ static void eventDawn() {
     while(i--) catch(evaluate(DawnCalls[i]));
 }
 
-static void eventMorning() {
+protected void eventMorning() {
     object *obs;
     int i;
 
@@ -173,7 +173,7 @@ static void eventMorning() {
     while(i--) catch(evaluate(MorningCalls[i]));
 }
 
-static void eventNoon() {
+protected void eventNoon() {
     int i;
     pending = call_out( (: eventTwilight :), Twilight - GetCurrentTime());
     TimeOfDay = "day";
@@ -181,7 +181,7 @@ static void eventNoon() {
     while(i--) catch(evaluate(NoonCalls[i]));
 }
 
-static void eventTwilight() {
+protected void eventTwilight() {
     object *obs;
     int i;
 
@@ -197,7 +197,7 @@ static void eventTwilight() {
     while(i--) catch(evaluate(TwilightCalls[i]));
 }
 
-static void eventNight() {
+protected void eventNight() {
     object *obs;
     int i,x;
 
@@ -219,7 +219,7 @@ static void eventNight() {
     }
 }
 
-static void eventMidnight() {
+protected void eventMidnight() {
     int i;
 
     CurrentDay++;

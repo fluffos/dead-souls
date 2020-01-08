@@ -14,8 +14,8 @@ inherit LIB_ITEM;
 
 private int             Communicable  = 1;
 mixed    Cure          = 0;
-private static function Infect        = 0;
-private static int      LastHeartBeat = time();
+private nosave function Infect        = 0;
+private nosave int      LastHeartBeat = time();
 private mixed           LifeSpan      = 60;
 private int             CannotInfect  = 0;
 private int             debug         = 0;
@@ -325,7 +325,7 @@ void eventSuffer(object ob){
 
 /* ***************  /lib/germ.c driver applies  *************** */
 
-static void create(){
+protected void create(){
     item::create();
     AddSave(({ "Communicable", "LifeSpan", "Type" }));
     SetInvis(1);
@@ -336,7 +336,7 @@ static void create(){
     SetPreventPut("");
 }
 
-static void heart_beat(){
+protected void heart_beat(){
     object env;
     int interval;
 

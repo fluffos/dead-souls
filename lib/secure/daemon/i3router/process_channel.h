@@ -6,7 +6,7 @@
 #define FILTER_D "/secure/daemon/filter"
 #endif
 
-static void process_channel(mixed fd, mixed *info){
+nosave void process_channel(mixed fd, mixed *info){
     string mudname;
     string sendermsg, sendername, senderrealname, sendermud;
     string targetname, targetmud, targstr = "";

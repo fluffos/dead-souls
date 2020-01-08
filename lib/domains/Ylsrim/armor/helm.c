@@ -12,7 +12,7 @@ inherit LIB_ARMOR;
 
 varargs int WearHelm(object who, mixed where);
 
-static void create() {
+protected void create() {
     armor::create();
     SetKeyName("desert helm");
     SetId( ({ "helm", "desert helm" }) );

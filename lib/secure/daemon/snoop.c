@@ -13,16 +13,16 @@ string *snooped = ({});
 object *snoopers = ({});
 string *monitored  = ({}); 
 string *ignored = ({});
-static string *ignored_ips = ({"97.107.133.86","149.158.218.102","204.209.44.3","24.34.143.119","69.37.84.233", "127.0.0.1"});
+nosave string *ignored_ips = ({"97.107.133.86","149.158.218.102","204.209.44.3","24.34.143.119","69.37.84.233", "127.0.0.1"});
 mapping Watchers = ([]);
 int count = 0;
 int just_loaded = 1;
 object *prevusers, gfoo;
-static string SaveFile;
+nosave string SaveFile;
 
 void eventLoadRogues();
 
-static void create() {
+protected void create() {
     daemon::create();
     if(!ignored) ignored = ({});
     SaveFile = save_file(SAVE_SNOOP);

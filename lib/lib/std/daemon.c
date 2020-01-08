@@ -11,14 +11,14 @@
 
 inherit LIB_CLEAN;
 
-static private string DaemonSaveFile = 0;
+nosave private string DaemonSaveFile = 0;
 
 /* ******************** daemon.c attributes ********************** */
 string GetSaveFile(){
     return DaemonSaveFile;
 }
 
-static string SetSaveFile(string str){
+protected string SetSaveFile(string str){
     return (DaemonSaveFile = save_file(str));
 }
 
@@ -50,7 +50,7 @@ varargs int eventSave(int save_zero_values){
 }
 
 /* ******************* daemon.c driver applies ********************* */
-static void create(){
+protected void create(){
     eventRestore(1);
     SetNoClean(1);
 }

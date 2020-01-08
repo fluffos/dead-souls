@@ -29,7 +29,7 @@ int PushButton(object who) {
 
 }
 
-static void create() {
+protected void create() {
     dummy::create();
     SetKeyName("button");
     SetId(({"button","button on the pedestal" }));
