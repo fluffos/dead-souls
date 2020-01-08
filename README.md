@@ -20,7 +20,7 @@ the current testing admin account is ```sunyc``` and password is ```12345```.
 
 ## Screenshot
 
-TODO
+![image](https://user-images.githubusercontent.com/1256464/71966839-2f444180-31b7-11ea-8cd4-f2fdf5f0cec7.png)
 
 ## Contribution
 
