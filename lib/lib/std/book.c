@@ -60,7 +60,7 @@ void init(){
 
 void LoadBook(){
     mixed *map_array = this_object()->eventLoadChapters();
-    SetItems(map_array);
+    SetItems(map_array[0]);
     AddItem( "index", "This is a list of the chapters in this book.");
     SetRead("index", (: ReadBookIndex :));
     foreach(mixed key, mixed val in map_array){
