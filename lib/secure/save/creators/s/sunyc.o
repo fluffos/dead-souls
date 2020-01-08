@@ -10,7 +10,7 @@ CapName "Sunyc"
 ExternalDesc "$N is nondescript."
 Invisible 0
 Items ([])
-Properties (["wizmapping":1,"reprompt":0,"minimapping":0,"screenlock":0,"LastLocation":"/domains/default/room/start",])
+Properties (["wizmapping":1,"reprompt":0,"minimapping":0,"screenlock":0,"LastLocation":"/domains/town/room/vill_road2",])
 Inventory ({})
 anchored 0
 Messages (["telin":"$N teleports in.","telout":"$N teleports away.","leave":"$N leaves $D.","vis":"$N appears.","invis":"$N disappears.","home":"$N goes home.","dest":"$N dests $O.","come":"$N enters.","clone":"$N clones $O.",])
@@ -19,9 +19,9 @@ NoChanColors 0
 GagMutes (["remote_gag":0,"remote_mute":0,"local_mute":0,"local_gag":0,])
 Paused 0
 localcmds ({"parserefresh","quit","work","pwd","cwd","popd","pushd","nmsh","cd","nickname","unalias","alias","",})
-parsed_command "quit"
+parsed_command ""
 HistorySize 50
-History ([50:"quit",49:"pass",48:"password",47:"mudlist imc2",46:"update imc2",45:"mudlist a",44:"mudlist",43:"read sign",42:"l",41:"ls",40:"update rooms",39:"cd /secure/daemon",38:"cd secure",37:"update room",36:"update rommd",35:"cd daemon",34:"cd /",33:"cd /daemons",32:"cd /adm/daemons",31:"go north",30:"n",29:"help",28:"save",27:"git log",26:"git status",25:"terminal xterm",24:"terminal",23:"maps",22:"enter town",21:"go down",20:"down",19:"goto void",18:"cd root",17:"cd domains",16:"ls -lah",15:"cd /shadows",14:"cd /domain",13:"what",12:"screen 102 9999",11:"screen",10:"screen 120 80",9:"setscreen",8:"set",7:"reset",6:"clear",5:"reprompt off",4:"nmsh",3:"sh",2:"update nmsh",1:"update",0:"script",])
+History ([49:"l",48:"go west",47:"w",46:"go east",45:"e",44:"read sign",43:"quit",42:"pass",41:"password",40:"mudlist imc2",39:"update imc2",38:"mudlist a",37:"mudlist",36:"ls",35:"update rooms",34:"cd /secure/daemon",33:"cd secure",32:"update room",31:"update rommd",30:"cd daemon",29:"cd /",28:"cd /daemons",27:"cd /adm/daemons",26:"go north",25:"n",24:"help",23:"save",22:"git log",21:"git status",20:"terminal xterm",19:"terminal",18:"maps",17:"enter town",16:"go down",15:"down",14:"goto void",13:"cd root",12:"cd domains",11:"ls -lah",10:"cd /shadows",9:"cd /domain",8:"what",7:"screen 102 9999",6:"screen",5:"screen 120 80",4:"setscreen",3:"set",2:"reset",1:"clear",0:"reprompt off",])
 Nicknames ([])
 Aliases (["east":"go east","mwhere":"findobj $*","southeast":"go southeast","northeast":"go northeast","prac":"skills","sco":"score","x":"look at $*","w":"go west","u":"go up","t":"tell $*","out":"go out","practice":"skills","s":"go south","vnum":"help find","p":"people","south":"go south","north":"go north","n":"go north","bio":"biography","l":"look $*","k":"kill $*","west":"go west","zlist":"domains","southwest":"go southwest","northwest":"go northwest","i":"inventory","owhere":"findobj $*","e":"go east","d":"go down","c":"cre $*","alist":"ls /domains","inv":"inventory","nw":"go northwest","examine":"look at $*","trophy":"kills","up":"go up","chat":"newbie $*","dc":"dchat $*","exa":"look at $*","sw":"go southwest","ig":"intergossip $*","loot":"get all from $*","ic":"intercre $*","peace":"quell","inf":"score","lp":"lpuni $*","down":"go down","ne":"go northeast","exit":"go out","eq":"equipment","se":"go southeast","sc":"status",])
 Xverbs (["'":"say $*","]":"] $*","\"":"say $*",":":"emote $*",])
