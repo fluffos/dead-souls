@@ -422,6 +422,8 @@ object connect(int port) {
         write(err);
         destruct(ob);
     }
+
+    this_player()->SetScreen(120, 99);
     return ob;
 }
 

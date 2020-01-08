@@ -3,8 +3,9 @@
 ## Current status
 
 - [X] : Boots.
+- [X] : works under Websocket.
+- [ ] : Don't require special configs from FluffOS 2019.
 - [ ] : No warning or errors
-- [ ] : works under Websocket.
 
 ## Old README content
 
