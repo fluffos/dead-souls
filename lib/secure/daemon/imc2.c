@@ -11,6 +11,8 @@
 #include <daemons.h>
 #include <message_class.h>
 
+#define IMCTESTING
+
 //Which IMC version you wish to support.
 #define IMC_VERSION 2
 
@@ -792,7 +794,7 @@ void start_logon(){
                  write("what="+what+", rest="+rest+"\n");
                */
               // At this point, what is the key, rest is value plus rest.
-              if(rest[0]==34){ // value is in quotes, tons of fun!
+              if(sizeof(rest) && rest[0]==34){ // value is in quotes, tons of fun!
                   // find first quote without a backslash in front?
                   /*
                      write("rest begings with a quote\n");
@@ -1266,9 +1268,7 @@ void start_logon(){
         string output;
         string mud,*muds;
 
-        if(!mudinfo || sizeof(mudinfo) == 0) {
-          return ;
-        }
+        if(!mudinfo || sizeof(mudinfo) == 0) {return;}
         muds = sort_array(filter(keys(mudinfo), (: stringp($1) :)),1);
         if (!mode==MODE_CONNECTED) {
             message("system",MUDNAME+" is not connected to the "+NETWORK_ID+" network!\n",towho);

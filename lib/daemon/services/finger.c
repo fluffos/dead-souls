@@ -16,7 +16,7 @@ void eventReceiveFingerRequest(mixed* packet) {
     mixed* ret;
     PING_D->SetOK();
     if( file_name(previous_object()) != INTERMUD_D ) return;
-    if( !(ret = (mixed array)FINGER_D->GetRemoteFinger(packet[6])) ) {
+    if( !(ret = (mixed*)FINGER_D->GetRemoteFinger(packet[6])) ) {
         INTERMUD_D->eventWrite(({ "error", 5, mud_name(), 0, packet[2],
                     packet[3], "unk-user",
                     capitalize(packet[6]) + " is not involved.",

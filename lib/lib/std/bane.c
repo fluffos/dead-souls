@@ -8,7 +8,7 @@ string* QueryBane(){
     if(bane) return bane;
 }
 
-int SetBane(array arr){
+int SetBane(mixed* arr){
     if(arr) bane = arr;
     return 1;
 }

@@ -1,3 +1,7 @@
 /.idea
 /lib/log
 /lib/secure/log
+/lib/secure/save
+/lib/save
+/lib/tmp
+/lib/daemon/tmp

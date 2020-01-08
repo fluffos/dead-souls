@@ -4,8 +4,8 @@
 #define IRN_PASSWORD1            "Bravo"
 #define IRN_PASSWORD2            "Charlie"
 #define IRN_PASSWORD3            "Delta"
-#define IMC2_CLIENT_PW           "clientpass"
-#define IMC2_SERVER_PW           "serverpass"
-#define I3_SERVER_PW             1234567890
+#define IMC2_CLIENT_PW "88wBFnNveI"
+#define IMC2_SERVER_PW "52HCkAqbAh"
+#define I3_SERVER_PW 903089485
 #define INSTANCE_PW              "1234567890"
 #endif /* s_secrets_h */
