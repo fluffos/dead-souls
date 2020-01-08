@@ -50,11 +50,11 @@ nosave private int Moved = 0;
 int eventCheckPending(string str);
 void eventCompleteChar();
 void InputCre(string str);
-protected void cmdPickClass(string args);
-protected void cmdListClasses();
-protected void cmdHelpClass(string args);
-protected void InputClass(string str);
-protected void eventSelectClass();
+private void cmdPickClass(string args);
+private void cmdListClasses();
+private void cmdHelpClass(string args);
+private void InputClass(string str);
+private void eventSelectClass();
 
 int CheckIp(){
     int ips = 0;
@@ -73,7 +73,7 @@ int CheckIp(){
     return 1;
 }
 
-protected void create(int binary) {
+private void create(int binary) {
     extra = "";
     UserVars = ([]);
     if(query_windows()){
@@ -109,7 +109,7 @@ protected void create(int binary) {
     ip_permitted = explode(read_file(CFG_IP_UNRESTRICT),"\n");
 }
 
-varargs protected void logon(mixed foo) {
+varargs private void logon(mixed foo) {
     string welcome = "Connected to "+mud_name()+", an LP mud";
     if(sizeof(architecture())) welcome += " running on "+architecture()+".\n";
     else welcome += ".\n";
@@ -151,7 +151,7 @@ varargs protected void logon(mixed foo) {
     }
 }
 
-protected void InputName(string namen, string kill_me) {
+private void InputName(string namen, string kill_me) {
     string temp_name, news;
     mixed tmp;
     int toomany;
@@ -255,7 +255,7 @@ protected void InputName(string namen, string kill_me) {
     else InputPassword("guest","Guest");
 }
 
-protected void InputPassword(string pass, string cap) {
+private void InputPassword(string pass, string cap) {
     string control;
 
     if(Name != "guest"){
@@ -314,7 +314,7 @@ protected void InputPassword(string pass, string cap) {
     else eventReEnterGame(cap);
 }
 
-protected void eventCreatePlayer(string cap) {
+private void eventCreatePlayer(string cap) {
     string tmpdir, lcname = lower_case(Name);
     string *tmpfiles = ({});
     if( !(BANISH_D->valid_name(lcname)) ) {
@@ -357,7 +357,7 @@ protected void eventCreatePlayer(string cap) {
     input_to((: ConfirmName :), I_NOESC, cap);
 }
 
-protected void BlindCheck(string ans, string cap){
+private BlindCheck(string ans, string cap){
     if( !ans || ans == "" || lower_case(ans)[0..0] == "y" ) {
         receive("\nOk, disabling default overhead map.\n");
         blindmode = 1;
@@ -368,7 +368,7 @@ protected void BlindCheck(string ans, string cap){
     input_to((: CreatePassword :), I_NOECHO | I_NOESC, cap);
 }
 
-protected void AgeCheck(string ans, string cap) {
+private void AgeCheck(string ans, string cap) {
     if( !ans || ans == "" || lower_case(ans)[0..0] != "y" ) {
         receive("\nSorry. You are not old enough to play here.\n");
         Destruct();
@@ -381,7 +381,7 @@ protected void AgeCheck(string ans, string cap) {
     input_to((: BlindCheck :), I_NOESC, cap);
 }
 
-protected void ConfirmName(string ans, string cap) {
+private void ConfirmName(string ans, string cap) {
     if( !ans || ans == "" || lower_case(ans)[0..0] != "y" ) {
         receive("\nOk, then enter the name you really want: \n");
         input_to( (: InputName :), I_NOESC );
@@ -391,7 +391,7 @@ protected void ConfirmName(string ans, string cap) {
     input_to((: AgeCheck :), I_NOESC, cap);
 }
 
-protected void eventReEnterGame(string cap) {
+private void eventReEnterGame(string cap) {
     if( interactive(Player) ) {
         receive("\nAn interactive copy of you currently exists.\n");
         receive("Do you wish to take over this copy? (y/n) \n");
@@ -424,7 +424,7 @@ protected void eventReEnterGame(string cap) {
     Destruct();
 }
 
-protected void ConfirmReconnect(string ans, string cap) {
+private void ConfirmReconnect(string ans, string cap) {
     object tmp;
 
     if( !stringp(ans) || ans == "" || lower_case(ans)[0..0] != "y" ) {
@@ -459,7 +459,7 @@ protected void ConfirmReconnect(string ans, string cap) {
     Destruct();
 }
 
-protected int CanLogin() {
+private int CanLogin() {
     string group;
 
     if( BANISH_D->GetGuest(Name) ) return 1;
@@ -468,7 +468,7 @@ protected int CanLogin() {
     return 0;
 }
 
-private void eventEnterGame() {
+private private void eventEnterGame() {
     if(!exec(Player, this_object())) {
         debug("problem connecting");
         receive("\nProblem connecting.\n");
@@ -510,7 +510,7 @@ private void eventEnterGame() {
     call_out( (: destruct(this_object()) :), 10);
 }
 
-protected void CreatePassword(string pass, string cap) {
+private void CreatePassword(string pass, string cap) {
     if( strlen(pass) < 3) {
         receive("\nYour password must be at least 5 letters in length.\n");
         receive("Please choose another password: ");
@@ -521,7 +521,7 @@ protected void CreatePassword(string pass, string cap) {
     input_to( (: ConfirmPassword :), I_NOECHO | I_NOESC, cap, pass);
 }
 
-protected void ConfirmPassword(string control, string cap, string pass) {
+private void ConfirmPassword(string control, string cap, string pass) {
     if( control == pass ) {
         Player = master()->player_object(Name);
         pass = crypt(pass, 0);
@@ -535,7 +535,7 @@ protected void ConfirmPassword(string control, string cap, string pass) {
     return;
 }
 
-protected void InputGender(string str, string cap) {
+private void InputGender(string str, string cap) {
     if( str != "male" && str != "female"
             && str != "neuter" && str != "neutral" && str != "none") {
         receive("\nCute, but pretend to be male, female, neutral, or none instead.\n");
@@ -556,7 +556,7 @@ protected void InputGender(string str, string cap) {
     }
 }
 
-protected void InputCapName(string name, string cap) {
+private void InputCapName(string name, string cap) {
     if( !name || name == "" ) name = cap;
     if( !(BANISH_D->valid_cap_name(name, Name)) ) {
         receive("\nThat was not a valid name format, choose again: \n");
@@ -571,7 +571,7 @@ protected void InputCapName(string name, string cap) {
     input_to((: InputEmail :), I_NOESC);
 }
 
-protected void InputEmail(string email) {
+private void InputEmail(string email) {
     string user, host;
 
     if( !email || sscanf(email, "%s@%s", user, host) != 2 ) {
@@ -591,7 +591,7 @@ protected void InputEmail(string email) {
     }
 }
 
-protected void InputRealName(string rname) {
+private void InputRealName(string rname) {
     if( !rname || rname == "" ) rname = "Unknown";
     TrueName = rname;
     if(!HUMANS_ONLY){
@@ -612,7 +612,7 @@ protected void InputRealName(string rname) {
     else InputRace("pick human");
 }
 
-protected void InputRace(string str) {
+private void InputRace(string str) {
     string cmd, args;
     string *valid = ( RACES_D->GetRaces(1) || ({}) );
 
@@ -649,9 +649,9 @@ protected void InputRace(string str) {
     }
 }
 
-protected void cmdHelp(string args) {
+private void cmdHelp(string args) {
     function f;
-    string* races = RACES_D->GetRaces(1);
+    string * races = RACES_D->GetRaces(1);
     string help;
 
     f = function(string str) {
@@ -673,7 +673,7 @@ protected void cmdHelp(string args) {
     eventPage(explode(help, "\n"), MSG_HELP, f);
 }
 
-protected void cmdList() {
+private void cmdList() {
     string list;
 
     list = format_page(sort_array(RACES_D->GetRaces(1), 1), 5);
@@ -682,7 +682,7 @@ protected void cmdList() {
     input_to((: InputRace :), I_NOESC);
 }
 
-protected void cmdPick(string args) {
+private void cmdPick(string args) {
     if( !args || args == "" ) {
         receive("You must specify a race to pick.\n\nRace: \n");
         input_to((: InputRace :), I_NOESC);
@@ -714,7 +714,7 @@ protected void cmdPick(string args) {
     }
 }
 
-protected void eventSelectClass(){
+private void eventSelectClass(){
     receive("\n\nYou must now pick a class.\n");
     receive("Picking a class influences what skills your character "
             "will have.\n");
@@ -730,7 +730,7 @@ protected void eventSelectClass(){
     input_to((: InputClass :), I_NOESC);
 }
 
-protected void InputClass(string str){
+private void InputClass(string str){
     string cmd, args;
     string *valid = ( CLASSES_D->GetClasses(1) || ({}) );
 
@@ -767,7 +767,7 @@ protected void InputClass(string str){
     }
 }
 
-protected void cmdHelpClass(string args){
+private void cmdHelpClass(string args){
     function f;
     string* Classes = CLASSES_D->GetClasses(1);
     string help;
@@ -791,7 +791,7 @@ protected void cmdHelpClass(string args){
     eventPage(explode(help, "\n"), MSG_HELP, f);
 }
 
-protected void cmdListClasses() {
+private void cmdListClasses() {
     string list;
 
     list = format_page(sort_array(CLASSES_D->GetClasses(1), 1), 5);
@@ -800,7 +800,7 @@ protected void cmdListClasses() {
     input_to((: InputClass :), I_NOESC);
 }
 
-protected void cmdPickClass(string args) {
+private void cmdPickClass(string args) {
     if( !args || args == "" ) {
         receive("You must specify a class to pick.\n\nClass: \n");
         input_to((: InputClass :), I_NOESC);
@@ -903,7 +903,7 @@ void eventCompleteChar(){
     eventEnterGame();
 }
 
-protected void eventTimeout() {
+private void eventTimeout() {
     if( !interactive(this_object()) ) {
         Destruct();
     }
@@ -921,7 +921,7 @@ varargs int eventPrint(string msg, mixed cl, mixed arg3) {
     return 1;
 }
 
-private void Destruct() {
+private private void Destruct() {
     if( Player && !NetDead ) destruct(Player);
     remove_call_out();
     destruct(this_object());
@@ -944,21 +944,21 @@ string GetCapName() {
     return (tmp ? capitalize(tmp) : "");
 }
 
-protected void terminal_type(string str) {
+private void terminal_type(string str) {
     if( !stringp(str) ) return;
     else Terminal = lower_case(str);
 }
 
-protected void window_size(int width, int height) {
+private void window_size(int width, int height) {
     Screen = ({ width, height });
 }
 
-protected void CreateGuest() {
+private void CreateGuest() {
     receive("Enter the name you wish to use: \n");
     input_to( (: GetGuestName :), I_NOESC );
 }
 
-protected void GetGuestName(string nom) {
+private void GetGuestName(string nom) {
     object ob;
 
     return;

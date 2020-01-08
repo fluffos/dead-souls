@@ -38,4 +38,4 @@ void init(){
     ::init();
 }
 
-int CanSell() { return 0; }
+int CanSell(object arg) { return 0; }

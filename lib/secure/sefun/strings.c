@@ -49,10 +49,12 @@ string trim(string str) {
     string *whitespace;
     int j, i = 0;
 
+    if(str == "") return str;
+
     j = strlen(str) - 1;
     whitespace = ({ ' ', '\t' });
-    while(member_array(str[i..i], whitespace) != -1) i++;
-    while(i < j  && member_array(str[j..j], whitespace) != -1) j--;
+    while(member_array(str[i], whitespace) != -1) i++;
+    while(i < j  && member_array(str[j], whitespace) != -1) j--;
     return str[i..j];
 }
 

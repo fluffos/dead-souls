@@ -7,7 +7,7 @@
 #define DEBUGGER                 "sunyc"
 #define LOCAL_NEWS_PREFIX        "nm"
 #define MUD_IS_LOCKED            0
-#define AUTO_WIZ                 0
+#define AUTO_WIZ                 1
 #define RESTRICTED_INTERMUD      0
 #define DISABLE_INTERMUD         0
 #define DISABLE_IMC2             0

@@ -131,6 +131,7 @@ void new_groups() {
     tmp = ([]);
     load_access(CFG_GROUPS, tmp);
     Groups = tmp;
+    debug_message(sprintf("Groups: %O", Groups));
 }
 
 private void load_access(string cfg, mapping resource) {
