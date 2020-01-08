@@ -11,7 +11,7 @@ string dump_socket_status() {
     ret += "        Fd    State      Mode       Local Address          Remote Address";
     ret += "        --  ---------  --------  ---------------------  ---------------------";
 
-    foreach (array item in finalsocks) {
+    foreach (mixed* item in finalsocks) {
         int memb = member_array(item, finalsocks);
         ret += sprintf("%2d  %|9s  %|8s  %-21s  %-21s\n", memb, item[1], item[2], item[3], item[4]);
     }
