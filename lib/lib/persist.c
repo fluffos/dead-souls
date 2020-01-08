@@ -13,7 +13,7 @@ private mixed *Saved = ({ "Properties" });
 
 string GetShort();
 
-nosave int eventConvertObject(mixed val, int recurse){
+private int eventConvertObject(mixed val, int recurse){
     string *flat = ({});
     mixed *tmp, *saved = this_object()->GetSave();
 
@@ -96,7 +96,7 @@ int eventLoadObject(mixed val, int recurse){
 }
 
 mixed *GetSave(){
-    return copy(Saved); 
+    return copy(Saved);
 }
 mixed *cGetSave(){ return copy(Saved); }
 mixed *dGetSave(){ return Saved; }
@@ -107,7 +107,7 @@ protected mixed *AddSave(mixed *vars){
     return copy(Saved);
 }
 
-nosave int SetSaveRecurse(int flag){ return (SaveRecurse = flag); }
+protected int SetSaveRecurse(int flag){ return (SaveRecurse = flag); }
 
 string GetSaveString(){
     mixed *tmp, *saved = this_object()->GetSave();
@@ -125,7 +125,8 @@ string GetSaveString(){
         foreach(mixed var in flat){
             if(stringp(var)){
                 if(member_array(var, vv) == -1) continue;
-                mp[var] = fetch_variable(var);
+                // FIXME: why?
+                catch(mp[var] = fetch_variable(var));
             }
         }
     }

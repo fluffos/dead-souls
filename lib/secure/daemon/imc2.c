@@ -800,7 +800,7 @@ void start_logon(){
                      write("rest begings with a quote\n");
                    */
                   i = 1;
-                  while(((rest[i]!=34) || (rest[i-1]==92)) && (i<sizeof(rest))){ // 34 = ", 92 = \
+                  while((i<sizeof(rest)) && ((rest[i]!=34) || (rest[i-1]==92))){ // 34 = ", 92 = \
                       // While this is not a quote, or if this is an escaped quote, keep looking.
                       i++;
                   }

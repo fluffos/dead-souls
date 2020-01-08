@@ -60,7 +60,17 @@ void init(){
 
 void LoadBook(){
     mixed *map_array = this_object()->eventLoadChapters();
-    SetItems(map_array[0]);
+    if(!map_array || sizeof(map_array) == 0) return ;
+
+    if (arrayp(map_array)) {
+      foreach(mapping m in map_array) {
+        foreach(mixed key, mixed val in m) {
+          AddItem(key, val);
+        }
+      }
+    } else {
+      SetItems((mapping) map_array);
+    }
     AddItem( "index", "This is a list of the chapters in this book.");
     SetRead("index", (: ReadBookIndex :));
     foreach(mixed key, mixed val in map_array){
