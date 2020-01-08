@@ -22,12 +22,12 @@ nosave private mapping Resistances = ([]);
 nosave private mapping Armors = ([]);
 nosave private mapping Sizes = ([]);
 nosave private mapping Btypes = ([]);
-string array FlyingRaces = ({});
-string array LimblessCombatRaces = ({});
-string array LimblessRaces = ({});
-string array NonBitingRaces = ({});
-string array SwimmingRaces = ({});
-string array NonMeatRaces = ({});
+string* FlyingRaces = ({});
+string* LimblessCombatRaces = ({});
+string* LimblessRaces = ({});
+string* NonBitingRaces = ({});
+string* SwimmingRaces = ({});
+string* NonMeatRaces = ({});
 nosave string SaveFile;
 
 protected void ReloadRaces(){
@@ -161,7 +161,7 @@ int RemoveRaceVars(string str){
     FlyingRaces  -= ({ str });
     LimblessCombatRaces -= ({ str });
     LimblessRaces -= ({ str });
-    NonBitingRaces -= ({ str }); 
+    NonBitingRaces -= ({ str });
     NonBitingRaces -= ({ str });
     SwimmingRaces -= ({ str });
     return 1;
@@ -204,12 +204,12 @@ mapping GetRace(string str){
 
 void AddRace(string file, int player) {
     mapping res;
-    string array tmp, parts;
+    string* tmp, parts;
     string race, test_string;
     int x;
-    mixed array limb = allocate(4);
-    mixed array tmp_limb = allocate(4);
-    mapping s; 
+    mixed* limb = allocate(4);
+    mixed* tmp_limb = allocate(4);
+    mapping s;
 
     res = ([]);
 
@@ -293,19 +293,19 @@ void AddRace(string file, int player) {
             break;
 
             case "LANGUAGE":
-            //TODO: This should be a Language array to handle multiple 
+            //TODO: This should be a Language array to handle multiple
             //languages but further research is required first.
             res["Language"] = replace_string(line, "LANGUAGE ", "");
             break;
 
-            case "RESISTANCE":			  
+            case "RESISTANCE":
             tmp = explode(replace_string(line, "RESISTANCE ", ""), ":");
             x = to_int(tmp[0]);
             if( x == 0 && tmp[0] != "0" ) x = this_object()->GetResistance(tmp[0]);
             res["Resistance"][x] = tmp[1];
             break;
 
-            case "SKILL":      
+            case "SKILL":
             tmp = explode(replace_string(line, "SKILL ", ""), ":");
             res["Skills"][tmp[0]] = ({ tmp[1], tmp[2], tmp[3], tmp[4] });
             SKILLS_D->SetSkill(tmp[0], race, tmp[2], 1);
@@ -379,8 +379,8 @@ void AddRace(string file, int player) {
 
             default:
             break;
-        } 
-    }  
+        }
+    }
 
     res["Complete"] = 1;
 
@@ -394,13 +394,13 @@ void AddRace(string file, int player) {
 
     Races[race] = res;
     SaveObject(SaveFile);
-} 
+}
 
 void RemoveRace(string race) {
     validate();
     map_delete(Races, race);
     RemoveRaceVars(race);
-    if(Races[race]) 
+    if(Races[race])
         SaveObject(SaveFile);
 }
 
@@ -418,7 +418,7 @@ int GetArmor(string foo) {
         unguarded((: write_file($(file), "#include <armor_types.h>\n" +
                         "int armor() { return " + $(str) + "; }\n") :));
     }
-    return call_other(file, "armor"); 
+    return call_other(file, "armor");
 }
 
 int GetSize(string foo) {
@@ -429,7 +429,7 @@ int GetSize(string foo) {
         unguarded((: write_file($(file), "#include <size_types.h>\n" +
                         "int size() { return " + $(str) + "; }\n") :));
     }
-    return call_other(file, "size"); 
+    return call_other(file, "size");
 }
 
 int GetBodyType(string foo) {
@@ -440,7 +440,7 @@ int GetBodyType(string foo) {
         unguarded((: write_file($(file), "#include <body_types.h>\n" +
                         "int btype() { return " + $(str) + "; }\n") :));
     }
-    return call_other(file, "btype"); 
+    return call_other(file, "btype");
 }
 
 int GetRespirationType(string foo) {
@@ -451,7 +451,7 @@ int GetRespirationType(string foo) {
         unguarded((: write_file($(file), "#include <respiration_types.h>\n" +
                         "int rtype() { return " + $(str) + "; }\n") :));
     }
-    return call_other(file, "rtype"); 
+    return call_other(file, "rtype");
 }
 
 int GetMouthType(string foo) {
@@ -462,7 +462,7 @@ int GetMouthType(string foo) {
         unguarded((: write_file($(file), "#include <mouth_types.h>\n" +
                         "int mtype() { return " + $(str) + "; }\n") :));
     }
-    return call_other(file, "mtype"); 
+    return call_other(file, "mtype");
 }
 
 int GetResistance(string str) {
@@ -472,7 +472,7 @@ int GetResistance(string str) {
         unguarded((: write_file($(file), "#include <damage_types.h>\n" +
                         "int damage() { return " + $(str) + "; }\n") :));
     }
-    return call_other(file, "damage"); 
+    return call_other(file, "damage");
 }
 
 varargs mapping GetRemoteRaces(string str) {
@@ -516,7 +516,7 @@ void SetComplete(string race) {
     SaveObject(SaveFile);
 }
 
-void SetLightSensitivity(string race, int array sensitivity) {
+void SetLightSensitivity(string race, int* sensitivity) {
     mapping res;
 
     validate();
@@ -530,9 +530,9 @@ void SetLightSensitivity(string race, int array sensitivity) {
     SaveObject(SaveFile);
 }
 
-void SetCharacterLimbs(string race, mixed array args) {
+void SetCharacterLimbs(string race, mixed* args) {
     mapping res = Races[race];
-    mixed array tmp = ({});
+    mixed* tmp = ({});
 
     if( !res || !res["Complete"] || sizeof(args) != 2 ) return;
     args[0] = copy(res["Limbs"]);
@@ -541,9 +541,9 @@ void SetCharacterLimbs(string race, mixed array args) {
     args[1] = tmp;
 }
 
-void SetCharacterRace(string race, mixed array args) {
+void SetCharacterRace(string race, mixed* args) {
     mapping res = Races[race];
-    mixed array tmp;
+    mixed* tmp;
     mapping StatMap;
     string schluss;
 
@@ -561,10 +561,10 @@ void SetCharacterRace(string race, mixed array args) {
     args[1] = tmp;
     args[2] = res["Language"];
     args[3] = res["Sensitivity"];
-    args[4] = res["Skills"]; 
+    args[4] = res["Skills"];
 }
 
-varargs string array GetRaces(int player_only) {
+varargs string* GetRaces(int player_only) {
 
     return filter(keys(Races), function(string race, int player_only) {
             mapping res = Races[race];
@@ -578,14 +578,14 @@ varargs string array GetRaces(int player_only) {
 
 string GetHelp(string race) {
     mapping res = Races[race];
-    string array limbs;
+    string* limbs;
     string help = "Race: " + race + "\n\n";
     string tmp, h_file;
     int x;
 
     if( !res ) return 0;
     h_file = "/doc/help/races/"+lower_case(race);
-    if(file_exists(h_file)) return read_file(h_file); 
+    if(file_exists(h_file)) return read_file(h_file);
     limbs = map(res["Limbs"], (: $1[0] :));
     limbs = distinct_array(limbs);
     help += "Limbs:\n";
@@ -608,7 +608,7 @@ string GetHelp(string race) {
     else if( x < 21 ) tmp = "good";
     else if( x < 26 ) tmp = "average";
     else if( x < 31 ) tmp = "below average";
-    else if( x < 36 ) tmp = "very poor";    
+    else if( x < 36 ) tmp = "very poor";
     else tmp = "extremely poor";
     help += "\nNight vision: " + tmp + "\n";
     x = res["Sensitivity"][1];

@@ -4,8 +4,8 @@
 
 inherit LIB_VIRT_MAP;
 
-varargs string array BaseMap(){ //override with actual map
-    return 
+varargs string* BaseMap(){ //override with actual map
+    return
         ({
          //   0
          // 01234

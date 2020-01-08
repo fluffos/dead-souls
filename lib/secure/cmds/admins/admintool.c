@@ -77,7 +77,7 @@ string global_group_temp, menu, racepath, currency, ridded, globalstr, file;
 string *currencies;
 string gnom, gstr;
 
-float rate, weight, inflation; 
+float rate, weight, inflation;
 
 
 mixed InvalidChoice(){
@@ -150,7 +150,7 @@ string process_input(string str){
 }
 
 
-varargs mixed MainMenu(string str) {    
+varargs mixed MainMenu(string str) {
     string tmp;
     validate();
     tmp = "\tDead Souls Admin Tool\n";
@@ -168,7 +168,7 @@ varargs mixed MainMenu(string str) {
     return 1;
 }
 
-protected int GeneralMenu() {    
+protected int GeneralMenu() {
     string tmp;
 
     validate();
@@ -188,7 +188,7 @@ protected int GeneralMenu() {
     return 1;
 }
 
-int DaemonMenu() {    
+int DaemonMenu() {
     string tmp;
 
     validate();
@@ -208,7 +208,7 @@ int DaemonMenu() {
     return 1;
 }
 
-int UsersMenu() {    
+int UsersMenu() {
     string tmp;
 
     validate();
@@ -296,7 +296,7 @@ int ToggleMudLock(){
         return 0;
     }
     if(num == 0) {
-        write("Locking mud.\n");	
+        write("Locking mud.\n");
         num = 1;
     }
     else {
@@ -391,7 +391,7 @@ int SetReboot(){
     write("Current reboot interval is set to "+EVENTS_D->GetRebootInterval()+" hours.");
     write(load_object("/cmds/players/nextreboot")->cmd("string"));
     write("Please enter the new desired interval in hours:\n");
-    input_to( (: eventSetReboot :) );	
+    input_to( (: eventSetReboot :) );
     return 1;
 }
 
@@ -426,7 +426,7 @@ int AddClass(){
 
 int eventAddClass(string str){
     string classpath;
-    array *classes;
+    mixed* classes;
 
     validate();
     if(!str) {
@@ -495,7 +495,7 @@ int AddRace(){
 }
 
 int eventAddRace(string str){
-    array *races;
+    mixed* races;
 
     validate();
     if(!str) {
@@ -824,7 +824,7 @@ varargs int eventChangeName(string newname, int automated){
             return 0;
     }
 
-    if(!find_object(INSTANCES_D) || !ENABLE_INSTANCES || 
+    if(!find_object(INSTANCES_D) || !ENABLE_INSTANCES ||
             INSTANCES_D->GetMyInstanceName() == "global"){
         mconfig = "/secure/cfg/mudos.cfg";
     }
@@ -1021,7 +1021,7 @@ int eventAddGroup(string str){
     }
 
     foreach(string line in line_array){
-        if(strsrch(line,"(") != -1 && 
+        if(strsrch(line,"(") != -1 &&
                     first(line,1) != "#"){
                 bottom_array += ({ line });
                 }

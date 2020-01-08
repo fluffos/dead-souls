@@ -21,12 +21,12 @@ varargs mixed GetPress(string str){
     return Press[str];
 }
 
-string array GetPresses(){
+string* GetPresses(){
     return keys(Press);
 }
 
-mapping RemovePress(string item){ 
-    map_delete(Press, item); 
+mapping RemovePress(string item){
+    map_delete(Press, item);
     return Press;
 }
 

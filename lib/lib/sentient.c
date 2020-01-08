@@ -23,7 +23,7 @@ private mapping     TalkResponses    = ([]);
 private mapping     ConsultResponses = ([]);
 nosave private int  WanderCount      = 0;
 nosave private int  WanderMarker     = 0;
-private mixed array WanderPath       = ({});
+private mixed* WanderPath       = ({});
 private int         WanderRecurse    = 0;
 private int         WanderSpeed      = 0;
 private int         permit_load      = 0;
@@ -196,11 +196,11 @@ varargs int SetWander(int speed, mixed *path, int recurse){
     WanderRecurse = recurse;
 }
 
-mixed array GetWanderPath(){
+mixed* GetWanderPath(){
     return WanderPath;
 }
 
-mixed array SetWanderPath(mixed array path){
+mixed* SetWanderPath(mixed* path){
     return (WanderPath = path);
 }
 
@@ -388,7 +388,7 @@ mixed eventWander(){
             if(!RACES_D->CanSwim(this_player()->GetRace())){
                 eventForce("climb out");
             }
-        }            
+        }
 
         outs = env->GetExits();
         sorties = ({});
@@ -425,7 +425,7 @@ mixed eventWander(){
         }
         else return 0;
     }
-    if( arrayp(WanderPath[WanderMarker]) ) 
+    if( arrayp(WanderPath[WanderMarker]) )
         foreach(mixed cmd in WanderPath[WanderMarker]){
             if( fp = functionp(cmd) ){
                 if( fp != FP_OWNER_DESTED ) evaluate(cmd);

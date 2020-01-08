@@ -20,10 +20,10 @@ int GetParalyzed();
 varargs mixed eventPrint(string msg, mixed args...);
 int GetSkillLevel(string skill);
 int GetStaminaPoints();
-void SetAttack(object array e, function f, int type);
+void SetAttack(object* e, function f, int type);
 // end abstract methods
 
-nosave varargs void eventCast(object spell, string limb, object array targs);
+nosave varargs void eventCast(object spell, string limb, object* targs);
 protected void eventTrainSpell(object spell);
 
 mapping GetSpellBook(){
@@ -75,9 +75,9 @@ varargs mixed CanCast(object spell){
     return 1;
 }
 
-varargs mixed eventPrepareCast(string verb, mixed array args...){
+varargs mixed eventPrepareCast(string verb, mixed* args...){
     object spell = SPELLS_D->GetSpell(verb = lower_case(verb));
-    object array targets, send_to;
+    object* targets, send_to;
     string special, arg;
     mixed tmp;
     int type;
@@ -97,7 +97,7 @@ varargs mixed eventPrepareCast(string verb, mixed array args...){
     args = filter(args, (: stringp :));
     if( spell->GetAutoHeal() == 0 ){
         if( !sizeof(args) ){
-            object array existing = filter(targets, (: $1 :));
+            object* existing = filter(targets, (: $1 :));
 
             if( sizeof(existing) != 1 ){
                 error("This spell was poorly constructed.");
@@ -152,7 +152,7 @@ varargs mixed eventPrepareCast(string verb, mixed array args...){
     return 1;
 }
 
-nosave varargs void eventCast(object spell, string limb, object array targs){
+nosave varargs void eventCast(object spell, string limb, object* targs){
     string name = spell->GetSpell();
 
     if( this_object()->GetSpellBook()[name] < 100 ){

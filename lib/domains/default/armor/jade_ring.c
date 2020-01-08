@@ -37,7 +37,7 @@ void init(){
     add_action("UnsetNPCReporting", "disablereport");
 }
 
-mixed CanEquip(object who, string array limbs){
+mixed CanEquip(object who, string* limbs){
     if(who && !creatorp(who) && !member_group(who,"TEST")){
         return "Somehow it just won't go on. Strange, isn't it?";
         return 0;
@@ -83,7 +83,7 @@ int PerformHeal(){
 int CheckRing(){
     if(environment() != this_player()) return 0;
     if(!(this_object()->GetWorn())) return 0;
-    if(!creatorp(environment()) && 
+    if(!creatorp(environment()) &&
             !member_group(environment(),"TEST")) return -1;
     return 1;
 }
@@ -156,7 +156,7 @@ int SetProtection(string str){
     if(CheckRing() == -1){
         write("The ring's power can only be harnessed by special people. That means, \"not you\".");
         return 1;
-    } 
+    }
     if(str == "on") booly=1;
     write("You set the ring's protection to: "+(booly ? "on" : "off")+".");
     if(ringshadow) ringshadow->JadeProtection(booly);
@@ -179,7 +179,7 @@ int SetReporting(string str){
     return 1;
 }
 
-mixed eventEquip(object who, string array limbs){
+mixed eventEquip(object who, string* limbs){
     int ok = 0;
     mixed success = armor::eventEquip(who, limbs);
     if(!ringshadow){

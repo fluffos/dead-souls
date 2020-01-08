@@ -11,16 +11,16 @@
 
 inherit LIB_SAVE;
 
-private nosave int NoClean = 0; 
+private nosave int NoClean = 0;
 
 /* ******************* clean.c attributes ************************* */
 int GetNoClean(){
     return NoClean;
-}  
+}
 
 protected int SetNoClean(int x){
     return (NoClean = x);
-} 
+}
 
 /* ******************* clean.c events ************************* */
 /**
@@ -32,7 +32,7 @@ protected int SetNoClean(int x){
  * another object, call ob->eventDestruct().
  */
 protected int Destruct(){
-    object env, furn; 
+    object env, furn;
     int pers;
 
     if( !this_object() ){
@@ -55,8 +55,8 @@ protected int Destruct(){
     }
 
     remove_call_out();
-    destruct(this_object()); 
-    return !(this_object()); 
+    destruct(this_object());
+    return !(this_object());
 }
 
 int eventDestruct(){
@@ -66,8 +66,8 @@ int eventDestruct(){
 }
 
 /* ******************* clean.c driver applies ********************* */
-int clean_up(int ref_exists){ 
-    object array inv; 
+int clean_up(int ref_exists){
+    object* inv;
     object env;
 
     if(origin() == "driver") return 0;
@@ -79,21 +79,21 @@ int clean_up(int ref_exists){
         return NEVER_AGAIN;
     }
     env = environment();
-    if( env ){ 
+    if( env ){
         if( env->isBag() ){
             return TRY_AGAIN_LATER;
         }
         if( env->GetProperty("storage room") ){
             return TRY_AGAIN_LATER;
         }
-    } 
+    }
     inv = deep_inventory(this_object());
     if(inv && sizeof(inv)){
         if( sizeof(filter(inv, (: interactive($1) || $1->GetNoClean() :))) ){
             return TRY_AGAIN_LATER;
         }
     }
-    if( !env ){ 
+    if( !env ){
 
         if(this_object() && !strsrch(base_name(this_object()),"/lib/")){
             return NEVER_AGAIN;
@@ -111,10 +111,10 @@ int clean_up(int ref_exists){
         if( this_object() ){
             destruct(this_object());
         }
-        return NEVER_AGAIN; 
-    } 
+        return NEVER_AGAIN;
+    }
     if( interactive(env) ){
         return TRY_AGAIN_LATER;
     }
-    return env->clean_up(); 
-} 
+    return env->clean_up();
+}

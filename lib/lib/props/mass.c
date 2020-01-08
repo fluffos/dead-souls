@@ -46,7 +46,7 @@ int SetMass(int x){
     return (Mass = x);
 }
 
-string array GetSave(){
+string* GetSave(){
     return ({ "Mass" });
 }
 

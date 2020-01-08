@@ -23,8 +23,8 @@ protected void create(){
     SetKeyName("pile");
 }
 
-string array GetId(){
-    string array id;
+string* GetId(){
+    string* id;
     string tender = "coins";
     if(PileType == "dollars") tender = "bills";
 
@@ -42,7 +42,7 @@ int GetMass(){
 void SetPile(string str, int amt){
     PileType = str;
     PileAmount = amt;
-    if(!PileAmount || PileAmount < 1 ){ 
+    if(!PileAmount || PileAmount < 1 ){
         SetLong("a pile of money");
         call_out( (: eventDestruct :), 1);
     }
@@ -128,7 +128,7 @@ mixed direct_get_wrd_wrd_out_of_obj(string num, string curr){
     if( !this_player()->CanCarry(currency_mass(amt, curr)) ){
         return "It is too heavy for you!";
     }
-    return 1;    
+    return 1;
 }
 
 mixed direct_get_wrd_wrd_from_obj(string amt, string curr){

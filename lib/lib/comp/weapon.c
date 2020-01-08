@@ -48,7 +48,7 @@ varargs string GetEquippedDescription(object who){
 string GetEquippedShort(){
     object env = environment();
     string ret = GetShort();
-    string array limbs;
+    string* limbs;
 
     if( !env || !living(env) ){
         return ret;
@@ -68,14 +68,14 @@ int SetHands(int x){
     return (Hands = x);
 }
 
-string array GetSave(){
+string* GetSave(){
     string *d_save, *e_save, *p_save, *a_save;
 
     d_save = damage::GetSave();
     e_save = equip::GetSave();
     p_save = poison::GetSave();
     a_save = d_save + e_save + p_save + ({"Wielded"});
-    return a_save; 
+    return a_save;
 }
 
 string GetWeaponType(){
@@ -98,7 +98,7 @@ mixed SetWield(mixed val){
     return (Wield = val);
 }
 
-mixed CanEquip(object who, string array limbs){
+mixed CanEquip(object who, string* limbs){
     mixed tmp = equip::CanEquip(who, limbs);
 
     if( tmp != 1 ){
@@ -143,7 +143,7 @@ int eventDeteriorate(int type){
     return 1;
 }
 
-mixed eventEquip(object who, string array limbs){
+mixed eventEquip(object who, string* limbs){
     mixed tmp;
 
     if( functionp(Wield) ){

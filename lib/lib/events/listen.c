@@ -39,7 +39,7 @@ varargs string GetListen(string str, object who){
     else return val;
 }
 
-string array GetListens(){
+string* GetListens(){
     return keys(Listens);
 }
 
@@ -53,7 +53,7 @@ mapping RemoveListen(string item){
     return Listens;
 }
 
-varargs mixed SetListen(mixed array args...){
+varargs mixed SetListen(mixed* args...){
     if( sizeof(args) == 1 ){
         if( mapp(args[0]) ){
             if( args[0]["default"] ){

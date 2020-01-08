@@ -21,7 +21,7 @@ protected void create() {
             "abilities.");
 }
 
-varargs int eventCast(object who, int level, string limb, object array targs){
+varargs int eventCast(object who, int level, string limb, object* targs){
     object whip;
     object *limbs = this_player()->GetWieldingLimbs();
     object *whips = filter(all_inventory(this_player()),

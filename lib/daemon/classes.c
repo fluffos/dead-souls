@@ -61,7 +61,7 @@ int ClassMember(string my_class, string query_class) {
 
 void AddClass(string file) {
     mapping cls = ([]);
-    string array lines, tmp;
+    string* lines, tmp;
     string class_name;
     player = 1;
     validate();
@@ -82,7 +82,7 @@ void AddClass(string file) {
             if(!foo) player = 0;
             }
             return 0;
-            } 
+            }
             return 1;
             });
     class_name = lines[0];
@@ -120,9 +120,9 @@ void RemoveClass(string class_name) {
     SaveObject(SaveFile);
 }
 
-void SetClass(string class_name, mixed array args) {
+void SetClass(string class_name, mixed* args) {
     mapping cls = Classes[class_name];
-    mixed array primes, ots;
+    mixed* primes, ots;
     if( !cls || !cls["Complete"] || sizeof(args) != 3 ){
         return;
     }

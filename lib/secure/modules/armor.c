@@ -19,7 +19,7 @@ object armor_item;
 string *prot_array = ({});
 mapping ProtectionsMap = ([]);
 
-string array Protections = ({ "BLUNT" ,"BLADE", "KNIFE", "WATER", "SHOCK", "COLD", "HEAT", "GAS", "ACID", "MAGIC", "POISON", "DISEASE", "TRAUMA" });
+string* Protections = ({ "BLUNT" ,"BLADE", "KNIFE", "WATER", "SHOCK", "COLD", "HEAT", "GAS", "ACID", "MAGIC", "POISON", "DISEASE", "TRAUMA" });
 
 
 varargs int eventStartArmorQuestions(string what, object ob){
@@ -31,7 +31,7 @@ varargs int eventStartArmorQuestions(string what, object ob){
 
     if(file_exists(filename)) tempvar = eventReadProtectionSettings(filename);
     if(tempvar && mapp(tempvar)) ProtectionsMap = tempvar;
-    else ProtectionsMap = ([]); 
+    else ProtectionsMap = ([]);
 
     protections = "";
     prot_array = ({});
@@ -141,7 +141,7 @@ mixed eventReadProtectionSettings(string str){
         }
     }
 
-    fun_array = this_object()->eventReadFunctions(str);   
+    fun_array = this_object()->eventReadFunctions(str);
     if(!sizeof(fun_array)) {
         write("Unknown error.");
         return 1;

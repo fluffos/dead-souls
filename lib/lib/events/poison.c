@@ -24,7 +24,7 @@ int SetPoison(int x){
     return (Poison = x);
 }
 
-string array GetSave(){
+string* GetSave(){
     return ({ "Poison" });
 }
 

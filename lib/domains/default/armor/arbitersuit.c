@@ -24,7 +24,7 @@ protected void create(){
     SetMatching(0);
     SetBaseCost("silver",50000);
     SetArmorType(A_CUSTOM);
-    SetRestrictLimbs( ({ 
+    SetRestrictLimbs( ({
                 "torso", "head", "neck",
                 "right arm", "left arm",
                 "right leg", "left leg",
@@ -77,7 +77,7 @@ varargs mixed GetSuitHelp(mixed who, string where){
     return 0;
 }
 
-mixed eventEquip(object who, string array limbs){
+mixed eventEquip(object who, string* limbs){
     mixed success = ::eventEquip(who, limbs);
     arbitershadow = new("/shadows/arbiter");
     if(arbitershadow) arbitershadow->SetDisguised(disguised);
@@ -117,7 +117,7 @@ int eventDecrementCharge(int i){
     if(!GetWorn()) return 0;
     if(previous_object() != arbitershadow) return 0;
     if(charge < 1) charge = 0;
-    else { 
+    else {
         if(!i) charge--;
         else charge -= i;
         if(charge < 0) charge = 0;
@@ -171,12 +171,12 @@ int SetMaxCharge(int i){
     return maxcharge;
 }
 
-string array GetBane(){
+string* GetBane(){
     if(GetActive()) return ({ "all" });
     else return ({});
 }
 
-string array QueryBane(){
+string* QueryBane(){
     if(GetActive()) return ({ "all" });
     else return ({});
 }

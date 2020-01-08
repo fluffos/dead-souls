@@ -16,22 +16,22 @@ inherit LIB_HELP;
 private int          AutoDamage      = -1;            // perform dmg?
 private int          AutoHeal        = -1;            // perform healing?
 private string       Conjure         = 0;             // file to clone
-private int array    Damage          = ({ 0, 0 });    // base, random
-private mixed array  Messages        = ({});          // damage/heal messages
+private int*    Damage          = ({ 0, 0 });    // base, random
+private mixed*  Messages        = ({});          // damage/heal messages
 private int          DamageType      = MAGIC;         // damage type done
 private int          Difficulty      = 0;             // 1-100 scale
-private int array    Healing         = ({ 0, 0 });    // base, random
-private int array    MagicCost       = ({ 0, 0 });    // base, random
+private int*    Healing         = ({ 0, 0 });    // base, random
+private int*    MagicCost       = ({ 0, 0 });    // base, random
 private int          Morality        = 0;             // bad? good?
-private string array Religions       = 0;             // limit who can cast
+private string* Religions       = 0;             // limit who can cast
 private int          RemoteTargets   = 0;             // can targets be remote
 private int          RequiredMagic   = 0;             // min magic pts to cast
 private int          RequiredStamina = 0;             // min stam pts to cast
-private string array Rules           = ({});          // spell rules
+private string* Rules           = ({});          // spell rules
 private mapping      Skills          = ([]);          // skill requirements
 private string       SpellName       = "";            // name of spell
 private int          SpellType       = SPELL_HEALING; // spell type
-private int array    StaminaCost     = ({ 0, 0 });    // base, random
+private int*    StaminaCost     = ({ 0, 0 });    // base, random
 private int		   TrainingModifier= 1;			// training factor
 private string       Verb            = "cast";        // use what verb?
 
@@ -76,7 +76,7 @@ int GetDamage(){
     return damage;
 }
 
-varargs nosave void SetDamage(int type, mixed array rest...){
+varargs nosave void SetDamage(int type, mixed* rest...){
     DamageType = type;
     if( arrayp(rest[0]) ){
         rest = rest[0];
@@ -120,7 +120,7 @@ string GetErrorMessage(){
                 return "Cast it on whom?";
             }
 
-        case "OBJ": case "STR": 
+        case "OBJ": case "STR":
             if( Verb == "pray" ){
                 return "Pray for it for what?";
             }
@@ -136,7 +136,7 @@ string GetErrorMessage(){
                 return "Cast it on what of whom?";
             }
 
-        case "for LIV": 
+        case "for LIV":
             return "Pray for it for whom?";
 
         case "for OBJ":
@@ -163,7 +163,7 @@ int GetHealing(){
     return Healing[0] + random(Healing[1]);
 }
 
-protected varargs int array SetHealing(mixed args...){
+protected varargs int* SetHealing(mixed args...){
     Healing[0] = args[0];
     if( sizeof(args) == 2 ){
         Healing[1] = args[1];
@@ -175,7 +175,7 @@ int GetMagicCost(){
     return MagicCost[0] + random(MagicCost[1]);
 }
 
-protected varargs int array SetMagicCost(mixed args...){
+protected varargs int* SetMagicCost(mixed args...){
     MagicCost[0] = args[0];
     if( sizeof(args) == 2 ){
         MagicCost[1] = args[1];
@@ -183,7 +183,7 @@ protected varargs int array SetMagicCost(mixed args...){
     return MagicCost;
 }
 
-varargs string array GetMessage(int damage, int healing){
+varargs string* GetMessage(int damage, int healing){
     int max, div, i;
 
     if( damage < 1 ){
@@ -206,7 +206,7 @@ varargs string array GetMessage(int damage, int healing){
     return Messages[i];
 }
 
-protected mixed array SetMessages(mixed array messages){
+protected mixed* SetMessages(mixed* messages){
     return (Messages = messages);
 }
 
@@ -218,11 +218,11 @@ protected int SetMorality(int x){
     return (Morality = x);
 }
 
-string array GetReligions(){
+string* GetReligions(){
     return copy(Religions);
 }
 
-varargs protected string array SetReligions(string array religions...){
+varargs protected string* SetReligions(string* religions...){
     return (Religions = religions);
 }
 
@@ -254,11 +254,11 @@ int GetRequiredSkill(string skill){
     return Skills[skill];
 }
 
-string array GetRules(){
+string* GetRules(){
     return Rules;
 }
 
-varargs protected string array SetRules(mixed args...){
+varargs protected string* SetRules(mixed args...){
     if( !args ){
         args = ({ "" });
     }
@@ -268,7 +268,7 @@ varargs protected string array SetRules(mixed args...){
     return (Rules = args);
 }
 
-string array GetSkills(){
+string* GetSkills(){
     return keys(Skills);
 }
 
@@ -296,7 +296,7 @@ int GetStaminaCost(){
     return StaminaCost[0] + random(StaminaCost[1]);
 }
 
-protected varargs int array SetStaminaCost(mixed args...){
+protected varargs int* SetStaminaCost(mixed args...){
     StaminaCost[0] = args[0];
     if( sizeof(args) == 2 ){
         StaminaCost[1] = args[1];
@@ -304,7 +304,7 @@ protected varargs int array SetStaminaCost(mixed args...){
     return StaminaCost;
 }
 
-varargs object array GetTargets(object who, mixed args...){
+varargs object* GetTargets(object who, mixed args...){
     int count = sizeof(args);
     int attack = (SpellType == SPELL_COMBAT);
     object def;
@@ -437,7 +437,7 @@ protected string SetVerb(string verb){
 }
 
 /* ******************** spell.c modals *************************** */
-nosave int CanSpellAttack(object who, object array enemies, int power){
+nosave int CanSpellAttack(object who, object* enemies, int power){
     int i, maxi = sizeof(enemies);
     int hits = 0;
     int misses = 0;
@@ -494,13 +494,13 @@ nosave int CanSpellAttack(object who, object array enemies, int power){
                 if(!estatep(enemies[i]))
                     who->eventTrainSkill(skill, power/(hit_count+miss_count),
                             miss_con/miss_count, 0, bonus);
-            }			 
+            }
         }
         if( hit_count < 1 ){
             return -1;
         }
         bonus = who->GetCombatBonus(hits/hit_count);
-        bonus *= GetTrainingModifier();	
+        bonus *= GetTrainingModifier();
         foreach(string skill in GetSkills()){
             if(enemies[i] && !estatep(enemies[i]))
                 who->eventTrainSkill(skill, power/(hit_count+miss_count),
@@ -510,15 +510,15 @@ nosave int CanSpellAttack(object who, object array enemies, int power){
     return 1;
 }
 
-varargs int CanCast(object who, int level, string limb, object array targets){
-    string array skills = GetSkills();
+varargs int CanCast(object who, int level, string limb, object* targets){
+    string* skills = GetSkills();
     int count = sizeof(skills);
     int cost = GetMagicCost();
     int x;
 
     if( Religions ){
         if( member_array(who->GetReligion(1), Religions) == -1 ){
-            who->eventPrint("Your deity does not have that kind of power."); 
+            who->eventPrint("Your deity does not have that kind of power.");
             return 0;
         }
     }
@@ -564,7 +564,7 @@ varargs int CanCast(object who, int level, string limb, object array targets){
         if( !sizeof(filter(targets, (: $1 :))) ){
             return 0;
         }
-    }	
+    }
     foreach(string skill in skills){
         level += who->GetSkillLevel(skill);
     }
@@ -591,7 +591,7 @@ varargs int CanCast(object who, int level, string limb, object array targets){
         }
         foreach(string skill in skills){
             if(!sizeof(filter(targets, (: estatep($1) :))))
-                who->eventTrainSkill(skill, level, GetDifficulty(), 
+                who->eventTrainSkill(skill, level, GetDifficulty(),
                         1, GetTrainingModifier());
         }
     }
@@ -603,7 +603,7 @@ varargs int CanCast(object who, int level, string limb, object array targets){
  * otherwise return damage amount for SPELL_DAMAGE
  * or heal amount for SPELL_HEAL
  */
-varargs int eventCast(object who, int level, mixed limb, object array targets){
+varargs int eventCast(object who, int level, mixed limb, object* targets){
 
     if( GetConjure() ){
         object ob = new(GetConjure());
@@ -626,7 +626,7 @@ varargs int eventCast(object who, int level, mixed limb, object array targets){
         int total_healing = 0;
 
         foreach(object target in targets){
-            string array tmp;
+            string* tmp;
             int healing;
 
             if( !target ){
@@ -649,7 +649,7 @@ varargs int eventCast(object who, int level, mixed limb, object array targets){
             }
         }
         foreach(string message, mapping tmp in messages){
-            foreach(string verb, object array obs in tmp){
+            foreach(string verb, object* obs in tmp){
                 send_messages(verb, message, who, obs,
                         environment(who), ([ "$limb" : limb ]));
             }
@@ -666,7 +666,7 @@ varargs int eventCast(object who, int level, mixed limb, object array targets){
         int total_damage = 0;
 
         foreach(object target in targets){
-            string array tmp;
+            string* tmp;
             int damage;
 
             if( !target ){
@@ -692,7 +692,7 @@ varargs int eventCast(object who, int level, mixed limb, object array targets){
             }
         }
         foreach(string message, mapping tmp in messages){
-            foreach(string verb, object array obs in tmp){
+            foreach(string verb, object* obs in tmp){
                 send_messages(verb, message, who, obs,
                         environment(who), ([ "$limb" : limb ]));
             }
@@ -707,7 +707,7 @@ varargs int eventCast(object who, int level, mixed limb, object array targets){
     return -1;
 }
 
-varargs mixed eventParse(object who, mixed array args...){
+varargs mixed eventParse(object who, mixed* args...){
     int count = sizeof(args);
     if(!who) who = this_player();
 

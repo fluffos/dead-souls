@@ -10,8 +10,8 @@
 
 inherit LIB_VERB;
 
-string array GetFreeLimbs(object who) {
-    string array limbs = who->GetWieldingLimbs();
+string* GetFreeLimbs(object who) {
+    string* limbs = who->GetWieldingLimbs();
 
     limbs = filter(limbs, (: !$(who)->GetWielded($1) :));
     return limbs;
@@ -42,7 +42,7 @@ protected void create() {
             "See also: wear");
 }
 
-mixed can_wield_obj() { 
+mixed can_wield_obj() {
     if( !sizeof(this_player()->GetWieldingLimbs()) ) {
         return "You have no limbs with which to wield!";
     }
@@ -57,7 +57,7 @@ mixed can_wield_obj_word_str() {
 }
 
 mixed do_wield_obj(object ob) {
-    string array limbs = GetFreeLimbs(this_player());
+    string* limbs = GetFreeLimbs(this_player());
     int hands = ob->GetHands();
 
     if(ob->GetEquipped())
@@ -76,8 +76,8 @@ mixed do_wield_obj_word_str(object ob, string word, string str) {
     return ob->eventEquip(this_player(), explode_list(str));
 }
 
-mixed do_wield_obs(mixed array targs) {
-    object array obs;
+mixed do_wield_obs(mixed* targs) {
+    object* obs;
 
     if( !sizeof(targs) ) {
         this_player()->eventPrint("There is no such thing to be wielded.");
@@ -93,7 +93,7 @@ mixed do_wield_obs(mixed array targs) {
         return 1;
     }
     foreach(object item in obs) {
-        string array limbs = GetFreeLimbs(this_player());
+        string* limbs = GetFreeLimbs(this_player());
         int hands = item->GetHands();
 
         if( sizeof(limbs) < hands ) {

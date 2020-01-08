@@ -17,7 +17,7 @@ class client {
     int Descriptor;
     int Blocking;
     int NoDestruct;
-    mixed array Buffer;
+    mixed* Buffer;
 }
 
 private nosave int DestructOnClose, SocketType = -1;
@@ -61,7 +61,7 @@ int eventCreateSocket(string host, int port) {
         eventSocketError("Error in socket_bind().", x);
         return x;
     }
-    x = socket_connect(Socket->Descriptor, host + " " + port, 
+    x = socket_connect(Socket->Descriptor, host + " " + port,
             "eventReadCallback", "eventWriteCallback");
     if( x != EESUCCESS ) {
         eventClose(Socket);
@@ -131,7 +131,7 @@ protected void eventWriteCallback(int fd) {
         if( sizeof(Socket->Buffer) == 1 ) Socket->Buffer = 0;
         else Socket->Buffer = Socket->Buffer[1..];
 
-    } 
+    }
     eventWriteDestruct();
 }
 
@@ -174,8 +174,8 @@ int eventWriteDestruct() {
     return eventDestruct();
 }
 
-nosave void eventSocketError(string str, int x) { 
-    if( LogFile ) 
+nosave void eventSocketError(string str, int x) {
+    if( LogFile )
         log_file(LogFile, ctime(time()) + "\n" + socket_error(x) + "\n");
 }
 

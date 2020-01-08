@@ -27,7 +27,7 @@ int SetDisabled(int x){
     return (Disabled = x);
 }
 
-mixed array GetSave(){
+mixed* GetSave(){
     return ({ "Disabled", "DisableChance" });
 }
 
@@ -53,7 +53,7 @@ varargs mixed indirect_lock_obj_with_obj(object target, object key, mixed id){
         return capitalize(GetDefiniteShort()) + " is broken.";
     }
     return 1;
-}    
+}
 
 varargs mixed indirect_lock_obj_with_str(object target, mixed key, mixed id...){
     if(stringp(key)) key = (get_object(key) || "");

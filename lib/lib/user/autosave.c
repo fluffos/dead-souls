@@ -10,7 +10,7 @@
 #include <dirs.h>
 #include <privs.h>
 
-private mixed array Inventory = 0;
+private mixed* Inventory = 0;
 private nosave int  LastSave  = time();
 
 // abstract methods
@@ -85,7 +85,7 @@ protected void heart_beat(){
     }
     LastSave = x;
     save_player(GetKeyName());
-    if( !builderp(this_object()) && !present("visitor pass",this_object()) 
+    if( !builderp(this_object()) && !present("visitor pass",this_object())
             && !testp(this_object()) ){
         eventPrint("Autosaving...", MSG_SYSTEM);
     }

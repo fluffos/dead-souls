@@ -21,7 +21,7 @@ string GetRead(string str){
     }
 }
 
-string array GetReads(){
+string* GetReads(){
     return keys(Reads);
 }
 
@@ -132,7 +132,7 @@ varargs mixed eventRead(object who, mixed str){
     if(!val){
         write("You can't read that.");
         return 0;
-    } 
+    }
 
     if(Language && (this_player()->GetLanguageLevel(Language) < 100 &&
                 !(this_player()->GetPolyglot()))){

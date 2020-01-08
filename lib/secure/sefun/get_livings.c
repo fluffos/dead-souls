@@ -1,12 +1,12 @@
 /*    /secure/sefun/get_livings.c
  *    From the Frontiers LPC Library
- *	an ugly hack to return an array of living things. 
+ *	an ugly hack to return an array of living things.
  *    Give it an integer argument to return interactives only
  *    Created by Cratylus 23JAN2005
  *    Version: @(#) getlivings.c 1.1@(#)
  */
 
-varargs object array get_livings(object ob,int foo){
+varargs object* get_livings(object ob,int foo){
     object *stuff,*lstuff,*istuff;
     int i;
     if(!ob) return ({});

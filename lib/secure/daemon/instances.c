@@ -148,7 +148,7 @@ mixed InstCreate(string name, string addy, int port){
             if(mbin) mbin = trim(mbin);
             newcfg = replace_string(newcfg, "TEMPLATE_LIB", mlib);
             newcfg = replace_string(newcfg, "TEMPLATE_BIN", mbin);
-            newcfg = replace_string(newcfg, "TEMPLATE_GLOBAL", 
+            newcfg = replace_string(newcfg, "TEMPLATE_GLOBAL",
                     "global."+port+".h");
             write_file("/secure/cfg/mudos."+port+".cfg", newcfg, 1);
             write_file("/secure/cfg/mudos."+port+".win32", newcfg, 1);
@@ -200,7 +200,7 @@ mixed InstDelete(mixed arg){
     else return "No such instance exists.";
 }
 
-string array GetInstances(){
+string* GetInstances(){
     return filter(keys(InstData), (: $1 :));
 }
 
@@ -213,7 +213,7 @@ mapping GetInstData(){
 }
 
 nosave void SendData(mixed fd, mixed data){
-    int array targets = ({});
+    int* targets = ({});
     if(stringp(fd) && !undefinedp(InstData[fd])) fd = InstData[fd]["fd"];
     if(fd == -2) return;
     if(fd == -1){
@@ -248,7 +248,7 @@ varargs void SendWhoUpdate(string name, int status){
                 data["state"] = "(%^YELLOW%^idle%^RESET%^)";
             }
             if(ob->GetSleeping() > 0){
-                data["state"] = "(%^BLUE%^sleeping%^RESET%^)"; 
+                data["state"] = "(%^BLUE%^sleeping%^RESET%^)";
             }
             if(ob->GetProperty("afk")){
                 data["state"] = "(%^MAGENTA%^afk%^RESET%^)";
@@ -263,13 +263,13 @@ varargs void SendWhoUpdate(string name, int status){
     }
     else data["status"] = 0;
     SendData(-1, ({ "who-update", 5, Myname, name, 0, 0, data }) );
-} 
+}
 
 void UpdateInvis(int i){
     object ob = previous_object();
     string name;
     if(!ob || !interactive(ob)) return;
-    name = ob->GetKeyName(); 
+    name = ob->GetKeyName();
     if(!sizeof(name)) return;
     call_out("SendWhoUpdate", 0, name);
 }
@@ -365,7 +365,7 @@ nosave void ReceiveICPData(mixed data, string addy, int port, int fd){
             if(InstData[name]["port"] != port ){
                 return;
             }
-            if(!undefinedp(InstData[name]["fd"]) && 
+            if(!undefinedp(InstData[name]["fd"]) &&
                     InstData[name]["fd"] != fd){
                 return;
             }
@@ -410,7 +410,7 @@ string *GetRemoteUsers(string inst){
     return ret;
 }
 
-void eventSendChannel(string name, string ch, string msg, int emote, 
+void eventSendChannel(string name, string ch, string msg, int emote,
         string target, string targmsg){
     mixed packet = ({ name, ch, msg, emote, target, targmsg });
     if(base_name(previous_object()) != CHAT_D) return;
@@ -480,7 +480,7 @@ nosave void read_callback(int fd, mixed info){
         int p, i;
         i = sscanf(sstat[4],"%s.%s.%s.%s.%d",a,b,c,d,p);
         if(i > 4){
-            port = (p - OFFSET_ICP); 
+            port = (p - OFFSET_ICP);
             addy = a+"."+b+"."+c+"."+d;
         }
     }
@@ -498,7 +498,7 @@ protected void write_callback(int fd){
     if(sockets[fd]["write_status"] == EEALREADY) {
         this_object()->write_data(fd, sockets[fd]["pending"]);
         sockets[fd]["pending"] = 0;
-    } 
+    }
     else {
         sockets[fd]["write_status"] = EESUCCESS;
     }
@@ -537,7 +537,7 @@ nosave void write_data_retry(int fd, mixed data, int counter){
         default:
             if (counter < maxtry) {
                 if(counter < 2 || counter > maxtry-1)
-                    call_out( (: write_data_retry :), 2 , fd, data, counter + 1 ); 
+                    call_out( (: write_data_retry :), 2 , fd, data, counter + 1 );
                 return;
             }
     }
@@ -585,7 +585,7 @@ int eventCreateSocket(string host, int port){
         log_file(LOG_ICP, "Error in socket_bind(): "+x);
         return 0;
     }
-    x = socket_connect(ret, host + " " + (port + OFFSET_ICP), 
+    x = socket_connect(ret, host + " " + (port + OFFSET_ICP),
             "read_callback", "close_callback");
     if( x != EESUCCESS ) {
         socket_close(ret);
@@ -625,8 +625,8 @@ protected void SendStartup(int fd){
             break;
         }
     }
-    SendData(fd, 
-            ({"startup-req", 5, Myname, 0, name, 0, INSTANCE_PW, 
+    SendData(fd,
+            ({"startup-req", 5, Myname, 0, name, 0, INSTANCE_PW,
              local_users(), mud_name()}));
     foreach(string user in local_users()){
         call_out("SendWhoUpdate", 0, user, 1);
@@ -665,7 +665,7 @@ protected void CheckConnections(){
     foreach(string foo in keys(InstData)){
         if(!foo || !InstData[foo]) continue;
         InstData[foo]["online"] = 0;
-        if(member_array(foo, keys(conns)) == -1 
+        if(member_array(foo, keys(conns)) == -1
                 || InstData[foo]["fd"] == -1){
             InstConnect(foo);
         }

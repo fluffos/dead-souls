@@ -13,8 +13,8 @@ inherit LIB_ROOM;
 // the menu
 
 int readMenu(object who, string str) {
-    string array tmp2 = ({});
-    string array tmp = ({ sprintf("%:-20s %:-7s", "Drink", "Cost") });
+    string* tmp2 = ({});
+    string* tmp = ({ sprintf("%:-20s %:-7s", "Drink", "Cost") });
     int langlevel = this_player()->GetLanguageLevel("Edhellen");
     object ob = present_file("/domains/Ylsrim/npc/lars");
 
@@ -28,7 +28,7 @@ int readMenu(object who, string str) {
                         to_int(ob->GetCost(item))) });
         }
         foreach(string element in tmp){
-            element = translate(element, langlevel); 
+            element = translate(element, langlevel);
             tmp2 += ({ element });
         }
         tmp = tmp2;

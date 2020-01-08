@@ -81,7 +81,7 @@ int eventTellHist(string str){
             pob != IMC2_D && pob != INSTANCES_D &&
             stack != "eventTellHist eventHearTalk eventSpeak cmd cmdAll <function>" &&
             stack != "eventTellHist eventHearTalk eventSpeak cmd cmd cmdAll <function>"){
-        return 0; 
+        return 0;
     }
     if(sizeof(TalkHist["tell"]) > MAX_TELL_HIST_SIZE){
         TalkHist["tell"] -= ({ TalkHist["tell"][0] });
@@ -90,8 +90,8 @@ int eventTellHist(string str){
     return 1;
 }
 
-string array GetTellHistory(){
-    if(!TalkHist) TalkHist = ([]);     
+string* GetTellHistory(){
+    if(!TalkHist) TalkHist = ([]);
     if(!TalkHist["tell"]) TalkHist["tell"] = ({});
     if(this_object() != this_player() && !archp(this_player()))
         return ({});
@@ -112,16 +112,16 @@ int eventTalkHist(string str, string type){
     return 1;
 }
 
-string array GetTalkHistory(string type){
+string* GetTalkHistory(string type){
     if(!type) type = "say";
-    if(!TalkHist) TalkHist = ([]);     
+    if(!TalkHist) TalkHist = ([]);
     if(!TalkHist[type]) TalkHist[type] = ({});
     if(this_object() != this_player() && !archp(this_player()))
         return ({});
     return copy(TalkHist[type]);
 }
 
-string array GetTalkHistTypes(){
+string* GetTalkHistTypes(){
     if(!TalkHist) TalkHist = ([]);
     return keys(TalkHist);
 }
@@ -148,7 +148,7 @@ varargs mixed eventHearTalk(object who, object target, int cls, string verb,
     string tmp;
     object *riders = this_object()->GetRiders() - ({ who });
 
-    if(riders && sizeof(riders)) 
+    if(riders && sizeof(riders))
         riders->eventHearTalk(who, target, cls, verb, (msg ||0), (lang ||0));
 
     if( lang && !newbiep() && !GetPolyglot() ) msg = translate(msg, GetLanguageLevel(lang));
@@ -220,7 +220,7 @@ varargs mixed eventHearTalk(object who, object target, int cls, string verb,
             tmp = "%^BOLD%^BLUE%^" + who->GetName() + " shouts in " +
                 capitalize(lang) + ",%^RESET%^ \"" + msg + "%^RESET%^\"";
             eventTalkHist(tmp, "shout");
-            this_object()->eventPrint(tmp, MSG_CONV); 
+            this_object()->eventPrint(tmp, MSG_CONV);
             break;
 
         default:
@@ -263,7 +263,7 @@ varargs mixed eventSpeak(object target, int cls, string msg, string lang){
         case TALK_PRIVATE:
             tmp = "%^BOLD%^RED%^You tell " + target->GetName() +
                 ",%^RESET%^ \"" + msg + "%^RESET%^\"";
-            this_object()->eventPrint(tmp, MSG_CONV);	
+            this_object()->eventPrint(tmp, MSG_CONV);
             target->eventHearTalk(this_object(), target, cls, "tell", msg);
             eventTellHist(tmp);
             return 1;
@@ -274,7 +274,7 @@ varargs mixed eventSpeak(object target, int cls, string msg, string lang){
             else tmp = "%^BOLD%^CYAN%^You whisper in " + capitalize(lang) + " to " +
                 target->GetName() + ",%^RESET%^ \"" + msg + "%^RESET%^\"";
             eventTalkHist(tmp, "whisper");
-            this_object()->eventPrint(tmp, MSG_CONV);	
+            this_object()->eventPrint(tmp, MSG_CONV);
             env->eventHearTalk(this_object(), target, cls, "whisper",
                     msg, lang);
             return 1;
@@ -310,7 +310,7 @@ varargs mixed eventSpeak(object target, int cls, string msg, string lang){
             tmp = "%^BOLD%^GREEN%^You yell in " + capitalize(lang) + ",%^RESET%^ \"" +
                 msg + "%^RESET%^\"";
             eventTalkHist(tmp, "yell");
-            this_object()->eventPrint(tmp, MSG_CONV);   	
+            this_object()->eventPrint(tmp, MSG_CONV);
             env->eventHearTalk(this_object(), target, cls, "yell", msg,
                     lang);
             break;
@@ -319,7 +319,7 @@ varargs mixed eventSpeak(object target, int cls, string msg, string lang){
             tmp = "%^BOLD%^BLUE%^You shout in " + capitalize(lang) + ",%^RESET%^ \"" +
                 msg + "%^RESET%^\"";
             eventTalkHist(tmp, "shout");
-            this_object()->eventPrint(tmp, MSG_CONV); 		
+            this_object()->eventPrint(tmp, MSG_CONV);
             INSTANCES_D->eventSendShout(msg, lang);
             (users() - ({ this_object() }))->eventHearTalk(this_object(), target,
                     cls,"shout", msg, lang);

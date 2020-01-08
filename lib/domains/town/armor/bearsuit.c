@@ -27,7 +27,7 @@ void init(){
     ::init();
 }
 
-mixed eventEquip(object who, string array limbs){
+mixed eventEquip(object who, string* limbs){
     mixed success = armor::eventEquip(who, limbs);
     bearshadow = new("/shadows/bear");
     if(success){

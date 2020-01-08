@@ -47,8 +47,8 @@ mixed do_wear_obj_on_str(object ob, string str) {
             ({ remove_article(lower_case(str)) }));
 }
 
-mixed do_wear_obs(object array armors) {
-    object array obs;
+mixed do_wear_obs(object* armors) {
+    object* obs;
 
     if( !sizeof(armors) ) {
         this_player()->eventPrint("There is no such thing to be worn.");
@@ -56,10 +56,10 @@ mixed do_wear_obs(object array armors) {
     }
     obs = filter(armors, (: objectp :));
     if( !sizeof(obs) ) {
-        mixed array ua;
+        mixed* ua;
 
         ua = unique_array(armors, (: $1 :));
-        foreach(string array list in ua) {
+        foreach(string* list in ua) {
             this_player()->eventPrint(list[0]);
         }
         return 1;

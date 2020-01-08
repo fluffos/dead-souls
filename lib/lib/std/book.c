@@ -3,7 +3,7 @@
 
 inherit LIB_ITEM;
 
-string array chapters, globalheader;
+string* chapters, globalheader;
 string Title = "Generic Book";
 string Source = "/obj/book_source";
 nosave mapping BookItems = ([]);

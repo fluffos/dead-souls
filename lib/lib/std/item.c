@@ -115,17 +115,17 @@ int SetRetainOnDeath(int x){
     return (RetainOnDeath = x);
 }
 
-protected mixed array AddSave(mixed array vars){
+protected mixed* AddSave(mixed* vars){
     if(!vars) vars = ({});
     //vars += ({ "Properties" });
     return persist::AddSave(vars);
 }
 
-string array GetSave(){
+string* GetSave(){
     return persist::GetSave();
 }
 
-/* ************************ item.c modals *********************** */ 
+/* ************************ item.c modals *********************** */
 mixed CanRepair(object who){
     if( GetBroken() ) return 1;
     else if( !GetMaxClass() ) return "It doesn't need repairing.";
@@ -143,7 +143,7 @@ varargs mixed CanThrow(object who, object target){
     return 1;
 }
 
-/* ********************* item.c events ************************ */ 
+/* ********************* item.c events ************************ */
 protected int Destruct(){
     if( GetWorn() && environment() ){
         eventUnequip(environment());
@@ -154,7 +154,7 @@ protected int Destruct(){
 int eventMove(mixed dest){
     if(!this_object()) return 0;
     if( !environment() && GetWorn() ){
-        mixed array limbs = GetWorn();
+        mixed* limbs = GetWorn();
 
         SetWorn(0);
         call_out((: eventRestoreEquip :), 0, limbs);
@@ -236,7 +236,7 @@ mixed eventThrow(object who, object target){
                 target->GetShort() + ".");
         environment(who)->eventPrint(who->GetName() + " throws " +
                 GetShort() + " at " + target->GetShort() +
-                ".", ({ who, target }));	
+                ".", ({ who, target }));
         tell_object(target, capitalize(GetShort()) + " throws " +
                 GetShort() + " at you.");
         return target->eventReceiveThrow(who, this_object());

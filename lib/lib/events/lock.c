@@ -7,7 +7,7 @@
  */
 #include <damage_types.h>
 
-private string array    Keys         = ({});
+private string*    Keys         = ({});
 private int             Locked       = 0;
 private int             LockStrength = 0;
 private nosave function Pick         = 0;
@@ -16,15 +16,15 @@ private nosave function Pick         = 0;
 string GetDefiniteShort();
 // end abstract methods
 
-string array AddKey(string key){
+string* AddKey(string key){
     return (Keys = ({ Keys..., key }));
 }
 
-varargs string array GetKeys(string unused){
+varargs string* GetKeys(string unused){
     return Keys;
 }
 
-varargs string array SetKeys(mixed array args...){
+varargs string* SetKeys(mixed* args...){
     if( !args ){
         error("Bad argument 1 to SetKeys().\n");
     }
@@ -67,7 +67,7 @@ function SetPick(function f){
     return (Pick = f);
 }
 
-string array GetSave(){
+string* GetSave(){
     return ({ "Locked", "Keys", "LockStrength" });
 }
 
@@ -93,7 +93,7 @@ varargs mixed CanUnlock(object who, string id, object key){
 }
 
 varargs mixed eventLock(object who, mixed arg1, mixed arg2){
-    string array ids = ({});
+    string* ids = ({});
     object key;
 
     if(objectp(arg1)) key = arg1;
@@ -178,7 +178,7 @@ varargs mixed eventPick(object who, string id, object tool){
         return 1;
     }
     if( strength > ( LockStrength / 10 + random(LockStrength) ) ){
-        who->AddSkillPoints("stealth", 2*(LockStrength + strength));	
+        who->AddSkillPoints("stealth", 2*(LockStrength + strength));
         SetLocked(0);
         send_messages("pick", "$agent_name $agent_verb the lock on "+
                 (short ? short : "$target_name") +"!",
@@ -198,7 +198,7 @@ varargs mixed eventPick(object who, string id, object tool){
 }
 
 varargs mixed eventUnlock(object who, mixed arg1, mixed arg2){
-    string array ids = ({});
+    string* ids = ({});
     object key;
 
     if(objectp(arg1)) key = arg1;

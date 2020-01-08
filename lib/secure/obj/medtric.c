@@ -260,7 +260,7 @@ int germ_scan(mixed strob ){
 
 int germ_squash(string str){
     int i,bar,c;
-    object array whom;
+    object* whom;
     allowed=preAction(1);
     if(allowed == 2) return 1;
     if(!str || str == "") {
@@ -304,7 +304,7 @@ int germ_squash(string str){
                     write("SetCure() data type: "+typeof(gstuff[i]->GetCure()));
                     write("Filename: "+base_name(gstuff[i])+"\n");
                 }
-            }	
+            }
         }
         gstuff=({});
     }
@@ -323,7 +323,7 @@ int infect(string str){
         write("Current valid diseases: cold, flu, fleas, lice, h1n1");
         return 1;
     }
-    if(sscanf(str,"%s %s",whom,what)) { 
+    if(sscanf(str,"%s %s",whom,what)) {
         if(!whom || !what || whom == "" || what == ""){
             write("Please indicate whom to infect, and with what. Example:");
             write("infect doofus cold");
@@ -353,7 +353,7 @@ int infect(string str){
         write("That isn't a valid disease.");
         return 1;
     }
-    if(person){	
+    if(person){
         write(person->GetName()+" located. Infecting...");
         say(scanner->GetName()+" waves a tricorder at "+person->GetName()+".",person);
         if(present(whom,environment(scanner))) {
@@ -375,7 +375,7 @@ int amputate(string str){
         write("amputate joey left hand");
         return 1;
     }
-    if(sscanf(str,"%s %s %s",whom,which,limb)) { 
+    if(sscanf(str,"%s %s %s",whom,which,limb)) {
         if(!limb) sscanf(str,"%s %s",whom,limb);
     }
     if(whom && whom == "me") whom = this_player()->GetKeyName();
@@ -413,15 +413,15 @@ int amputate(string str){
         return 1;
     }
     stumps=person->GetLimbs();
-    if(!stumps) { 
-        write(person->GetName()+" hasn't any limbs."); 
+    if(!stumps) {
+        write(person->GetName()+" hasn't any limbs.");
         say(scanner->GetName()+" waves a tricorder at "+person->GetName()+".",scanner,person);
         tell_object(person,scanner->GetName()+" waves a tricorder at you.");
         return 1;
     }
     if(member_array(both,stumps) != -1){
         person->RemoveLimb(both, scanner);
-        write("You amputate "+person->GetName()+"'s "+both); 
+        write("You amputate "+person->GetName()+"'s "+both);
         say(scanner->GetName()+" has amputated "+person->GetName()+"'s "+both+" "+
                 "with an energy beam from a medical tricorder.",scanner,person);
         tell_object(person,scanner->GetName()+" waves a tricorder at you and "+
@@ -430,7 +430,7 @@ int amputate(string str){
     }
     if(member_array(limb,stumps)!= -1){
         //person->RemoveLimb(limb, scanner);
-        write("You amputate "+person->GetName()+"'s "+limb+"."); 
+        write("You amputate "+person->GetName()+"'s "+limb+".");
         say(scanner->GetName()+" has amputated "+person->GetName()+"'s "+both+" "+
                 "with an energy beam from a medical tricorder.",scanner,person);
         tell_object(person,scanner->GetName()+" waves a tricorder at you and"+
@@ -456,8 +456,8 @@ int regenerate(string str){
         return 1;
     }
     stumps=person->GetMissingLimbs();
-    if(!stumps) { 
-        write(person->GetName()+" isn't missing any limbs."); 
+    if(!stumps) {
+        write(person->GetName()+" isn't missing any limbs.");
         say(scanner->GetName()+" waves a tricorder at "+person->GetName()+".",scanner,person);
         tell_object(person,scanner->GetName()+" waves a tricorder at you.");
         return 1;
@@ -483,7 +483,7 @@ int DoSkillChange(string str, int i){
     skillclass=this_skill["class"];
     person->SetSkill(str,i,skillclass);
     say(scanner->GetName()+" waves a medical tricorder at "+person->GetName()+".",({person,scanner}));
-    tell_object(person,scanner->GetName()+" waves a medical tricorder at you.");	  
+    tell_object(person,scanner->GetName()+" waves a medical tricorder at you.");
     if(more_or_less == 1) tell_room(environment(person), person->GetName()+" looks somehow more experienced.",({person}) );
     if(more_or_less != 1) tell_room(environment(person), person->GetName()+" looks somehow less experienced.",({person}) );
     write("You've set "+person->GetName()+"'s "+str+" to level "+i+".");
@@ -499,7 +499,7 @@ int DoAllSkills(int foo){
     }
     say(scanner->GetName()+" waves a medical tricorder at "+person->GetName()+".",({person,scanner}));
     say(person->GetName()+" seems to undergo an almost undetectable, subtle transformation.",({person,scanner}));
-    tell_object(person,scanner->GetName()+" waves a medical tricorder at you.");	
+    tell_object(person,scanner->GetName()+" waves a medical tricorder at you.");
     return 1;
 }
 int setskill(string str){
@@ -508,7 +508,7 @@ int setskill(string str){
     int amt;
     allowed=preAction();
     if(allowed==2) return 1;
-    if(!str) { 
+    if(!str) {
         write("Syntax: setskill <person> <skill> <amount>");
         write("If there is a space in the skill name, replace it with "+
                 "an underscore. Example:\nsetskill schmucky blade_attack 5");
@@ -563,7 +563,7 @@ int DoStatChange(string str, int i){
     statclass=this_stat["class"];
     person->SetStat(str,i,statclass);
     say(scanner->GetName()+" waves a medical tricorder at "+person->GetName()+".",({person,scanner}));
-    tell_object(person,scanner->GetName()+" waves a medical tricorder at you.");	  
+    tell_object(person,scanner->GetName()+" waves a medical tricorder at you.");
     write("You've set "+person->GetName()+"'s "+str+" to level "+i+".");
     return 1;
 }
@@ -576,7 +576,7 @@ int DoAllStats(int foo){
         write("You've set "+person->GetName()+"'s "+statlist[i]+" to level "+foo+".");
     }
     say(scanner->GetName()+" waves a medical tricorder at "+person->GetName()+".",({person,scanner}));
-    tell_object(person,scanner->GetName()+" waves a medical tricorder at you.");	
+    tell_object(person,scanner->GetName()+" waves a medical tricorder at you.");
     return 1;
 }
 int setstat(string str){
@@ -584,7 +584,7 @@ int setstat(string str){
     int amt;
     allowed=preAction();
     if(allowed==2) return 1;
-    if(!str) { 
+    if(!str) {
         write("Syntax: setstat <person> <stat> <amount>");
         say(scanner->GetName()+" fumbles with a medical tricorder.",scanner);
         return 1;

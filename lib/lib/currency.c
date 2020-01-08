@@ -21,7 +21,7 @@ protected void create(){
 
 /* ***************  /lib/currency.c data manipulation funcs  *************** */
 
-int AddCurrency(string type, int amount){ 
+int AddCurrency(string type, int amount){
     if( amount > 0 ){
         int curr_mass;
         curr_mass = to_int(currency_mass(amount, type));
@@ -56,7 +56,7 @@ int AddBank(string bank, string type, int amount){
     if( !Bank[bank] ){
         if( amount < 1 ) return -1;
         Bank[bank] = ([ "open" : time(), type : amount, "last time" : time(),
-                "last trans" : "opened account", 
+                "last trans" : "opened account",
                 "audit" : identify(previous_object(-1)) ]);
         return amount;
     }
@@ -108,7 +108,7 @@ varargs int GetNetWorth(string benjamins){
     else return to_int(0);
 }
 
-string array GetCurrencies(){ return keys(Currency); }
+string* GetCurrencies(){ return keys(Currency); }
 
 void ResetBank(){ Bank = ([]); }
 

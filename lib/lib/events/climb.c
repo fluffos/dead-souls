@@ -20,13 +20,13 @@ mapping GetClimbs(){
     return Climb;
 }
 
-int SetCanClimbCarried(int i){ 
-    ccc = i; 
-    return 1; 
+int SetCanClimbCarried(int i){
+    ccc = i;
+    return 1;
 }
 
-int GetCanClimbCarried(){ 
-    return ccc;  
+int GetCanClimbCarried(){
+    return ccc;
 }
 
 varargs nosave mapping SetClimb(mixed val, int type){
@@ -43,7 +43,7 @@ varargs nosave mapping SetClimb(mixed val, int type){
 }
 
 mixed CanClimb(object who, int type){
-    int array tmp;
+    int* tmp;
     object dude;
     string thingname;
 

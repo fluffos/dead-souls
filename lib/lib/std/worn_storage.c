@@ -30,7 +30,7 @@ mixed direct_wear_obj(){
     return base_armor::direct_wear_obj();
 }
 
-mixed eventEquip(object who, string array limbs){
+mixed eventEquip(object who, string* limbs){
     return base_armor::eventEquip(who, limbs);
 }
 
@@ -50,11 +50,11 @@ string GetEquippedShort(){
     return base_armor::GetEquippedShort();
 }
 
-string array GetSave(){
+string* GetSave(){
     return base_armor::GetSave();
 }
 
-varargs string array AddSave(string *args){
+varargs string* AddSave(string *args){
     my_save += args;
     return base_armor::AddSave(my_save);
 }

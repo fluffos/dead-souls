@@ -35,7 +35,7 @@ string GetBookTitle(string path){
     return "Untitled";
 }
 
-string array ExtractChapterName(string path){
+string* ExtractChapterName(string path){
     string *header;
     string chap, foo, line;
     int num;
@@ -47,7 +47,7 @@ string array ExtractChapterName(string path){
         globalstr = "";
         globalstr2 = path;
         if(!file_exists(globalstr2)) globalstr2 == "";
-        if(sizeof(globalstr2)) unguarded( (: globalstr = read_file(globalstr2, 1, 1) :) ); 
+        if(sizeof(globalstr2)) unguarded( (: globalstr = read_file(globalstr2, 1, 1) :) );
         line = globalstr;
     }
     if(!line) chap = "unknown";
@@ -74,12 +74,12 @@ mixed *LoadChapters(string Source){
         this_path = Source+"/"+chap;
         statinfo = stat(this_path);
         if(sizeof(statinfo) != 3 || !intp(statinfo[1]) ||
-                (Books[Source][this_path] && Books[Source][this_path] 
+                (Books[Source][this_path] && Books[Source][this_path]
                  == statinfo[1])){
             continue;
         }
         else {
-            Books[Source][this_path] = statinfo[1]; 
+            Books[Source][this_path] = statinfo[1];
             Books[Source]["index"] = 0;
         }
 
@@ -89,8 +89,8 @@ mixed *LoadChapters(string Source){
             Books[Source]["items"][globalheader[0]] = globalheader[1];
             globalstr = this_path;
             globalstr2 = Source;
-            unguarded( (: Books[globalstr2]["reads"][globalheader[0]] = 
-                        read_file(globalstr) :) ); 
+            unguarded( (: Books[globalstr2]["reads"][globalheader[0]] =
+                        read_file(globalstr) :) );
         }
     }
     this_object()->LoadBookIndex(Source);
@@ -115,7 +115,7 @@ string LoadBookIndex(string Source){
         }
     }
     Books[Source]["index"] = chapter_index;
-    return chapter_index;    
+    return chapter_index;
 }
 
 string GetBookIndex(string Source){

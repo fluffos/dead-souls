@@ -15,8 +15,8 @@ inherit LIB_DAEMON;
 nosave private int Realms = strlen(REALMS_DIRS);
 
 mixed cmd(string args) {
-    string array output = ({ "Creator Files:" });
-    object array obs = objects((: file_name($1)[0..Realms-1] ==REALMS_DIRS :));
+    string* output = ({ "Creator Files:" });
+    object* obs = objects((: file_name($1)[0..Realms-1] ==REALMS_DIRS :));
     mapping vals = ([]);
 
     foreach(object ob in obs) {
@@ -28,7 +28,7 @@ mixed cmd(string args) {
         vals[str][0]++;
         vals[str][1] = ({ vals[str][1]..., ob });
     }
-    foreach(string who, mixed array data in vals) {
+    foreach(string who, mixed* data in vals) {
         mapping mp = ([]);
 
         output += ({ who + ": " + data[0] });

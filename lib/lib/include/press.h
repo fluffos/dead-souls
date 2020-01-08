@@ -11,7 +11,7 @@ varargs mixed eventPress(object who, string component);
 varargs mapping SetPress(mixed key, mixed desc);
 mapping RemovePress(string item);
 mixed GetPress(string str);
-string array GetPresses();
+string* GetPresses();
 
 /* pure virtual */ string GetShort();
 

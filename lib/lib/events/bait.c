@@ -24,7 +24,7 @@ int SetBait(int x){
     return (Bait = x);
 }
 
-string array GetSave(){
+string* GetSave(){
     return ({ "Bait" });
 }
 
@@ -40,7 +40,7 @@ int eventBait(object who, object bait){
     return 1;
 }
 
-mixed direct_bait_obj_with_obj(){ 
+mixed direct_bait_obj_with_obj(){
     if( environment() != this_player() ){
         return "#You don't have that!";
     }

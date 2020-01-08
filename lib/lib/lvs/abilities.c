@@ -18,12 +18,12 @@ private nosave mapping SkillsBonus = ([]);
 varargs void eventPrint(string str, mixed args...);
 // end abstract methods
 
-string array GetPrimarySkills();
+string* GetPrimarySkills();
 varargs void SetSkill(string skill, int level, mixed cls);
 
 /* ***************** abilities.c attributes ***************** */
 /* GetBaseSkillLevel() returns the unmodified skill level */
-int GetBaseSkillLevel(string skill){ 
+int GetBaseSkillLevel(string skill){
     if( !Skills[skill] ){
         return 0;
     }
@@ -49,7 +49,7 @@ int GetLevel(){
  */
 
 int ResetLevel(){
-    string array skills = GetPrimarySkills();
+    string* skills = GetPrimarySkills();
     int num = sizeof(skills);
     int points = 0;
 
@@ -67,7 +67,7 @@ int ResetLevel(){
 }
 
 int SetLevel(int x){
-    string array skills = GetPrimarySkills();
+    string* skills = GetPrimarySkills();
 
     if(!Level){
         foreach(string skill in skills){
@@ -118,7 +118,7 @@ int GetMaxSkillPoints(string skill, int level){
     }
 }
 
-string array GetPrimarySkills(){ 
+string* GetPrimarySkills(){
     return filter(keys(Skills), (: Skills[$1]["class"] == 1 :));
 }
 
@@ -207,7 +207,7 @@ varargs void SetSkill(string skill, int level, int cls){
     Skills[skill] = ([ "points" : 0, "level" : level, "class" : cls ]);
 }
 
-string array GetSkills(){
+string* GetSkills(){
     return keys(Skills);
 }
 
@@ -254,7 +254,7 @@ int GetSkillBonus(string skill){
     return x;
 }
 
-int GetSkillClass(string skill){ 
+int GetSkillClass(string skill){
     if( !Skills[skill] ){
         return 0;
     }
@@ -264,7 +264,7 @@ int GetSkillClass(string skill){
 }
 
 /* GetSkillLevel() returns the base skill level + any bonuses */
-int GetSkillLevel(string skill){ 
+int GetSkillLevel(string skill){
     return (GetBaseSkillLevel(skill) + GetSkillBonus(skill));
 }
 
@@ -334,7 +334,7 @@ int AddSkillPoints(string name, int x){
  * you get nothing.
  * Adjustments are made for your level and any multiplier bonuses.
  */
-varargs void  eventTrainSkill(string skill, int pro, int con, int array a...){
+varargs void  eventTrainSkill(string skill, int pro, int con, int* a...){
     int level = (GetLevel()/8 + 1);
     int val, success, bonus;
 

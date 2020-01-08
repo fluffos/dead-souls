@@ -27,7 +27,7 @@ void SetVirtualExits(int x, int y, int z);
 
 varargs void SetLongAndItems(int x, int y, int z){
     SetVirtualExits(x, y, z);
-} 
+}
 
 /******************* virt_land.c required settings ************/
 
@@ -79,7 +79,7 @@ void SetCoordinates(int x, int y, int z){
     CoordZ = z;
 }
 
-mapping GetDirectionMap(){ 
+mapping GetDirectionMap(){
     return (["north":({-1,0,0}),"south":({1,0,0}),
             "east":({0,1,0}),"west":({0,-1,0}),
             "northeast":({-1,1,0}),"northwest":({-1,-1,0}),
@@ -87,7 +87,7 @@ mapping GetDirectionMap(){
             "up":({0,0,-1}),"down":({0,0,1}) ]);
 }
 
-string GetReverseDirection(string dir){ 
+string GetReverseDirection(string dir){
     return (["north":"south","south":"north",
             "east":"west","west":"east",
             "northeast":"southwest","northwest":"southeast",
@@ -96,7 +96,7 @@ string GetReverseDirection(string dir){
 }
 
 varargs mixed GetMapType(int x, int y, int z){
-    if(!objectp(Map_Master) || nullp(x) ||nullp(y) || nullp(z) ) 
+    if(!objectp(Map_Master) || nullp(x) ||nullp(y) || nullp(z) )
         return 0;
     return Map_Master->GetAreaMap(x,y,z);
 }
@@ -112,9 +112,9 @@ mapping SetSurroundAreas(int x, int y, int z){
 void ResetSurroundExits(){
     foreach(string dir, string atype in Surrounding_Areas){
         if(atype != "0" && atype != "@"){
-            (Virt_Room + "/" 
+            (Virt_Room + "/"
              + ( CoordX + GetDirectionMap()[dir][1]) + ","
-             + ( CoordY + GetDirectionMap()[dir][0]) + ","    
+             + ( CoordY + GetDirectionMap()[dir][0]) + ","
              + ( CoordZ + GetDirectionMap()[dir][2]))->ResetLocation();
         }
     }
@@ -131,16 +131,16 @@ void SetVirtualExits(int x, int y, int z){
             if(atype != "0" && atype != "@"){
                 AddExit(dir,Virt_Room+"/"
                         + ( x + GetDirectionMap()[dir][1])+","
-                        + ( y + GetDirectionMap()[dir][0])+ ","    
+                        + ( y + GetDirectionMap()[dir][0])+ ","
                         + ( z + GetDirectionMap()[dir][2]));
                 obexits += ({dir[0..0]+dir[5..5]});
             }
             else if( atype == "@"){
-                mixed exit = 
+                mixed exit =
                     Map_Master->GetExternalRoom(
                             sprintf("%d,%d,%d",
                                 ( x + GetDirectionMap()[dir][1]),
-                                ( y + GetDirectionMap()[dir][0]),    
+                                ( y + GetDirectionMap()[dir][0]),
                                 ( z + GetDirectionMap()[dir][2])),
                             sprintf("%d,%d,%d",x,y,z)
                             );
@@ -170,7 +170,7 @@ varargs mixed GetCoordinates(int level){
 
 object GetMasterMap(){ return Map_Master;}
 
-varargs string array GetNonExits(string array extra){
+varargs string* GetNonExits(string* extra){
     if(nullp(extra)) extra=({});
     return (keys(GetDirectionMap())-GetExits())- extra;
 }

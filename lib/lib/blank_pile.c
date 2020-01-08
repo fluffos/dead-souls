@@ -7,8 +7,8 @@ protected void create(){
     SetKeyName("money");
 }
 
-string array GetId(){
-    string array id;
+string* GetId(){
+    string* id;
 
     id = pile::GetId();
     if( PileType ){

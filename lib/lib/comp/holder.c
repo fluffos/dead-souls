@@ -28,7 +28,7 @@ int SetOpacity(int x){
 }
 
 varargs string GetInternalDesc(){
-    object array items = all_inventory();
+    object* items = all_inventory();
     string desc;
     int surfacep;
 
@@ -43,7 +43,7 @@ varargs string GetInternalDesc(){
     if(surfacep) desc = "On "+add_article(GetShort(), 1);
     items = filter(items, (: !($1->isDummy()) && !($1->GetInvis()) :));
     if( sizeof(items) ){
-        if(surfacep){ 
+        if(surfacep){
             desc = desc+" you see " + item_list(items) + ".";
         }
         else desc = desc + " contains " + item_list(items) + ".";
@@ -55,7 +55,7 @@ varargs string GetInternalDesc(){
     return desc;
 }
 
-protected mixed array AddSave(mixed array vars){
+protected mixed* AddSave(mixed* vars){
     return ({});
 }
 

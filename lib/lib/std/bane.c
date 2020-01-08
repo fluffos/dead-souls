@@ -1,10 +1,10 @@
-string array bane;
+string* bane;
 
-string array GetBane(){
+string* GetBane(){
     if(bane) return bane;
 }
 
-string array QueryBane(){
+string* QueryBane(){
     if(bane) return bane;
 }
 

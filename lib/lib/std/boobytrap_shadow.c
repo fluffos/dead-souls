@@ -267,7 +267,7 @@ string GetKeyName(){
     return ob->GetKeyName();
 }
 
-mixed eventEquip(object who, string array limbs){
+mixed eventEquip(object who, string* limbs){
     object ob = GetShadowedObject();
     mixed ret;
     if(!ob) return 0;

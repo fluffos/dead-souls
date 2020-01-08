@@ -28,7 +28,7 @@ int SetDestroyOnSell(int x){
     return DestroyOnSell;
 }
 
-string array GetSave(){
+string* GetSave(){
     return ({ "Value","Cost" });
 }
 
@@ -40,7 +40,7 @@ varargs int GetValue(string str){
 
 int SetValue(mixed y){
     mixed x;
-    if(arrayp(y)) return this_object()->SetBaseCost(y[1],y[0]); 
+    if(arrayp(y)) return this_object()->SetBaseCost(y[1],y[0]);
     else x = y;
     if( !intp(x) ){
         error("Bad argument 1 to SetValue().\n\tExpected: int, Got: " +
@@ -83,7 +83,7 @@ varargs mixed SetBaseCost(mixed arg, int i){
 
     }
     return Cost;
-}  
+}
 
 int GetBaseCost(string str){
     if(estatep(this_object())) return 0;

@@ -12,7 +12,7 @@
 inherit LIB_DAEMON;
 
 mixed cmd(string args) {
-    object array obs, items, users;
+    object* obs, items, users;
     object ob;
 
     if( !args || args == "" ) {

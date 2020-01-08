@@ -18,7 +18,7 @@ mixed more(mixed val, string cl, function f, mixed args){
 }
 
 varargs mixed eventPage(mixed val, mixed msg_class, function f,mixed args...){
-    mixed array files;
+    mixed* files;
     int maxi;
 
     if( InPager ) return "You are already in the pager.";
@@ -78,7 +78,7 @@ varargs mixed eventPage(mixed val, mixed msg_class, function f,mixed args...){
                 files[i]["Args"] = 0;
             }
         }
-        if(files[<1]["Args"] && files[<1]["Callback"]) 
+        if(files[<1]["Args"] && files[<1]["Callback"])
             files[<1]["Args"] = ({ files[<1]["Callback"] }) + files[<1]["Args"];
         else if(files[<1]["Callback"]) files[<1]["Args"] = ({ files[<1]["Callback"] });
         files[<1]["Callback"] = (: RazzleDazzle :);
@@ -127,7 +127,7 @@ protected int Page(mixed tmpfile){
         else {
             evaluate(file["Callback"]);
         }
-    }    
+    }
     return 1;
 }
 
@@ -223,7 +223,7 @@ nosave void cmdPage(string str, mapping file){
             Page(file);
             return;
 
-        case "b": 
+        case "b":
             scrlen = GetScreen()[1];
             if( (file["CurrentLine"] - (2*(scrlen-3))) < 1 ){
                 eventPrint("\a" + GetPagerPrompt(file), MSG_PROMPT);

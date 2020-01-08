@@ -93,7 +93,7 @@ mixed eventCapture(object who, object target){
 }
 
 mixed eventEscape(){
-    object array captives;
+    object* captives;
     object captive, env;
 
     if( GetClosed() ){
@@ -132,7 +132,7 @@ mixed eventFree(object who, string target){
     return 1;
 }
 
-object array GetCaptives(){
+object* GetCaptives(){
     return filter(all_inventory(), (: living :));
 }
 

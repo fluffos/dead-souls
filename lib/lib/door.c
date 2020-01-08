@@ -172,7 +172,7 @@ varargs mixed eventLock(object who, mixed key, mixed foo){
             if( !(sizeof(key->GetId() & GetKeys(side))) ){
                 who->eventPrint("You fail to lock " + tmp +
                         " with " + key->GetShort()+".");
-                room->eventPrint(who->GetName() + " attempts to " 
+                room->eventPrint(who->GetName() + " attempts to "
                         "lock " + tmp + " with " +
                         key->GetShort() + ", but fails.",who);
                 return 1;
@@ -236,8 +236,8 @@ varargs int eventOpen(object who, object tool){
  */
 
 int eventRegisterSide(string side){
-    string array id = GetId(side);
-    Sides[side]["Rooms"] = 
+    string* id = GetId(side);
+    Sides[side]["Rooms"] =
         distinct_array(Sides[side]["Rooms"] +
                 ({ previous_object() }));
     previous_object()->AddItem(id, (: GetLong($(side)) :));
@@ -319,14 +319,14 @@ mapping GetSide(string side){
 int SetLockable(string side, int x){
     if( !Sides[side] )
         Sides[side] = ([ "Rooms" : ({}) ]);
-    return Sides[side]["Lockable"] = x; 
+    return Sides[side]["Lockable"] = x;
 }
 
 int GetLockable(string side){
     return Sides[side]["Lockable"];
 }
 
-varargs string *SetId(string side, mixed *args...){ 
+varargs string *SetId(string side, mixed *args...){
     if( !Sides[side] ) Sides[side] = ([ "Rooms" : ({}) ]);
     Sides[side]["Ids"] = ({});
     foreach(mixed val in args){
@@ -336,7 +336,7 @@ varargs string *SetId(string side, mixed *args...){
     return Sides[side]["Ids"];
 }
 
-string *GetId(string side){ 
+string *GetId(string side){
     if(!Sides[side]) return ({});
     return Sides[side]["Ids"];
 }

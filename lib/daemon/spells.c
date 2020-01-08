@@ -22,7 +22,7 @@ protected void create() {
 }
 
 void eventReloadSpells() {
-    string array spells, prayers;
+    string* spells, prayers;
 
     Spells = ([]);
     spells = get_dir(DIR_SPELLS "/*.c");

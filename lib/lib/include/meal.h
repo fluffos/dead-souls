@@ -22,7 +22,7 @@ int SetMealType(int x);
 int GetMealType();
 int SetStrength(int x);
 int GetStrength();
-varargs void SetMealMessages(mixed array val...);
+varargs void SetMealMessages(mixed* val...);
 mixed *GetMessages();
 int GetValue();
 

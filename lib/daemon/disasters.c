@@ -19,7 +19,7 @@ protected void create() {
 }
 
 protected void checkDisaster() {
-    object array rooms = objects((: $1->GetMedium() :));
+    object* rooms = objects((: $1->GetMedium() :));
     int chance = 100 - random(100) + 1;
     int count = 100; // check at most 100 rooms
 

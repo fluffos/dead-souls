@@ -4,11 +4,11 @@
 inherit LIB_DAEMON;
 string *arr = ({});
 string *types = ({ "void ", "status ",
-        "string ", "string \*", "string array ",
-        "int ", "int *", "int array ",
-        "object ", "object *", "object array ",
+        "string ", "string \*", "string* ",
+        "int ", "int *", "int* ",
+        "object ", "object *", "object* ",
         "mapping ", "mapping *", "mapping array ",
-        "mixed ", "mixed *", "mixed array ",
+        "mixed ", "mixed *", "mixed* ",
         "float ", "float *", "float array ",
         "function ", "function *", "function array " });
 

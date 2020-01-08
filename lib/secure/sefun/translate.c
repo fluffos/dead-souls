@@ -31,7 +31,7 @@
     "baardaap","droogkloot","reetketelsteenbeeldhouwer","asbak","haka",\
     "zaadje","verkloten","teef","moffie","shele",\
     "anasi","atouche","ayir","boos","teezee","shawty",\
-    "durka","haista","vittu","kyrpä","räkä","shawtay",\
+    "durka","haista","vittu","kyrpï¿½","rï¿½kï¿½","shawtay",\
     "suoro","voi","debil","kunel","shinel","sampo",\
     "sasikumea","zakila","txakurra","soustat","irrumator",\
     "mentula","koproskilo","malakas","la'a'za'zel","zayin",\

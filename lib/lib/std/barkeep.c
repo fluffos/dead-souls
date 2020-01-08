@@ -18,7 +18,7 @@ private mapping SpecialMenuItems     = ([]);
 string GetLocalCurrency();
 mixed eventSell(object who, string args);
 
-int indirect_sell_obj_to_liv(){ 
+int indirect_sell_obj_to_liv(){
     write("Your offer is refused.");
     say(this_player()->GetName()+"'s sell offer is refused.");
     return 0;
@@ -74,7 +74,7 @@ mapping GetSpecialMenuItems(){
     return SpecialMenuItems;
 }
 
-string array GetSpecials(){
+string* GetSpecials(){
     return keys(SpecialMenuItems);
 }
 
@@ -199,7 +199,7 @@ mixed eventSell(object who, string args){
 }
 
 int eventList(object who, string cmd, string args, int special){
-    string array drinks = ({});
+    string* drinks = ({});
     string *drink;
     mapping Menu = (special ? SpecialMenuItems : MenuItems);
     if( !sizeof(keys(Menu)) ){
@@ -207,7 +207,7 @@ int eventList(object who, string cmd, string args, int special){
         return 1;
     }
     foreach(drink in keys(Menu)){
-        string array adjectives = Menu[drink]->GetAdjectives();
+        string* adjectives = Menu[drink]->GetAdjectives();
         string adj = "";
         if( sizeof(adjectives) ){
             adj = adjectives[random(sizeof(adjectives))] + " ";

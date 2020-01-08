@@ -8,7 +8,7 @@
 
 // abstract methods
 int GetHands();
-mixed CanEquip(object who, string array limbs);
+mixed CanEquip(object who, string* limbs);
 mixed CanUnequip(object who);
 // end abstract methods
 
@@ -21,7 +21,7 @@ mixed direct_unwield_obj(){
 
 mixed direct_wield_obj(){
     int hands = GetHands();
-    string array limbs;
+    string* limbs;
 
     if( environment() != this_player() ){
         return "#You don't have that!";

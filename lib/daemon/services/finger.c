@@ -12,8 +12,8 @@
 #include ROOMS_H
 #include <message_class.h>
 
-void eventReceiveFingerRequest(mixed array packet) {
-    mixed array ret;
+void eventReceiveFingerRequest(mixed* packet) {
+    mixed* ret;
     PING_D->SetOK();
     if( file_name(previous_object()) != INTERMUD_D ) return;
     if( !(ret = (mixed array)FINGER_D->GetRemoteFinger(packet[6])) ) {
@@ -31,7 +31,7 @@ void eventReceiveFingerRequest(mixed array packet) {
             packet[2]+" fingers "+capitalize(ret[6])+ "]",0);
 }
 
-void eventReceiveFingerReply(mixed array packet) {
+void eventReceiveFingerReply(mixed* packet) {
     string fing;
     object ob;
     int i;
@@ -61,7 +61,7 @@ void eventSendFingerRequest(string who, string where) {
     string pl;
 
     if( !(pl = this_player(1)->GetKeyName()) ) return;
-    INTERMUD_D->eventWrite( ({ "finger-req", 5, mud_name(), pl, where, 0, 
+    INTERMUD_D->eventWrite( ({ "finger-req", 5, mud_name(), pl, where, 0,
                 who }) );
     tn("eventSendFingerRequest: "+identify( ({ "finger-req", 5, mud_name(), pl, where, 0,who }) ),"cyan");
 }

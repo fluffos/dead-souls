@@ -44,7 +44,7 @@ private nosave int LastAge, Setup, quitting;
 private nosave object NetDiedHere;
 private nosave mapping LastError;
 private nosave string *UserId;
-private mapping Paranoia = ([]); 
+private mapping Paranoia = ([]);
 private nosave mapping PlayerStatus = ([]);
 
 protected void create(){
@@ -108,7 +108,7 @@ int Setup(){
     add_action((: cmdQuit :), "quit");
     add_action((: cmdParseRefresh :), "parserefresh");
     tmp = this_object()->GetTeloptIp();
-    if(tmp) HostSite = tmp; 
+    if(tmp) HostSite = tmp;
     else HostSite = query_ip_number(this_object());
     LoginTime = time();
     SetId(({}));
@@ -121,7 +121,7 @@ int Setup(){
         if( VOTING_D->GetMode() == VOTE_MODE_VOTING )
             eventPrint("%^YELLOW%^Class Elections are in progress!  "
                     "Go vote for the candidates!%^RESET%^");
-    } 
+    }
 
     if( VOTING_D->GetVoteStatus( this_object() ) != VOTE_ALREADY_VOTED ){
         eventPrint("%^YELLOW%^You have not yet voted!  "
@@ -135,9 +135,9 @@ int Setup(){
         if(!room) catch(room = load_object(LoginSite));
         if( room && room->GetMedium() == MEDIUM_AIR ){
         }
-        if(!sizeof(LoginSite) || 
-                (!room && !file_exists(LoginSite) && !file_exists(LoginSite+".c")) || 
-                !eventMove(LoginSite) || RescueBit ){ 
+        if(!sizeof(LoginSite) ||
+                (!room && !file_exists(LoginSite) && !file_exists(LoginSite+".c")) ||
+                !eventMove(LoginSite) || RescueBit ){
             LoginSite = ROOM_START;
             eventMove(ROOM_START);
             SetRescueBit(0);
@@ -149,7 +149,7 @@ int Setup(){
     if(!(archp(this_object()) && this_object()->GetInvis())){
         PLAYERS_D->PlayerUpdate(GetKeyName(), 1);
         log_file("enter", GetCapName()+" (enter): "+ctime(time())+"\n");
-        CHAT_D->eventSendChannel("SYSTEM","connections","[" + 
+        CHAT_D->eventSendChannel("SYSTEM","connections","[" +
                 GetCapName() + " logs into "+mud_name()+"]",0);
     }
 
@@ -177,7 +177,7 @@ protected void net_dead(){
         log_file("enter", GetCapName() + " (net-dead): "+ctime(time())+"\n");
         if(env) env->eventPrint(GetName() + " suddenly disappears into "
                 "a sea of irreality.", MSG_ENV, this_object());
-        CHAT_D->eventSendChannel("SYSTEM","connections","[" + 
+        CHAT_D->eventSendChannel("SYSTEM","connections","[" +
                 GetCapName() + " goes net-dead on "+mud_name()+"]",0);
     }
     SNOOP_D->ReportLinkDeath(this_object()->GetKeyName());
@@ -194,7 +194,7 @@ void eventReconnect(){
     eventPrint("Reconnected.", MSG_SYSTEM);
     PLAYERS_D->PlayerUpdate(GetKeyName(), 1);
     if(!(archp(this_object()) && this_object()->GetInvis())){
-        CHAT_D->eventSendChannel("SYSTEM","connections","[" + 
+        CHAT_D->eventSendChannel("SYSTEM","connections","[" +
                 GetCapName() + " has rejoined " + mud_name() + "]",0);
         environment()->eventPrint(GetCapName() + " has rejoined this reality.",
                 MSG_ENV, this_object());
@@ -292,14 +292,14 @@ int cmdQuit(){
         }
     }
     this_object()->AddCarriedMass(-(this_object()->GetCarriedMass()));
-    tmp = GetMessage("logout") || (this_object()->GetName() + 
+    tmp = GetMessage("logout") || (this_object()->GetName() +
             " is gone from this reality!");
     save_player(GetKeyName());
     if(!(archp(this_object()) && this_object()->GetInvis())){
         PLAYERS_D->PlayerUpdate(GetKeyName(), 0);
         log_file("enter", GetCapName()+" (quit): "+timestamp()+"\n");
         if(env) message("environment", tmp, env, ({this_object()}));
-        CHAT_D->eventSendChannel("SYSTEM","connections","[" + 
+        CHAT_D->eventSendChannel("SYSTEM","connections","[" +
                 GetCapName() + " quits "+mud_name()+"]",0);
     }
     if(in_edit()){
@@ -335,7 +335,7 @@ string GetEmail(){
     else return Email;
 }
 
-varargs string array SetId(string *bogus){
+varargs string* SetId(string *bogus){
     int i;
     string tmp;
 
@@ -574,7 +574,7 @@ protected void heart_beat(){
     }
     if(!interactive() || !find_object(INSTANCES_D)) autosave::heart_beat();
     if(!PlayerStatus) PlayerStatus = ([]);
-    if(!PlayerStatus["Idling"] && 
+    if(!PlayerStatus["Idling"] &&
             query_idle(this_object()) > 240){
         PlayerStatus["Idling"] = 1;
         if(find_object(INSTANCES_D)){
@@ -586,11 +586,11 @@ protected void heart_beat(){
             PlayerStatus["Sleeping"] = 1;
             INSTANCES_D->SendWhoUpdate(GetKeyName());
         }
-    }    
+    }
     else if(PlayerStatus["Sleeping"]){
         PlayerStatus["Sleeping"] = 0;
         INSTANCES_D->SendWhoUpdate(GetKeyName());
-    } 
+    }
     if(this_object()->GetInCombat()){
         if(!PlayerStatus["Combat"]){
             PlayerStatus["Combat"] = 1;

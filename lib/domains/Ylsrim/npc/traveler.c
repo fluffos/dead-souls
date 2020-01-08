@@ -13,7 +13,7 @@ inherit LIB_SENTIENT;
 // someone is around from whom this guy can steal
 
 protected void Steal() {
-    object array obs;
+    object* obs;
     object target;
     string cmd;
     int i;
@@ -37,7 +37,7 @@ protected void Steal() {
     }
     target = obs[i];
     // Find all items on the target that can be stolen
-    obs = filter(all_inventory(target), 
+    obs = filter(all_inventory(target),
             (: !($1->GetProperty("no steal")) :));
     i = sizeof(obs);
     if( i == 0 ) { // no goods, let's try to get some cash

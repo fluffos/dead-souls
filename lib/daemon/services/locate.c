@@ -24,7 +24,7 @@ protected string eventLookupLocateUser(string str){
     }
 }
 
-void eventReceiveLocateRequest(mixed array packet) {
+void eventReceiveLocateRequest(mixed* packet) {
     string status;
     int idl = 0;
     object ob;
@@ -36,7 +36,7 @@ void eventReceiveLocateRequest(mixed array packet) {
             " seeks "+packet[6]+ "]",0);
     if( !(ob = find_player(packet[6])) || ob->GetInvis()) return;
     if( interactive(ob) ) {
-        string array tmp = ({ });
+        string* tmp = ({ });
         if( in_edit(ob) || ob->GetCedmode() )
             tmp += ({ "editing" });
         if( (idl = query_idle(ob)) > 60 )
@@ -45,12 +45,12 @@ void eventReceiveLocateRequest(mixed array packet) {
         else status = 0;
     }
     else status = "link-dead";
-    INTERMUD_D->eventWrite( ({ "locate-reply", 5, mud_name(), 0, packet[2], 
+    INTERMUD_D->eventWrite( ({ "locate-reply", 5, mud_name(), 0, packet[2],
                 packet[3], mud_name(),
                 ob->GetName(), idl, status }) );
 }
 
-void eventReceiveLocateReply(mixed array packet) {
+void eventReceiveLocateReply(mixed* packet) {
     object ob;
     string m;
     int idl;

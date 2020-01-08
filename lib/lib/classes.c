@@ -41,7 +41,7 @@ int eventMoralAct(int degree){
 
 int AddSkillPoints(string skill, int x){
     if( SkillModifiers[skill] ){
-        int stat_level; 
+        int stat_level;
         stat_level = GetBaseStatLevel(SkillModifiers[skill]);
         if( stat_level < 20 ) x = x - x/2;
         else if( stat_level < 40 ) x = x - x/3;
@@ -59,8 +59,8 @@ nosave string SetSkillModifier(string skill, string stat){
 string GetSkillModifier(string skill){ return SkillModifiers[skill]; }
 
 string SetClass(string class_name){
-    mixed array args = allocate(3);
-    mixed array tmp;
+    mixed* args = allocate(3);
+    mixed* tmp;
 
     /* The following is an example of "pass by reference" being
      * used on purpose in Dead Souls. It's generally a confusing
@@ -158,4 +158,4 @@ string *SetReligion(string adj, string noun){
     return Religion;
 }
 
-varargs string GetReligion(int flag){ return Religion[flag]; } 
+varargs string GetReligion(int flag){ return Religion[flag]; }

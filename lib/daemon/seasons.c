@@ -13,7 +13,7 @@
 
 inherit LIB_DAEMON;
 
-private nosave int CurrentDay, CurrentYear; 
+private nosave int CurrentDay, CurrentYear;
 private nosave int Dawn, Morning, Noon, Twilight, Night;
 private nosave int ticktock, pending;
 private nosave string CurrentSeason, TimeOfDay;
@@ -412,7 +412,7 @@ string GetYearString(int x) {
 /*
  * Moon functions
  */
-string array GetMoons() {
+string* GetMoons() {
     return map(keys(Moons), (: ((class moon)Moons[$1])->Name :));
 }
 
@@ -463,7 +463,7 @@ int GetMoonLight() {
 }
 
 string GetLong(string arg) {
-    string array arr, mn;
+    string* arr, mn;
     object env;
     string tmp;
     int i;
@@ -526,7 +526,7 @@ string GetLong(string arg) {
                 if( sky = env->GetSky() ) {
                     env = find_object(sky);
                     if( env ) {
-                        object array obs = filter(all_inventory(env),
+                        object* obs = filter(all_inventory(env),
                                 (: living($1) &&
                                  !$1->GetInvis(this_player()) :));
                         /* function(object ob) { */

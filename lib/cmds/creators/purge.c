@@ -5,7 +5,7 @@
 inherit LIB_DAEMON;
 
 mixed cmd(string args) {
-    object array obs, items, users;
+    object* obs, items, users;
     object ob;
 
     if( !args || args == "" ) {
@@ -19,7 +19,7 @@ mixed cmd(string args) {
     }
     this_player()->eventPrint(sprintf("Cleaning %O", ob), MSG_SYSTEM);
     say(this_player()->GetName()+" purges "+ob->GetShort()+".");
-    obs = filter(all_inventory(ob), (: !userp($1) && 
+    obs = filter(all_inventory(ob), (: !userp($1) &&
                 !inherits(LIB_DUMMY, $1) && base_name($1) != LIB_DUMMY :) );
     users = filter(deep_inventory(ob), (: userp($1) :) );
     foreach(object user in users){

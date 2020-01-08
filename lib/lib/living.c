@@ -270,7 +270,7 @@ mixed direct_backstab_liv(){
 }
 
 mixed direct_heal_str_of_liv(string limb){
-    string array limbs = GetLimbs();
+    string* limbs = GetLimbs();
     mixed tmp;
 
     limb = lower_case(remove_article(limb));
@@ -334,7 +334,7 @@ mixed direct_portal_to_liv(){
 mixed direct_resurrect_liv(){
     if( this_player() == this_object() )
         return "You cannot resurrect yourself.";
-    if( !GetUndead() ) 
+    if( !GetUndead() )
         return GetName() + " is not dead!";
     return CanReceiveMagic(0, "resurrect");
 }
@@ -385,7 +385,7 @@ int direct_gale_liv(){ return CanReceiveMagic(1, "gale"); }
 /* other spells */
 
 int direct_aura_liv(){ return CanReceiveMagic(0, "aura"); }
-int direct_soulseek_liv(){ return CanReceiveMagic(0, "soulseek"); } 
+int direct_soulseek_liv(){ return CanReceiveMagic(0, "soulseek"); }
 int direct_cloak_wrd(){ return CanReceiveMagic(0, "cloak"); }
 int direct_stealth_wrd(){ return CanReceiveMagic(0, "stealth"); }
 int direct_backlash_for_liv(){ return CanReceiveMagic(0, "backlash"); }
@@ -479,7 +479,7 @@ varargs mixed CanCastMagic(int hostile, string spell){
 /*     **********     /lib/living.c event methods     **********     */
 
 mixed eventCure(object who, int amount, string type){
-    object array germs = filter(all_inventory(),
+    object* germs = filter(all_inventory(),
             (: $1->IsGerm() && $1->GetType()== $(type) :));
 
     if( !sizeof(germs) ){
@@ -750,7 +750,7 @@ varargs int eventMoveLiving(mixed dest, string omsg, string imsg, mixed dir){
             return 0;
         }
         if(prev){
-            inv = filter(all_inventory(prev), (: (!this_object()->GetInvis($1) 
+            inv = filter(all_inventory(prev), (: (!this_object()->GetInvis($1)
                             && living($1) && !GetProperty("stealthy") && ($1 != this_object())) :));
         }
         if(!dir) dir = "away";
@@ -807,11 +807,11 @@ varargs int eventMoveLiving(mixed dest, string omsg, string imsg, mixed dir){
             if(!creatorp(this_object())) AddStaminaPoints(-0.2);
             break;
         case "arctic":
-            if(!creatorp(this_object())) AddStaminaPoints(-0.3);	  
+            if(!creatorp(this_object())) AddStaminaPoints(-0.3);
             break;
         default:
-            if(!creatorp(this_object())) AddStaminaPoints(-0.1);	  
-            break;	    
+            if(!creatorp(this_object())) AddStaminaPoints(-0.1);
+            break;
     }
     if( prevclim != newclim && prevclim != "indoors" && newclim != "indoors" ){
         switch(prevclim){

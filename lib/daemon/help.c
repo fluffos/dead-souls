@@ -18,7 +18,7 @@ protected private void LoadIndices();
 string GetHelp(string str);
 string GetHelpByIndex(string index, string topic);
 string GetTopic(string index, string topic);
-varargs string array GetIndices(string topic);
+varargs string* GetIndices(string topic);
 
 protected void create() {
     daemon::create();
@@ -36,7 +36,7 @@ int CanAccess(object who, string index) {
         case "library objects": case "daemon objects":
             return creatorp(who);
 
-        case "builder commands":  
+        case "builder commands":
             return builderp(who);
 
         default:
@@ -45,7 +45,7 @@ int CanAccess(object who, string index) {
 }
 
 protected private void LoadIndices() {
-    string array tmp;
+    string* tmp;
     function f;
     string dir;
 
@@ -62,7 +62,7 @@ protected private void LoadIndices() {
         get_dir(DIR_ITEM_VERBS + "/*.c") +
         get_dir(DIR_PLAYER_VERBS+"/*.c") +
         get_dir(DIR_PLAYER_CMDS+"/*.c") +
-        get_dir(DIR_ROOM_VERBS + "/*.c") +	
+        get_dir(DIR_ROOM_VERBS + "/*.c") +
         get_dir(DIR_SPELL_VERBS + "/*.c") +
         //get_dir(DIR_SECURE_BUILDER_CMDS + "/*.c") +
         //get_dir(DIR_BUILDER_CMDS + "/*.c") +
@@ -122,7 +122,7 @@ protected private void LoadIndices() {
 
     if( tmp = get_dir(DIR_LAW_HELP "/") )
         Indices["law"] = tmp;
-    else Indices["law"] = ({});    
+    else Indices["law"] = ({});
 
     if( tmp = get_dir(DIR_RELIGION_HELP "/") )
         Indices["religion"] = tmp;
@@ -221,7 +221,7 @@ string GetHelp(string str) {
 }
 
 string GetHelpByIndex(string index, string topic) {
-    mixed array tmparr, fun;
+    mixed* tmparr, fun;
     mapping tmpmap;
     object ob;
     string help, file, tmpstr;
@@ -248,7 +248,7 @@ string GetHelpByIndex(string index, string topic) {
                     else if( file_exists(DIR_CREATOR_CMDS + "/" + topic + ".c") )
                         file = DIR_CREATOR_CMDS + "/" + topic;
                     else file = DIR_SECURE_CREATOR_CMDS + "/" + topic;
-                    break;      
+                    break;
 
                 case "builder commands":
                     if( file_exists( DIR_BUILDER_VERBS + "/" + topic + ".c") )
@@ -277,7 +277,7 @@ string GetHelpByIndex(string index, string topic) {
 
                 case "undead commands":
                     file = DIR_UNDEAD_VERBS + "/" + topic;
-                    break;      
+                    break;
             }
             if( !file_exists(file + ".c") ) {
                 Error = "No such " + index[0..<2] + " exists.";
@@ -476,7 +476,7 @@ string GetHelpByIndex(string index, string topic) {
             }
             help = "Index: %^GREEN%^" + index + "%^RESET%^\n" +
                 "Topic: %^GREEN%^" + topic + "%^RESET%^\n\n" + help;
-            return help;    
+            return help;
 
         case "religons": case "religion":
             if( file_exists(DIR_RELIGION_HELP "/" + topic) ) {
@@ -532,8 +532,8 @@ string GetHelpByIndex(string index, string topic) {
     }
 }
 
-varargs string array GetIndices(string topic) {
-    string array topics, val;
+varargs string* GetIndices(string topic) {
+    string* topics, val;
     string ind, tmp;
 
     if( !topic ) {
@@ -553,7 +553,7 @@ varargs string array GetIndices(string topic) {
 }
 
 string GetTopic(string index, string topic) {
-    string array dirlist;
+    string* dirlist;
     string dir;
 
     if( index != "library objects" && index != "daemon objects" ) {
@@ -579,8 +579,8 @@ string GetTopic(string index, string topic) {
     return 0;
 }
 
-string array GetTopics(string index) {
-    string array topics = Indices[index];
+string* GetTopics(string index) {
+    string* topics = Indices[index];
 
     if( !topics ) {
         return 0;

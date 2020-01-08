@@ -12,7 +12,7 @@
 inherit LIB_DAEMON;
 
 mixed cmd(string args) {
-    string array adverbs;
+    string* adverbs;
 
     if( !args || args == "" ) {
         return "Add which adverb?";

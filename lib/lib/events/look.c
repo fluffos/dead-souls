@@ -140,7 +140,7 @@ varargs mixed GetItem(string item, object who){
     }
 }
 
-string array GetItems(){
+string* GetItems(){
     return keys(Items);
 }
 
@@ -220,7 +220,7 @@ mixed direct_look_obj(){
     if(!this_object()->GetInvis()){
         if( env != this_player() && env != environment(this_player()) ){
             return "#Perhaps \"look at "+this_object()->GetKeyName()+
-                " on\" something?"; 
+                " on\" something?";
         }
     }
     return 1;
@@ -246,7 +246,7 @@ mixed direct_look_at_obj_on_obj(object target, object ob,mixed arg, mixed arg2){
     }
 
     if(!target->GetInvis()){
-        if((inherits(LIB_SURFACE,ob) || living(ob)) && 
+        if((inherits(LIB_SURFACE,ob) || living(ob)) &&
                 environment(target) == ob){
             if(this_player()->GetEffectiveVision() == VISION_CLEAR){
                 if(living(target)) return target->GetLong();

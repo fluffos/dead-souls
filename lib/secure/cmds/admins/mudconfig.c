@@ -10,24 +10,24 @@ string GetHelp();
 inherit LIB_DAEMON;
 
 string ret_string = "";
-string array config, config2, keywords;
-string array bools = ({ "enable","disable","on","off","1","0" });
-string array yesbools = ({ "enable","on","1","yes" });
-string array nobools = ({ "disable","off","0","no" });
-string array restrict_tokens = ({ "restrict","unrestrict" });
-string array nonmodals = ({ "liveupgrade", "prompt","status","email",
+string* config, config2, keywords;
+string* bools = ({ "enable","disable","on","off","1","0" });
+string* yesbools = ({ "enable","on","1","yes" });
+string* nobools = ({ "disable","off","0","no" });
+string* restrict_tokens = ({ "restrict","unrestrict" });
+string* nonmodals = ({ "liveupgrade", "prompt","status","email",
         "websourceip", "websourcename", "mudname", "mudport",
         "debugger", "access", "pinging", "pinginterval",
         "imc2serverpass", "imc2clientpass" });
-string array antimodals = ({ "imc2", "ced" });
-string array modals = antimodals + ({ "channelpipes", "fastcombat", 
+string* antimodals = ({ "imc2", "ced" });
+string* modals = antimodals + ({ "channelpipes", "fastcombat",
         "catchtell","matchcommand", "matchobject", "autowiz", "locked",
-        "localtime", "justenglish", "justhumans", "encumbrance", "pk", 
+        "localtime", "justenglish", "justhumans", "encumbrance", "pk",
         "compat", "exitsbare", "nmexits", "grid", "minimap", "wizmap",
         "cgi", "dirlist", "creweb", "selectclass", "severable",
         "retain", "defaultparse", "disablereboot", "loglocal", "logremote",
         "questrequired", "autoadvance","guestallowed", "playerintertell" });
-string array inet_services = ({ "oob", "hftp", "ftp", "http", "rcp", "inet" });
+string* inet_services = ({ "oob", "hftp", "ftp", "http", "rcp", "inet" });
 
 protected int NotImplemented(string which);
 varargs nosave int TestFun(string which, string arg);
@@ -163,7 +163,7 @@ int ModPortOffset(string which, string arg){
     RELOAD_D->eventReload(this_object(), 1, 1);
     reload(MASTER_D,0,1);
     return 1;
-}             
+}
 
 int ModPort(string which, mixed arg){
     string out, service, svc, junk, new_offset, new_port;
@@ -235,7 +235,7 @@ varargs nosave int ModStartRoom(string which, string arg){
     foreach(string line in config){
         string s1,s2,s3;
         if(sscanf(line,"%s %s %s",s1,s2,s3) == 3){
-            if(s1 == "#define" && s2 == "ROOM_START") 
+            if(s1 == "#define" && s2 == "ROOM_START")
                 line = "#define ROOM_START       \""+arg+"\"";
         }
         config2 += ({ line });
@@ -477,9 +477,9 @@ nosave int ProcessOther(string which, string arg){
         write("This configuration change will require a few minutes to take effect completely.");
     }
     if(which == "GLOBAL_MONITOR") reload(SNOOP_D,0,1);
-    if(which == "IDLE_TIMEOUT" || which == "MAX_NEWBIE_LEVEL" || 
+    if(which == "IDLE_TIMEOUT" || which == "MAX_NEWBIE_LEVEL" ||
             which == "FAST_COMBAT" || which == "GRID" || which == "WIZMAP" ||
-            which == "MINIMAP"){ 
+            which == "MINIMAP"){
         reload(LIB_CREATOR,1,1);
         write("This configuration will take effect for each user the next time they log in.");
         return 1;
@@ -515,7 +515,7 @@ nosave int ProcessString(string which, string arg){
         }
         config2 += ({ element });
     }
-    if(!strsrch(which, "WEB_SOURCE") 
+    if(!strsrch(which, "WEB_SOURCE")
             && ob = find_object(CMD_LIVEUPGRADE)){
         ob->eventDestruct();
     }
@@ -532,7 +532,7 @@ nosave int ProcessModal(string which, string arg){
     }
     if(member_array(arg,yesbools) != -1) junk = 1;
     if(member_array(arg,nobools) != -1) junk = 0;
-    if(member_array(which,antimodals) != -1) junk = ( junk ^ 1 ); 
+    if(member_array(which,antimodals) != -1) junk = ( junk ^ 1 );
 
     if(junk) junk = 1;
     else junk = 0;
@@ -624,7 +624,7 @@ nosave int ProcessModal(string which, string arg){
                 "user the next time they log in. To ensure all rooms pick up the new configuration, "
                 "either reboot the mud, or type: \"reload every room\", then quit and log back in.");
     }
-    if(which == "RETAIN_ON_QUIT" || which == "OBJECT_MATCHING") 
+    if(which == "RETAIN_ON_QUIT" || which == "OBJECT_MATCHING")
         write("To make this configuration take effect, reboot the mud.");
     if(which == "LOG_LOCAL_CHANS" || which == "LOG_REMOTE_CHANS"){
         reload(CHAT_D,1,1);
@@ -634,10 +634,10 @@ nosave int ProcessModal(string which, string arg){
         IMC2_D->UnSetAutoDisabled(1);
         ob = find_object(IMC2_D);
         if(!junk && ob){
-            reload(ob, 0, 1);         
+            reload(ob, 0, 1);
             reload(find_object(CHAT_D), 0, 1);
         }
-        else IMC2_D->remove();   
+        else IMC2_D->remove();
     }
     if(which == "FAST_COMBAT"){
         reload(LIB_CREATOR,1,1);
@@ -786,8 +786,8 @@ int ProcessInet(string which, string arg){
             }
             else{
                 string *servkeys, *servkeys2;
-                string subret = "The following services are available: "; 
-                string subret2 = "The following services are running: "; 
+                string subret = "The following services are available: ";
+                string subret2 = "The following services are running: ";
                 write("The inet service is running");
                 if(sizeof(servkeys = keys(INET_D->GetServices()))){
                     subret += implode(servkeys,", ")+".\n";

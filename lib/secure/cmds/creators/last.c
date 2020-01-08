@@ -13,7 +13,7 @@ inherit LIB_DAEMON;
 
 mixed cmd(string args) {
     string file, filename;
-    string array lines;
+    string* lines;
     int x = to_int(args);
 
     if(archp(this_player())) filename = DIR_SECURE_LOGS + "/enter";

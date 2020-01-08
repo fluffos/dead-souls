@@ -9,7 +9,7 @@
 #include <daemons.h>
 #include "include/trainer.h"
 
-private string array TrainingSkills;
+private string* TrainingSkills;
 private mapping Students;
 int NoSpells = 0;
 private nosave object me;
@@ -18,7 +18,7 @@ private nosave object me;
 
 void create(){
     me = this_object();;
-    TrainingSkills = ({});   
+    TrainingSkills = ({});
     Students = ([]);
     me->SetNoClean(1);
     me->SetCommandResponses( ([
@@ -37,7 +37,7 @@ protected void init(){
     if( !living(this_player()) ) return;
     str = this_player()->GetKeyName();
     if( Students[str] ){
-        me->eventForce("speak You will have to start your "             
+        me->eventForce("speak You will have to start your "
                 "studies anew, "+this_player()->GetName());
         map_delete(Students, str);
     }
@@ -56,19 +56,19 @@ int GetNoSpells(){
 /**** data manipulation ****/
 
 mixed AddTrainingSkills(string *args){
-    if( !args ) 
+    if( !args )
         error("Bad argument 1 to AddTrainingSkills.");
     return (TrainingSkills = distinct_array(TrainingSkills + args));
 }
 
 mixed RemoveTrainingSkills(string *args){
-    if( !args || !arrayp(args) ) 
+    if( !args || !arrayp(args) )
         error("Bad argument 1 to RemoveTrainingSkills.");
     TrainingSkills -= args;
     return TrainingSkills;
 }
 
-string array GetTrainingSkills(){ return copy(TrainingSkills); }
+string* GetTrainingSkills(){ return copy(TrainingSkills); }
 
 string Expertise(){
     string tmp, expertises;
@@ -140,7 +140,7 @@ int eventTrain(object who, string verb, string skill){
         }
     }
     if(!ok){
-        write("You must be fluent in one of "+me->GetName()+ 
+        write("You must be fluent in one of "+me->GetName()+
                 " languages in order to understand "+possessive(me)+
                 " training.");
         return 1;
@@ -187,7 +187,7 @@ int eventTrain(object who, string verb, string skill){
         me->eventHelp();
         return 0;
     }
-    if( member_array(skill, 
+    if( member_array(skill,
                 this_player()->GetSkills() ) == -1 ){
         me->eventForce("speak You do not appear to be the type "
                 "who would be skilled in " + skill + "!");
@@ -195,7 +195,7 @@ int eventTrain(object who, string verb, string skill){
         return 0;
     }
     if( this_player()->GetTrainingPoints() < 1 ){
-        me->eventForce("speak You need more training points!");        
+        me->eventForce("speak You need more training points!");
         return 0;
     }
     Students[ who->GetKeyName() ] = skill;
@@ -226,8 +226,8 @@ nosave int ContinueTraining(object who, string skill, int x){
 /**** message handling events ****/
 
 /*  The three following events are purely *aesthetic*,
- *  Hopefully prolific coders will override them for  
- *  more interesting training techniques. :) 
+ *  Hopefully prolific coders will override them for
+ *  more interesting training techniques. :)
  */
 
 int eventStart(object who, string skill){

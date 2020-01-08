@@ -72,8 +72,8 @@ string remove_article(string str) {
     return str;
 }
 
-string array explode_list(string list) {
-    string array items;
+string* explode_list(string list) {
+    string* items;
     string one, two;
 
     list = lower_case(list);
@@ -100,7 +100,7 @@ string array explode_list(string list) {
     return filter(items, (: $1 && $1 != "" :));
 }
 
-varargs string item_list(mixed array items...) {
+varargs string item_list(mixed* items...) {
     mapping list = ([]);
     string str;
     int maxi;
@@ -212,7 +212,7 @@ string objective(mixed val) {
 
 string reflexive(mixed val) { return sprintf("%sself", objective(val)); }
 
-#if SEFUN_PLURALIZE 
+#if SEFUN_PLURALIZE
 #define VOWELS ({"a","e","i","o","u"})
 
 #define ABNORMAL ([ "moose":"moose", "mouse":"mice", "die":"dice", "index":"indices", "human":"humans", "sheep":"sheep", "fish":"fish", "child":"children", "ox":"oxen", "tooth":"teeth", "deer":"deer", "sphinx":"sphinges" ])
@@ -296,7 +296,7 @@ string pluralize(mixed single) {
     if(sizeof(ret)){
         if(reset){
             ret = modulo + ret + "%^RESET%^";
-        }    
+        }
         return ret;
     }
     ret = sprintf("%ss", clean_str);
@@ -342,17 +342,17 @@ string cardinal(int x) {
         default:
                  if(x > 1000000000) return "over a billion";
                  else if(a = x /1000000) {
-                     if(x = x %1000000) 
+                     if(x = x %1000000)
                          return sprintf("%s million %s", cardinal(a), cardinal(x));
                      else return sprintf("%s million", cardinal(a));
                  }
                  else if(a = x / 1000) {
-                     if(x = x % 1000) 
+                     if(x = x % 1000)
                          return sprintf("%s thousand %s", cardinal(a), cardinal(x));
                      else return sprintf("%s thousand", cardinal(a));
                  }
                  else if(a = x / 100) {
-                     if(x = x % 100) 
+                     if(x = x % 100)
                          return sprintf("%s hundred %s", cardinal(a), cardinal(x));
                      else return sprintf("%s hundred", cardinal(a));
                  }
@@ -377,7 +377,7 @@ string cardinal(int x) {
 #else
 string cardinal(int x){
     string sign;
-    if(undefinedp(x) || !intp(x)) return sign; 
+    if(undefinedp(x) || !intp(x)) return sign;
     sign = ( x < 0 ? "negative " : "");
     x = abs(x);
     return sign+query_num(x);
@@ -407,15 +407,15 @@ varargs string conjunction(mixed expressions, string coordinator) {
 }
 
 string consolidate(int x, string str) {
-    string array words;
+    string* words;
     string tmp;
 
     if( x == 1 || !sizeof(str) ) return str;
     words = explode(str, " ");
     if( sscanf(words[<1], "(%s)", tmp) ) {
-        if( sizeof(words) == 1 ) 
+        if( sizeof(words) == 1 )
             return "(" + consolidate(x, tmp) + ")";
-        else return consolidate(x, implode(words[0..<2], " ")) + 
+        else return consolidate(x, implode(words[0..<2], " ")) +
             " (" + tmp + ")";
     }
     if( sscanf(words[<1], "[%s]", tmp) ) {
@@ -425,7 +425,7 @@ string consolidate(int x, string str) {
             " [" + tmp + "]";
     }
     if( words[0][0..1] == "%^" ) {
-        string array parts;
+        string* parts;
         string part, colour = "";
         int i = 0;
 
@@ -437,16 +437,16 @@ string consolidate(int x, string str) {
 
         foreach(part in parts) {
             if( sizeof(part) && !sizeof(strip_colours("%^" + part + "%^")) )
-                colour += ("%^" + part + "%^"); 
-            else return colour + consolidate(x, 
-                    (implode(parts[i..], "%^")) + " " + 
+                colour += ("%^" + part + "%^");
+            else return colour + consolidate(x,
+                    (implode(parts[i..], "%^")) + " " +
                     (implode(words[1..], " ")) );
             i++;
         }
         return words[0] + " " + consolidate(x, implode(words[1..], " "));
 
     }
-    if( member_array(lower_case(strip_colours(words[0])), 
+    if( member_array(lower_case(strip_colours(words[0])),
                 ({"a", "an", "the", "one"}) ) > -1 ) words = words[1..];
     return (cardinal(x) + " " + pluralize(implode(words, " ")));
 }
@@ -461,7 +461,7 @@ varargs int ordinalp(string str, int parseflag){
     if(!str || !stringp(str)) return 0;
     if(member_array(str, ords) != -1) return 1;
     foreach(string element in suffs){
-        if(sizeof(str) >= sizeof(element) && 
+        if(sizeof(str) >= sizeof(element) &&
                 str[<sizeof(element)..] == element)
             return 1;
     }

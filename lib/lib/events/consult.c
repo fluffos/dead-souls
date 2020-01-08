@@ -13,12 +13,12 @@ varargs mixed GetConsult(string str){
     return Consult[str];
 }
 
-string array GetConsults(){
+string* GetConsults(){
     return keys(Consult);
 }
 
-mapping RemoveConsult(string item){ 
-    map_delete(Consult, item); 
+mapping RemoveConsult(string item){
+    map_delete(Consult, item);
     return Consult;
 }
 

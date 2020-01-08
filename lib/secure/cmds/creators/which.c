@@ -13,7 +13,7 @@
 inherit LIB_DAEMON;
 
 mixed cmd(string args) {
-    string array dirs;
+    string* dirs;
     mixed *aa;
     string dir, msg = "", ret;
     int isverb;

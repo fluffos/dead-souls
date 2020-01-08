@@ -13,12 +13,12 @@ varargs mixed GetScratch(string str){
     return Scratch[str];
 }
 
-string array GetScratches(){
+string* GetScratches(){
     return keys(Scratch);
 }
 
-mapping RemoveScratch(string item){ 
-    map_delete(Scratch, item); 
+mapping RemoveScratch(string item){
+    map_delete(Scratch, item);
     return Scratch;
 }
 

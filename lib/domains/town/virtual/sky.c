@@ -96,7 +96,7 @@ varargs nosave void create(int x, int y, int z) {
             if( (x < 10 && x > -26) && (y < 26 && y > -10) ){
                 wut = "forest";
             }
-            else { 
+            else {
                 wut = "surface";
             }
             RemoveExit("down");
@@ -129,7 +129,7 @@ varargs void SetLongAndItems(int x, int y, int z) {
 //    if(this_object() && ob && (living(ob) || ob->GetMapper())){
 //       tc("1");
 //        if(MASTER_D->GetPerfOK()){
-//            int array Coords = ROOMS_D->SetRoom(this_object(), ob);
+//            int* Coords = ROOMS_D->SetRoom(this_object(), ob);
 //            tc("2: "+identify(Coords));
 //            CompileNeighbors(Coords);
 //        }

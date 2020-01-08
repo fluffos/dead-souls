@@ -39,16 +39,16 @@ mixed CanGo(object who, string str){
 
 mixed eventGo(object who, string str){
     int noclip = who->GetProperty("noclip");
-    if(query_verb() == "go" && interactive(who) && !noclip){	
-        if( who->GetPosition() != POSITION_STANDING ){  
+    if(query_verb() == "go" && interactive(who) && !noclip){
+        if( who->GetPosition() != POSITION_STANDING ){
             write("You are not standing.");
             switch(who->GetPosition()){
-                case POSITION_LYING : write("Try: crawl "+str);break; 
-                case POSITION_SITTING : write("Try: crawl "+str);break; 
-                case POSITION_KNEELING : write("Try: crawl "+str);break; 
-                case POSITION_FLOATING : write("You are floating.");break; 
-                case POSITION_SWIMMING : write("Try: swim "+str);break; 
-                case POSITION_FLYING : write("Try: fly "+str);break; 
+                case POSITION_LYING : write("Try: crawl "+str);break;
+                case POSITION_SITTING : write("Try: crawl "+str);break;
+                case POSITION_KNEELING : write("Try: crawl "+str);break;
+                case POSITION_FLOATING : write("You are floating.");break;
+                case POSITION_SWIMMING : write("Try: swim "+str);break;
+                case POSITION_FLYING : write("Try: fly "+str);break;
             }
             return 0;
         }
@@ -75,11 +75,11 @@ mixed eventGo(object who, string str){
     }
 
     if(!noclip && sizeof(Doors) && Doors[str] && Doors[str]->GetClosed() ){
-        message("my_action", "You bump into " + 
+        message("my_action", "You bump into " +
                 Doors[str]->GetShort(str) + ".", who);
         return 1;
     }
-    if(!noclip && Exits[str] && Exits[str]["pre"] && 
+    if(!noclip && Exits[str] && Exits[str]["pre"] &&
             !(evaluate(Exits[str]["pre"], str)) )
         return 1;
     if(!Exits[str]){
@@ -98,7 +98,7 @@ mixed eventGo(object who, string str){
             who->eventMoveLiving(this_object()->GetSinkRoom(),omsg,imsg,str);
             return 1;
         }
-        if(!noclip){ 
+        if(!noclip){
             write("You can't go that way.");
             return 0;
         }
@@ -128,7 +128,7 @@ mixed GetDoor(string dir){
     else return 0;
 }
 
-string array GetDoors(){
+string* GetDoors(){
     return keys(Doors);
 }
 
@@ -143,12 +143,12 @@ string SetDoor(string dir, string file){
         ob->SetDoor(file);
     }
 
-    if(!unguarded( (: file_exists($(file)) :) ) && 
+    if(!unguarded( (: file_exists($(file)) :) ) &&
             !unguarded( (: file_exists($(file)+".c") :) )){
         return "Door not found.";
     }
     file->eventRegisterSide(dir);
-    return (Doors[dir] = file); 
+    return (Doors[dir] = file);
 }
 
 varargs string CreateDoor(string dir, string odir, string long, string locked, string key){
@@ -185,7 +185,7 @@ string GetDirection(string dest){
 
 object GetDummyItem(mixed id){
     int i;
-    object array dummies,all_inv;
+    object* dummies,all_inv;
 
     all_inv=all_inventory();
     dummies = ({});
@@ -234,7 +234,7 @@ protected mapping GetEnterData(string dir){
     }
 }
 
-varargs string array GetEnters(int i){
+varargs string* GetEnters(int i){
     object *obs;
     string *ids;
 
@@ -330,12 +330,12 @@ mapping GetExitMap(){
     mapping ret = ([]);
     foreach(string key in keys(Exits)){
         ret[key] = Exits[key]["room"];
-    }  
+    }
 
     return ret;
 }
 
-string array GetExits(){
+string* GetExits(){
     return keys(Exits);
 }
 

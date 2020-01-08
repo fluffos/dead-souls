@@ -62,7 +62,7 @@ protected void create(){
     SetRace("android");
     SetAction(1, ({
                 "Jenny straightens her hair.",
-                "Jenny the guide bot touches up her rouge a bit.", 
+                "Jenny the guide bot touches up her rouge a bit.",
                 "Jenny smiles."}));
     AddCommandResponse("shutdown", (: eventTurnOff :));
     AddCommandResponse("shut down", (: eventTurnOff :) );
@@ -109,7 +109,7 @@ varargs int eventGreet(string newbie){
 }
 
 int eventCheckNoob(){
-    object array people;
+    object* people;
     people=(get_livings(environment(this_object()),1));
     if(sizeof(people)){
         foreach(object dude in people){
@@ -212,10 +212,10 @@ int eventAct4(){
 }
 
 int eventAct6(){
-    if(!new("/domains/campus/obj/map")->eventMove(this_object())){ 
+    if(!new("/domains/campus/obj/map")->eventMove(this_object())){
         tell_room(environment(this_object()),"Oops! There's a bug, "+
-                "and I don't have a map for you. Let's pretend I gave you "+ 
-                "one and move on. Please email your admin about this, though."); 
+                "and I don't have a map for you. Let's pretend I gave you "+
+                "one and move on. Please email your admin about this, though.");
         return 1;
     }
     if(player && environment(this_object()) == environment(player)) {

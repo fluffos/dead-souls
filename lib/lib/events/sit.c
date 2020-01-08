@@ -9,7 +9,7 @@
 #include <position.h>
 
 private int          MaxSitters = 1;
-private object array Sitters    = ({});
+private object* Sitters    = ({});
 
 int GetMaxSitters(){
     return MaxSitters;
@@ -19,7 +19,7 @@ protected int SetMaxSitters(int x){
     return (MaxSitters = x);
 }
 
-object array GetSitters(){
+object* GetSitters(){
     return copy(Sitters);
 }
 

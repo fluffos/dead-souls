@@ -14,7 +14,7 @@ string owner;
 varargs mixed GetSuitHelp(mixed who, string where);
 
 string LongDesc(){
-    string ret = "A highly advanced armored suit of Poleepkwa design, "+ 
+    string ret = "A highly advanced armored suit of Poleepkwa design, "+
         "used by elements of the Host whose role requires them to have "+
         "some protection from environmental hazards.";
     if(!active) return ret;
@@ -36,7 +36,7 @@ protected void create(){
     SetMatching(0);
     SetBaseCost("silver",5000);
     SetArmorType(A_EXO);
-    SetRestrictLimbs( ({ 
+    SetRestrictLimbs( ({
                 "torso", "head", "neck",
                 "right arm", "left arm",
                 "right leg", "left leg",
@@ -102,7 +102,7 @@ varargs mixed GetSuitHelp(mixed who, string where){
     return 0;
 }
 
-mixed eventEquip(object who, string array limbs){
+mixed eventEquip(object who, string* limbs){
     mixed success = ::eventEquip(who, limbs);
     scoutshadow = new("/shadows/pscout");
     if(scoutshadow) scoutshadow->SetDisguised(disguised);
@@ -142,7 +142,7 @@ int eventDecrementCharge(int i){
     if(!GetWorn()) return 0;
     if(previous_object() != scoutshadow) return 0;
     if(charge < 1) charge = 0;
-    else { 
+    else {
         if(!i) charge--;
         else charge -= i;
         if(charge < 0) charge = 0;
@@ -196,19 +196,19 @@ int SetMaxCharge(int i){
     return maxcharge;
 }
 
-string array GetBane(){
+string* GetBane(){
     if(GetActive()) return ({ "all" });
     else return ({});
 }
 
-string array QueryBane(){
+string* QueryBane(){
     if(GetActive()) return ({ "all" });
     else return ({});
 }
 
 void heart_beat(){
     int notify;
-    string str, envname;     
+    string str, envname;
     object env = environment();
     object room = room_environment();
     if(!env || !room) return;
@@ -268,7 +268,7 @@ void eventDeteriorate(int type){
     ::eventDeteriorate(type);
 }
 
-int eventReceiveDamage(mixed agent, int type, int amt, int i, mixed array l){
+int eventReceiveDamage(mixed agent, int type, int amt, int i, mixed* l){
     if(!active || charge < 20){
         return ::eventReceiveDamage(agent, type, amt, i, l);
     }

@@ -11,7 +11,7 @@ inherit LIB_DAEMON;
 
 mixed cmd(string args) {
     object who = previous_object();
-    string array spells = ({});
+    string* spells = ({});
     string tmp;
     int len;
 

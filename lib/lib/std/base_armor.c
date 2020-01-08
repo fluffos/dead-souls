@@ -40,8 +40,8 @@ inherit LIB_UNIQUENESS;
 private int            Size          = 0;
 private int            Fingers       = 5;
 private mapping        Protection    = ([]);
-private string array   RestrictLimbs = 0;
-private string array   BaseLimbs     = 0;
+private string*   RestrictLimbs = 0;
+private string*   BaseLimbs     = 0;
 private nosave mixed   Wear          = 0;
 private nosave mapping MaxProtection = ([]);
 private nosave mixed my_save = ({});
@@ -118,8 +118,8 @@ string *LimbGuess(object who){
             foreach(limb in hands){
                 if((memb = member_array(limb[0..(sizeof(limb)-5)]+"arm",
                                 tmp)) != -1 ){
-                    if(who->CanWear(this_object(),({limb, tmp[memb]})) 
-                            == 1){ 
+                    if(who->CanWear(this_object(),({limb, tmp[memb]}))
+                            == 1){
                         limbs += ({limb, tmp[memb]});
                         base_limbs = remove_member(base_limbs,
                                 member_array("arm", base_limbs));
@@ -129,7 +129,7 @@ string *LimbGuess(object who){
                             break;
                     }
                 }
-            } 
+            }
         }
         if(member_array("foot", base_limbs) != -1 &&
                 member_array("leg", base_limbs) != -1){
@@ -228,7 +228,7 @@ int GetMaxProtection(int type){
 }
 
 int GetProtection(int type){
-    int array types;
+    int* types;
     int i;
 
     foreach(int t, int val in Protection){
@@ -254,27 +254,27 @@ int SetAC(int i){
     return i;
 }
 
-string array GetRestrictLimbs(){
+string* GetRestrictLimbs(){
     return RestrictLimbs;
 }
 
-string array SetRestrictLimbs(string array limbs){
+string* SetRestrictLimbs(string* limbs){
     return (RestrictLimbs = limbs);
 }
 
-string array GetBaseLimbs(){
+string* GetBaseLimbs(){
     return BaseLimbs;
 }
 
-string array SetBaseLimbs(string array limbs){
+string* SetBaseLimbs(string* limbs){
     return (BaseLimbs = limbs);
 }
 
-string array GetSave(){
+string* GetSave(){
     return persist::GetSave();
 }
 
-protected mixed array AddSave(mixed array vars){
+protected mixed* AddSave(mixed* vars){
     if(!vars) vars = ({});
     my_save = distinct_array( my_save + vars );
     return persist::AddSave(my_save);
@@ -288,8 +288,8 @@ mixed SetWear(mixed val){
     return (Wear = val);
 }
 
-/* ****************** armor.c modals ********************* */ 
-mixed CanEquip(object who, string array limbs){
+/* ****************** armor.c modals ********************* */
+mixed CanEquip(object who, string* limbs){
     mixed tmp;
 
     if(Size && !( Size & who->GetSize() ) ){
@@ -297,7 +297,7 @@ mixed CanEquip(object who, string array limbs){
     }
 
     if( !limbs ){ /* let's try and guess */
-        string array guess = who->GetLimbs();
+        string* guess = who->GetLimbs();
         int armor = GetArmorType();
         string limb;
         if( !guess ){
@@ -363,7 +363,7 @@ mixed CanSteal(object who){
     return steal::CanSteal(who);
 }
 
-/* ********************* armor.c events *********************** */ 
+/* ********************* armor.c events *********************** */
 protected int Destruct(){
     if( GetWorn() && environment() ){
         eventUnequip(environment());
@@ -389,7 +389,7 @@ void eventDeteriorate(int type){
     SetValue(GetValue()/2);
 }
 
-mixed eventEquip(object who, string array limbs){
+mixed eventEquip(object who, string* limbs){
     mixed tmp;
 
     if( !limbs ){ /* let's try and guess */
@@ -453,7 +453,7 @@ mixed eventEquip(object who, string array limbs){
 
 int eventMove(mixed dest){
     if( !environment() && GetWorn() ){
-        mixed array limbs = GetWorn();
+        mixed* limbs = GetWorn();
 
         SetWorn(0);
         call_out((: eventRestoreEquip :), 0, limbs);
@@ -546,7 +546,7 @@ void init(){
     if(atype & A_ARMOR ) restrict(({"torso","right arm","left arm"}));
     if(atype & A_COLLAR ) restrict(({"neck"}));
     if(atype & A_BODY_ARMOR ) restrict(({"torso","right arm","left arm","left leg","right leg"}) );
-} 
+}
 
 mapping GetProtectionMap(){
     return copy(Protection);

@@ -28,7 +28,7 @@ protected void create() {
             "aid to the wounded.");
 }
 
-int eventCast(object who, int level, mixed limbs, object array targets) {
+int eventCast(object who, int level, mixed limbs, object* targets) {
     object target = targets[0];
     int feedback,health,magic,stamina,tot;
     if(!spell::eventCast(who,level,targets)) return 0;
@@ -45,10 +45,10 @@ int eventCast(object who, int level, mixed limbs, object array targets) {
         health = target->GetMaxHealthPoints()-target->GetHealthPoints();
         stamina = target->GetMaxStaminaPoints()-target->GetStaminaPoints();
         if(health) target->AddHP(((hp > health) ? health : hp));
-        if(stamina) 
+        if(stamina)
             target->AddStaminaPoints(((stam > stamina) ? stamina : stam));
         tot = hp+stam;
-        if(tot) 
+        if(tot)
             who->eventTrainSkill("healing",0,0,1,tot);
         magic = who->GetMagicPoints();
         magic = magic - tot;
@@ -61,9 +61,9 @@ int eventCast(object who, int level, mixed limbs, object array targets) {
         }
     }
     return 1;
-} 
+}
 
-varargs int CanCast(object who, int level, string limb, object array targets){
+varargs int CanCast(object who, int level, string limb, object* targets){
     foreach(object targ in targets){
         string race = targ->GetRace();
         if(race && RACES_D->GetNonMeatRace(race)){

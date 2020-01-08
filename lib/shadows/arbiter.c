@@ -114,15 +114,15 @@ int unarbitershadow(){
     eventUnshadow();
 }
 
-string array parse_command_id_list() {
-    string array ids = (this_object()->GetId() + 
+string* parse_command_id_list() {
+    string* ids = (this_object()->GetId() +
             (CheckDisguised() ? ({ "arbiter" }) : ({}) ) || ({}));
     return filter(ids, (: stringp($1) && ($1 != "") :));
 
 }
 
-string array parse_command_plural_id_list() {
-    string array ids = (this_object()->GetId() +
+string* parse_command_plural_id_list() {
+    string* ids = (this_object()->GetId() +
             (CheckDisguised() ? ({ "arbiter" }) : ({}) ) || ({}));
     ids = filter(ids, (: stringp($1) && ($1 != "") :));
     return map(ids, (: pluralize :));
@@ -179,7 +179,7 @@ int GetMelee(){
     if(!suit->GetActive()) return ob->GetMelee();
     if(!(ob->GetMelee())) suit->eventDecrementCharge();
     return 1;
-} 
+}
 
 float AddStaminaPoints(mixed x) {
     float y;
@@ -201,7 +201,7 @@ float AddStaminaPoints(mixed x) {
 int eventCollapse(){
     object ob = GetShadowedObject();
     if(!ob) return 0;
-    if(!CheckSuit() || !suit->GetActive()) return ob->eventCollapse(); 
+    if(!CheckSuit() || !suit->GetActive()) return ob->eventCollapse();
     suit->eventDecrementCharge();
     return suit->GetRemainingCharge();
 }
@@ -250,7 +250,7 @@ void eventDescribeEnvironment(int verbose) {
     object env;
     string grid, climate,filename,foo,tmp;
     int x,y,z,hud = 1;
-    object *livings; 
+    object *livings;
     string extra = "%^CYAN%^Heads-up display info:%^RESET%^\n";
     mapping invisibles = ([]);
     int medium, terrain;
@@ -380,7 +380,7 @@ varargs int eventReceiveDamage(mixed agent, int type, int x, int internal, mixed
         }
     }
     else limb_string = ". Location indeterminate. ";
-    if(limbs) { 
+    if(limbs) {
         evidence += ". Location: ";
         evidence += limb_string + ".";
     }

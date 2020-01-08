@@ -25,7 +25,7 @@ protected private void validate() {
         error("Illegal attempt to access addemote: "+get_stack()+" "+identify(previous_object(-1)));
 }
 
-nosave void EnterEmote(string emote, string array emotes) {
+nosave void EnterEmote(string emote, string* emotes) {
     int x = to_int(emote);
     validate();
     if( x < 1 || x > sizeof(emotes) ) {
@@ -43,7 +43,7 @@ nosave void EnterEmote(string emote, string array emotes) {
     ShowEmote(emote);
 }
 
-nosave void EnterEditChoice(string str, string array rules, string emote) {
+nosave void EnterEditChoice(string str, string* rules, string emote) {
     int x = to_int(str);
     validate();
     if( x < 1 || x > sizeof(rules) ) {
@@ -76,9 +76,9 @@ nosave void EnterEditChoice(string str, string array rules, string emote) {
     }
 }
 
-nosave void AddAdverbs(string adv, string emote, string array rules,
-        string array verbs, string msg) {
-    string array adverbs;
+nosave void AddAdverbs(string adv, string emote, string* rules,
+        string* verbs, string msg) {
+    string* adverbs;
     validate();
     if( !adv || adv == "" ) {
         adverbs = ({});
@@ -92,8 +92,8 @@ nosave void AddAdverbs(string adv, string emote, string array rules,
     this_player()->eventPrint("Emote '" + emote + "' added.");
 }
 
-nosave void AddMessage(string msg, string emote, string array rules,
-        string array verbs) {
+nosave void AddMessage(string msg, string emote, string* rules,
+        string* verbs) {
     validate();
     if( !msg || msg == "" ) {
         this_player()->eventPrint("Which message? [q to quit] ", MSG_PROMPT);
@@ -108,8 +108,8 @@ nosave void AddMessage(string msg, string emote, string array rules,
     input_to((: AddAdverbs :), emote, rules, verbs, msg);
 }
 
-nosave void AddVerbs(string list, string emote, string array rules) {
-    string array verbs = map(explode(list, ","), (: trim :));
+nosave void AddVerbs(string list, string emote, string* rules) {
+    string* verbs = map(explode(list, ","), (: trim :));
     validate();
 
     this_player()->eventPrint("Enter message: ", MSG_PROMPT);
@@ -117,7 +117,7 @@ nosave void AddVerbs(string list, string emote, string array rules) {
 }
 
 nosave void AddRule(string rule, string emote) {
-    string array rules = map(explode(rule, ","), (: trim :));
+    string* rules = map(explode(rule, ","), (: trim :));
     validate();
 
     if( !sizeof(rules) ) {
@@ -138,7 +138,7 @@ nosave void AddErrorMessage(string msg, string emote) {
         this_player()->eventPrint("Which emote? [q to quit] ", MSG_PROMPT);
         input_to((: AddEmote :));
         return;
-    }	
+    }
     emote = lower_case(emote);
     if( lower_case(msg) == "q" ) {
         this_player()->eventPrint("Addition of emote aborted.");
@@ -167,9 +167,9 @@ protected void AddEmote(string emote) {
 }
 
 protected void MainMenu() {
-    string array emotes = SOUL_D->GetEmotes();
-    string array display = allocate(sizeof(emotes));
-    int array screen = this_player()->GetScreen() || ({ 80, 25 });
+    string* emotes = SOUL_D->GetEmotes();
+    string* display = allocate(sizeof(emotes));
+    int* screen = this_player()->GetScreen() || ({ 80, 25 });
     string tmp;
     int i;
     validate();
@@ -198,17 +198,17 @@ protected void EditErrorMessage(string emote) {
 protected void ShowEmote(string emote) {
     string err = SOUL_D->GetErrorMessage(emote);
     mapping rules = SOUL_D->GetRules(emote);
-    int array screen = this_player()->GetScreen() || ({ 80, 25 });
+    int* screen = this_player()->GetScreen() || ({ 80, 25 });
     string tmp = center("Dead Souls Emote Editor", screen[0]) + "\n\n";
     string tmp2 = "";
-    string array rule_array = allocate(sizeof(rules));
+    string* rule_array = allocate(sizeof(rules));
     int i = 0;
     validate();
 
     tmp += "%^GREEN%^Emote%^RESET%^: " + emote + "\n";
     tmp += "%^GREEN%^Error Message%^RESET%^: " + err + "\n";
     tmp += "%^GREEN%^Rules%^RESET%^:\n";
-    foreach(string rule, mixed array data in rules) {
+    foreach(string rule, mixed* data in rules) {
         rule_array[i] = rule;
         tmp += "[" + (i+1) + "] \"" + rule + "\": " + data[1][1] + "\n";
         tmp += "  Adverbs: " + wrap(item_list(data[0]), screen[0]) + "\n";

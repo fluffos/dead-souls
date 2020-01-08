@@ -58,16 +58,16 @@ int unbearshadow(){
     eventUnshadow();
 }
 
-string array parse_command_id_list() {
+string* parse_command_id_list() {
 
-    string array ids = (this_object()->GetId() + ({ "bear" }) || ({}));
+    string* ids = (this_object()->GetId() + ({ "bear" }) || ({}));
 
     return filter(ids, (: stringp($1) && ($1 != "") :));
 
 }
 
-string array parse_command_plural_id_list() {
-    string array ids = (this_object()->GetId() + ({"bear"}) || ({}));
+string* parse_command_plural_id_list() {
+    string* ids = (this_object()->GetId() + ({"bear"}) || ({}));
 
     ids = filter(ids, (: stringp($1) && ($1 != "") :));
     return map(ids, (: pluralize :));

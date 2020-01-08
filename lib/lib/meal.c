@@ -39,7 +39,7 @@ int SetMealAction(function f){
     MealAction = f;
 }
 
-mixed direct_drink_obj(){ 
+mixed direct_drink_obj(){
     if( environment() != this_player() ) return "#You don't have that!";
     if( MealType & MEAL_FOOD ) return "Wouldn't you rather eat it?";
     return this_player()->CanDrink(this_object());
@@ -183,7 +183,7 @@ int SetStrength(int x){ return (MealStrength = x); }
 
 int GetStrength(){ return MealStrength; }
 
-varargs void SetMealMessages(mixed array val...){
+varargs void SetMealMessages(mixed* val...){
     if( !arrayp(val) ){
         error(sprintf("Bad argument 1 to SetMealMessages(): %O\n", val));
     }
@@ -196,7 +196,7 @@ varargs void SetMealMessages(mixed array val...){
     }
     if( !stringp(val[0]) )
         error(sprintf("Bad argument 1 to SetMealMessages(): %O\n", val[0]));
-    else if( !stringp(val[1]) ) 
+    else if( !stringp(val[1]) )
         error(sprintf("Bad argument 2 to SetMealMessages(): %O\n", val[1]));
     MyMessage = val[0];
     OtherMessage = val[1];

@@ -41,7 +41,7 @@ mapping query_access(string type) {
 
 /* ********************** access.c events ********************** */
 nomask int check_access(object ob, string fun, string file, string oper) {
-    string array who;
+    string* who;
     mapping access;
 
     if( oper == "read" ) {
@@ -134,7 +134,7 @@ nomask int remove_access(string type, string file, string who) {
 void create() {
     string file = base_name(this_object());
 
-    if( !strsrch(file, REALMS_DIRS) || !strsrch(file, DOMAINS_DIRS) 
+    if( !strsrch(file, REALMS_DIRS) || !strsrch(file, DOMAINS_DIRS)
             || !strsrch(file, ESTATES_DIRS) ) {
         SetSaveFile(file);
     }

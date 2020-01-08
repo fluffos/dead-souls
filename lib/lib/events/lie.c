@@ -3,7 +3,7 @@
 inherit LIB_SIT;
 
 private int          MaxLiers = 1;
-private object array Liers    = ({});
+private object* Liers    = ({});
 
 int GetMaxLiers(){
     return MaxLiers;
@@ -13,7 +13,7 @@ protected int SetMaxLiers(int x){
     return (MaxLiers = x);
 }
 
-object array GetLiers(){
+object* GetLiers(){
     return copy(Liers);
 }
 

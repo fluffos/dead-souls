@@ -19,7 +19,7 @@ class blindness {
 
 private class blindness Blind            = 0;
 private mapping         Custom           = ([]);
-private int array       LightSensitivity = ({ 25, 75 });
+private int*       LightSensitivity = ({ 25, 75 });
 private mapping         Resistance       = ([]);
 private mapping         Stats            = ([]);
 private nosave mapping  StatsBonus       = ([]);
@@ -232,7 +232,7 @@ int GetStatBonus(string stat){
     return x;
 }
 
-/* string SetResistance(int type, string level) 
+/* string SetResistance(int type, string level)
  * int type - the type being set (you can do a bitwise | on them)
  * string level "none", "low", "medium", "high", and "immune"
  *
@@ -272,7 +272,7 @@ int GetDeviating(){ return Custom["deviating"]; }
 int SetDeviating(int x){ return (Custom["deviating"] = (x ? 1 : 0)); }
 
 varargs mixed GetEffectiveVision(mixed location, int raw_score){
-    int array l;
+    int* l;
     object env, rider, where;
     int bonus = GetVisionBonus();
     int a, y, x = 0;
@@ -285,7 +285,7 @@ varargs mixed GetEffectiveVision(mixed location, int raw_score){
     }
 
     //fixme
-    if(!location && sizeof(get_livings(this_object())) && 
+    if(!location && sizeof(get_livings(this_object())) &&
             rider = get_random_living(this_object())){
         if(rider->GetProperty("mount") == this_object() && env){
             return rider->GetEffectiveVision(env);
@@ -320,7 +320,7 @@ varargs mixed GetEffectiveVision(mixed location, int raw_score){
 
     if(raw_score && !location){
         return "Low: "+l[0]+", High: "+l[1];
-    } 
+    }
     if( x >= l[0] && x <= l[1] ) return VISION_CLEAR;
     y = l[0]/3;
     if( x < y ) return VISION_TOO_DARK;
@@ -332,12 +332,12 @@ varargs mixed GetEffectiveVision(mixed location, int raw_score){
     return VISION_TOO_BRIGHT;
 }
 
-int array GetLightSensitivity(){
+int* GetLightSensitivity(){
     if( !LightSensitivity ) return ({ 25, 75 });
     else return LightSensitivity;
 }
 
-varargs protected int array SetLightSensitivity(mixed array val...){
+varargs protected int* SetLightSensitivity(mixed* val...){
     if( !val ) error("Null argument to SetLightSensitivity().\n");
     if( sizeof(val) == 1 ) val = val[0];
     if( sizeof(val) != 2 )

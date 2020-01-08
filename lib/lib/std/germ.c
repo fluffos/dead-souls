@@ -21,10 +21,10 @@ private int             CannotInfect  = 0;
 private int             debug         = 0;
 private string          Type          = "cold";
 private string          GermName      = "generic germ";
-private string array    ImmuneRaces   = ({ "android", "tree", 
-        "plant", "elemental", "fish", "gargoyle", "god", "golem", "insect", 
+private string*    ImmuneRaces   = ({ "android", "tree",
+        "plant", "elemental", "fish", "gargoyle", "god", "golem", "insect",
         "slug", "snake", "wraith", "zombie", "bot", "strider", "vehicle",
-        "mech" }); 
+        "mech" });
 
 mixed eventMultiply();
 
@@ -77,13 +77,13 @@ mixed GetCure(){
     return Cure;
 }
 
-/* mixed SetCure(mixed val) 
- * mixed val - function to test whether germ is cured 
+/* mixed SetCure(mixed val)
+ * mixed val - function to test whether germ is cured
  *             or int indicating how hard it is to cure
  *             -1 means incurable
  *
  * description
- * If a function, then that function will be used to 
+ * If a function, then that function will be used to
  * determine if a given cure attempt is successful.
  * That function should return 1 for success, 0 for failure
  * If an int and -1, the germ is incurable
@@ -124,7 +124,7 @@ int GetLifeSpan(){
 /* int SetLifeSpan(int x)
  * int x - the length of time the germ can live outside
  *         a host
- * 
+ *
  * description
  * Sets the amount of time that can pass for the germ
  * to exist without a host
@@ -266,7 +266,7 @@ mixed eventInfect(object ob){
     }
 
     if(present(this_object()->GetKeyName(),ob) ) return 0;
-    if(race && member_array(race, ImmuneRaces) != -1) return 0; 
+    if(race && member_array(race, ImmuneRaces) != -1) return 0;
     if(ob->GetUndead() == 1) return 0;
     if(ob->GetAquatic() == 1) return 0;
     if(ob->GetNonCarbonBased() == 1) return 0;
@@ -317,7 +317,7 @@ mixed eventMultiply(){
         if(sizeof(targs)) winner = targs[random(sizeof(targs))];
         if(this_object() && winner) new(base_name(this_object()))->eventInfect(winner);
     }
-    return 1; 
+    return 1;
 }
 
 void eventSuffer(object ob){

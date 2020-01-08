@@ -38,7 +38,7 @@ private string          Climate       = "temperate";
 private int             DayLight      = -1970;
 private int             counter       = 0;
 private nosave string   DayLong       = 0;
-private object array    DummyItems    = ({});
+private object*    DummyItems    = ({});
 private nosave int      GasCheck      = time();
 private float           Gravity       = 1.0;
 private nosave mixed    Listen        = 0;
@@ -75,9 +75,9 @@ private string          FlyRoom         = "";
 private string          SkyDomain       = "";
 private string          Elevator        = "";
 private int             FlowLimit       = 0;
-private int array       Coords          = ({});
-private string array    Neighbors       = ({});
-private mixed array     NeighborCoords  = ({});
+private int*       Coords          = ({});
+private string*    Neighbors       = ({});
+private mixed*     NeighborCoords  = ({});
 
 string GetClimate();
 int GetNightLight();
@@ -222,10 +222,10 @@ protected string GetExtraLong(){
     int i;
     string *l = ({}),*tmp;
     string ret;
-    object array stuff;
+    object* stuff;
     ret = "  ";
     tmp = ({});
-    stuff=all_inventory(this_object()); 
+    stuff=all_inventory(this_object());
     for(i=0; i<sizeof(stuff);i++){
         if(sizeof(tmp = ({ stuff[i]->GetRoomAffectLong() })) ) l += tmp;
     }
@@ -259,7 +259,7 @@ int GetResetNumber(){
     return ResetNumber;
 }
 
-string array GetId(){ return ({}); }
+string* GetId(){ return ({}); }
 
 string SetDayLong(string str){ return (DayLong = str); }
 
@@ -269,9 +269,9 @@ string SetNightLong(string str){ return (NightLong = str); }
 
 string GetNightLong(){ return NightLong; }
 
-string SetClimate(string str){ 
+string SetClimate(string str){
     if(str == "indoors" && TerrainType == T_OUTDOORS) TerrainType = T_INDOORS;
-    return (Climate = str); 
+    return (Climate = str);
 }
 
 string GetClimate(){ return Climate; }
@@ -288,7 +288,7 @@ protected int SetDayLight(int x){
     return (DayLight = x);
 }
 
-object array GetDummyItems(){
+object* GetDummyItems(){
     DummyItems = ({});
     foreach(object item in all_inventory(this_object())){
         if(base_name(item) == LIB_DUMMY){
@@ -353,7 +353,7 @@ mapping SetItems(mixed items){
     else if( mapp(items) ){
         ItemsMap = items;
         foreach(mixed key, mixed val in items){
-            string array adjs = ({});
+            string* adjs = ({});
             object ob;
 
             if( objectp(key) ){
@@ -381,7 +381,7 @@ mapping SetItems(mixed items){
         }
     }
     else {
-        error("Bad argument 1 to SetItems(), expected object array or "
+        error("Bad argument 1 to SetItems(), expected object* or "
                 "mapping.\n");
     }
     return copy(ItemsMap);
@@ -822,7 +822,7 @@ int CanAttack( object attacker, object who ){
         return 1;
     }
     attacker->RemoveHostile( who );
-    return 0; 
+    return 0;
 }
 
 varargs int eventShow(object who, string args){
@@ -831,7 +831,7 @@ varargs int eventShow(object who, string args){
     if( !(str = SEASONS_D->GetLong(args)) ){
         who->eventPrint("You do not see that there.");
         return 1;
-    } 
+    }
     who->eventPrint(str);
     eventPrint(who->GetName() + " looks at the " + args + ".", who);
 }
@@ -903,7 +903,7 @@ int eventMove(){ return 0; }
 varargs int eventPrint(string msg, mixed arg2, mixed arg3){
     object *targs;
     int msg_class;
-    targs = filter(all_inventory(), 
+    targs = filter(all_inventory(),
             (: $1->is_living() || $1->GeteventPrints() :));
 
     if( !arg2 && !arg3 ){
@@ -945,7 +945,7 @@ protected void create(){
     inventory::reset(query_reset_number());
     set_heart_beat(0);
     if( replaceable(this_object()) && !GetNoReplace() ){
-        string array tmp= inherit_list(this_object());
+        string* tmp= inherit_list(this_object());
         if( sizeof(tmp) == 1 ){
             replace_program(tmp[0]);
         }
@@ -1111,7 +1111,7 @@ int GenerateObviousExits(){
     if(sizeof(GetEnters(1)-({0}))){
         foreach(string enter in this_object()->GetEnters(1)){
             enters += "enter "+enter;
-            if(member_array(enter,this_object()->GetEnters(1)) != 
+            if(member_array(enter,this_object()->GetEnters(1)) !=
                     sizeof(this_object()->GetEnters(1)) -1){
                 enters +=", ";
             }
@@ -1146,7 +1146,7 @@ int eventReceiveObject(object ob){
     this_object()->SetSky();
     if(this_object() && ob && (living(ob) || ob->GetMapper())){
         if(MASTER_D->GetPerfOK()){
-            int array Coords = ROOMS_D->SetRoom(this_object(), ob);
+            int* Coords = ROOMS_D->SetRoom(this_object(), ob);
             this_object()->CompileNeighbors(Coords);
         }
     }

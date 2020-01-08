@@ -243,7 +243,7 @@ string *RemoveLocalChannel(mixed chan){
     foreach(string element in chan){
         if(member_array(element, local_chans) != -1){
             chan -= ({ element });         }
-    }     
+    }
     return copy(local_chans = distinct_array(local_chans -= chan));
 }
 
@@ -384,7 +384,7 @@ varargs int eventAddLast(string feep, string str, string pchan, string pmsg, str
 int cmdChannel(string verb, string str){
     string msg, name, rc, target, targetkey, target_msg, emote_cmd, remains;
     string *exploded;
-    mixed array msg_data;
+    mixed* msg_data;
     object ob = 0;
     int i, emote, forcedemote;
 
@@ -435,7 +435,7 @@ int cmdChannel(string verb, string str){
     if(sizeof(str) > 2){
         if((str[0..0] == ":" || str[0..0] == ";") &&
                 alphap(str[1..1]) && str[2..2] != " "){
-            if(str[0..0] == ";" && !grepp(verb,"forcedemote")) 
+            if(str[0..0] == ";" && !grepp(verb,"forcedemote"))
                 verb = replace_string(verb,"emote","") + "forcedemote";
             else if(str[0..0] == ":" && !grepp(verb,"emote")) verb += "emote";
             str = str[1..];
@@ -503,7 +503,7 @@ int cmdChannel(string verb, string str){
     if(grepp(verb, "emote")) {
         //Get the real channel
         if(grepp(verb, "forcedemote")){
-            verb = replace_string(verb,"forcedemote","");   
+            verb = replace_string(verb,"forcedemote","");
             forcedemote = 1;
         }
         else verb = replace_string(verb,"emote","");
@@ -585,7 +585,7 @@ int cmdChannel(string verb, string str){
                 //if (!msg_data)
                 //	msg_data = SOUL_D->GetChannelEmote(emote_cmd, "LVS", remains);
             } else if( strsrch(target, "@") == -1 ) { //If no living target
-                string array words = explode(remains, " ");
+                string* words = explode(remains, " ");
                 target = "";
                 for(i=0; i<sizeof(words); i++) {
                     target += lower_case(words[i]);
@@ -607,7 +607,7 @@ int cmdChannel(string verb, string str){
                 }
 
             } else {
-                string array words;
+                string* words;
 
                 //Find any @'s in the remains.. Should be User@Mud
                 i = strsrch(remains, "@", -1);
@@ -682,7 +682,7 @@ int cmdChannel(string verb, string str){
                 target_msg = create_message(POV_TARGET, msg_data[0][0],
                         msg_data[0][1], "$N", sgen,
                         "$O", tgen, msg_data[1]);
-                target_msg = replace_string(target_msg, "$O's", "your");    
+                target_msg = replace_string(target_msg, "$O's", "your");
             }
         } else { //There's no target. Spurt it out like the user put it in.
             //Forced emotes only allow real emotes, not custom ones.
@@ -781,15 +781,15 @@ varargs void eventSendChannel(string who, string ch, string msg, int emote,
             return;
         }
     }
-    if( file_name(previous_object()) == SERVICES_D || 
+    if( file_name(previous_object()) == SERVICES_D ||
             file_name(previous_object()) == IMC2_D) {
         ch = GetLocalChannel(ch);
         if( emote && sizeof(who)) msg = replace_string(msg, "$N", who);
     }
     else if( origin() != ORIGIN_LOCAL && previous_object() != master() &&
-            file_name(previous_object()) != PARTY_D && 
-            file_name(previous_object()) != UPDATE_D && 
-            file_name(previous_object()) != INSTANCES_D && 
+            file_name(previous_object()) != PARTY_D &&
+            file_name(previous_object()) != UPDATE_D &&
+            file_name(previous_object()) != INSTANCES_D &&
             member_array(ch, syschans) == -1){
         return;
     }
@@ -809,9 +809,9 @@ varargs void eventSendChannel(string who, string ch, string msg, int emote,
         //Colorize emote channels
         if (member_array(lower_case(ch),keys(tags)) >= 0){
             this_msg = tags[lower_case(ch)];
-        } else { 
+        } else {
             if(member_array(ch, local_chans) < 0 && (prev == IMC2_D ||
-                        member_array(ch, (keys(INTERMUD_D->GetChannelList()) 
+                        member_array(ch, (keys(INTERMUD_D->GetChannelList())
                                 || ({}))) < 0)){
                 this_msg = tags["default-IMC2"]; //Use the default IMC2 entry
             }
@@ -845,7 +845,7 @@ varargs void eventSendChannel(string who, string ch, string msg, int emote,
                 if( listener == ob ) continue;
                 if(sizeof(listener->GetMuffed()))
                     foreach(string jerk in listener->GetMuffed()){
-                        if(jerk && lower_case(suspect) == lower_case(jerk)){ 
+                        if(jerk && lower_case(suspect) == lower_case(jerk)){
                             ignore = 1;
                         }
                         if(jerk && lower_case(site[1..]) == lower_case(jerk)){
@@ -853,7 +853,7 @@ varargs void eventSendChannel(string who, string ch, string msg, int emote,
                         }
                     }
                 if(listener->GetNoChanColors()) tmp = decolor(tmp);
-                if(!ignore && CanListen(listener,ch) && 
+                if(!ignore && CanListen(listener,ch) &&
                         !(listener->GetMuted(ch))){
                     listener->eventPrint(tmp, MSG_CHAN);
                 }
@@ -887,7 +887,7 @@ varargs void eventSendChannel(string who, string ch, string msg, int emote,
             chancolor = tags[lower_case(ch)]; //Use it
         } else { //Otherwise
             if(member_array(ch, local_chans) < 0 && (prev == IMC2_D ||
-                        member_array(ch, (keys(INTERMUD_D->GetChannelList()) 
+                        member_array(ch, (keys(INTERMUD_D->GetChannelList())
                                 || ({}))) < 0)){
                 chancolor = tags["default-IMC2"]; //Use the default IMC2 entry
             }
@@ -964,7 +964,7 @@ string GetRemoteChannel(string ch) {
 }
 
 int GetListening(object player, string ch){
-    if(!Channels[ch] || 
+    if(!Channels[ch] ||
             member_array(player, Channels[ch]) == -1) return 0;
     return 1;
 }

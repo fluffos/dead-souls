@@ -6,7 +6,7 @@ inherit LIB_DAEMON;
 inherit LIB_CLIENT;
 
 string globalmud;
-string array allfiles;
+string* allfiles;
 string mcolor = "magenta";
 
 mapping RequestedFiles = ([]);
@@ -17,8 +17,8 @@ mapping ReceivedMudTokens = ([]);
 mapping OutgoingSessions = ([]);
 mapping IncomingSessions = ([]);
 
-string array waiting_auth = ({});
-object array Clients = ({});
+string* waiting_auth = ({});
+object* Clients = ({});
 
 mixed globalvar, g1, g2;
 
@@ -142,7 +142,7 @@ varargs mixed RequestBegin(string target, mixed *data){
         return 0;
     }
     else if( ReceivedMudTokens[target] && ReceivedMudTokens[target]["token"] ){
-        if(data && sizeof(data)) 
+        if(data && sizeof(data))
             ret = eventBeginOOB(target, ReceivedMudTokens[target]["token"], data);
         else ret = eventBeginOOB(target, ReceivedMudTokens[target]["token"]);
     }

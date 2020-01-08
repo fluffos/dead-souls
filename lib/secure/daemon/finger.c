@@ -19,8 +19,8 @@ private string CurrentUser, Short, CapName, RealName, Email;
 private string Town, Race, Gender, HostSite;
 private string Class, Clan, Long;
 private string Rank, WebPage, tmpfile;
-private string array Titles, Religion;
-private class marriage array Marriages;
+private string* Titles, Religion;
+private class marriage* Marriages;
 
 protected void create() {
     daemon::create();
@@ -40,11 +40,11 @@ varargs string GetFinger(string who, int html) {
     tmpfile = 0;
 
     if( !who ) {
-        object array people;
-        string array lines = ({});
+        object* people;
+        string* lines = ({});
         object person;
         int i;
-        int array screen;
+        int* screen;
 
         screen = this_player()->GetScreen();
         if( screen && sizeof(screen) ) i = screen[0]; else i = 80;
@@ -153,8 +153,8 @@ varargs string GetFinger(string who, int html) {
     return ret;
 }
 
-mixed array GetRemoteFinger(string who) {
-    mixed array tmp;
+mixed* GetRemoteFinger(string who) {
+    mixed* tmp;
     string plan;
     int creator;
     object ob;

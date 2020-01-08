@@ -13,12 +13,12 @@ varargs mixed GetKnock(string str){
     return Knock[str];
 }
 
-string array GetKnocks(){
+string* GetKnocks(){
     return keys(Knock);
 }
 
-mapping RemoveKnock(string item){ 
-    map_delete(Knock, item); 
+mapping RemoveKnock(string item){
+    map_delete(Knock, item);
     return Knock;
 }
 

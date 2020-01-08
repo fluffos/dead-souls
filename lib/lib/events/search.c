@@ -84,7 +84,7 @@ varargs string GetSearch(string str, object who){
     else return val;
 }
 
-string array GetSearches(){
+string* GetSearches(){
     return keys(Searches);
 }
 
@@ -99,7 +99,7 @@ mapping RemoveSearch(string item){
     return Searches;
 }
 
-varargs mixed SetSearch(mixed array args...){
+varargs mixed SetSearch(mixed* args...){
     if( sizeof(args) == 1 ){
         if( mapp(args[0]) ){
             if( args[0]["default"] ){

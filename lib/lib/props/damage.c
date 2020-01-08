@@ -53,7 +53,7 @@ int GetMaxClass(){
     return MaxClass;
 }
 
-string array GetSave(){
+string* GetSave(){
     return ({ "Class" });
 }
 

@@ -114,15 +114,15 @@ int unscoutshadow(){
     eventUnshadow();
 }
 
-string array parse_command_id_list() {
-    string array ids = (this_object()->GetId() + 
+string* parse_command_id_list() {
+    string* ids = (this_object()->GetId() +
             (CheckDisguised() ? ({ "scout" }) : ({}) ) || ({}));
     return filter(ids, (: stringp($1) && ($1 != "") :));
 
 }
 
-string array parse_command_plural_id_list() {
-    string array ids = (this_object()->GetId() +
+string* parse_command_plural_id_list() {
+    string* ids = (this_object()->GetId() +
             (CheckDisguised() ? ({ "scout" }) : ({}) ) || ({}));
     ids = filter(ids, (: stringp($1) && ($1 != "") :));
     return map(ids, (: pluralize :));
@@ -240,7 +240,7 @@ varargs int eventReceiveDamage(mixed agent, int type, int x, int internal, mixed
         }
     }
     else limb_string = ". Location indeterminate. ";
-    if(limbs) { 
+    if(limbs) {
         evidence += ". Location: ";
         evidence += limb_string + ".";
     }

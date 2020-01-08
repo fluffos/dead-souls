@@ -89,15 +89,15 @@ mixed CanPutOnto(object who, object item){
 }
 
 
-mixed eventGetFrom(object who, object array what){
-    object array fin = ({});
-    string array shorts;
+mixed eventGetFrom(object who, object* what){
+    object* fin = ({});
+    string* shorts;
     mapping mp = ([]);
     string msg;
     int i, maxi;
     mixed tmp;
 
-    if((inherits(LIB_SIT,this_object()) && sizeof(this_object()->GetSitters())) || 
+    if((inherits(LIB_SIT,this_object()) && sizeof(this_object()->GetSitters())) ||
             (inherits(LIB_LIE,this_object()) && sizeof(this_object()->GetLiers()))){
         write("There appears to be someone on there.");
         return 0;
@@ -195,18 +195,18 @@ mixed indirect_get_obj_obj(object item, object container){
     return indirect_get_obj_from_obj(item, container);
 }
 
-mixed indirect_get_obs_from_obj(object array items, object storage){
+mixed indirect_get_obs_from_obj(object* items, object storage){
     if( !items ){
         return (storage == this_object() || "#It's not there.");
     }
     return 1;
 }
 
-mixed indirect_get_obs_out_of_obj(object array items, object storage){
+mixed indirect_get_obs_out_of_obj(object* items, object storage){
     return indirect_get_obs_from_obj(items, storage);
 }
 
-mixed indirect_get_obs_obj(object array items, object storage){
+mixed indirect_get_obs_obj(object* items, object storage){
     return indirect_get_obs_from_obj(items, storage);
 }
 

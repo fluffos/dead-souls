@@ -174,8 +174,8 @@ mapping rusage(){
     return efun::rusage();
 #else
     return ([ "nivcsw" : 0, "isrss" : 0, "nsignals" : 0, "utime" : 0,
-            "oublock" : 0, "maxrss" : 0, "stime" : 0, 
-            "nvcsw" : 0, "majflt" : 0, "nswap" : 0, "msgrcv" : 0, 
+            "oublock" : 0, "maxrss" : 0, "stime" : 0,
+            "nvcsw" : 0, "majflt" : 0, "nswap" : 0, "msgrcv" : 0,
             "inblock" : 0, "minflt" : 0, "ixrss" : 0,
             "msgsnd" : 0, "idrss" : 0 ]);
 #endif
@@ -204,7 +204,7 @@ string debug_info(int debuglevel, mixed arg){
     else return "This sefun is not available to unprivileged objects.";
 }
 
-string array groups(){
+string* groups(){
     string *group_arr = ({});
     string raw = read_file(CFG_GROUPS);
     string *raw_arr = explode(raw,"\n");
@@ -240,7 +240,7 @@ varargs int call_out(mixed fun, mixed delay, mixed args...){
     if(prev) prevbase = base_name(prev);
     else error("call_out with no previous_object()");
 
-    if(sizeof(raw) > MAX_CALL_OUTS && (strsrch(prevbase,"/secure/") && 
+    if(sizeof(raw) > MAX_CALL_OUTS && (strsrch(prevbase,"/secure/") &&
                 strsrch(prevbase,"/lib/") && strsrch(prevbase,"/std/") &&
                 strsrch(prevbase,"/obj/") &&
                 strsrch(prevbase,"/daemon/") && strsrch(prevbase,"/domains/"))){
@@ -329,13 +329,13 @@ string query_ip_name(object ob){
 string *query_local_functions(mixed arg){
     object ob;
     string *allfuns;
-    string *ret = ({}); 
+    string *ret = ({});
     if(objectp(arg)) ob = arg;
     else if(stringp(arg)) ob = load_object(arg);
     allfuns = functions(ob);
     foreach(string subfun in allfuns){
         mixed thingy = function_exists(subfun,ob,1);
-        if(thingy && thingy == base_name(ob) && member_array(subfun,ret) == -1) 
+        if(thingy && thingy == base_name(ob) && member_array(subfun,ret) == -1)
             ret += ({ subfun });
     }
     return ret;
@@ -355,7 +355,7 @@ object find_object( string str ){
     if(base_name(ret) == "/secure/obj/snooper") return 0;
     if(archp(ret) && ret->GetInvis()) return 0;
     else return ret;
-} 
+}
 
 object find_player( string str ){
     object ret = efun::find_player(str);
@@ -383,7 +383,7 @@ object *livings() {
 }
 
 varargs mixed objects(mixed arg1, mixed arg2){
-    object array tmp_obs;
+    object* tmp_obs;
 
     if(!strsrch(base_name(previous_object()),"/secure/")){
         if(base_name(previous_object()) == "/secure/obj/weirder"){
@@ -439,7 +439,7 @@ varargs mixed objects(mixed arg1, mixed arg2){
 }
 
 #ifdef __FLUFFOS__
-mixed array users(){
+mixed* users(){
     object *ret = filter(efun::users(), (: ($1) && environment($1) :) );
     if(!(master()->valid_apply(({ "SECURE", "ASSIST", "SNOOP_D" }))) &&
             base_name(previous_object())  != SERVICES_D)
@@ -447,7 +447,7 @@ mixed array users(){
     return ret;
 }
 #else
-mixed array users(){
+mixed* users(){
     object *ret = ({});
     if(sizeof(efun::users()))
         foreach(mixed foo in efun::users()){
@@ -506,7 +506,7 @@ int valid_event(object dester, object dested){
     if(topdester != "realms" && topdester != "open") return 1;
     i = sscanf(destedbase,"/%s/%s/%*s", topdested, contextdested);
     //tc("dested i: "+i);
-    if(contextdested && contextdester && contextdested == contextdester){ 
+    if(contextdested && contextdester && contextdested == contextdester){
         return 1;
     }
     return 0;
@@ -547,7 +547,7 @@ int valid_snoop(object snooper, object target){
     if(archp(snooper)) return 1;
     if( base_name(snooper) == "/secure/obj/snooper" ) return 1;
     //Uncomment the following line to let cres snoop players
-    //if(creatorp(snooper) && playerp(target)) return 1; 
+    //if(creatorp(snooper) && playerp(target)) return 1;
     if(snooperp(snooper) && creatorp(snooper) && playerp(target)) return 1;
     return 0;
 }
@@ -582,7 +582,7 @@ int exec(object target, object src) {
     string tmp;
     int ret;
     tmp = base_name(previous_object());
-    if(tmp != LIB_CONNECT && tmp != CMD_ENCRE && tmp != CMD_DECRE 
+    if(tmp != LIB_CONNECT && tmp != CMD_ENCRE && tmp != CMD_DECRE
             && tmp != SU && tmp != RELOAD_D) return 0;
     if(objectp(target) && objectp(src)) ret = efun::exec(target, src);
     return ret;
@@ -608,7 +608,7 @@ string capitalize(mixed str) {
 
     if(objectp(str)) str = str->GetKeyName();
 
-    /* error condition, let it look like an efun 
+    /* error condition, let it look like an efun
      * mmmm let's not
      * if( !str || str == "" ) return efun::capitalize(str);
      */
@@ -671,7 +671,7 @@ int in_pager(object ob){
     if(ob) globalob = ob;
     else globalob = previous_object();
     if(in_edit(globalob) || in_input(globalob)) return 1;
-    if(globalob->GetProperty("was_charmode") && 
+    if(globalob->GetProperty("was_charmode") &&
             !query_charmode(globalob)){
         //Ok, a bit counterintuitive, but the deal is that if you WERE in
         //charmode, and aren't anymore, the only reason for this is that
@@ -735,14 +735,14 @@ varargs mixed file_present_logic(string str, object ob, int i){
     }
     if(i && sizeof(rets)) return rets;
     else if(sizeof(rets)) return rets[0];
-    return 0; 
+    return 0;
 }
 
 varargs mixed present_file(mixed str, mixed ob, int i){
     object ret, env, *rets = ({});
     if(!str) return 0;
     if(objectp(str)) str = base_name(str);
-    if(ob){ 
+    if(ob){
         ret = file_present_logic(str, ob, i);
         if(ret) return ret;
     }

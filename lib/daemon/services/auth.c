@@ -4,7 +4,7 @@
 #include ROOMS_H
 #include <message_class.h>
 
-void eventReceiveAuthReply(mixed array packet) {
+void eventReceiveAuthReply(mixed* packet) {
     object pinger;
     object *pingers = filter( users(), (: $1->GetProperty("pinging") :) );
     OOB_D->ReceivedToken(packet[2],packet[6]);
@@ -25,7 +25,7 @@ void eventReceiveAuthReply(mixed array packet) {
     }
 }
 
-void eventReceiveAuthRequest(mixed array packet) {
+void eventReceiveAuthRequest(mixed* packet) {
     string mudlist = "";
     string header = "auth-mud-reply";
     int token = random_numbers(9,1);
@@ -39,7 +39,7 @@ void eventReceiveAuthRequest(mixed array packet) {
         mudlist = read_file("/tmp/muds.txt");
     if((!grepp(mudlist,packet[2]) || packet[2] == "DeadSoulsNew" ||
                 packet[2] == "DeadSoulsWin") && packet[2] != mud_name()){
-        write_file("/tmp/muds.txt",packet[2]+"\n"); 
+        write_file("/tmp/muds.txt",packet[2]+"\n");
         tn("We have a new mud! "+packet[2]+" has joined intermud.","red");
     }
 }

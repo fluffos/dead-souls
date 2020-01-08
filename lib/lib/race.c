@@ -39,7 +39,7 @@ int SetRespiration(int i){
 
 varargs int CanBreathe(object what, object where, int dbg){
     object env = room_environment(this_object());
-    int medium, restype, roomres; 
+    int medium, restype, roomres;
 
     if(this_object()->GetGodMode()){
         if(dbg) debug("CanBreathe("+identify(what)+", "+identify(where)+"): godmode");
@@ -70,7 +70,7 @@ varargs int CanBreathe(object what, object where, int dbg){
         return 0;
     }
 
-    if((medium == MEDIUM_AIR || medium == MEDIUM_LAND || 
+    if((medium == MEDIUM_AIR || medium == MEDIUM_LAND ||
                 medium == MEDIUM_SURFACE) && (restype & R_AIR) ){
         if(dbg) debug("CanBreathe("+identify(what)+", "+identify(where)+"): e"+ 1);
         return 1;
@@ -151,8 +151,8 @@ mixed eventEat(object ob){
 }
 
 varargs string SetRace(string race, mixed extra){
-    mixed array args = allocate(5);
-    mixed array tmp;
+    mixed* args = allocate(5);
+    mixed* tmp;
     mixed mixt;
 
     RACES_D->SetCharacterRace(race, args);
@@ -203,7 +203,7 @@ varargs string SetRace(string race, mixed extra){
         tmp += ({ race });
         this_object()->SetId(tmp);
     }
-    if( stringp(extra) ) return (Race = extra), race; 
+    if( stringp(extra) ) return (Race = extra), race;
     else return (Race = race);
 }
 
@@ -266,8 +266,8 @@ float GetMaxStaminaPoints(){
 }
 
 void NewBody(string race){
-    mixed array args = allocate(2);
-    mixed array tmp;
+    mixed* args = allocate(2);
+    mixed* tmp;
 
     body::NewBody(race);
     if(!race) return;
@@ -315,11 +315,11 @@ int GetMobility(){
 
 int GetCarriedMass(){ return 0; }
 
-int GetMaxCarry(){ 
+int GetMaxCarry(){
     int carry_max;
     carry_max = this_object()->GetLivingMaxCarry();
     if(carry_max) return carry_max;
-    else return ((2 + this_object()->GetStatLevel("strength")) * 50); 
+    else return ((2 + this_object()->GetStatLevel("strength")) * 50);
 }
 
 int GetHeartRate(){

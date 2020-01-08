@@ -20,29 +20,29 @@ class emote {
 }
 
 class rule {
-    mixed array Message;
-    string array Adverbs;
+    mixed* Message;
+    string* Adverbs;
 }
 
 private mapping Emotes = ([]);
-private string array Adverbs = ({});
+private string* Adverbs = ({});
 
 protected private void validate() {
     if(!this_player()) return 0;
-    if( !(master()->valid_apply(({ "ASSIST" }))) && 
+    if( !(master()->valid_apply(({ "ASSIST" }))) &&
             !member_group(this_player(), "EMOTES") )
         error("Illegal attempt to access SOUL_D: "+get_stack()+" "+identify(previous_object(-1)));
 }
 
-varargs int AddAdverbs(string array advs...) {
+varargs int AddAdverbs(string* advs...) {
     validate();
     Adverbs = distinct_array(Adverbs + advs);
     eventSave();
     return 1;
 }
 
-varargs int AddRule(string verb, string rle, mixed array msg,
-        string array advs) {
+varargs int AddRule(string verb, string rle, mixed* msg,
+        string* advs) {
     class emote e = Emotes[verb];
     class rule r;
     validate();
@@ -97,11 +97,11 @@ int RemoveVerb(string verb) {
     return 1;
 }
 
-string array GetAdverbs() {
+string* GetAdverbs() {
     return copy(Adverbs);
 }
 
-varargs mixed array GetChannelEmote(string emote, string parse, string args) {
+varargs mixed* GetChannelEmote(string emote, string parse, string args) {
     class emote e = Emotes[emote];
     mapping adverb = ([]);
     class rule r;
@@ -118,14 +118,14 @@ varargs mixed array GetChannelEmote(string emote, string parse, string args) {
         }
     }
     if( args ) {
-        string array pool = r->Adverbs;
+        string* pool = r->Adverbs;
         int any_adv = (member_array("*", pool) != -1);
 
         if( member_array("-", pool) != -1 ) {
             pool += Adverbs;
         }
         if( !any_adv && member_array(args, pool) == -1 ) {
-            string array matches = regexp(pool, "^" + args);
+            string* matches = regexp(pool, "^" + args);
 
             if( !sizeof(matches) ) {
                 return 0;
@@ -139,7 +139,7 @@ varargs mixed array GetChannelEmote(string emote, string parse, string args) {
     return ({ r->Message, adverb });
 }
 
-string array GetEmotes() {
+string* GetEmotes() {
     return keys(Emotes);
 }
 
@@ -154,7 +154,7 @@ string GetErrorMessage(string verb) {
 
 string GetHelp(string arg) {
     class emote e;
-    string array rls;
+    string* rls;
     string str;
 
     if( arg == "soul" ) {
@@ -200,7 +200,7 @@ string GetHelp(string arg) {
     }
     else {
         class rule r = e->Rules[rls[0]];
-        string array pool = r->Adverbs;
+        string* pool = r->Adverbs;
         int all_advs = (member_array("-", r->Adverbs) != -1);
         int anything = (member_array("*", r->Adverbs) != -1);
         string rule = rls[0];
@@ -231,7 +231,7 @@ string GetHelp(string arg) {
                 str += "        <" + arg + ">\n";
             }
             else {
-                string array pool = r->Adverbs;
+                string* pool = r->Adverbs;
                 int all_advs = (member_array("-", r->Adverbs) != -1);
                 int anything = (member_array("*", r->Adverbs) != -1);
 
@@ -308,7 +308,7 @@ mapping GetRules(string emote) {
     foreach(string rle, class rule r in e->Rules) {
         m[rle] = ({ r->Adverbs, r->Message });
     }
-    if( !master()->valid_apply(({ PRIV_ASSIST }))  
+    if( !master()->valid_apply(({ PRIV_ASSIST }))
             || (this_player() && !member_group(this_player(), "EMOTES"))){
         return copy(m);
     }
@@ -394,14 +394,14 @@ varargs mixed do_verb_rule(string verb, string rle, mixed args...) {
         args = filter(args, (: objectp :));
     }
     if( adv ) {
-        string array pool = r->Adverbs + ({ GetRaceAdverb(this_player()) });
+        string* pool = r->Adverbs + ({ GetRaceAdverb(this_player()) });
         int any_adv = (member_array("*", pool) != -1);
 
         if( member_array("-", pool) != -1 ) {
             pool += Adverbs;
         }
         if( !any_adv && member_array(adv, pool) == -1 ) {
-            string array matches = regexp(pool, "^" + adv);
+            string* matches = regexp(pool, "^" + adv);
 
             if( !sizeof(matches) ) {
                 this_player()->eventPrint("You cannot " + verb + " " + adv +
@@ -428,7 +428,7 @@ varargs mixed do_verb_rule(string verb, string rle, mixed args...) {
 protected void create() {
     SetSaveFile(SAVE_SOUL);
     daemon::create();
-    if(!file_exists(GetSaveFile()) && 
+    if(!file_exists(GetSaveFile()) &&
             file_exists(old_savename(GetSaveFile()))){
         cp(old_savename(GetSaveFile()), GetSaveFile());
     }

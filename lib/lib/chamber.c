@@ -11,7 +11,7 @@ inherit LIB_ENTER;
 inherit LIB_EXITS;
 inherit LIB_READ;
 
-private object array    DummyItems    = ({});
+private object*    DummyItems    = ({});
 mapping			ItemsMap      = ([]);
 private nosave mixed    global_item;
 string ChamberInterior = "";
@@ -133,7 +133,7 @@ int eventDrive(string direction){
 }
 
 varargs string GetInternalDesc(){
-    object array items = all_inventory();
+    object* items = all_inventory();
     string desc;
     int surfacep;
 
@@ -160,7 +160,7 @@ varargs string GetInternalDesc(){
     return desc;
 }
 
-object array GetDummyItems(){
+object* GetDummyItems(){
     DummyItems = ({});
     foreach(object item in all_inventory(this_object())){
         if(base_name(item) == LIB_DUMMY ){
@@ -225,7 +225,7 @@ mapping SetItems(mixed items){
     else if( mapp(items) ){
         ItemsMap = items;
         foreach(mixed key, mixed val in items){
-            string array adjs = ({});
+            string* adjs = ({});
             object ob;
 
             if( stringp(key) ){
@@ -243,7 +243,7 @@ mapping SetItems(mixed items){
         }
     }
     else {
-        error("Bad argument 1 to SetItems(), expected object array or "
+        error("Bad argument 1 to SetItems(), expected object* or "
                 "mapping.\n");
     }
     return copy(ItemsMap);

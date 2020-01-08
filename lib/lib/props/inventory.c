@@ -17,8 +17,8 @@ nosave void eventLoadItem(string file, mixed args, int count){
 
     if(functionp(args)) args = evaluate(args);
 
-    if( intp(args) ){ 
-        if(args < 0){ 
+    if( intp(args) ){
+        if(args < 0){
             args = 1;
             u = 1;
         }
@@ -42,7 +42,7 @@ nosave void eventLoadItem(string file, mixed args, int count){
 
 protected void eventLoadInventory(){
     int filtersize, i;
-    object array stuff,items,tmp;
+    object* stuff,items,tmp;
 
     stuff=all_inventory(this_object());
     items = ({});
@@ -131,4 +131,4 @@ void heart_beat(){
             }
         }
     }
-} 
+}

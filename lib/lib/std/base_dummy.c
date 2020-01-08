@@ -28,7 +28,7 @@ inherit LIB_SINK;
 int isDummy(){
     return 1;
 }
-varargs string array SetId(mixed ids...){
+varargs string* SetId(mixed ids...){
     ids = id::SetId(ids);
     if( sizeof(ids) && !GetKeyName() ){
         SetKeyName(ids[0]);
@@ -91,11 +91,11 @@ mixed eventMove(mixed dest){
             return 1;
         }
     }
-    return 0; 
+    return 0;
 }
 
 /* ******************* dummy.c driver applies ******************** */
-varargs nosave void create(string array id, mixed long, string array adj){
+varargs nosave void create(string* id, mixed long, string* adj){
     string str;
     str = "I am "+file_name(this_object())+" and I have been created ";
     str += "by "+identify(previous_object(-1));

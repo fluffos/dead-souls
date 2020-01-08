@@ -2,7 +2,7 @@
 #include <dirs.h>
 #include <privs.h>
 
-private mixed array PersistentInventory = 0;
+private mixed* PersistentInventory = 0;
 private nosave int  LastSave  = time();
 private int PersistentInventoryEnabled = 0;
 private nosave string wut, savename, nom = "";
@@ -82,7 +82,7 @@ nosave varargs int RestoreObject(mixed str, int i){
                                 environment($1) :)));
                 mclones = wut->GetMaxClones();
                 if(wut->GetUnique() && howmany) continue;
-                if(mclones && mclones <= howmany ) continue; 
+                if(mclones && mclones <= howmany ) continue;
                 ob = new(wut);
                 if( ob ) ob->eventConvertObject(tmp, 1);
             }

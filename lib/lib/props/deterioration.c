@@ -45,12 +45,12 @@ string GetItemCondition(){
     }
 }
 
-string array GetSave(){
+string* GetSave(){
     if(undefinedp(DamagePoints)) return ({ "Broken", "Deterioration" });
     else return ({ "Broken", "DamagePoints", "Deterioration" });
 }
 
-int eventReceiveDamage(mixed agent, int type, int amt, int i, mixed array l){
+int eventReceiveDamage(mixed agent, int type, int amt, int i, mixed* l){
     int x = -1;
     mixed worn = this_object()->GetWorn();
     mapping temp_prot = this_object()->GetProtectionMap();

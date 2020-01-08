@@ -16,7 +16,7 @@ int GetRadiantLight(int ambient){
     return item::GetRadiantLight(ambient) + base_storage::GetRadiantLight(ambient);
 }
 
-string array GetSave(){
+string* GetSave(){
     string *i_save;
     i_save = item::GetSave();
     my_save += i_save;
@@ -25,7 +25,7 @@ string array GetSave(){
     return my_save;
 }
 
-protected mixed array AddSave(mixed array vars){
+protected mixed* AddSave(mixed* vars){
     my_save = distinct_array(my_save + vars);
     return item::AddSave(my_save);
 }

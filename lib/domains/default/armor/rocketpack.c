@@ -196,7 +196,7 @@ int GetRunning(){
     return activated;
 }
 
-mixed eventEquip(object who, string array limbs){
+mixed eventEquip(object who, string* limbs){
     mixed success = armor::eventEquip(who, limbs);
     rocketshadow = new("/shadows/rocketpack");
     owner = who;
@@ -236,7 +236,7 @@ int eventDecrementCharge(){
     }
 
     return charge;
-}   
+}
 
 int GetRemainingCharge(){
     return charge;

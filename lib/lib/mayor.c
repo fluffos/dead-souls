@@ -39,7 +39,7 @@ mixed CanRequestCitizenship(object who){
 }
 
 mixed eventRequestCitizenship(object who){
-    object array homies = filter(users(), (: $1->GetTown() == GetTown() :));
+    object* homies = filter(users(), (: $1->GetTown() == GetTown() :));
 
     homies->eventPrint(who->GetName() + " is now a citizen of " + GetTown() +
             ".");

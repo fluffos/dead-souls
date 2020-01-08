@@ -15,8 +15,8 @@ mixed cmd(string args) {
     object who = previous_object();
     int width = (who->GetScreen())[0];
     mapping stats = ([]);
-    string array domains;
-    mixed array tmp;
+    string* domains;
+    mixed* tmp;
 
     foreach(string domain, mixed data in domain_stats()) {
         if( !data ) {
@@ -37,7 +37,7 @@ mixed cmd(string args) {
             else {
             return 1;
             }
-            }, stats); 
+            }, stats);
     tmp = ({ sprintf("%:-15s %:-11s %:-11s %:-11s %:-11s %s", "Domain",
                 "Moves", "Objects", "Errors", "Heart Beats",
                 "Array Size"), sprintf("%'-'" + (width-1) + "s", "") });

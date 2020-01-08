@@ -13,12 +13,12 @@ varargs mixed GetPull(string str){
     return Pull[str];
 }
 
-string array GetPulls(){
+string* GetPulls(){
     return keys(Pull);
 }
 
-mapping RemovePull(string item){ 
-    map_delete(Pull, item); 
+mapping RemovePull(string item){
+    map_delete(Pull, item);
     return Pull;
 }
 

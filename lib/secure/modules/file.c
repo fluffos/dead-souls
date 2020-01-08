@@ -1,7 +1,7 @@
 #include <lib.h>
 #include <modules.h>
 
-string array eventReadFunctions(string source);
+string* eventReadFunctions(string source);
 int eventModString(string file, string param, string replace);
 
 string first_arg, globalstr, globalstr2, globalstr3;
@@ -47,7 +47,7 @@ string eventAppend(string file, string *params, string addendum){
     string search_str, new_string;
     int tmpnull = 0;
 
-    if(!grepp(file,"\n") && file_exists(file)) globalstr = read_file(file); 
+    if(!grepp(file,"\n") && file_exists(file)) globalstr = read_file(file);
     else globalstr = file;
 
     if(!grepp(globalstr,"\n") && unguarded( (: file_exists(globalstr):) ) && !check_privs(this_player(),globalstr)){
@@ -59,7 +59,7 @@ string eventAppend(string file, string *params, string addendum){
     }
     foreach(string param in params){
         if(!found && param && sizeof(param) && param != "" && stringp(param)){
-            if(strsrch(file,param) != -1){ 
+            if(strsrch(file,param) != -1){
                 search_str = param;
                 found = 1;
             }
@@ -143,7 +143,7 @@ varargs mapping eventReadMapping(string file, string *params, int destructive){
     }
 
 
-    if(primary_line != secondary_line ) 
+    if(primary_line != secondary_line )
         mapping_array = file_arr[primary_line..secondary_line];
     else mapping_array = ({ file_arr[primary_line] });
 
@@ -185,7 +185,7 @@ varargs mapping eventReadMapping(string file, string *params, int destructive){
     else return ([]);
 }
 
-string array eventReadLines(string source){
+string* eventReadLines(string source){
     if(file_exists(source) && !check_privs(this_player(),source)){
         write("You do not appear to have write access to this file. Modification aborted.");
         return ({});
@@ -195,7 +195,7 @@ string array eventReadLines(string source){
     return global_array;
 }
 
-string array eventReadFunctions(string source){
+string* eventReadFunctions(string source){
     string tmpsource, headers;
     string *ret, *types, *primitives, *beginners, *fun_arr;
     int i, element, infunc;
@@ -354,8 +354,8 @@ varargs int eventModString(string file, string param, mixed replace, string *par
     globalstr3 = param;
     globalmixed = replace;
 
-    if(stringp(replace)) { 
-        if(globalstr3 == "SetArmorType" || globalstr3 == "SetMealType" || 
+    if(stringp(replace)) {
+        if(globalstr3 == "SetArmorType" || globalstr3 == "SetMealType" ||
                 globalstr3 == "SetPosition" || globalstr3 == "SetTerrainType" ||
                 globalstr3 == "AddTerrainType" || globalstr3 == "SetSize" ||
                 globalstr3 == "SetBodyType" || globalstr3 == "SetRespiration" ||
@@ -371,9 +371,9 @@ varargs int eventModString(string file, string param, mixed replace, string *par
             if(globalstr3 == "SetSize") check_include = "/include/size_types.h";
             if(globalstr3 == "SetRespiration") check_include = "/include/respiration_types.h";
             if(globalstr3 == "SetBodyType") check_include = "/include/body_types.h";
-            if(globalstr3 == "SetSize" && !grepp(replace,"S_")) replace = "S_"+replace; 
+            if(globalstr3 == "SetSize" && !grepp(replace,"S_")) replace = "S_"+replace;
             if(globalstr3 == "SetRespiration" && !grepp(replace,"R_")) replace = "R_"+replace;
-            if(globalstr3 == "SetBodyType" && !grepp(replace,"B_")) replace = "B_"+replace; 
+            if(globalstr3 == "SetBodyType" && !grepp(replace,"B_")) replace = "B_"+replace;
             if(globalstr3 == "SetVendorType" && !grepp(replace,"VT_")) replace = "VT_"+replace;
             if(globalstr3 == "SetArmorType" && !grepp(replace,"A_")) replace = "A_"+replace;
             if(globalstr3 == "SetTerrainType" && !grepp(replace,"T_")) replace = "T_"+replace;

@@ -18,7 +18,7 @@ string Owner, Race;
 mapping Stats, Skills;
 string BaseFile, Class, Gender, LivingShort, LivingLong;
 int Player, Level, slowdecay, nodecay;
-string array MissingLimbs;
+string* MissingLimbs;
 object Playerob;
 mapping Equipped = ([]);
 
@@ -108,12 +108,12 @@ void SetCorpse(object who){
         if(!Equipped) Equipped = ([]);
         if(!thing || !objectp(thing)) continue;
         if(Equipped[file_name(thing)]) continue;
-        Equipped[file_name(thing)] = 
-            ([ "object" : thing, "where" : thing->GetWorn() ]); 
+        Equipped[file_name(thing)] =
+            ([ "object" : thing, "where" : thing->GetWorn() ]);
     }
     if(Player){
         SetNoClean(1);
-        slowdecay = 50; 
+        slowdecay = 50;
     }
 }
 
@@ -205,11 +205,11 @@ string GetClass(){
     return Class;
 }
 
-string array SetMissingLimbs(string *limbs){
+string* SetMissingLimbs(string *limbs){
     return MissingLimbs = limbs;
 }
 
-string array GetMissingLimbs(){
+string* GetMissingLimbs(){
     return MissingLimbs;
 }
 

@@ -11,7 +11,7 @@ mixed eventCapture(object who, object target);
 mixed eventEscape();
 mixed eventFree(object who, string target);
 
-object array GetCaptives();
+object* GetCaptives();
 int GetEscapeChance();
 int SetEscapeChance(int x);
 int GetMaxCapture();

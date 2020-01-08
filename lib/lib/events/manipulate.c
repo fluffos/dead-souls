@@ -13,12 +13,12 @@ varargs mixed GetManipulate(string str){
     return Manipulate[str];
 }
 
-string array GetManipulates(){
+string* GetManipulates(){
     return keys(Manipulate);
 }
 
-mapping RemoveManipulate(string item){ 
-    map_delete(Manipulate, item); 
+mapping RemoveManipulate(string item){
+    map_delete(Manipulate, item);
     return Manipulate;
 }
 

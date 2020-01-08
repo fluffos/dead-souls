@@ -29,7 +29,7 @@ mixed cmd(string args) {
         }
     }
     else {
-        string array arr, tmp = ({});
+        string* arr, tmp = ({});
         mapping history;
         int cmd_num, i;
 
@@ -47,7 +47,7 @@ mixed cmd(string args) {
 string GetHelp(string str) {
     return ("Syntax: history\n"
             "        history <SIZE>\n\n"
-            "This command lets you check your command history.  A command " 
+            "This command lets you check your command history.  A command "
             "history is kept for the commands you enter, allowing you "
             "quick access to execute or modify previous commands.  The size "
             "of your command buffer defaults to " + MIN_HISTORY_SIZE + " but "

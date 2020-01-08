@@ -63,14 +63,14 @@ string GetCharacters(int start, int length) {
     return read_bytes(FileName, start, length);
 }
 
-string array GetDirectoryList() {
+string* GetDirectoryList() {
     if( !isDirectory() ) {
         return 0;
     }
     return get_dir(FileName + "/");
 }
 
-mixed array GetDirectoryShort() {
+mixed* GetDirectoryShort() {
     if( !isDirectory() ) {
         return 0;
     }

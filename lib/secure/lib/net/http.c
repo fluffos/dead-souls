@@ -8,20 +8,20 @@
 
 /* Note on how this works:
  * On Dead Souls, this http program is in fact not so much a "daemon"
- * as an "applet". The inet daemon starts a server program that 
+ * as an "applet". The inet daemon starts a server program that
  * watches the http port. When a request comes in, that server program
  * fires up a *clone* of this here file. Therefore, you will not see
  * multiple-connection handling here. This http applet services a
  * single connection, and dies happy when its job is done.
  *
  * The CGI stuff is basically just sending the post and get requests to
- * LPC objects in the cgi/ directory. The key thing to remember if you're 
+ * LPC objects in the cgi/ directory. The key thing to remember if you're
  * going to play around here is that this object closes and dies on write. So
  * if you're going to receive post data in multiple chunks (as is common)
  * you will want to ensure it is either queued here until sent to the
  * cgi object, or that the cgi object somehow prevents this object from
  * writing its data to the client til all chunks are received and processed.
- * 
+ *
  * -Crat 09Feb2008
  */
 
@@ -160,7 +160,7 @@ mixed GenerateIndex(string dir, string requested){
     string ret = "<html>\n";
     string prefix = "";
     mixed *listing;
-    if(!dir || !directory_exists(dir)) return 0; 
+    if(!dir || !directory_exists(dir)) return 0;
     listing = get_dir(dir+"/");
     if(!strsrch(dir,DIR_WWW)) dir = replace_string(dir,DIR_WWW,"",1);
     prefix = path_prefix(requested);
@@ -192,7 +192,7 @@ void eventRemoveTmp(string file){
 }
 
 varargs private nosave mixed eventGetFile(string name, string type, string payload) {
-    string array parts;
+    string* parts;
     string tmpfile, orig, requested;
     object file;
 
@@ -250,7 +250,7 @@ varargs private nosave mixed eventGetFile(string name, string type, string paylo
             file = new(LIB_FILE, tmpfile);
             eventSendData(file->GetBuffer());
         }
-        else { 
+        else {
             eventError(FILE_NOT_FOUND);
             return 1;
         }
@@ -380,7 +380,7 @@ int eventRead(buffer data) {
             if(grepp(out,boundary+"--")) eventGetFile(read_args, "POST", out);
             return 1;
 
-#if 0       
+#if 0
             if(!filename){
                 if( catch(str = ((DIR_WWW_GATEWAYS +"/save")->gateway(out)) ) ){
                     eventError(FILE_BAD_GATE);

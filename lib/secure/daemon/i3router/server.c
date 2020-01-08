@@ -152,7 +152,7 @@ varargs void write_data(int fd, mixed data, int override){
     targetmud = this_object()->query_connected_fds()[fd];
     if(!sstat || sstat[1] != "DATA_XFER") return;
     if(!fd || (!data[4] && targetmud) ||  member_array(fd, keys(irn_sockets)) != -1 ||
-            (targetmud && targetmud == data[4]) ){  
+            (targetmud && targetmud == data[4]) ){
         if(rsock && sstat[5] == rsock) RSOCKET_D->write_data(fd, data);
         else IMC2_SERVER_D->write_data(fd, data);
     }
@@ -250,12 +250,12 @@ mixed get_info(int auto) {
     return 1;
 }
 
-void clear(){ 
-    string mudname; 
+void clear(){
+    string mudname;
     validate();
-    server_log("%^RED%^Clearing all mud data!"); 
-    foreach(mudname in keys(mudinfo)) remove_mud(mudname,1); 
-    SaveObject(SAVE_ROUTER);    
+    server_log("%^RED%^Clearing all mud data!");
+    foreach(mudname in keys(mudinfo)) remove_mud(mudname,1);
+    SaveObject(SAVE_ROUTER);
 }
 
 string GetRouterName(){
@@ -267,7 +267,7 @@ string SetRouterName(string str){
     validate();
     if(first(str,1) != "*") str = "*"+str;
     router_name = str;
-    server_log(" setting router name to: "+str); 
+    server_log(" setting router name to: "+str);
     SetList();
     return router_name;
 }
@@ -387,7 +387,7 @@ mixed GetRemoteIP(int fd){
     conn = explode(conn[4],".");
     ret = implode(conn[0..3],".");
     return ret;
-}  
+}
 
 void check_blacklist(){
     int timenow = time();
@@ -446,13 +446,13 @@ void check_discs(){
                     socket_status(element)[1] == "CLOSED" || !GetRemoteIP(element) ||
                     ( mudinfo[query_connected_fds()[element]] && GetRemoteIP(element) != mudinfo[query_connected_fds()[element]]["ip"])){
                 foreach(string key, mixed val in mudinfo){
-                    if(undefinedp(connected_muds[key]) 
+                    if(undefinedp(connected_muds[key])
                             && mudinfo[key]["router"]){
                         if(mudinfo[key]["router"] == my_name){
                             server_log("Cleaning my connection info from "+key);
                             if(!mudinfo[key]["disconnect_time"])
                                 mudinfo[key]["disconnect_time"] = time();
-                            if(mudinfo[key]["connect_time"]) 
+                            if(mudinfo[key]["connect_time"])
                                 mudinfo[key]["connect_time"] = 0;
                         }
                         else {
@@ -460,7 +460,7 @@ void check_discs(){
                                     " connection info from "+key);
                             if(!mudinfo[key]["disconnect_time"])
                                 mudinfo[key]["disconnect_time"] = 0;
-                            if(mudinfo[key]["connect_time"]) 
+                            if(mudinfo[key]["connect_time"])
                                 mudinfo[key]["connect_time"] = 0;
                         }
                     }
@@ -481,7 +481,7 @@ varargs void clean_ghosts(int force){
     int tmp,i;
     object rsockd = find_object(RSOCKET_D);
     object ssockd = find_object(SSOCKET_D);
-    mixed array incoming = socket_status();
+    mixed* incoming = socket_status();
     mixed *legit_socks = keys(this_object()->query_socks());
     legit_socks += keys(this_object()->query_irn_sockets());
 
@@ -489,16 +489,16 @@ varargs void clean_ghosts(int force){
 
     tmp=sizeof(socket_status())-1;
 
-    for(i=0;i < tmp;i++){ 
-        if(!incoming[i][5] || 
+    for(i=0;i < tmp;i++){
+        if(!incoming[i][5] ||
                 (incoming[i][5] != rsockd && incoming[i][5] != ssockd)) continue;
-        if(member_array(i,legit_socks) == -1 && incoming[i][1] == "DATA_XFER"){ 
+        if(member_array(i,legit_socks) == -1 && incoming[i][1] == "DATA_XFER"){
             if(!force){
                 string ip = clean_fd(socket_address(i));
                 // keep blacklisted connections sandboxed, in case
                 // they're the reconnecting kind.
                 if(member_array(ip, blacklisted_muds) != -1) continue;
-            }                
+            }
             this_object()->close_connection(i);
         }
     }
@@ -520,7 +520,7 @@ void clean_chans(){
     foreach(mixed key, mixed val in channels){
         mixed *tmp_chan = ({});
         if(sizeof(val) == 3){
-            tmp_chan = ({ (intp(val[0]) ? val[0] : 0), 
+            tmp_chan = ({ (intp(val[0]) ? val[0] : 0),
                     val[1], distinct_array(val[2]) });
             channels[key] = tmp_chan;
         }
@@ -530,8 +530,8 @@ void clean_chans(){
     trr("channel cleanup: cleaned from listening: "+implode(cleaned,"\n"));
 }
 
-varargs void clear_discs(mixed arg){ 
-    string mudname; 
+varargs void clear_discs(mixed arg){
+    string mudname;
     string *disclist, *muds;
     int i = 1;
 
@@ -541,7 +541,7 @@ varargs void clear_discs(mixed arg){
         if(arrayp(arg)) disclist = arg;
     }
 
-    if(!disclist) disclist = keys(mudinfo); 
+    if(!disclist) disclist = keys(mudinfo);
     muds = keys(mudinfo);
 
     trr("%^B_BLACK%^Discarding excessively old disconnects.","white");
@@ -565,7 +565,7 @@ varargs void clear_discs(mixed arg){
             deadsince = time() - mudinfo[mudname]["disconnect_time"];
 
             if(undefinedp(connected_muds[mudname]) && mudinfo[mudname]["router"]){
-                if(mudinfo[mudname]["router"] != my_name && 
+                if(mudinfo[mudname]["router"] != my_name &&
                         member_array(mudinfo[mudname]["router"],keys(irn_connections)) == -1){
                     if(!mudinfo[mudname]["disconnect_time"])
                         mudinfo[mudname]["disconnect_time"] = 0;
@@ -736,7 +736,7 @@ varargs int purge_ips(int rude){
 }
 
 void update_imc2(string mud, mapping foo){
-    validate(); 
+    validate();
     if(!mudinfo[mud]) return;
     if(!mudinfo[mud]["other_data"]) mudinfo[mud]["other_data"] = ([]);
     foreach(mixed key, mixed val in foo){

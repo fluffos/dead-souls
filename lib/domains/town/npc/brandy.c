@@ -3,7 +3,7 @@
 
 inherit LIB_BARKEEP;
 
-string array flatterers, specials;
+string* flatterers, specials;
 string save_str = "";
 string saved_str = "";
 
@@ -14,7 +14,7 @@ int FlatterResponse(mixed args...){
     if(member_array(who, flatterers) == -1){
         flatterers += ({ args[0]->GetKeyName() });
         flatterers = distinct_array(flatterers);
-        save_str = save_variable(flatterers);    
+        save_str = save_variable(flatterers);
         unguarded( (: write_file("/domains/town/save/brandy.o", save_str, 1) :) );
         args[0]->AddExperiencePoints(300);
     }
@@ -25,7 +25,7 @@ int FlatterResponse(mixed args...){
 
 protected void create() {
     barkeep::create();
-    flatterers = ({}); 
+    flatterers = ({});
     unguarded( (: saved_str = read_file("/domains/town/save/brandy.o") :) );
     if(sizeof(saved_str)) flatterers = restore_variable(saved_str);
     SetKeyName("brandy");

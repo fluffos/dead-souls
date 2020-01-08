@@ -1,6 +1,6 @@
 /*    /lib/touch.c
  *    from the Dead Souls Mud Library
- *    for touching things 
+ *    for touching things
  *    created by Descartes of Borg 951008
  *    Version: @(#) touch.c 1.8@(#)
  *    Last modified: 96/12/31
@@ -39,7 +39,7 @@ varargs string GetTouch(string str, object who){
     else return val;
 }
 
-string array GetTouches(){
+string* GetTouches(){
     return keys(Touches);
 }
 
@@ -53,7 +53,7 @@ mapping RemoveTouch(string item){
     return Touches;
 }
 
-varargs mixed SetTouch(mixed array args...){
+varargs mixed SetTouch(mixed* args...){
     if( sizeof(args) == 1 ){
         if( mapp(args[0]) ){
             if( args[0]["default"] ){

@@ -56,9 +56,9 @@ int SetCanLock(int x){
     return SetCanClose(CanLock = x);
 }
 
-void SetKey(string key){ 
+void SetKey(string key){
     SetKeys(key);
-} 
+}
 
 int GetOpacity(){
     return holder::GetOpacity();
@@ -72,7 +72,7 @@ int GetRadiantLight(int ambient){
     return holder::GetRadiantLight(ambient);
 }
 
-//string array GetSave(){
+//string* GetSave(){
 //    string *i_save, *s_save;
 //    i_save = item::GetSave();
 //    s_save = seal::GetSave();
@@ -82,7 +82,7 @@ int GetRadiantLight(int ambient){
 //    return my_save;
 //}
 
-//protected mixed array AddSave(mixed array vars){
+//protected mixed* AddSave(mixed* vars){
 //    my_save = distinct_array(my_save + vars);
 //    return item::AddSave(my_save);
 //}

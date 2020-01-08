@@ -8,11 +8,11 @@
 
 #include <pov.h>
 
-string create_message(int pov, string array verb, string message,
+string create_message(int pov, string* verb, string message,
         string subject, string subject_gen, string targets,
         string target_gen, mapping special) {
-    string array words = explode(message, " ");
-    string array control = copy(words);
+    string* words = explode(message, " ");
+    string* control = copy(words);
     int i, maxi = sizeof(words);
     int verb_count = 0;
     int c;
@@ -132,7 +132,7 @@ string create_message(int pov, string array verb, string message,
                         else {
                             if( !target_gen ) {
                                 words[i] = targets;
-                            }		    
+                            }
                             else if( target_gen == "plural" ) {
                                 words[i] = "them";
                             }
@@ -401,7 +401,7 @@ string create_message(int pov, string array verb, string message,
                         verb_count++;
                         break;
 
-                    case "$target_name": 
+                    case "$target_name":
                         words[i] = targets;
                         break;
 
@@ -553,7 +553,7 @@ void send_messages(mixed verb, string message, object subject, mixed targets,
     if( observers ) {
         string str = create_message(POV_OBSERVER, verb, message, sname, sgen,
                 tname, tgen, special);
-        object array exclude = ({});
+        object* exclude = ({});
 
         if( subject ) {
             exclude = ({ subject });
@@ -566,4 +566,4 @@ void send_messages(mixed verb, string message, object subject, mixed targets,
         }
         observers->eventPrint(str, exclude);
     }
-}    
+}

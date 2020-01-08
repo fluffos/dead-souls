@@ -41,7 +41,7 @@ int SetMaxCharge(int i){
     maxcharge = i;
 }
 
-mixed eventEquip(object who, string array limbs){
+mixed eventEquip(object who, string* limbs){
     mixed success = armor::eventEquip(who, limbs);
     breathershadow = new("/shadows/breather");
     if(success){

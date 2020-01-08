@@ -8,16 +8,16 @@ inherit LIB_DAEMON;
 string original, digested;
 mapping AreaMap = ([]);
 mapping RawMap = ([]);
-string array source_dirs = ({ "zon", "mob", "obj", "shp", "trg", "wld", "gld" });
+string* source_dirs = ({ "zon", "mob", "obj", "shp", "trg", "wld", "gld" });
 mapping Genders = ([ 0 : "neutral", 1 : "male", 2 : "female" ]);
 mapping Directions = ([ 0 : "north", 1 : "east", 2 : "south",
         3 : "west", 4 : "up", 5 : "down", 6 : "northwest", 7 : "northeast",
         8 : "southeast", 9 : "southwest", 10 : "in", 11 : "out" ]);
 mapping Types = ([ 1 : "LIB_ITEM", 2 : "LIB_ITEM", 3 : "LIB_ITEM", 4 : "LIB_ITEM",
         5 : "LIB_ITEM", 6 : "LIB_ITEM", 7 : "LIB_ITEM", 8 : "LIB_ITEM", 9 : "LIB_ARMOR", 10 : "LIB_POTION",
-        11 : "LIB_ITEM", 12 : "LIB_ITEM", 13 : "LIB_ITEM", 14 : "LIB_ITEM", 15 : "LIB_STORAGE", 
+        11 : "LIB_ITEM", 12 : "LIB_ITEM", 13 : "LIB_ITEM", 14 : "LIB_ITEM", 15 : "LIB_STORAGE",
         16 : "LIB_ITEM", 17 : "LIB_MEAL", 18 : "LIB_ITEM", 19 : "LIB_MEAL", 20 : "LIB_PILE",
-        21 : "LIB_ITEM", 22 : "LIB_ITEM", 23 : "LIB_ITEM", 24 : "LIB_ITEM", 25 : "LIB_ITEM", 
+        21 : "LIB_ITEM", 22 : "LIB_ITEM", 23 : "LIB_ITEM", 24 : "LIB_ITEM", 25 : "LIB_ITEM",
         26 : "LIB_ITEM", 44 : "LIB_ITEM" ]);
 string gdirection, cle, val, room;
 int item_type;
@@ -194,7 +194,7 @@ int ConvertArea(string arg){
 
         if(!AreaMap) AreaMap = ([]);
 
-        if(!AreaMap["i"+lines[0]]) AreaMap["i"+lines[0]] =  
+        if(!AreaMap["i"+lines[0]]) AreaMap["i"+lines[0]] =
             ([ prefix+lines[0]+"_"+ob_name+".c" : header ]);
         else  AreaMap[lines[0]][prefix+lines[0]+"_"+ob_name+".c"] = header;
     }
@@ -224,7 +224,7 @@ int ConvertArea(string arg){
                 if(!ok && sscanf(lines[i],"%d %d %d %s %s",v1,v2,v3,v4,v5) == 5){
                     ok =1;
                 }
-                if( ok == 1 && sizeof(explode(lines[i]," ")) == 3 && 
+                if( ok == 1 && sizeof(explode(lines[i]," ")) == 3 &&
                         sscanf(lines[i],"%d %d %d",v2, v3, v4) == 3){
                     ok++;
                 }

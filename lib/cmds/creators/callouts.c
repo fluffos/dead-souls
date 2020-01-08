@@ -12,7 +12,7 @@
 inherit LIB_DAEMON;
 
 mixed cmd(string args) {
-    mixed array callouts;
+    mixed* callouts;
     string tmp;
 
     callouts = call_out_info();
@@ -23,7 +23,7 @@ mixed cmd(string args) {
     tmp = sprintf("%:-40s %:-25s Delay\n", "Object", "Function");
     tmp += "--------------------------------------------------"
         "-------------------------\n";
-    foreach(mixed array callout in callouts) {
+    foreach(mixed* callout in callouts) {
         tmp += sprintf("%:-40O %:-25s %d\n", callout...);
     }
     this_player()->eventPage(explode(tmp, "\n"), MSG_SYSTEM);
