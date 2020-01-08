@@ -2,7 +2,9 @@
 
 ## Current status
 
-WIP
+- [X] : Boots.
+- [ ] : No warning or errors
+- [ ] : works under Websocket.
 
 ## Old README content
 

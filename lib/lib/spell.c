@@ -437,7 +437,7 @@ protected string SetVerb(string verb){
 }
 
 /* ******************** spell.c modals *************************** */
-nosave int CanSpellAttack(object who, object* enemies, int power){
+protected int CanSpellAttack(object who, object* enemies, int power){
     int i, maxi = sizeof(enemies);
     int hits = 0;
     int misses = 0;

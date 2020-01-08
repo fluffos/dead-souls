@@ -10,22 +10,22 @@ CapName "Sunyc"
 ExternalDesc "$N is nondescript."
 Invisible 0
 Items ([])
-Properties (["wizmapping":1,"reprompt":0,"minimapping":0,"LastLocation":"/domains/town/room/well1",])
+Properties (["wizmapping":1,"minimapping":0,"reprompt":0,"LastLocation":"/domains/default/room/start",])
 Inventory ({})
 anchored 0
-Messages (["telin":"$N teleports in.","telout":"$N teleports away.","leave":"$N leaves $D.","vis":"$N appears.","invis":"$N disappears.","home":"$N goes home.","dest":"$N dests $O.","come":"$N enters.","clone":"$N clones $O.",])
+Messages (["telin":"$N teleports in.","leave":"$N leaves $D.","telout":"$N teleports away.","vis":"$N appears.","home":"$N goes home.","invis":"$N disappears.","come":"$N enters.","dest":"$N dests $O.","clone":"$N clones $O.",])
 RestrictedChannels ({})
 NoChanColors 0
-GagMutes (["remote_gag":0,"remote_mute":0,"local_mute":0,"local_gag":0,])
+GagMutes (["remote_mute":0,"remote_gag":0,"local_mute":0,"local_gag":0,])
 Paused 0
 localcmds ({"parserefresh","quit","work","pwd","cwd","popd","pushd","nmsh","cd","nickname","unalias","alias","",})
 parsed_command ""
 HistorySize 50
-History ([37:"update /secure/daemon/imc2",36:"l",35:"ls",34:"goto /domains/default/town/start",33:"cd /domains",32:"goto /domains/town/start",31:"goto",30:"mudlist imc2",29:"help mudlists",28:"mudlists",27:"mud",26:"mudlist",25:"update daemon/master",24:"update master",23:"cd /daemon",22:"update",21:"help",20:"h",19:"j",18:"o",17:"enter well",16:"go south",15:"s",14:"sa",13:"ll",12:"pass",11:"password",10:"list",9:"read sign",8:"look sign",7:"l sign",6:"enter town",5:"lo",4:"say",3:"'",2:"quit",1:"home",0:"cd",])
+History ([46:"help",45:"mudlist imc2",44:"mudlist s",43:"mudlist a",42:"mudlist",41:"update",40:"ls",39:"update intermud",38:"look",37:"cd room",36:"cd default",35:"what",34:"okau",33:"ok",32:"go west",31:"w",30:"update /secure/daemon/imc2",29:"goto /domains/default/town/start",28:"cd /domains",27:"goto /domains/town/start",26:"goto",25:"help mudlists",24:"mudlists",23:"mud",22:"update daemon/master",21:"update master",20:"h",19:"j",18:"o",17:"enter well",16:"go south",15:"s",14:"sa",13:"ll",12:"pass",11:"password",10:"list",9:"read sign",8:"look sign",7:"l sign",6:"enter town",5:"lo",4:"say",3:"'",2:"quit",1:"home",0:"cd",])
 Nicknames ([])
-Aliases (["east":"go east","mwhere":"findobj $*","southeast":"go southeast","northeast":"go northeast","prac":"skills","sco":"score","x":"look at $*","w":"go west","u":"go up","t":"tell $*","out":"go out","practice":"skills","s":"go south","vnum":"help find","p":"people","south":"go south","north":"go north","n":"go north","bio":"biography","l":"look $*","k":"kill $*","west":"go west","zlist":"domains","southwest":"go southwest","northwest":"go northwest","i":"inventory","owhere":"findobj $*","e":"go east","d":"go down","c":"cre $*","alist":"ls /domains","inv":"inventory","nw":"go northwest","examine":"look at $*","trophy":"kills","up":"go up","chat":"newbie $*","dc":"dchat $*","exa":"look at $*","sw":"go southwest","ig":"intergossip $*","loot":"get all from $*","ic":"intercre $*","peace":"quell","inf":"score","lp":"lpuni $*","down":"go down","ne":"go northeast","exit":"go out","eq":"equipment","se":"go southeast","sc":"status",])
-Xverbs (["'":"say $*","]":"] $*","\"":"say $*",":":"emote $*",])
-Directories (["current":"/domains","home":0,"previous":"/",])
+Aliases (["east":"go east","northeast":"go northeast","southeast":"go southeast","mwhere":"findobj $*","prac":"skills","sco":"score","x":"look at $*","w":"go west","u":"go up","out":"go out","t":"tell $*","s":"go south","practice":"skills","vnum":"help find","p":"people","north":"go north","south":"go south","bio":"biography","n":"go north","l":"look $*","west":"go west","k":"kill $*","northwest":"go northwest","southwest":"go southwest","zlist":"domains","i":"inventory","owhere":"findobj $*","e":"go east","d":"go down","c":"cre $*","alist":"ls /domains","nw":"go northwest","inv":"inventory","examine":"look at $*","trophy":"kills","up":"go up","chat":"newbie $*","dc":"dchat $*","sw":"go southwest","exa":"look at $*","ig":"intergossip $*","loot":"get all from $*","ic":"intercre $*","peace":"quell","inf":"score","down":"go down","lp":"lpuni $*","ne":"go northeast","eq":"equipment","exit":"go out","se":"go southeast","sc":"status",])
+Xverbs (["'":"say $*","]":"] $*",":":"emote $*","\"":"say $*",])
+Directories (["current":"/daemon","home":0,"previous":"/domains/default/room",])
 Prompt "cwd"
 Terminal "ansi"
 Blocked ([])
@@ -38,14 +38,14 @@ BlockAnnoying 0
 Age 1072
 WhereBlock 0
 Brief 0
-LoginTime 1578470588
+LoginTime 1578472173
 BirthTime 1578466656
 RescueBit 0
 Password "$6$xQkLNDWq2214QcRz$ottAo/IJ9mPeDgYy70lutCVzWA4AoejfaNZSDP6ZRUecQc9EmBkNi9OknhB3OPFy6mLujqXCbqpqaCYFClou00"
 Email "sunyucong@gmail.com"
 RealName "Yucong Sun"
 Rank "citizen"
-LoginSite "/domains/default/room/start"
+LoginSite "/domains/town/room/well1"
 HostSite "127.0.0.1"
 WebPage 0
 News (["general":1233531750,"creator":1233531750,])
@@ -72,8 +72,8 @@ melee 0
 godmode 0
 Alcohol 0
 Caffeine 0
-Food 30
-Drink 30
+Food 13
+Drink 13
 Poison 0
 Sleeping 0
 StaminaPoints 470.000000
@@ -81,7 +81,7 @@ Torso "torso"
 Biter 0
 keepalive 0
 Fingers (["right hand":5,"left hand":5,])
-Limbs (["right foot":(["children":({}),"armors":241,"health":100,"class":4,"parent":"right leg",]),"right leg":(["children":({"right foot",}),"armors":1049761,"health":200,"class":2,"parent":"torso",]),"head":(["children":({}),"armors":262913,"health":400,"class":1,"parent":"neck",]),"neck":(["children":({"head",}),"armors":786433,"health":400,"class":1,"parent":"torso",]),"left arm":(["children":({"left hand",}),"armors":1253385,"health":200,"class":2,"parent":"torso",]),"left foot":(["children":({}),"armors":241,"health":100,"class":4,"parent":"left leg",]),"left leg":(["children":({"left foot",}),"armors":1049761,"health":200,"class":2,"parent":"torso",]),"torso":(["children":({"neck","right leg","left leg","right arm","left arm",}),"armors":1538049,"health":400,"class":1,"parent":0,]),"right hand":(["children":({}),"armors":98319,"health":100,"class":4,"parent":"right arm",]),"left hand":(["children":({}),"armors":98319,"health":100,"class":4,"parent":"left arm",]),"right arm":(["children":({"right hand",}),"armors":1253385,"health":200,"class":2,"parent":"torso",]),])
+Limbs (["head":(["children":({}),"armors":262913,"parent":"neck","class":1,"health":400,]),"right leg":(["children":({"right foot",}),"armors":1049761,"parent":"torso","class":2,"health":200,]),"right foot":(["children":({}),"armors":241,"parent":"right leg","class":4,"health":100,]),"neck":(["children":({"head",}),"armors":786433,"parent":"torso","class":1,"health":400,]),"left foot":(["children":({}),"armors":241,"parent":"left leg","class":4,"health":100,]),"left arm":(["children":({"left hand",}),"armors":1253385,"parent":"torso","class":2,"health":200,]),"torso":(["children":({"neck","right leg","left leg","right arm","left arm",}),"armors":1538049,"parent":0,"class":1,"health":400,]),"left leg":(["children":({"left foot",}),"armors":1049761,"parent":"torso","class":2,"health":200,]),"right hand":(["children":({}),"armors":98319,"parent":"right arm","class":4,"health":100,]),"right arm":(["children":({"right hand",}),"armors":1253385,"parent":"torso","class":2,"health":200,]),"left hand":(["children":({}),"armors":98319,"parent":"left arm","class":4,"health":100,]),])
 MissingLimbs ([])
 firearms_wounds 0
 Falling 0
@@ -92,7 +92,7 @@ Blind 0
 Custom (["stats":15,"deviations":4,"deviating":0,])
 LightSensitivity ({25,7500,})
 Resistance (["low":0,"high":0,"immune":0,"medium":0,"none":134217726,])
-Stats (["wisdom":(["class":3,"points":0,"level":48,]),"agility":(["class":3,"points":0,"level":49,]),"speed":(["class":3,"points":0,"level":30,]),"strength":(["class":3,"points":0,"level":34,]),"intelligence":(["class":1,"points":0,"level":49,]),"durability":(["class":4,"points":0,"level":39,]),"charisma":(["class":2,"points":0,"level":51,]),"coordination":(["class":2,"points":0,"level":54,]),"luck":(["class":3,"points":0,"level":22,]),])
+Stats (["agility":(["class":3,"points":0,"level":49,]),"wisdom":(["class":3,"points":0,"level":48,]),"speed":(["class":3,"points":0,"level":30,]),"intelligence":(["class":1,"points":0,"level":49,]),"strength":(["class":3,"points":0,"level":34,]),"durability":(["class":4,"points":0,"level":39,]),"charisma":(["class":2,"points":0,"level":51,]),"coordination":(["class":2,"points":0,"level":54,]),"luck":(["class":3,"points":0,"level":22,]),])
 Polyglot 0
 Languages (["english":(["native":1,"name":"English","points":0,"level":100,]),"common":(["native":0,"name":"Common","points":0,"level":100,]),])
 DefaultLanguage "Common"
@@ -102,7 +102,7 @@ Town "World"
 Race "human"
 Gender "male"
 Level 1
-Skills (["magic defense":(["class":2,"points":0,"level":3,]),"psionic defense":(["class":3,"points":0,"level":2,]),"melee defense":(["class":2,"points":0,"level":2,]),"projectile attack":(["class":1,"points":0,"level":1,]),"knife defense":(["class":1,"points":0,"level":2,]),"blunt defense":(["class":1,"points":0,"level":2,]),"melee attack":(["class":2,"points":0,"level":1,]),"projectile defense":(["class":2,"points":0,"level":1,]),"bargaining":(["class":2,"points":0,"level":4,]),"blade defense":(["class":2,"points":0,"level":1,]),"magic attack":(["class":2,"points":0,"level":3,]),"knife attack":(["class":1,"points":0,"level":3,]),"blunt attack":(["class":1,"points":0,"level":2,]),"blade attack":(["class":2,"points":0,"level":1,]),])
+Skills (["psionic defense":(["class":3,"points":0,"level":2,]),"magic defense":(["class":2,"points":0,"level":3,]),"melee defense":(["class":2,"points":0,"level":2,]),"projectile attack":(["class":1,"points":0,"level":1,]),"blunt defense":(["class":1,"points":0,"level":2,]),"knife defense":(["class":1,"points":0,"level":2,]),"melee attack":(["class":2,"points":0,"level":1,]),"projectile defense":(["class":2,"points":0,"level":1,]),"blade defense":(["class":2,"points":0,"level":1,]),"bargaining":(["class":2,"points":0,"level":4,]),"magic attack":(["class":2,"points":0,"level":3,]),"blunt attack":(["class":1,"points":0,"level":2,]),"knife attack":(["class":1,"points":0,"level":3,]),"blade attack":(["class":2,"points":0,"level":1,]),])
 Morality 0
 Class "explorer"
 Clan 0

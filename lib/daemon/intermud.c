@@ -170,6 +170,7 @@ protected void eventRead(mixed *packet){
             if( packet[6] == MudList["ID"] )  {
                 //tn("We don't like packet element 6. It is: "+identify(packet[6]),"red");
                 //tn("We will continue anyway.","red");
+                ;
             }
             if( packet[2] != Nameservers[0][0] ){
                 //tn("We don't like packet element 2. It is: "+identify(packet[2]),"red");
