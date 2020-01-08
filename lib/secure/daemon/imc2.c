@@ -56,7 +56,7 @@
 
 #ifndef LOG_IMC2
 #define DATA_LOG "/secure/log/intermud/imc2"
-#else 
+#else
 #define DATA_LOG LOG_IMC2
 #endif
 
@@ -312,7 +312,7 @@ void read_callback(int socket, mixed info){
                 //if(IMC_VERSION > 2) tc("LFCR: "+a,"red");
                 got_packet(a);
                 buf=b;
-            } 
+            }
             else if(sscanf(buf,"%s\r\n%s",a,b)==2){ // found a break...
                 //if(IMC_VERSION < 2.1) tc("CRLF","green");
                 got_packet(a);
@@ -423,10 +423,10 @@ private void got_packet(string info){
             if(my_ip == "127.0.0.1"){
                 my_ip = "dead-souls.net";
                 my_port = 8000;
-            } 
+            }
             else my_port = query_host_port();
             who_str=CGI_WHO->gateway(1)+URL+"\ntelnet://"+my_ip+":"+my_port+"\n";
-            who_str += repeat_string("_", 75); 
+            who_str += repeat_string("_", 75);
             send_packet("*","who-reply",sender,origin,
               "text="+escape(pinkfish_to_imc2(who_str)));
             CHAT_D->eventSendChannel("SYSTEM","intermud","[" + capitalize(sender)+"@"+origin+
@@ -565,7 +565,7 @@ void create(){
 }
 
 void Setup(){
-    int temp, kill, my_port;
+    int kill, my_port;
     string my_ip;
 
 #ifdef DISABLE_IMC2
@@ -642,7 +642,7 @@ void heart_beat(){
             tn("sending keepalive");
             send_keepalive_request();
         }
-        if( lastmsg > 400 
+        if( lastmsg > 400
           ||!sstat || sstat[1] != "DATA_XFER"){
             socket_close(socket_num);
             tn("IMC2 heartbeat: reloading IMC2_D due to timeout");
@@ -668,7 +668,7 @@ void remove(){
 
 protected mixed GetChanInfo(){
     mixed foo = copy(chaninfo);
-    return 1;
+    return foo;
 }
 
 string *GetChanList(){
@@ -865,11 +865,11 @@ void start_logon(){
 
         if(data["emote"]) emote = data["emote"];
         //Following fix courtesy of Tricky
-        if (emote == 1 && strsrch(data["text"], "$N") == -1) 
+        if (emote == 1 && strsrch(data["text"], "$N") == -1)
             data["text"] = "$N " + data["text"];
 
         localchan = CHANNEL_BOT->GetLocalChannel(data["channel"]);
-        CHANNEL_BOT->eventSendChannel(sender, localchan, 
+        CHANNEL_BOT->eventSendChannel(sender, localchan,
          imc2_to_pinkfish(data["text"]), emote, "", "");
     }
 
@@ -878,7 +878,7 @@ void start_logon(){
         send_packet(user,"ice-msg-b","*","*", sprintf("channel=%s text=%s emote=%d echo=0", chan,escape(pinkfish_to_imc2(msg)),emote));
     }
 
-    varargs nosave void tell_out(object from, string targname, string targmud, string msg, int reply, int emote){
+    varargs protected void tell_out(object from, string targname, string targmud, string msg, int reply, int emote){
         string ret = "%^BOLD%^RED%^You tell " + capitalize(targname) +
           "@" + targmud + ":%^RESET%^ " + msg;
 
@@ -984,7 +984,7 @@ void start_logon(){
         }
         tell_out(who, targplayer, this_object()->find_mud(targmud), msg, 0, 0);
         return 1;
-    } 
+    }
 
     string pinkfish_to_imc2(string str){
         // Foreground
@@ -1505,11 +1505,6 @@ EndText,
     int command(string str){
         // Takes the arguments given to the command which does IMC2 stuff.
         string cmd, args;
-        string output;
-        string a,b,c;
-        int x,y;
-        int emote,reply;
-        object usr, *usrs=({ });
 
         if(IMC2_D->getonline() != 1) return 0;
 
@@ -1657,7 +1652,7 @@ EndText, NETWORK_ID,COMMAND_NAME);
         }
     }
 
-    int clean_up(){ return 0; }
+    int clean_up(int x){ return 0; }
 
 
     void forget_user(string str){ map_delete(tells,str); }

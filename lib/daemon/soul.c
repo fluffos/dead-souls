@@ -27,7 +27,7 @@ class rule {
 private mapping Emotes = ([]);
 private string* Adverbs = ({});
 
-protected private void validate() {
+private void validate() {
     if(!this_player()) return 0;
     if( !(master()->valid_apply(({ "ASSIST" }))) &&
             !member_group(this_player(), "EMOTES") )

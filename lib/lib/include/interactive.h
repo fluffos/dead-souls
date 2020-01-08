@@ -50,7 +50,7 @@ mapping GetLastError();
 void SetCapName(string str);
 void move_or_destruct();
 string SetShort(string str);
-string SetLong(string str);
+mixed SetLong(mixed str);
 string GetName();
 varargs int GetInvis(object ob);
 mixed *GetCommands();

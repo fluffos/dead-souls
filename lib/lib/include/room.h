@@ -16,7 +16,7 @@ protected void LoadInventory();
 
 int GetAmbientLight();
 void SetShort(string str);
-void SetLong(string str);
+mixed SetLong(mixed str);
 string GetShort();
 varargs string GetLong(string str);
 object *AddExtraLong(object ob);

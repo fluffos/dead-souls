@@ -7,6 +7,8 @@
 #ifndef _SOCKET_ERRORS_H_
 #define _SOCKET_ERRORS_H_
 
+#ifndef EESUCCESS
+
 #define EESUCCESS	  1	/* Call was successful */
 #define EESOCKET	 -1	/* Problem creating socket */
 #define EESETSOCKOPT	 -2	/* Problem with setsockopt */
@@ -42,5 +44,7 @@
 #define EEBADDATA       -32	/* sending data with too many nested levels */
 
 #define	ERROR_STRINGS	 33	/* sizeof (error_strings) */
+
+#endif /* EESUCCESS */
 
 #endif				/* _SOCKET_ERRORS_H_ */

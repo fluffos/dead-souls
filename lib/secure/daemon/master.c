@@ -133,7 +133,7 @@ void new_groups() {
     Groups = tmp;
 }
 
-private nosave void load_access(string cfg, mapping resource) {
+private void load_access(string cfg, mapping resource) {
     string *lines;
     string file;
 
@@ -270,6 +270,7 @@ int valid_write(string file, object ob, string fun) {
     string *ok;
     int ret;
     if( ob == master() ) ret = 1;
+    if (fun == "save_object") ret = 1;
     ok = match_path(WriteAccess, file);
     if(!ret) ret = check_access(ob, fun, file, ok, "write");
     return ret;
@@ -385,7 +386,7 @@ int check_access(object ob, string fun, mixed file, string *ok, string oper) {
     return 1;
 }
 
-nomask nosave int check_user(object ob, string fun, string file, string oper){
+nomask protected int check_user(object ob, string fun, string file, string oper){
     string nom, tmp;
     int x;
     if(interactive(ob) && !creatorp(ob)){
@@ -400,7 +401,7 @@ nomask nosave int check_user(object ob, string fun, string file, string oper){
     return x;
 }
 
-nomask nosave int check_domain(object ob, string fun, string file, string o) {
+nomask protected int check_domain(object ob, string fun, string file, string o) {
     string nom;
     int x;
     if( !sscanf(file, DOMAINS_DIRS+"/%s/%*s", nom) ) return 0;
@@ -662,9 +663,11 @@ string error_handler(mapping mp, int caught) {
                 return "/log/login\n"+standard_trace(mp)+"\n--\n";
             }
             this_player()->eventPrint("A runtime error occurred.");
-            CHAT_D->eventSendChannel("System", "error", "A runtime error "
-                    "occurred to " +
-                    this_player(1)->GetCapName()+".");
+            if (find_object(CHAT_D)) {
+              CHAT_D->eventSendChannel("System", "error", "A runtime error "
+                                                          "occurred to " +
+                  this_player(1)->GetCapName()+".");
+            }
             rlog = "-----\n" +timestamp()+ ": "+this_player(1)->GetCapName()+"\n";
             rlog += load_object("/secure/cmds/creators/dbxwhere")->cmd(this_player(1)->GetKeyName());
             rlog += flat_map(this_player()->GetLastError())+"\n-----\n";
@@ -682,7 +685,7 @@ void log_error(string file, string msg) {
     }
     if(!this_player()){
         object *object_stack = call_stack(1);
-        object web_sessions = load_object(WEB_SESSIONS_D);
+        object web_sessions = find_object(WEB_SESSIONS_D);
         if(web_sessions && member_array(web_sessions, object_stack) != -1){
             web_sessions->ReceiveErrorReport(msg);
         }
@@ -1154,4 +1157,16 @@ int ReadName(){
         }
     }
     return 0;
+}
+
+// Compat with PACKAGE_UID
+string get_root_uid() {
+  return "ROOT";
+}
+string get_bb_uid() {
+  return "BACKBONE";
+}
+
+string creator_file() {
+  return "";
 }

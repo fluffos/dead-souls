@@ -61,7 +61,7 @@ protected void create() {
     SaveObject(SaveFile);
 }
 
-protected private void validate() {
+private void validate() {
     if( !(master()->valid_apply(({ PRIV_ASSIST }))) )
         error("Illegal attempt to modify race data");
 }
@@ -204,7 +204,7 @@ mapping GetRace(string str){
 
 void AddRace(string file, int player) {
     mapping res;
-    string* tmp, parts;
+    string* tmp, *parts;
     string race, test_string;
     int x;
     mixed* limb = allocate(4);

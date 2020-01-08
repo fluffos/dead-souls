@@ -69,7 +69,7 @@ void heart_beat(){
         int pro;
 
         who = present(fisher, this_object());
-        /* if this room is impossible to fish, or if using a non-fishing 
+        /* if this room is impossible to fish, or if using a non-fishing
          * device, no fishing can really occur
          */
         if( !Chance || !(x = pole->eventFish(who)) ) chance = 0;
@@ -79,7 +79,7 @@ void heart_beat(){
                 (1 + random(5));
         }
         /* Give extra weight to fishing skill */
-        if( chance ) 
+        if( chance )
             chance = random(chance/2 + who->GetSkillLevel("fishing")/2);
         y = 0;
         foreach(fish, x in Fish) y += x;
@@ -105,11 +105,11 @@ void heart_beat(){
 }
 
 mixed CanCast(object who, string where){
-    if( this_player()->GetInCombat() ) 
+    if( this_player()->GetInCombat() )
         return "You are too busy to fish!";
     if( Fishing[this_player()->GetKeyName()] )
         return "You are already fishing!";
-    if( GetMaxFishing() <= sizeof(Fishing) ) 
+    if( GetMaxFishing() <= sizeof(Fishing) )
         return "It is too crowded here to fish.";
     return 1;
 }
@@ -135,12 +135,12 @@ mixed eventCast(object who, object pole, string str){
     return 1;
 }
 
-nosave void eventCatch(object who, string fish, object pole){
+protected void eventCatch(object who, string fish, object pole){
     object food;
 
     if( !who || !present(who) ) return;
     if( !pole || !present(pole, who) ){
-        message("my_action", "Having given up " + pole->GetShort() + 
+        message("my_action", "Having given up " + pole->GetShort() +
                 ", you lose your catch!", who);
         return;
     }
@@ -150,8 +150,8 @@ nosave void eventCatch(object who, string fish, object pole){
     who->AddSkillPoints("fishing", fish->GetFight()+fish->GetMass());
     message("my_action", "You find " + fish->GetShort() + " on " +
             pole->GetShort() + "!", who);
-    message("other_action", who->GetName() + " finds " + 
-            fish->GetShort() + " on " + pole->GetShort() + 
+    message("other_action", who->GetName() + " finds " +
+            fish->GetShort() + " on " + pole->GetShort() +
             "!", this_object(), ({ who }));
     if( !(food->eventMove(who)) ){
         message("my_action", "You drop " + food->GetShort() + "!",
@@ -200,7 +200,7 @@ mapping RemoveFishing(object who){
     string str;
 
     if( !who || !objectp(who) || !living(who) ) return Fishing;
-    if( Fishing[(str = who->GetKeyName())] ) 
+    if( Fishing[(str = who->GetKeyName())] )
         map_delete(Fishing, str);
     if( !sizeof(Fishing) ) return ([]);
     return Fishing;

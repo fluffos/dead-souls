@@ -35,7 +35,7 @@ protected void create() {
     SetClimate("indoors");
     SetAmbientLight(30);
     SetShort("Server monitoring room");
-    SetLong( (: LongDesc :) );
+    SetLong( LongDesc() );
     SetExits(([
                 "north" : "/secure/room/network",
                 ]));

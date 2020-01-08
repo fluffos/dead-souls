@@ -18,22 +18,22 @@ inherit LIB_HISTORY;
 #define CMD_EDITING              1
 #define CHAR_LIMIT               1024
 
-private mapping Nicknames, Aliases, Xverbs, Directories; 
-private nosave int CWDCount, CWDBottom, CWDTop, CmdNumber; 
-private string Prompt; 
-private nosave string *Stack; 
-nosave int histmatch = 0; 
-nosave string recalled_command = ""; 
-nosave string recalled_command_sub = ""; 
-nosave int recalled_command_num = 0; 
-private nosave int noecho = 1; 
+private mapping Nicknames, Aliases, Xverbs, Directories;
+private nosave int CWDCount, CWDBottom, CWDTop, CmdNumber;
+private string Prompt;
+private nosave string *Stack;
+nosave int histmatch = 0;
+nosave string recalled_command = "";
+nosave string recalled_command_sub = "";
+nosave int recalled_command_num = 0;
+private nosave int noecho = 1;
 private nosave mapping Termstuff;
 
-nosave int *GetScreen(){ return ({ 79, 24 }); }
+protected int *GetScreen(){ return ({ 79, 24 }); }
 
 protected void create(){
-    Nicknames = ([]); 
-    Termstuff = ([]); 
+    Nicknames = ([]);
+    Termstuff = ([]);
     Directories = ([ "current" : "/", "previous" : "/", "home" : 0 ]);
     recalled_command_num = sizeof(this_object()->GetCommandHist()) - 1;
     if(recalled_command_num > -1){
@@ -44,12 +44,12 @@ protected void create(){
             "ne" : "go northeast", "nw" : "go northwest", "se" : "go southeast",
             "sw" : "go southwest", "d" : "go down", "u" : "go up", "out": "go out",
             "exa" : "look at $*", "p" : "people", "sc" : "status", "inf" : "score",
-            "eq" : "equipment", "prac" : "skills", 
+            "eq" : "equipment", "prac" : "skills",
             "sco" : "score", "practice" : "skills", "trophy" : "kills",
-            "northwest" : "go northwest", "northeast" : "go northeast", 
+            "northwest" : "go northwest", "northeast" : "go northeast",
             "southwest" : "go southwest", "southeast" : "go southeast",
             "north" : "go north", "south": "go south", "east" : "go east",
-            "west" : "go west", "up" : "go up", "down": "go down", 
+            "west" : "go west", "up" : "go up", "down": "go down",
             "ig" : "intergossip $*", "c" : "cre $*", "lp" : "lpuni $*",
             "inv" : "inventory", "x" : "look at $*", "examine" : "look at $*",
             "ic" : "intercre $*", "loot" : "get all from $*", "chat" : "newbie $*",
@@ -59,42 +59,42 @@ protected void create(){
             ]);
     Xverbs = (["]":"] $*", "'":"say $*",":":"emote $*","\"":"say $*",]);
     if(this_object()->GetKeyName() == "cratylus"){
-        Aliases["crat"] = "source /secure/scripts/crat.src"; 
+        Aliases["crat"] = "source /secure/scripts/crat.src";
     }
-} 
+}
 
-int Setup(){ 
-    if(this_player() != this_object()) return 0; 
-    reset_prompt(); 
+int Setup(){
+    if(this_player() != this_object()) return 0;
+    reset_prompt();
     if(!Nicknames) Nicknames = ([]);
     if(!Aliases) Aliases = ([]);
     if(!Xverbs) Xverbs = ([]);
-    add_action("cmd_alias", "alias",1); 
-    add_action("cmd_unalias", "unalias",1); 
-    add_action("cmd_nickname", "nickname",1); 
+    add_action("cmd_alias", "alias",1);
+    add_action("cmd_unalias", "unalias",1);
+    add_action("cmd_nickname", "nickname",1);
 #if FAIL
     add_action("fail","fail");
 #endif
-    if(creatorp(this_object())){ 
-        Stack = allocate(DIRECTORY_STACK_SIZE); 
-        CWDBottom = CWDTop = CWDCount = 0; 
-        add_action("cmd_cd", "cd"); 
-        add_action("cmd_nmsh", "nmsh"); 
-        add_action("cmd_pushd", "pushd"); 
-        add_action("cmd_popd", "popd"); 
+    if(creatorp(this_object())){
+        Stack = allocate(DIRECTORY_STACK_SIZE);
+        CWDBottom = CWDTop = CWDCount = 0;
+        add_action("cmd_cd", "cd");
+        add_action("cmd_nmsh", "nmsh");
+        add_action("cmd_pushd", "pushd");
+        add_action("cmd_popd", "popd");
         add_action("cmd_pwd", "cwd");
         add_action("cmd_pwd", "pwd");
         add_action("cmd_work", "work");
-    } 
+    }
     return 1;
-} 
+}
 
-nomask protected int cmd_alias(string str){ 
+nomask protected int cmd_alias(string str){
     string *a, *b;
-    string key, thing; 
+    string key, thing;
     int i;
 
-    if(this_player() != this_object()) return 0; 
+    if(this_player() != this_object()) return 0;
     if(!str){
         i = sizeof(a = keys(Aliases));
         while(i--)
@@ -105,82 +105,82 @@ nomask protected int cmd_alias(string str){
         this_player()->eventPage(a+b);
         return 1;
     }
-    if(sscanf(str, "%s %s", key, thing) != 2){ 
-        if(str[0] == '$'){ 
-            str = str[1..strlen(str)-1]; 
-            if(Xverbs[str]){ 
+    if(sscanf(str, "%s %s", key, thing) != 2){
+        if(str[0] == '$'){
+            str = str[1..strlen(str)-1];
+            if(Xverbs[str]){
                 write(str+": "+Xverbs[str]);
                 return 1;
-            } 
-            else message("system", sprintf("No such alias $%s.", str), this_player()); 
-            return 1; 
-        } 
-        if(Aliases[str]){ 
+            }
+            else message("system", sprintf("No such alias $%s.", str), this_player());
+            return 1;
+        }
+        if(Aliases[str]){
             write(str+": "+Aliases[str]);
             return 1;
-        } 
-        else message("system", sprintf("No such alias %s.", str), this_player()); 
-        return 1; 
-    } 
-    if(sizeof(Xverbs) + sizeof(Aliases) >= MAX_CMD_ALIASES){ 
-        message("system", "You must remove an alias before adding another.", 
-                this_player()); 
-        return 1; 
-    } 
+        }
+        else message("system", sprintf("No such alias %s.", str), this_player());
+        return 1;
+    }
+    if(sizeof(Xverbs) + sizeof(Aliases) >= MAX_CMD_ALIASES){
+        message("system", "You must remove an alias before adding another.",
+                this_player());
+        return 1;
+    }
     if(key == "alias") return notify_fail("That would be a bad idea.\n");
-    if(key[0] == '$'){ 
-        key = key[1..strlen(key)]; 
-        if(Xverbs[key])  
-            message("system", sprintf("Alias for $%s altered to (%s).", 
-                        key, thing), this_player()); 
-        else message("system", sprintf("Alias $%s (%s) added.", key, thing), 
-                this_player());      
-        Xverbs[key] = thing; 
-    } 
-    else { 
-        if(Aliases[key]) 
-            message("system", sprintf("Alias for %s altered to (%s).", key, thing), 
-                    this_player()); 
-        else message("system", sprintf("Alias %s (%s) added.", key, thing),this_player()); 
-        Aliases[key] = thing; 
-    } 
-    return 1; 
-} 
+    if(key[0] == '$'){
+        key = key[1..strlen(key)];
+        if(Xverbs[key])
+            message("system", sprintf("Alias for $%s altered to (%s).",
+                        key, thing), this_player());
+        else message("system", sprintf("Alias $%s (%s) added.", key, thing),
+                this_player());
+        Xverbs[key] = thing;
+    }
+    else {
+        if(Aliases[key])
+            message("system", sprintf("Alias for %s altered to (%s).", key, thing),
+                    this_player());
+        else message("system", sprintf("Alias %s (%s) added.", key, thing),this_player());
+        Aliases[key] = thing;
+    }
+    return 1;
+}
 
-nomask protected int cmd_unalias(string str){ 
-    if(this_player() != this_object()) return 0; 
+nomask protected int cmd_unalias(string str){
+    if(this_player() != this_object()) return 0;
     if(!str){
         write("Unalias what?");
         return 1;
     }
-    if(str[0] == '$'){ 
-        str = str[1..strlen(str)-1]; 
-        if(Xverbs[str]){ 
-            map_delete(Xverbs, str); 
-            message("system", sprintf("Alias $%s removed.", str), this_player()); 
+    if(str[0] == '$'){
+        str = str[1..strlen(str)-1];
+        if(Xverbs[str]){
+            map_delete(Xverbs, str);
+            message("system", sprintf("Alias $%s removed.", str), this_player());
             return 1;
-        } 
-        else message("system", sprintf("No such alias $%s.", str), this_player()); 
-        return 1; 
-    } 
-    if(Aliases[str]){ 
-        map_delete(Aliases, str); 
-        message("system", sprintf("Alias %s removed.", str), this_player()); 
+        }
+        else message("system", sprintf("No such alias $%s.", str), this_player());
         return 1;
-    } 
-    else message("system", sprintf("No such alias %s.", str), this_player()); 
-    return 1; 
-} 
+    }
+    if(Aliases[str]){
+        map_delete(Aliases, str);
+        message("system", sprintf("Alias %s removed.", str), this_player());
+        return 1;
+    }
+    else message("system", sprintf("No such alias %s.", str), this_player());
+    return 1;
+}
 
-nomask protected int cmd_cd(string str){ 
-    if(this_player() != this_object()) return 0; 
-    set_cwd(str); 
-    return 1; 
-} 
+nomask protected int cmd_cd(string str){
+    if(this_player() != this_object()) return 0;
+    set_cwd(str);
+    return 1;
+}
 
-nomask protected int cmd_nickname(string str){ 
+nomask protected int cmd_nickname(string str){
     string *cles;
-    string key, thing; 
+    string key, thing;
     int i;
 
     if(this_player() != this_object()) return 0;
@@ -193,60 +193,60 @@ nomask protected int cmd_nickname(string str){
         this_player()->eventPage( cles + ({}) );
         return 1;
     }
-    if(sscanf(str, "%s %s", key, thing) != 2){ 
-        if(Nicknames[str]){ 
-            message("system", sprintf("Nickname %s removed.", str), 
-                    this_player()); 
-            map_delete(Nicknames, str); 
-        } 
-        else message("system", sprintf("No such nickname %s.", str), 
-                this_player()); 
-    } 
-    else { 
-        if(Nicknames[key])  
-            message("system", sprintf("Nickname %s altered to (%s).", key, thing), 
-                    this_player()); 
-        else message("system", sprintf("Nickname %s (%s) added.", key, thing), 
-                this_player()); 
-        Nicknames[key] = thing; 
-    } 
-    return 1; 
-} 
+    if(sscanf(str, "%s %s", key, thing) != 2){
+        if(Nicknames[str]){
+            message("system", sprintf("Nickname %s removed.", str),
+                    this_player());
+            map_delete(Nicknames, str);
+        }
+        else message("system", sprintf("No such nickname %s.", str),
+                this_player());
+    }
+    else {
+        if(Nicknames[key])
+            message("system", sprintf("Nickname %s altered to (%s).", key, thing),
+                    this_player());
+        else message("system", sprintf("Nickname %s (%s) added.", key, thing),
+                this_player());
+        Nicknames[key] = thing;
+    }
+    return 1;
+}
 
-nomask protected int cmd_nmsh(string str){ 
-    string *lines; 
+nomask protected int cmd_nmsh(string str){
+    string *lines;
     string tmp;
-    int i, maxi; 
+    int i, maxi;
 
-    if(!str) return 0; 
-    if(this_player() != this_object()) return 0; 
-    if(this_player()->GetForced()) return 0; 
-    if(!(tmp = read_file(absolute_path(query_cwd(), str)))) 
-        return notify_fail(sprintf("nmsh: script %s not found.\n")); 
-    maxi = sizeof(lines = explode(tmp, "\n")); 
-    for(i=0; i < maxi; i++){ 
-        if(lines[i][0] == '#') continue; 
-        if(!command(lines[i])){ 
-            message("system", sprintf("nmsh: error in executing %s.", str), 
-                    this_player()); 
-            return 1; 
-        } 
-    } 
-    return 1; 
-} 
+    if(!str) return 0;
+    if(this_player() != this_object()) return 0;
+    if(this_player()->GetForced()) return 0;
+    if(!(tmp = read_file(absolute_path(query_cwd(), str))))
+        return notify_fail(sprintf("nmsh: script %s not found.\n"));
+    maxi = sizeof(lines = explode(tmp, "\n"));
+    for(i=0; i < maxi; i++){
+        if(lines[i][0] == '#') continue;
+        if(!command(lines[i])){
+            message("system", sprintf("nmsh: error in executing %s.", str),
+                    this_player());
+            return 1;
+        }
+    }
+    return 1;
+}
 
-nomask protected int cmd_pushd(string str){ 
-    if(this_player() != this_object()) return 0; 
-    if(!set_cwd(str)) return 0; 
-    pushd(str); 
-    return 1; 
-} 
+nomask protected int cmd_pushd(string str){
+    if(this_player() != this_object()) return 0;
+    if(!set_cwd(str)) return 0;
+    pushd(str);
+    return 1;
+}
 
-nomask protected int cmd_popd(){ 
-    if(this_player() != this_object()) return 0; 
-    set_cwd(popd()); 
-    return 1; 
-} 
+nomask protected int cmd_popd(){
+    if(this_player() != this_object()) return 0;
+    set_cwd(popd());
+    return 1;
+}
 
 nomask protected int cmd_pwd(){
     if(!query_cwd()) message("system", "No current directory.", this_object());
@@ -328,9 +328,9 @@ varargs nomask string GetPrompt(int withbuff){
         ret = this_object()->eventDisplayStatus(1) + " > ";
         return ret + ret2;
     }
-    if(grepp(ret,"$g")) 
+    if(grepp(ret,"$g"))
         ret = replace_string(ret,"$g",itoa(this_object()->GetMagicPoints()));
-    if(grepp(ret,"$G")) 
+    if(grepp(ret,"$G"))
         ret = replace_string(ret,"$G",itoa(this_object()->GetMaxMagicPoints()));
     if(grepp(ret,"$M"))
         ret = replace_string(ret, "$M", mud_name());
@@ -370,7 +370,7 @@ varargs nomask string GetPrompt(int withbuff){
         if(grepp(ret,"$D2"))
             ret = replace_string(ret,"$D2", tmp[3]+"/"+mo+"/"+yr);
         if(grepp(ret,"$D"))
-            ret = replace_string(ret,"$D", tmp[3]+system_month(tmp[4],1)+yr); 
+            ret = replace_string(ret,"$D", tmp[3]+system_month(tmp[4],1)+yr);
     }
     if(grepp(ret,"$T")){
         string min, hr, sec, tz = this_object()->GetProperty("timezone");
@@ -402,14 +402,14 @@ varargs nomask string write_prompt(string str){
     if(!Termstuff["Terminal"]){
         Termstuff["Terminal"] = this_object()->GetTerminal();
     }
-    if(!Termstuff["TermInfo"]){         
-        Termstuff["TermInfo"] = 
+    if(!Termstuff["TermInfo"]){
+        Termstuff["TermInfo"] =
             TERMINAL_D->query_term_info(Termstuff["Terminal"]);
     }
     if(str){
         receive(str);
         return str;
-    } 
+    }
     ret = GetPrompt(this_object()->GetCharmode());
     uncolor = strip_colours(ret);
     ret = terminal_colour(ret + "%^RESET%^", Termstuff["TermInfo"]);
@@ -432,9 +432,9 @@ varargs nomask string write_prompt(string str){
     return ret;
 }
 
-string process_input(string str){ 
-    string tmp, xtra, request; 
-    if(!str || str == "") return ""; 
+string process_input(string str){
+    string tmp, xtra, request;
+    if(!str || str == "") return "";
     else if(GetClient() &&
             member_array(GetClient(), SUPPORTED_CLIENTS) != -1){
         if(sscanf(str, "<%s>%s", request, xtra)){
@@ -446,14 +446,14 @@ string process_input(string str){
     else {
         tmp = eventHistory(str);
         if(tmp == ""){
-            return "";     
+            return "";
         }
     }
     if(tmp != str) message("system", tmp, this_object());
     return do_alias(do_nickname(tmp));
-} 
+}
 
-nomask nosave void process_request(string request, string xtra){
+nomask protected void process_request(string request, string xtra){
     switch(request){
         case "ALIAS":
             receive("<ALIAS>[n,go north] [s,go south] [e,go east] [w,go west] "
@@ -464,8 +464,8 @@ nomask nosave void process_request(string request, string xtra){
             break;
         case "NICKNAME": receive("<NICKNAME>\n"); break;
         case "USERS":
-                         receive("<USERS>"+implode(map_array(filter(users(), 
-                                             "request_vis", this_object()), "user_names", this_object()), 
+                         receive("<USERS>"+implode(map_array(filter(users(),
+                                             "request_vis", this_object()), "user_names", this_object()),
                                      ", ")+"\n");
                          break;
         case "ROOM":
@@ -492,33 +492,33 @@ protected string user_names(object ob){
     return ob->GetName();
 }
 
-private protected int set_cwd(string str){ 
+private int set_cwd(string str){
     int x;
     string tmpstr = str;
     if(str == "~-" || str == "-") str = Directories["previous"];
-    if(!str || str == "") str = user_path(GetKeyName()); 
+    if(!str || str == "") str = user_path(GetKeyName());
     if (str[<1] == '/' && str != "/") str = str[0..<2];
-    replace_string(str, "//", "/"); 
+    replace_string(str, "//", "/");
     str = absolute_path(query_cwd(), str);
     if(!directory_exists(str) && tmpstr == "here" && environment(this_player())){
         str = path_prefix(base_name(environment(this_player())));
-    } 
-    if((x=file_size(str)) != -2){ 
-        if(x > -1){ 
-            message("system", sprintf("%s: Path is a file.", str), this_player()); 
-            return 0; 
-        } 
-        else { 
-            message("system", sprintf("%s: No such reference.", str), this_player()); 
-            return 0; 
-        }  
-    } 
+    }
+    if((x=file_size(str)) != -2){
+        if(x > -1){
+            message("system", sprintf("%s: Path is a file.", str), this_player());
+            return 0;
+        }
+        else {
+            message("system", sprintf("%s: No such reference.", str), this_player());
+            return 0;
+        }
+    }
 
     if(str != query_cwd()) Directories["previous"] = query_cwd();
-    Directories["current"] = str; 
-    message("system", sprintf("%s:", Directories["current"]), this_player()); 
-    return 1; 
-} 
+    Directories["current"] = str;
+    message("system", sprintf("%s:", Directories["current"]), this_player());
+    return 1;
+}
 
 string GetUserPath(){
     return Directories["home"];
@@ -526,45 +526,45 @@ string GetUserPath(){
 
 string SetUserPath(string str){
     if(this_player() != this_object()) return 0;
-    return Directories["home"] = str; 
+    return Directories["home"] = str;
 }
 
-private protected void pushd(string str){ 
-    if(CWDCount++ == DIRECTORY_STACK_SIZE){ 
-        CWDCount--; 
-        CWDBottom = (++CWDBottom) % DIRECTORY_STACK_SIZE; 
-    } 
-    Stack[CWDTop] = str; 
-    CWDTop = (++CWDTop) % DIRECTORY_STACK_SIZE; 
-} 
+private void pushd(string str){
+    if(CWDCount++ == DIRECTORY_STACK_SIZE){
+        CWDCount--;
+        CWDBottom = (++CWDBottom) % DIRECTORY_STACK_SIZE;
+    }
+    Stack[CWDTop] = str;
+    CWDTop = (++CWDTop) % DIRECTORY_STACK_SIZE;
+}
 
-private protected string popd(){ 
-    if(!CWDCount) return 0; 
-    CWDCount--; 
-    return Stack[--CWDTop]; 
-} 
+private string popd(){
+    if(!CWDCount) return 0;
+    CWDCount--;
+    return Stack[--CWDTop];
+}
 
-nomask private protected string do_nickname(string str){ 
-    if(!Nicknames) return str; 
-    if(str[0..7] == "nickname") return str; 
-    return implode(map_array(explode(str, " "), "replace_nickname", this_object()), " "); 
-} 
+nomask private string do_nickname(string str){
+    if(!Nicknames) return str;
+    if(str[0..7] == "nickname") return str;
+    return implode(map_array(explode(str, " "), "replace_nickname", this_object()), " ");
+}
 
-nomask private protected string do_alias(string str){ 
-    string *words; 
-    string tmp, ret; 
-    int x; 
+nomask private string do_alias(string str){
+    string *words;
+    string tmp, ret;
+    int x;
 
     if(!sizeof(words = explode(str, " "))) return "";
     if((x = strlen(words[0])) && (tmp = Xverbs[words[0][0..0]])){
         words[0] = words[0][1..x-1];
         return replace_string(tmp, "$*", implode(words, " "));
     }
-    if(!(tmp = Aliases[words[0]])) return implode(words, " "); 
-    else str = implode(words[1..sizeof(words)-1], " "); 
+    if(!(tmp = Aliases[words[0]])) return implode(words, " ");
+    else str = implode(words[1..sizeof(words)-1], " ");
     ret = replace_string(tmp, "$*", str);
     return ret;
-} 
+}
 
 string GetAlias(string alias){
     string ret = Aliases[alias];
@@ -577,37 +577,37 @@ string GetXverb(string xverb){
     string ret = Xverbs[xverb];
     if(!this_player() || this_player() != this_object() ||
             this_player()->GetForced()) return 0;
-    else return ret; 
-} 
+    else return ret;
+}
 
-nomask protected string replace_nickname(string str){ 
-    if(str == "") return str; 
-    if(str[0] == '\\') return str[1..(strlen(str)-1)]; 
-    else if(Nicknames[str]) return Nicknames[str]; 
-    else return str; 
-} 
+nomask protected string replace_nickname(string str){
+    if(str == "") return str;
+    if(str[0] == '\\') return str[1..(strlen(str)-1)];
+    else if(Nicknames[str]) return Nicknames[str];
+    else return str;
+}
 
-void reset_prompt(){ 
+void reset_prompt(){
     if(!stringp(Prompt)) Prompt = "> ";
-} 
+}
 
-string query_cwd(){ return Directories["current"]; } 
+string query_cwd(){ return Directories["current"]; }
 
-string query_prev_wd(){ return Directories["previous"]; } 
+string query_prev_wd(){ return Directories["previous"]; }
 
 string SetPrompt(string str){ return Prompt = str; }
 
-int query_mp(){ return 1; } 
+int query_mp(){ return 1; }
 
-int query_max_mp(){ return 10; } 
+int query_max_mp(){ return 10; }
 
-int query_hp(){ return 1; } 
+int query_hp(){ return 1; }
 
-int query_max_hp(){ return 10; } 
+int query_max_hp(){ return 10; }
 
-int query_sp(){ return 1; } 
+int query_sp(){ return 1; }
 
-int query_max_sp(){ return 10; } 
+int query_max_sp(){ return 10; }
 
 string get_path(){ return query_cwd(); }
 
@@ -632,7 +632,7 @@ protected void EchoCommand(string str){
         ret = "%^"+upper_case(clr)+"%^"+str+"%^RESET%^";
         write(ret);
     }
-} 
+}
 
 mixed RecalculateHist(int x){
     mapping command_hist = this_object()->GetHistoryList();
@@ -644,7 +644,7 @@ mixed RecalculateHist(int x){
     }
     if(histmatch > 0 && sizeof(charbuffer) && !sizeof(recalled_command_sub)){
         mixed tmpvals;
-        tmpvals = filter(values(command_hist), 
+        tmpvals = filter(values(command_hist),
                 (: $1 && !strsrch($1, this_object()->GetCharbuffer()) :));
         if(sizeof(tmpvals)){
             recalled_command_sub = charbuffer;
@@ -655,7 +655,7 @@ mixed RecalculateHist(int x){
     if(recalled_command_num < 0) recalled_command_num = (histsize - 1);
     if(recalled_command_num > (histsize - 1)) recalled_command_num = 0;
     recalled_command = command_hist[recalled_command_num];
-    if(sizeof(recalled_command_sub) && 
+    if(sizeof(recalled_command_sub) &&
             strsrch(recalled_command, recalled_command_sub)){
         int hit = 0;
         while(!hit){
@@ -663,13 +663,13 @@ mixed RecalculateHist(int x){
             else recalled_command_num--;
             if(recalled_command_num < 0) recalled_command_num = (histsize - 1);
             if(recalled_command_num > (histsize - 1)) recalled_command_num = 0;
-            if(!strsrch(command_hist[recalled_command_num], 
+            if(!strsrch(command_hist[recalled_command_num],
                         recalled_command_sub)){
                 hit = 1;
                 recalled_command = command_hist[recalled_command_num];
             }
         }
-    } 
+    }
     return recalled_command;
 }
 
@@ -701,13 +701,13 @@ protected int rEnter(){
     EchoCommand(charbuffer);
 
     /* This next thing is probably a bit obscure, so I'll explain. We're
-     * about to save the line that we just received into the 
+     * about to save the line that we just received into the
      * character buffer called "tempbuffer" stored in LIB_CHARIO.
      * The idea is to have "what I just typed" available somewhere before
      * it is expanded from its alias. This allows for up-arrow history
      * recall matching that keys not on the expanded command, but what
      * I really just typed, allowing for selective/matched recall of
-     * aliases and add_actions. See the Push() call from LIB_COMMAND 
+     * aliases and add_actions. See the Push() call from LIB_COMMAND
      * to LIB_HISTORY.
      *
      * And to you it was just an arbitrary line of code.
@@ -760,10 +760,10 @@ protected int rCtrl(string str){
             int i;
             object ob, env, *ob_arr;
             /* An action has been typed and a space after it
-             * tells us the user wants us to figure out the 
+             * tells us the user wants us to figure out the
              * argument. Let's first chew on isolating the action.
              */
-            i = sscanf(charbuffer, "%s %s", arg1, arg2); 
+            i = sscanf(charbuffer, "%s %s", arg1, arg2);
             if(i != 2){
                 cmd = trim(charbuffer);
             }
@@ -789,9 +789,9 @@ protected int rCtrl(string str){
                      * manipulating kind of command.
                      */
                     file_cmds = ({ "ced", "clone", "goto", "rehash", "reset",
-                            "showtree", "bk", "cat", "cp", "diff", "ed", 
+                            "showtree", "bk", "cat", "cp", "diff", "ed",
                             "grep", "head", "indent", "longcat", "more", "mv",
-                            "rm", "sed", "showfuns", "source", "tail", 
+                            "rm", "sed", "showfuns", "source", "tail",
                             "update" });
                     dir_cmds = ({ "cd", "ls", "mkdir", "rmdir" });
                     both_cmds = file_cmds + dir_cmds;
@@ -809,7 +809,7 @@ protected int rCtrl(string str){
                          * manipulate.
                          */
                         if(lastarg){
-                            if(lastarg[0..0] == "/"){ 
+                            if(lastarg[0..0] == "/"){
                                 pre = path_prefix(lastarg);
                                 abso = 1;
                             }
@@ -944,7 +944,7 @@ protected int rCtrl(string str){
                                     tmp_str += thing->GetKeyName();
                                     ret_arr += ({ tmp_str });
                                 }
-                            }                                 
+                            }
                         }
                         else if(tmp_str){
                             lastarg = tmp_str;
@@ -960,7 +960,7 @@ protected int rCtrl(string str){
                 } /* end verb handler */
             } /* end unambiguous command */
         } /* end arg detection */
-        else { 
+        else {
             /* A clean fallthrough would be nice here :( */
         }
         cmds = match_command(charbuffer,1);

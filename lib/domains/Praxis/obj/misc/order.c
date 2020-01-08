@@ -13,7 +13,7 @@ inherit LIB_ITEM;
 int __Light, __Indoors;
 string __Short, __Long, __Exit, __NewRoom;
 
-protected private string create_file();
+private string create_file();
 
 void create() {
     ::create();
@@ -44,10 +44,10 @@ protected int cmd_build(string str) {
     if(file_size(ESTATES_DIRS+"/"+geteuid(this_player())) != -2)
         return notify_fail("You need an estates directory!\n");
     /*
-       if(!high_mortalp(this_player())) 
+       if(!high_mortalp(this_player()))
        return notify_fail("Only high mortals may build!\n");
      */
-    if(strsrch(file_name(environment(this_player())), 
+    if(strsrch(file_name(environment(this_player())),
                 ESTATES_DIRS+"/"+geteuid(this_player())) != 0)
         return notify_fail("You can only build on your stuff!\n");
     __Short = str;
@@ -143,7 +143,7 @@ protected void input_exit(string str) {
     this_object()->remove();
 }
 
-protected private string create_file() {
+private string create_file() {
     string dir, str;
     int x;
 

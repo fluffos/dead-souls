@@ -131,7 +131,7 @@ protected int Page(mixed tmpfile){
     return 1;
 }
 
-nosave void cmdPage(string str, mapping file){
+protected void cmdPage(string str, mapping file){
     string *tmp;
     string cmd, args;
     int fp, x, scrlen;
@@ -324,7 +324,7 @@ nosave void cmdPage(string str, mapping file){
     }
 }
 
-varargs protected private void RazzleDazzle(mixed args...){
+varargs private void RazzleDazzle(mixed args...){
     function f;
     InPager = 0;
     if(args && sizeof(args)){
@@ -338,7 +338,7 @@ varargs protected private void RazzleDazzle(mixed args...){
     this_object()->CheckCharmode();
 }
 
-protected private string GetPagerPrompt(mapping file){
+private string GetPagerPrompt(mapping file){
     int x;
 
     if( creatorp() && file["Name"] != "" )

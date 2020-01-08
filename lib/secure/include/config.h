@@ -3,8 +3,8 @@
 #define DEFAULT_PROMPT           "> "
 #define HOST_IP                  "127.0.0.1"
 #define MUD_STATUS               "mudlib development"
-#define ADMIN_EMAIL              "admin@here"
-#define DEBUGGER                 "DEBUG_NAME"
+#define ADMIN_EMAIL              "sunyucong@gmail.com"
+#define DEBUGGER                 "sunyc"
 #define LOCAL_NEWS_PREFIX        "nm"
 #define MUD_IS_LOCKED            0
 #define AUTO_WIZ                 0

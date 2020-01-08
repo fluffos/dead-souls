@@ -14,7 +14,7 @@ inherit LIB_ITEM;
 int __Light, __Indoors;
 string __Short, __Long, __Exit, __NewRoom, __EstateLong;
 
-protected private string create_file();
+private string create_file();
 
 void create() {
     ::create();
@@ -40,7 +40,7 @@ void init() {
 
 protected int cmd_build(string str) {
     if(str != "estate") return 0;
-    if(!high_mortalp(this_player())) 
+    if(!high_mortalp(this_player()))
         return notify_fail("Only high mortals may build!\n");
     if(environment(this_player())->GetProperty("indoors")) {
         message("system", "You cannot build an estate indoors!", this_player());
@@ -149,7 +149,7 @@ void done_edit(mixed *unused) {
     this_object()->remove();
 }
 
-protected private string create_file() {
+private string create_file() {
     string dir, str;
     int x;
 

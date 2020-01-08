@@ -56,7 +56,7 @@ varargs nosave int eventWrite(mixed data, int close) {
 }
 
 /* ******************** socket.c driver applies ****************** */
-nosave void create(int fd, object owner) {
+protected void create(int fd, object owner) {
     daemon::create();
     SetNoClean(1);
     Descriptor = fd;

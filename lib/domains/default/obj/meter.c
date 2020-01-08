@@ -9,14 +9,14 @@ varargs string translate_vision(object ob){
     if(!ob) vision = this_player()->GetEffectiveVision();
     else vision = ob->GetEffectiveVision();
     switch(vision){
-        case 0 : ret = "level 0: blindness.";break; 
-        case 1 : ret = "level 1: too dark.";break; 
-        case 2 : ret = "level 2: dark.";break; 
-        case 3 : ret = "level 3: dim.";break; 
-        case 4 : ret = "level 4: clear.";break; 
-        case 5 : ret = "level 5: light.";break; 
-        case 6 : ret = "level 6: bright.";break; 
-        case 7 : ret = "level 7: too bright.";break; 
+        case 0 : ret = "level 0: blindness.";break;
+        case 1 : ret = "level 1: too dark.";break;
+        case 2 : ret = "level 2: dark.";break;
+        case 3 : ret = "level 3: dim.";break;
+        case 4 : ret = "level 4: clear.";break;
+        case 5 : ret = "level 5: light.";break;
+        case 6 : ret = "level 6: bright.";break;
+        case 7 : ret = "level 7: too bright.";break;
         default : ret = "a mystery.";
     }
     return ret;
@@ -28,7 +28,7 @@ varargs mixed EvaluateRadiantLight(object ob, int report){
     string subrep = "";
     if(!ob) ob = this_player();
     foreach(object guy in get_livings(environment(ob))){
-        if(guy->GetRadiantLight()) 
+        if(guy->GetRadiantLight())
             rep += guy->GetName()+"'s radiant light is: "+guy->GetRadiantLight()+".\n";
         foreach(object item in all_inventory(guy)){
             x += item->GetRadiantLight();

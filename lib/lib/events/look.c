@@ -181,7 +181,7 @@ varargs string GetLong(string str){
     }
 }
 
-string SetLong(string str){
+mixed SetLong(mixed str){
     return SetExternalDesc(str);
 }
 

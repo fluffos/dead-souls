@@ -12,7 +12,7 @@ varargs int eventReceiveId(object door, string *id, string cote){
     if(!cote) cote = this_object()->eventEvaluateDoorSide(door);
     this_object()->eventProcessDoor(door, "SetId", ret_id, cote);
     return 1;
-} 
+}
 
 mapping GetDoorKeys(string str){
     string dir, junk1, junk2;
@@ -114,7 +114,7 @@ varargs int eventProcessDoor(mixed door, string property, mixed value, string co
 
     contents = "#include <lib.h>\n\n";
     contents += "inherit LIB_DOOR;\n\n";
-    contents += "nosave void create() {\n";
+    contents += "protected void create() {\n";
     contents += "door::create();\n\n";
     if(cote) contents += this_object()->eventChangeDoor(door, property, value, cote)+"\n";
     else contents += this_object()->eventChangeDoor(door, property, value)+"\n";

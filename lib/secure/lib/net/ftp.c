@@ -74,14 +74,14 @@ private nosave mapping     dispatch  = ([
         "pwd"  : (: eventCmdPwd  :), "rmd"  : (: eventCmdRmd  :),
         ]);
 
-nosave void create(int fd, object owner){
+protected void create(int fd, object owner){
     socket::create(fd, owner);
     Session = new(class ftp_session);
     Session->cmdPipe = owner;
     Session->idleTime = 0;
 }
 
-nomask nosave int check_privs(string file, string oper) {
+nomask protected int check_privs(string file, string oper) {
     string nom, tmp;
     int x;
 

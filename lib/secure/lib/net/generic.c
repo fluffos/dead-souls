@@ -51,7 +51,7 @@ protected void close_callback(int fd){
     debug("I'm wanting to close fd"+fd+" now.");
 }
 
-nosave void read_callback(int fd, buffer data){
+protected void read_callback(int fd, buffer data){
     int i;
     string tmp="";
     debug("fd is: "+fd);

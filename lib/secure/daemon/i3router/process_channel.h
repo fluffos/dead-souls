@@ -6,7 +6,7 @@
 #define FILTER_D "/secure/daemon/filter"
 #endif
 
-nosave void process_channel(mixed fd, mixed *info){
+protected void process_channel(mixed fd, mixed *info){
     string mudname;
     string sendermsg, sendername, senderrealname, sendermud;
     string targetname, targetmud, targstr = "";
@@ -156,7 +156,7 @@ nosave void process_channel(mixed fd, mixed *info){
             trr(info[3]+"@"+info[2]+" failed to create the channel: "
                     +info[6]+ "because it has an invalid name.","red");
             return;
-        } 
+        }
         // check if other stuff is valid, like channel_type is 0,1,2
         if(!intp(info[7]) || (info[7] < 0 || info[7] > 2)){
             send_error(info[2],info[3],"not-allowed",
@@ -173,7 +173,7 @@ nosave void process_channel(mixed fd, mixed *info){
         // broadcast an update saying that this channel is added or changed now
         // chanlist-reply packet to everybody (who has a channel service?)
         broadcast_chanlist(info[6]);
-        SendList( ([ "channels" : ([ info[6] : channels[info[6]] ]), 
+        SendList( ([ "channels" : ([ info[6] : channels[info[6]] ]),
                 "listening" : ([]) ]),
                 0, "chanlist" );
         SaveObject(SAVE_ROUTER);
@@ -185,7 +185,7 @@ nosave void process_channel(mixed fd, mixed *info){
                     "Unknown channel: "+info[6],info);
             return;
         }
-        if(channels[info[6]][1] != info[2] && 
+        if(channels[info[6]][1] != info[2] &&
                 clean_fd(socket_address(fd)) != router_ip ){
             send_error(info[2],info[3],"not-allowed","Channel "+
                     info[6]+" owned by: "+channels[info[6]][1],info);
@@ -205,7 +205,7 @@ nosave void process_channel(mixed fd, mixed *info){
         case "admin":
         if(!stringp(info[4])) info[4] = this_object()->GetRouterName();
         // add/delete muds from the 2 lists...
-        if(channels[info[6]][1]!=info[2] && 
+        if(channels[info[6]][1]!=info[2] &&
                 clean_fd(socket_address(fd)) != router_ip ){
             send_error(info[2],info[3],"not-allowed","Channel "+
                     info[6]+" owned by: "+channels[info[6]][1],info);

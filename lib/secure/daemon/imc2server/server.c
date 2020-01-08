@@ -34,11 +34,11 @@ void create(){
     }
 }
 
-string clean_str(string str){ 
+string clean_str(string str){
     while(sizeof(str) && str[<1] < 32){
-        str = str[0..<2];           
-    }           
-    return str;       
+        str = str[0..<2];
+    }
+    return str;
 }
 
 mapping query_mudinfo(){
@@ -51,8 +51,8 @@ string imc2_name(string str){
 
 string i3_name(string str){
     string ret = replace_string((str || ""),"_"," ");
-    if(ROUTER_D->query_mudinfo()[str]) return str; 
-    if(ROUTER_D->query_mudinfo()[ret]) return ret; 
+    if(ROUTER_D->query_mudinfo()[str]) return str;
+    if(ROUTER_D->query_mudinfo()[ret]) return ret;
     return str;
 }
 
@@ -128,7 +128,7 @@ mapping string_to_mapping(string str){
             if(sscanf(rest,"%s %s",data,rest)!=2){ // break at first space                      data = rest;
                 rest = "";
             }
-            if( !data || ((sscanf(data,"%d",i)==1) 
+            if( !data || ((sscanf(data,"%d",i)==1)
                         && (sprintf("%d",i)==data)))//just number
                 out[what]=i;
             else // not just a number
@@ -155,7 +155,7 @@ mixed packetize(string str){
     if(whom && whom == "*") whom = 0;
     ret = ({ type, 5, src, who, i3_name(targ), whom, data });
     return ret;
-}    
+}
 
 mapping parse_info(string str){
     string url, versionid, host;
@@ -165,9 +165,9 @@ mapping parse_info(string str){
     if(sscanf(str,"%*surl=%s ", url)) ret["url"] = url;
     else if(sscanf(str,"%*surl=%s\n%*s", url)) ret["url"] = url;
     else if(sscanf(str,"%*surl=%s %*s", url)) ret["url"] = url;
-    if(sscanf(str,"%*sversionid=\"%s\"%*s", versionid)) 
+    if(sscanf(str,"%*sversionid=\"%s\"%*s", versionid))
         ret["versionid"] = versionid;
-    else if(sscanf(str,"%*sversionid=%s ", versionid)) 
+    else if(sscanf(str,"%*sversionid=%s ", versionid))
         ret["versionid"] = versionid;
     else if(sscanf(str,"%*sversionid=%s %*s", versionid))
         ret["versionid"] = versionid;
@@ -309,7 +309,7 @@ varargs void write_data(int fd, mixed data, int startack, float vers){
     if(ret) data = ret;
     if(!arrayp(data)) data = ({ data });
     if(!sstat || sstat[1] != "DATA_XFER" || !ssock || sstat[5] != ssock) return;
-    if(member_array(fd, keys(ROUTER_D->query_irn_sockets())) == -1){ 
+    if(member_array(fd, keys(ROUTER_D->query_irn_sockets())) == -1){
         int startup;
         string lfcr = "";
         if(sizeof(data) == 1){
@@ -369,7 +369,7 @@ varargs void write_data(int fd, mixed data, int startack, float vers){
     }
 }
 
-nosave void delayed_write(mixed data, int fd, string targetmud){
+protected void delayed_write(mixed data, int fd, string targetmud){
     string checkmud = ROUTER_D->query_connected_fds()[fd];
     if(checkmud != targetmud) return;
     foreach(mixed element in data){
@@ -436,7 +436,7 @@ varargs void construct_startup(mixed fd, mixed info, string client){
     }
     if(s3){
         sscanf(s3,"version=%f",vers);
-    } 
+    }
     if(undefinedp(vers)) vers = 2.0;
     trr("vers: "+identify(vers));
     if(!s5 && mudinfo[s1]) s5 = mudinfo[s1]["serverpass"];
@@ -447,11 +447,11 @@ varargs void construct_startup(mixed fd, mixed info, string client){
     if(!mudinfo[s1]){
         newmud = 1;
         trr("NEW MUD "+s1);
-        mudinfo[s1] = ([ "clientpass" : s2, "serverpass" : s5, 
+        mudinfo[s1] = ([ "clientpass" : s2, "serverpass" : s5,
                 "password" : random_numbers(9,1) ]);
     }
     else {
-        if(mudinfo[s1]["clientpass"] != s2){ 
+        if(mudinfo[s1]["clientpass"] != s2){
             trr("BAD PASSWORD! Wanted "+mudinfo[s1]["clientpass"]+
                     ", got: "+s2,"red");
             mudinfo[s1]["password"] = random_numbers(10,1);
@@ -486,7 +486,7 @@ varargs void construct_startup(mixed fd, mixed info, string client){
 
 #if CALL_OUT_COMPLETE_STARTUP
 nosave complete_startup(int fd, mixed packet, string s1, mixed other){
-    string checkmud = ROUTER_D->query_connected_fds()[fd]; 
+    string checkmud = ROUTER_D->query_connected_fds()[fd];
     if(checkmud){
         return;
     }
@@ -536,7 +536,7 @@ void read_callback(mixed fd, mixed info){
         construct_startup(fd, info);
         return;
     }
-    if(!packet || !mudinfo[packet[2]] || 
+    if(!packet || !mudinfo[packet[2]] ||
             ROUTER_D->query_connected_fds()[fd] != packet[2]){
         write_data(fd, "Your connection isn't registered as " +
                 (packet ? packet[2] : "anything at all"));
@@ -606,7 +606,7 @@ void read_callback(mixed fd, mixed info){
         string msg;
         //trr("trying to send tell");
         msg = replace_string(packet[6],"text=","");
-        ret = ({ "tell", 5, packet[2], packet[3], packet[4], 
+        ret = ({ "tell", 5, packet[2], packet[3], packet[4],
                 packet[5], packet[3], msg });
         ROUTER_D->read_callback(fd, ret);
         return;
@@ -639,7 +639,7 @@ void broadcast_data(mapping targets, mixed data){
     foreach(int *arr in unique_array(values(targets), (: $1 :))){
         //tc("arr[0]: "+identify(arr[0]));
         //if(!ssocket) tc("FUCK");
-        //else 
+        //else
         write_data(arr[0], data);
     }
     //if(ssocket) ssocket->broadcast_data(targets, data);

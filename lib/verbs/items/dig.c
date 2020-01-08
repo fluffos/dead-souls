@@ -12,7 +12,7 @@
 
 inherit LIB_VERB;
 
-nosave void eventDig(object who, object tool, object what, object check) {
+protected void eventDig(object who, object tool, object what, object check) {
     if( !who || check != environment(who) ) {
         return;
     }
@@ -23,7 +23,7 @@ nosave void eventDig(object who, object tool, object what, object check) {
     tool->eventDigWith(who, what);
 }
 
-varargs nosave void eventPrepareDig(object who, object tool, object what) {
+varargs protected void eventPrepareDig(object who, object tool, object what) {
     function f = (: eventDig($(who), $(tool), $(what), environment($(who))) :);
 
     if( this_player()->GetInCombat() ) {

@@ -24,7 +24,7 @@ protected void create() {
     SetClimate("indoors");
     SetAmbientLight(30);
     SetShort("Creators' Hall");
-    SetLong( (: LongDesc :) );
+    SetLong( LongDesc() );
     SetProperty("no attack", 1);
     SetProperty("nopeer",1);
     ob = new("/lib/bboard");
@@ -53,7 +53,7 @@ int CanReceive(object sneak) {
     object *living_stack = get_livings(sneak);
     if(!living_stack || !arrayp(living_stack)) living_stack = ({ sneak });
     foreach(object ob in living_stack){
-        if(living(ob) && !creatorp(ob) && 
+        if(living(ob) && !creatorp(ob) &&
                 base_name(ob) != "/domains/default/npc/tree" &&
                 base_name(ob) != "/secure/npc/arch_wraith" &&
                 base_name(ob) != "/domains/default/npc/drone3" &&

@@ -14,38 +14,38 @@
 inherit LIB_DAEMON;
 
 private string __Letter;
-private mapping __Folders; 
-private string *__Undeleted; 
+private mapping __Folders;
+private string *__Undeleted;
 nosave private string __LetterId;
-nosave private mapping __LettersDir, __PostalDir; 
+nosave private mapping __LettersDir, __PostalDir;
 nosave private mixed *__LetterPtr, *__PostalPtr;
 
-void create() { 
+void create() {
     string *tmp;
     int i;
 
     daemon::create();
     SetNoClean(1);
-    __Letter = ""; 
+    __Letter = "";
     __Folders = ([]);
-    __Undeleted = ({}); 
-    __LettersDir = ([]); 
-    __PostalDir = ([]); 
+    __Undeleted = ({});
+    __LettersDir = ([]);
+    __PostalDir = ([]);
     __LetterId = 0;
-    __LetterPtr = ({ 0, 0}); 
-    for(i=0; i<10; i++) { 
+    __LetterPtr = ({ 0, 0});
+    for(i=0; i<10; i++) {
         if(unguarded((: file_size, DIR_LETTERS+"/"+i :)) == -2)
             __LettersDir[i] = unguarded((: get_dir, DIR_LETTERS+"/"+i+"/", 0 :));
-    } 
+    }
     i = sizeof(tmp = unguarded((: get_dir, DIR_POSTAL+"/", 0 :)));
-    if(i) __PostalPtr = ({ tmp[0], 0 }); 
-    while(i--) { 
+    if(i) __PostalPtr = ({ tmp[0], 0 });
+    while(i--) {
         if(unguarded((: file_size, DIR_POSTAL+"/"+tmp[i] :)) == -2)
             __PostalDir[tmp[i]] = unguarded((: get_dir, DIR_POSTAL+"/"+tmp[i]+"/", 0 :));
-    } 
-} 
+    }
+}
 
-protected private int valid_access() {
+private int valid_access() {
     switch(base_name(previous_object(0))) {
         case OBJ_POST: case LETTERS_D: case FOLDERS_D:
         case LOCALPOST_D: case REMOTEPOST_D: case OPTIONS_D:
@@ -54,41 +54,41 @@ protected private int valid_access() {
     }
 }
 
-string create_letter(string str) { 
-    int tmp; 
-    string id, dir; 
+string create_letter(string str) {
+    int tmp;
+    string id, dir;
 
     if(!valid_access()) return "";
-    id = sprintf("%d", tmp = time()); 
-    dir = DIR_LETTERS+"/"+(tmp%10); 
+    id = sprintf("%d", tmp = time());
+    dir = DIR_LETTERS+"/"+(tmp%10);
     if(unguarded((: file_size, dir+"/" :)) != -2) unguarded((: mkdir, dir :));
     while(unguarded((: file_size, save_file(dir+"/"+id) :)) != -1)
                                                                 id = sprintf("%d", tmp += 10);
     __LetterId = id;
-    __Letter = str; 
+    __Letter = str;
     __Folders = ([]);
     save_letter();
-    return id; 
-} 
+    return id;
+}
 
-protected private void save_letter() { 
+private void save_letter() {
     string file;
     int x;
 
     x = strlen(__LetterId)-1;
-    file = sprintf("%s/%s/%s", DIR_LETTERS,__LetterId[x..x],__LetterId); 
+    file = sprintf("%s/%s/%s", DIR_LETTERS,__LetterId[x..x],__LetterId);
     SaveObject(file);
-} 
+}
 
-protected private int restore_letter(string id) { 
-    string dir; 
-    int x; 
+private int restore_letter(string id) {
+    string dir;
+    int x;
 
     if(id == __LetterId) return 1;
-    x = strlen(id) - 1; 
-    dir = DIR_LETTERS+"/"+id[x..x]; 
+    x = strlen(id) - 1;
+    dir = DIR_LETTERS+"/"+id[x..x];
     if(!unguarded((: file_exists, save_file(dir+"/"+id) :))) {
-        return 0; 
+        return 0;
     }
     RestoreObject(dir+"/"+id);
     __LetterId = id;
@@ -98,32 +98,32 @@ protected private int restore_letter(string id) {
         while(x--) __Folders[__Undeleted[x]] = ({ "new" });
         __Undeleted = 0;
         save_letter();
-    } 
-    return 1; 
-} 
+    }
+    return 1;
+}
 
-string query_letter(string id) { 
+string query_letter(string id) {
     string base;
 
     if((base = base_name(previous_object(0))) != OBJ_POST &&
             base != FOLDERS_D) return "Illegal access.";
-    if(!restore_letter(id)) return "Invalid message.\n"; 
-    return __Letter; 
-} 
+    if(!restore_letter(id)) return "Invalid message.\n";
+    return __Letter;
+}
 
 void delete_folder(string who, string folder, string id) {
-    string *tmp; 
+    string *tmp;
     string file;
-    int i; 
+    int i;
 
     if(!valid_access()) return;
-    if(!restore_letter(id)) return; 
+    if(!restore_letter(id)) return;
     if(!__Folders[who]) return;
     __Folders[who] -= ({ folder });
     if(!sizeof(__Folders[who])) map_delete(__Folders, who);
     save_letter();
-    i = sizeof(tmp = keys(__Folders)); 
-    while(i--) { 
+    i = sizeof(tmp = keys(__Folders));
+    while(i--) {
         file = save_file(DIR_POSTAL+"/"+tmp[i][0..0]+"/"+tmp[i]+"/postalrc");
         if(!user_exists(tmp[i])) {
             FOLDERS_D->delete_user(tmp[i]);
@@ -133,7 +133,7 @@ void delete_folder(string who, string folder, string id) {
             map_delete(__Folders, tmp[i]);
             save_letter();
         }
-    } 
+    }
     if(!sizeof(keys(__Folders))) {
         file = save_file(DIR_LETTERS+"/"+id[strlen(id)-1..strlen(id)-1]+
                 "/"+id);
@@ -149,44 +149,44 @@ void add_folder(string who, string folder, string id) {
     save_letter();
 }
 
-protected void manage_letters() { 
-    string str, ext, file; 
-    string *tmp; 
-    int x, i; 
+protected void manage_letters() {
+    string str, ext, file;
+    string *tmp;
+    int x, i;
 
     if(!(x = sizeof(keys(__LettersDir)))) return;
     if(__LetterPtr[1] >= sizeof(__LettersDir[__LetterPtr[0]])) {
         if(++__LetterPtr[0] >= x) __LetterPtr = ({ 0, 0 });
         else __LetterPtr[1] = 0;
     }
-    sscanf(__LettersDir[__LetterPtr[0]][__LetterPtr[1]], "%s.%s", str, ext); 
+    sscanf(__LettersDir[__LetterPtr[0]][__LetterPtr[1]], "%s.%s", str, ext);
     __LetterPtr[1]++;
-    if(!restore_letter(str)) { 
-        return; 
-    } 
-    i = sizeof(tmp = keys(__Folders)); 
-    while(i--) { 
+    if(!restore_letter(str)) {
+        return;
+    }
+    i = sizeof(tmp = keys(__Folders));
+    while(i--) {
         file = save_file(DIR_POSTAL+"/"+tmp[i][0..0]+"/"+tmp[i]);
-        if(!user_exists(tmp[i])) { 
+        if(!user_exists(tmp[i])) {
             FOLDERS_D->delete_user(tmp[i]);
             restore_letter(str);
-        } 
+        }
         else if(!unguarded((: file_exists, file :))) {
             map_delete(__Folders, tmp[i]);
             save_letter();
         }
-    } 
-    if(!sizeof(keys(__Folders))) { 
+    }
+    if(!sizeof(keys(__Folders))) {
         file = save_file(DIR_LETTERS+"/"+str[strlen(str)-1..strlen(str)-1]
                 +"/"+str);
         unguarded((: rm, file :));
     }
-} 
+}
 
-protected void manage_postal() { 
-    string pl, ext, file; 
+protected void manage_postal() {
+    string pl, ext, file;
     string *tmp;
-    int x, i; 
+    int x, i;
 
     if(!(x = sizeof(tmp = keys(__PostalDir)))) return;
     if(__PostalPtr[1] >= sizeof(__PostalDir[__PostalPtr[0]])) {
@@ -198,13 +198,13 @@ protected void manage_postal() {
         __PostalPtr[1]++;
         return;
     }
-    sscanf(__PostalDir[__PostalPtr[0]][__PostalPtr[1]], "%s.%s", pl, ext); 
+    sscanf(__PostalDir[__PostalPtr[0]][__PostalPtr[1]], "%s.%s", pl, ext);
     file = save_file(DIR_POSTAL+"/"+pl[0..0]+"/"+pl);
     if(!unguarded((: file_exists, file :))) {
         __PostalPtr[1]++;
-        return; 
-    } 
+        return;
+    }
     if(!user_exists(pl)) FOLDERS_D->delete_user(pl);
     else FOLDERS_D->check_folders(pl);
     __PostalPtr[1]++;
-} 
+}

@@ -22,6 +22,6 @@ mixed eventRemoveMember(object who, object targ);
 mixed eventRemoveParty(object who);
 object GetPartyLeader(string name);
 object *GetPartyMembers(string name);
-nosave void RemoveInvitiation(string name, object who);
+protected void RemoveInvitiation(string name, object who);
 
 #endif /* l_party_h */

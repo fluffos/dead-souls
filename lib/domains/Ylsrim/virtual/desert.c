@@ -13,7 +13,7 @@ nosave private int XPosition, YPosition;
 
 varargs void SetLongAndItems(int x, int y, int z);
 
-varargs nosave void create(int x, int y) {
+varargs protected void create(int x, int y) {
     string n, s, e, w;
 
     SetNoReplace(1);
@@ -56,14 +56,14 @@ varargs void SetLongAndItems(int x, int y, int z) {
     if( !random(50) ) {
         str += "  Burnt wood, scattered rocks and twigs, and other signs "
             "of an abandoned camp site are scattered about.";
-        AddItem( ({ "twigs", "sticks", "kindling", "wood", "burnt wood" }) , 
+        AddItem( ({ "twigs", "sticks", "kindling", "wood", "burnt wood" }) ,
                 "Though long since burnt to nothing, scattered kindling "
                 "and burnt wood lie about as a memory of travellers who have "
                 "passed through");
         if( random(2) ) {
             string thing;
 
-            foreach(thing in ({ "twigs", "sticks", "kindling", "wood" })) 
+            foreach(thing in ({ "twigs", "sticks", "kindling", "wood" }))
                 SetSearch(thing, function(object who, string str) {
                         object ob;
                         string thing2;
@@ -85,11 +85,11 @@ varargs void SetLongAndItems(int x, int y, int z) {
                         });
         }
     }
-    else if( !random(10) ) 
+    else if( !random(10) )
         SetSmell("default", "You smell a distant camp fire.");
     if( !random(25) )
         inv["/domains/Ylsrim"+ "/npc/traveller"] = random(3) + 1;
-    else if( !random(4) ) 
+    else if( !random(4) )
         SetListen("default", "You hear voices whispering in the distance.");
     SetLong(str);
     SetInventory(inv);

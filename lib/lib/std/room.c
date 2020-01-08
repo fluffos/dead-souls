@@ -813,7 +813,7 @@ string GetLong(){
     return GetInternalDesc();
 }
 
-string SetLong(string str){
+mixed SetLong(mixed str){
     return SetInternalDesc(str);
 }
 

@@ -30,7 +30,7 @@ private nosave class client Socket;
 varargs nosave int eventClose(class client sock, int aborted);
 protected void eventRead(mixed val);
 protected void eventSocketClose();
-nosave void eventSocketError(string str, int x);
+protected void eventSocketError(string str, int x);
 int eventWriteDestruct();
 
 function SetRead(function f) { return (Read = f); }
@@ -76,7 +76,7 @@ protected void eventAbortCallback(int fd) {
     eventClose(Socket, 1);
 }
 
-nosave void eventReadCallback(int fd, mixed val) {
+protected void eventReadCallback(int fd, mixed val) {
     if( functionp(Read) ) evaluate(Read, val);
     else eventRead(val);
 }
@@ -174,7 +174,7 @@ int eventWriteDestruct() {
     return eventDestruct();
 }
 
-nosave void eventSocketError(string str, int x) {
+protected void eventSocketError(string str, int x) {
     if( LogFile )
         log_file(LogFile, ctime(time()) + "\n" + socket_error(x) + "\n");
 }

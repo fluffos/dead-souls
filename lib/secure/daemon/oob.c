@@ -25,7 +25,7 @@ mixed globalvar, g1, g2;
 void StartServer();
 void StopServer();
 
-protected private void validate() {
+private void validate() {
     if( !(master()->valid_apply(({ "SECURE" }))) )
         error("Illegal attempt to access OOB_D: "+get_stack()+" "+identify(previous_object(-1)));
 }

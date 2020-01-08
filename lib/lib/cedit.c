@@ -8,7 +8,7 @@ private nosave mapping FileData = ([]);
 private nosave mapping ScreenData = ([]);
 
 nosave int *GetScreen(){ return ({ 79, 24 }); }
-private protected int ReceiveChars(string c);
+private int ReceiveChars(string c);
 
 void create(){
     mixed tmp = GetScreen();
@@ -49,7 +49,7 @@ varargs int StatReport(string str){
         str = "screen: "+ScreenData["row"]+","+ScreenData["col"]+
             " file: "+((FileData["topline"]+ScreenData["row"])-1)+
             ","+ScreenData["col"]+", topline: "+FileData["topline"];
-#else 
+#else
         str = "line: "+((FileData["topline"]+ScreenData["row"])-1)+
             " col: "+ScreenData["col"]+" file: "+ FileData["file"];
 #endif
@@ -98,7 +98,7 @@ varargs int RedrawScreen(int topline){
 }
 
 protected int UpdateScreen(){
-    if(ScreenData["row"] > (ScreenData["maxrow"] - 1)){ 
+    if(ScreenData["row"] > (ScreenData["maxrow"] - 1)){
         if(!ScreenData["goto"] && !ScreenData["searching"])
             ScreenData["row"] = (ScreenData["maxrow"] - 1);
         if(FileData["topline"] < sizeof(FileData["map"])){
@@ -106,7 +106,7 @@ protected int UpdateScreen(){
             RedrawScreen(FileData["topline"]);
         }
     }
-    if(ScreenData["row"] < 1){ 
+    if(ScreenData["row"] < 1){
         ScreenData["row"] = 1;
         FileData["topline"]--;
         if(FileData["topline"] < 1){
@@ -114,9 +114,9 @@ protected int UpdateScreen(){
         }
         RedrawScreen(FileData["topline"]);
     }
-    if(ScreenData["col"] > ScreenData["maxcol"]) 
+    if(ScreenData["col"] > ScreenData["maxcol"])
         ScreenData["col"] = ScreenData["maxcol"];
-    if(ScreenData["col"] < 1) 
+    if(ScreenData["col"] < 1)
         ScreenData["col"] = 1;
     if(ScreenData["col"] > sizeof(FileData["map"][(ScreenData["row"] +
                     FileData["topline"]) - 1])){
@@ -124,12 +124,12 @@ protected int UpdateScreen(){
                     FileData["topline"]) - 1])+1; /* lol */
         if(ScreenData["col"] < 1) ScreenData["col"] = 1;
     }
-    receive("\r\e["+ScreenData["row"]+";"+ScreenData["col"]+"H"); 
+    receive("\r\e["+ScreenData["row"]+";"+ScreenData["col"]+"H");
     StatReport();
 }
 
 protected varargs int CeditCollate(int x){ /* when lines need to be resorted */
-    int i; 
+    int i;
     string tmp = "";
     string *lns = sort_array(keys(FileData["map"]), 1);
     if(!sizeof(lns)) return 0;
@@ -163,7 +163,7 @@ protected varargs int CeditSave(string file){
 #if CED_DISABLED
     StatReport("This alpha editor is not yet in shape to save files.");
 #else
-    i = write_file(FileData["file"],ret,1); 
+    i = write_file(FileData["file"],ret,1);
 #endif
     return i;
 }
@@ -190,7 +190,7 @@ protected int rBackspace(){
     }
     ScreenData["charbuffer"] = "";
     ScreenData["backspace"] = 0;
-} 
+}
 
 protected int rEnter(){
     if(!ScreenData["sessionbuffer"]) ScreenData["sessionbuffer"] = "";
@@ -234,7 +234,7 @@ protected int rEnter(){
         int line = atoi(ScreenData["charbuffer"]);
         if(line && FileData["map"][line]){
             ScreenData["report"] = "Going to "+ScreenData["charbuffer"];
-            top = line - ScreenData["pregoto"][0]; 
+            top = line - ScreenData["pregoto"][0];
             if(top < 1) top = 1;
             FileData["topline"] = top;
             ScreenData["row"] = (ScreenData["pregoto"][0]) + 1;
@@ -320,7 +320,7 @@ protected int rAscii(string c){
         receive("\r\e[2K");
         if(FileData["map"][row]) receive(FileData["map"][row]);
         ScreenData["col"]++;
-        receive("\r\e["+ScreenData["row"]+";"+ScreenData["col"]+"H"); 
+        receive("\r\e["+ScreenData["row"]+";"+ScreenData["col"]+"H");
         ScreenData["charbuffer"] = "";
     }
     return 1;
@@ -488,14 +488,14 @@ protected int rArrow(string str){
     switch(str){
         int lasty;
         case "up" : ScreenData["row"]--; break;
-        case "down" : 
+        case "down" :
                     if((ScreenData["row"] > (ScreenData["maxrow"] - 2) )){
                         lasty = sort_array(keys(FileData["map"]), 1)[<1];
                         if((FileData["topline"] > (lasty - ScreenData["maxrow"]) + 1)){
                             break;
                         }
                     }
-                    ScreenData["row"]++; 
+                    ScreenData["row"]++;
                     break;
         case "left" : ScreenData["col"]--; break;
         case "right" : ScreenData["col"]++; break;

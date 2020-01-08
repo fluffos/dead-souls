@@ -4,7 +4,7 @@ void check_discs();
 string *banned_muds = ({});
 mapping bad_connects = ([]);
 
-nosave void process_startup_req(int protocol, mixed info, int fd){
+protected void process_startup_req(int protocol, mixed info, int fd){
     // Handles startup stuff.
     //  Loads info into newinfo mapping.
     //  Error if mud is already connected.
@@ -55,7 +55,7 @@ nosave void process_startup_req(int protocol, mixed info, int fd){
         }
     }
 
-    if(sizeof(info)<18){ 
+    if(sizeof(info)<18){
         // smallest protocol is protocol 1/2 which have size 18
         write_data(fd,({
                     "error",
@@ -209,7 +209,7 @@ nosave void process_startup_req(int protocol, mixed info, int fd){
                         info
                         }));
 
-            //This message to the already-connected mud serves 
+            //This message to the already-connected mud serves
             //to alert the legit mud that something may be wrong, and
             //also will trigger a closure of the socket if it turns out
             //to actually be in a zombie state.
@@ -220,8 +220,8 @@ nosave void process_startup_req(int protocol, mixed info, int fd){
                         0,
                         info[2], // mud name
                         0,
-                        "bad-mojo", 
-                        "Another mud is trying to be you.", 
+                        "bad-mojo",
+                        "Another mud is trying to be you.",
                         ({ explode(socket_address(fd)," ")[0], info[12], info[13], info[17], info[9] })
                         }));
             return;

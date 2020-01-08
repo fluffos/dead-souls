@@ -19,7 +19,7 @@ string Name, Myname;
 nosave int verbose = 0;
 nosave private int icp_socket;
 
-varargs nosave void yenta(string arg, string clr){
+varargs protected void yenta(string arg, string clr){
     if(verbose){
         debug_message(arg);
     }
@@ -212,7 +212,7 @@ mapping GetInstData(){
     return ret;
 }
 
-nosave void SendData(mixed fd, mixed data){
+protected void SendData(mixed fd, mixed data){
     int* targets = ({});
     if(stringp(fd) && !undefinedp(InstData[fd])) fd = InstData[fd]["fd"];
     if(fd == -2) return;
@@ -289,7 +289,7 @@ varargs void SendTell(string who, string msg, string interwho){
     SendData(-1, ({ "tell", 5, Myname, sender, 0, who, vname, msg }) );
 }
 
-nosave void ProcessStartup(mixed data, string addy, int port, int fd){
+protected void ProcessStartup(mixed data, string addy, int port, int fd){
     string name = data[2];
     InstData[name] = ([]);
     InstData[name]["addy"] = addy;
@@ -348,7 +348,7 @@ string GetName(){
     return Name;
 }
 
-nosave void ReceiveICPData(mixed data, string addy, int port, int fd){
+protected void ReceiveICPData(mixed data, string addy, int port, int fd){
     string name;
     if(!arrayp(data)){
         return;
@@ -469,7 +469,7 @@ protected void listen_callback(int fd){
     }
 }
 
-nosave void read_callback(int fd, mixed info){
+protected void read_callback(int fd, mixed info){
     mixed sstat;
     string addy;
     int port;
@@ -504,7 +504,7 @@ protected void write_callback(int fd){
     }
 }
 
-nosave void write_data_retry(int fd, mixed data, int counter){
+protected void write_data_retry(int fd, mixed data, int counter){
     int rc;
     int maxtry = 20;
     if(fd < 0) return;

@@ -20,7 +20,7 @@ inherit LIB_HELP;
 
 mapping LocationsMap = ([]);
 
-varargs nosave int eventUpdate(string args, int flags, string virt);
+varargs protected int eventUpdate(string args, int flags, string virt);
 
 protected void CacheAndCarry(object *obs){
     if(!sizeof(obs)) return;
@@ -31,7 +31,7 @@ protected void CacheAndCarry(object *obs){
     }
 }
 
-nosave void ReturnAndRelease(object *dudes, string file){
+protected void ReturnAndRelease(object *dudes, string file){
     if(!sizeof(dudes)) return;
     if(!file) return;
     dudes->eventMove(file);
@@ -67,7 +67,7 @@ mixed cmd(string args) {
                 case "-e" : flags |= U_INTERACTIVE; break;
                 case "-a" : flags |= U_AUTOMATED; break;
                 default: args += " " + foo;
-            }   
+            }
         }
     }
     if( args == "" || !args ) {
@@ -118,7 +118,7 @@ mixed cmd(string args) {
     return 1;
 }
 
-varargs nosave int eventUpdate(string args, int flags, string virt) {
+varargs protected int eventUpdate(string args, int flags, string virt) {
     object ob;
     string tmp;
 
@@ -129,15 +129,15 @@ varargs nosave int eventUpdate(string args, int flags, string virt) {
         if( !eventUpdate(args, flags ^ U_RECURSIVE) ) return 0;
         if( !(ob = find_object(args)) ) return 0;
         ancestors = deep_inherit_list(ob);
-        if(this_player() && (flags & U_RECURSIVE) && !(flags & U_AUTOMATED))  
+        if(this_player() && (flags & U_RECURSIVE) && !(flags & U_AUTOMATED))
             this_player()->eventPrint("(%^CYAN%^Recursive "
                 "update: " + args + "%^RESET%^)\n");
         i = sizeof(ancestors);
         while(i--) if( !eventUpdate(ancestors[i], flags ^ U_RECURSIVE) ) {
-            if(this_player()) 
+            if(this_player())
                 this_player()->eventPrint("Recursive update failed.");
             return 0;
-        }        
+        }
     }
     if( args[<2..] == ".c" ) args = args[0..<3];
     if(virt){
@@ -169,7 +169,7 @@ varargs nosave int eventUpdate(string args, int flags, string virt) {
     }
     tmp = catch(call_other(args, "???"));
     if(this_player() && !(flags & U_AUTOMATED) ){
-        if( !tmp ) 
+        if( !tmp )
             this_player()->eventPrint(args + ": Ok");
         else this_player()->eventPrint(args + ": Error in update\n" + tmp);
     }

@@ -9,34 +9,34 @@ int x;
 
 void create() {
     room::create();
-    SetProperties( ([ "light":2, "indoors":1, "no attack":1, 
+    SetProperties( ([ "light":2, "indoors":1, "no attack":1,
                 "no teleport":1, "no steal":1, "no magic":1 ]) );
     SetShort("%^MAGENTA%^%^BOLD%^In the volcano%^RESET%^");
     SetLong(
             "You are standing on a wide, circular platform, surrounded on "
             "all sides by %^RED%^bubbling lava%^RESET%^.  The platform floats "
             "above the pool of lava at a safe distance, yet close enough for "
-            "you to feel the heat as the lava sometimes flares upward. " 
+            "you to feel the heat as the lava sometimes flares upward. "
             "The platform is decorated with %^MAGENTA%^floating lights "
-            "%^RESET%^of %^BLUE%^varying %^ORANGE%^hues and %^RESET%^size. " 
+            "%^RESET%^of %^BLUE%^varying %^ORANGE%^hues and %^RESET%^size. "
             "Tables with refreshments have also been placed near the edges of "
             "the platform. ");
-    SetItems( 
+    SetItems(
             ([
              ({"platform", "wide platform", "circular platform"}) :
              "The platform floats "
              "above the pool of lava at a safe distance, yet close enough for "
-             "you to feel the heat as the lava sometimes flares upward. " 
+             "you to feel the heat as the lava sometimes flares upward. "
              "The platform is decorated with %^MAGENTA%^floating lights "
-             "%^RESET%^of %^BLUE%^varying %^ORANGE%^hues and %^RESET%^size. " 
-             "Tables with refreshments have also been placed near the " 
+             "%^RESET%^of %^BLUE%^varying %^ORANGE%^hues and %^RESET%^size. "
+             "Tables with refreshments have also been placed near the "
              "edges of the platform. ",
-             ({"sides", "side", "edges", "edge"}) : 
-             "The platform is surrounded on all sides by "    
+             ({"sides", "side", "edges", "edge"}) :
+             "The platform is surrounded on all sides by "
              "%^RED%^bubbling lava.%^RESET%^",
 
-             ({"pool", "pool of lava", "lava", "bubbling lava"}) : 
-             (:this_object(), "look_lava":),       
+             ({"pool", "pool of lava", "lava", "bubbling lava"}) :
+             (:this_object(), "look_lava":),
 
              ({"lights", "light", "floating lights", "floating light"}) :
              (:this_object(), "look_lights":),
@@ -69,7 +69,7 @@ void start_party(string msg) {
     call_out("deny_entry", 120);
 }
 
-nosave void deny_entry() { __EntryAllowed = 0; }
+protected void deny_entry() { __EntryAllowed = 0; }
 
 int query_party_time() { return __PartyTime; }
 
@@ -77,7 +77,7 @@ int query_entry_allowed() { return __EntryAllowed; }
 
 string look_lava(string unused)
 {
-    x=random(3)+1;   
+    x=random(3)+1;
 
     if(x==1)
     {
@@ -123,29 +123,29 @@ string look_lights(string unused)
     if(x==1)
     {
         return(
-                "A pretty %^YELLOW%^yellow%^RESET%^ orb drifts near to you and casts " 
+                "A pretty %^YELLOW%^yellow%^RESET%^ orb drifts near to you and casts "
                 "a cheery glow on you. ");
     }
 
     if(x==2)
     {
         return(
-                "A pretty %^BLUE%^blue%^RESET%^ orb drifts near to you and casts " 
+                "A pretty %^BLUE%^blue%^RESET%^ orb drifts near to you and casts "
                 "a mellow glow on you. ");
     }
 
     if(x==3)
     {
         return(
-                "A pretty %^MAGENTA%^purple%^RESET%^ orb drifts near to you and casts " 
-                "a purple glow over your body. "); 
+                "A pretty %^MAGENTA%^purple%^RESET%^ orb drifts near to you and casts "
+                "a purple glow over your body. ");
     }
 
     if(x==4)
     {
         return(
-                "A pretty %^RED%^red%^RESET%^ orb drifts near to you and casts " 
-                "a rosy glow over your body. "); 
+                "A pretty %^RED%^red%^RESET%^ orb drifts near to you and casts "
+                "a rosy glow over your body. ");
     }
 }
 
@@ -182,7 +182,7 @@ int cmd_pour(string str) {
     //    ob->SetLong("A nice drink created by "+
     //      this_player()->query_cap_name()+".");
     //    ob->SetStrength(random(30)+2);
-    //    ob->set_drink("$N drink $O.", 
+    //    ob->set_drink("$N drink $O.",
     //      "$N drinks $O poured by "+this_player()->query_cap_name()+".");
     //    this_player()->add_hp(-2);
     //    if(ob->move(this_player())) {

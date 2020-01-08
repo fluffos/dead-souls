@@ -36,7 +36,7 @@ nosave string SaveFile;
 mapping ExtraInfo();
 void ConvertLists();
 int GetStatus(string mud);
-nosave mixed SetStatus(string mud, int status);
+protected mixed SetStatus(string mud, int status);
 
 protected void create(){
     client::create();
@@ -374,7 +374,7 @@ string GetMudName(string mud){
     else return uc[x];
 }
 
-nosave mixed SetStatus(string mud, int status){
+protected mixed SetStatus(string mud, int status){
     mapping mlist = copy(MudList["List"]);
     mixed* newmud = ({});
     if(!sizeof(newmud = mlist[mud])) return 0;
@@ -521,7 +521,7 @@ void eventWrite(mixed val){
     }
 }
 
-nosave void eventSocketError(string str, int x) {
+protected void eventSocketError(string str, int x) {
     //debug_message(timestamp()+" i3 "+socket_error(x) + "\n");
     if(query_os_type() == "windows" && grepp(socket_error(x), "Problem with connect")){
         load_object("/secure/cmds/admins/mudconfig")->cmd("intermud disable");

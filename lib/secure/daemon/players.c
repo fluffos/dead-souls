@@ -287,7 +287,7 @@ string *eventDecre(string str){
     return players + ({});
 }
 
-nosave int AutoAdvance(object ob, int level){
+int AutoAdvance(object ob, int level){
     int ret;
     ob->ChangeLevel(level);
     ret = ob->GetLevel();
@@ -645,7 +645,7 @@ mixed GetPlayerData(string player, string val){
 }
 
 string* GetAdminIPs(){
-    string* ret_array, name_array, line_array;
+    string* ret_array, *name_array, *line_array;
     string config_file;
     config_file = read_file(CFG_GROUPS);
     line_array = explode(config_file, "\n");
@@ -725,7 +725,7 @@ string GetHomeRoom(string name){
     return ret;
 }
 
-nosave void UserUpdate(string name, int status){
+void UserUpdate(string name, int status){
     object ob = find_player(name);
     if(member_array(name, local_users()) != -1) status = 1;
     else if(ob && !interactive(ob)) status = -1;

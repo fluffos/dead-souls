@@ -2,7 +2,7 @@
 #define l_history_h
 
 protected string eventHistory(string str);
-nomask private protected string Push(string cmd);
+nomask private string Push(string cmd);
 private string GetHistory(mixed val);
 
 /* pure abstract */ varargs int eventPrint(string msg, int cl);

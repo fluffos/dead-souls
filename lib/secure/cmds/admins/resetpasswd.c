@@ -6,7 +6,7 @@
 inherit LIB_DAEMON;
 
 protected void NewPass(string pass);
-nosave void ConfirmPass(string str, string newpass);
+protected void ConfirmPass(string str, string newpass);
 
 string savefile;
 
@@ -71,7 +71,7 @@ protected void NewPass(string pass) {
     input_to( (: ConfirmPass :), I_NOECHO | I_NOESC, pass);
 }
 
-nosave void ConfirmPass(string str, string newpass) {
+protected void ConfirmPass(string str, string newpass) {
     string *lines;
     if( str != newpass ) {
         this_player()->eventPrint("Passwords do not match.", MSG_SYSTEM);

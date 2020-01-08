@@ -14,9 +14,9 @@ mapping Directions = ([ 0 : "north", 1 : "east", 2 : "south",
         8 : "southeast", 9 : "southwest", 10 : "somewhere" ]);
 mapping Types = ([ 1 : "LIB_ITEM", 2 : "LIB_ITEM", 3 : "LIB_ITEM", 4 : "LIB_ITEM",
         5 : "LIB_ITEM", 6 : "LIB_ITEM", 7 : "LIB_ITEM", 8 : "LIB_ITEM", 9 : "LIB_ARMOR", 10 : "LIB_POTION",
-        11 : "LIB_ITEM", 12 : "LIB_BED", 13 : "LIB_ITEM", 14 : "LIB_ITEM", 15 : "LIB_STORAGE", 
+        11 : "LIB_ITEM", 12 : "LIB_BED", 13 : "LIB_ITEM", 14 : "LIB_ITEM", 15 : "LIB_STORAGE",
         16 : "LIB_ITEM", 17 : "LIB_MEAL", 18 : "LIB_ITEM", 19 : "LIB_MEAL", 20 : "LIB_PILE",
-        21 : "LIB_ITEM", 22 : "LIB_ITEM", 23 : "LIB_ITEM", 24 : "LIB_ITEM", 25 : "LIB_ITEM", 
+        21 : "LIB_ITEM", 22 : "LIB_ITEM", 23 : "LIB_ITEM", 24 : "LIB_ITEM", 25 : "LIB_ITEM",
         26 : "LIB_ITEM", 44 : "LIB_ITEM" ]);
 string gdirection, cle, val;
 int item_type, extra_flags, wear_flags;
@@ -164,7 +164,7 @@ int ConvertArea(string arg){
 
         header += "#include <lib.h>\n\n";
         header += "inherit "+(Types[item_type] || "LIB_ITEM")+";\n\n";
-        header += "nosave void create() {\n";
+        header += "protected void create() {\n";
         header += "    ::create();\n";
         header += "    SetKeyName(\""+ob_name+"\");\n";
         header += "    SetId( "+identify(ob_id)+" );\n";
@@ -225,7 +225,7 @@ int ConvertArea(string arg){
 
             header += "#include <lib.h>\n\n";
             header += "inherit LIB_SENTIENT;\n\n";
-            header += "nosave void create(){\n";
+            header += "protected void create(){\n";
             header += "    ::create();\n";
             header += "    SetKeyName(\""+ob_name+"\");\n";
             header += "    SetId( "+identify(ob_id)+" );\n";

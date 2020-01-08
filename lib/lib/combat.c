@@ -138,7 +138,7 @@ object GetCurrentEnemy(){
     return CurrentEnemy;
 }
 
-private protected void SortEnemies(){
+private void SortEnemies(){
     if( !sizeof(Enemies = filter(Enemies, (: ($1 && living($1)) :))) ){
         Hostiles = ({});
         CurrentEnemy = 0;

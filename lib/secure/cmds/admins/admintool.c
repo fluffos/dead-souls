@@ -4,7 +4,7 @@
 
 inherit LIB_DAEMON;
 
-protected private void validate() {
+private void validate() {
     if(!this_player()) return 0;
     if( !(master()->valid_apply(({ "ASSIST" }))) )
         error("Illegal attempt to access admintool: "+get_stack()+" "+identify(previous_object(-1)));

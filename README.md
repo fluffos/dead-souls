@@ -1,5 +1,12 @@
-		      The Dead Souls 2 Mud Library
-		         Released December 2005
+# The Dead Souls 3.8.6 with FluffOS v2019
+
+## Current status
+
+WIP
+
+## Old README content
+
+Originally Released December 2005
 
 GENERAL FAQ: http://dead-souls.net/ds-faq.html
 

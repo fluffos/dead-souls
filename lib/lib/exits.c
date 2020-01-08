@@ -185,7 +185,7 @@ string GetDirection(string dest){
 
 object GetDummyItem(mixed id){
     int i;
-    object* dummies,all_inv;
+    object* dummies, *all_inv;
 
     all_inv=all_inventory();
     dummies = ({});

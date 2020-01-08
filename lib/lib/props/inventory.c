@@ -5,13 +5,13 @@ private nosave int counter = 0;
 
 protected void eventLoadInventory();
 
-nosave void eventLoadItem(string file, mixed args, int count);
+protected void eventLoadItem(string file, mixed args, int count);
 
 mapping GetInventory(){
     return Inventory;
 }
 
-nosave void eventLoadItem(string file, mixed args, int count){
+protected void eventLoadItem(string file, mixed args, int count){
     object ob;
     int u;
 
@@ -42,7 +42,7 @@ nosave void eventLoadItem(string file, mixed args, int count){
 
 protected void eventLoadInventory(){
     int filtersize, i;
-    object* stuff,items,tmp;
+    object* stuff, *items, *tmp;
 
     stuff=all_inventory(this_object());
     items = ({});

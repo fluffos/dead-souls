@@ -8,7 +8,7 @@
 #include "include/combatmsg.h"
 
 nosave mixed GetMissData(object targ, int type, string limb){
-    string targ_name = targ->GetName(); 
+    string targ_name = targ->GetName();
 
     if(targ->GetDead() || this_object()->GetDead()) return 0;
 
@@ -47,7 +47,7 @@ nosave mixed GetMissData(object targ, int type, string limb){
             return ({ "%s totally %s %s.",
                     ({ "You", "miss", targ_name }),
                     ({ GetName(), "misses", "you" }),
-                    ({ GetName(), "misses", targ_name }) });   
+                    ({ GetName(), "misses", targ_name }) });
     }
     else {
         string pos = possessive_noun(this_object());
@@ -92,7 +92,7 @@ nosave mixed GetMissData(object targ, int type, string limb){
     return 0;
 }
 
-nosave void eventSendMissMessages(object target, int x, string limb){
+protected void eventSendMissMessages(object target, int x, string limb){
     mixed data;
     object env = room_environment();
 
@@ -102,7 +102,7 @@ nosave void eventSendMissMessages(object target, int x, string limb){
     if( sizeof(data) != 4 ) return;
     this_object()->eventPrint(sprintf(data[0], data[1]...));
     target->eventPrint(sprintf(data[0], data[2]...), ({ this_object() }));
-    env->eventPrint(sprintf(data[0], data[3]...), 
+    env->eventPrint(sprintf(data[0], data[3]...),
             ({ this_object(), target }) );
 }
 
@@ -154,7 +154,7 @@ varargs void SendMeleeMessages(object target, int x, string targlimb, string lim
     if( sizeof(ptr) > 1 && i = sizeof(ptr[1]) )
         adverb = (ptr[1][ random(i) ] + " in");
     else adverb = "in";
-    if( moves = GetCombatMove("melee", 
+    if( moves = GetCombatMove("melee",
                 this_object()->GetSkillLevel("melee attack")) ){
         verb[0] = moves[0] + " and " + verb[0];
         verb[1] = moves[1] + " and " + verb[1];
@@ -166,7 +166,7 @@ varargs void SendMeleeMessages(object target, int x, string targlimb, string lim
     target->eventPrint(sprintf("%s %s you %s your %s with %s %s.",
                 GetName(), verb[1], adverb, targlimb, possessive(this_object()), limb), ({ this_object() }));
     env->eventPrint(sprintf("%s %s %s %s the %s with %s %s.",
-                GetName(), verb[1], target->GetName(), adverb, targlimb, 
+                GetName(), verb[1], target->GetName(), adverb, targlimb,
                 possessive(this_object()), limb), ({ target, this_object() }) );
     flush_messages();
 }
@@ -195,7 +195,7 @@ varargs void SendWeaponMessages(object target, int x, object weapon, string limb
     if( sizeof(ptr) > 1 && i = sizeof(ptr[1]) )
         adverb = (ptr[1][ random(i) ] + " in");
     else adverb = "in";
-    if( moves = GetCombatMove(type, 
+    if( moves = GetCombatMove(type,
                 this_object()->GetSkillLevel(type + " attack")) ){
         verb[0] = moves[0] + " and " + verb[0];
         verb[1] = moves[1] + " and " + verb[1];

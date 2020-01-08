@@ -109,7 +109,7 @@ mixed do_steal_obs_from_liv(mixed *res, object liv) {
     return 1;
 }
 
-nosave void eventSteal(object who, mixed what, object target) {
+protected void eventSteal(object who, mixed what, object target) {
     if(objectp(what) && what->GetProperty("no steal")){
         write("That item cannot be stolen.");
         return;

@@ -157,7 +157,7 @@ int refreshlist(){
     return 1;
 }
 
-int eventTurnOff(){
+int eventTurnOff(mixed arg){
     if( active == 0 ){
         write("Jennybot is already inactive.");
     }
@@ -172,7 +172,7 @@ int eventTurnOff(){
     return 1;
 }
 
-int eventTurnOn(){
+int eventTurnOn(mixed arg){
     if(!ob) ob = this_object();
     player=this_player();
     name=this_player()->GetName();

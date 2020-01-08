@@ -12,7 +12,7 @@ inherit LIB_DAEMON;
 
 nosave private int *__SortFlags;
 
-protected private string query_people_time();
+private string query_people_time();
 private string calculateFormatString(int screenSize);
 object *whom, *who, *display;
 string *args;
@@ -85,7 +85,7 @@ int cmd(string str) {
         if(uflag) display += filter(who, "filter_undead", this_object());
         display = distinct_array(display);
     }
-    if(!eflag && !gflag && !lflag && !rflag && !sflag) 
+    if(!eflag && !gflag && !lflag && !rflag && !sflag)
         maxi = sizeof(display=sort_array(display,"general_sort",this_object()));
     else {
         __SortFlags = ({ eflag, gflag, lflag, rflag, sflag });
@@ -148,7 +148,7 @@ nosave int general_sort(object alpha, object beta) {
 
     if(archp(alpha)) {
         if(!archp(beta)) return -1;
-        else return strcmp(GetBaseName(alpha), 
+        else return strcmp(GetBaseName(alpha),
                 GetBaseName(beta));
     }
     else if(archp(beta)) return 1;
@@ -190,7 +190,7 @@ nosave int special_sort(object alpha, object beta) {
         }
     }
     if(__SortFlags[3]) {
-        if((a = file_name(room_env(alpha))) != 
+        if((a = file_name(room_env(alpha))) !=
                 (b = file_name(room_env(beta)))) return strcmp(a, b);
     }
     if(__SortFlags[2]) {
@@ -258,14 +258,14 @@ nosave string map_info(object ob, string formatString) {
     if(ip == "0.0.0.0" || ip == "w.x.y.z") ip = "";
     if(!room_env(ob)) env = "no environment";
     else env = file_name(room_env(ob));
-    if(!strsrch(env, REALMS_DIRS)) 
+    if(!strsrch(env, REALMS_DIRS))
         env = "~" + env[strlen(REALMS_DIRS)+1..];
     else if(!strsrch(env, DOMAINS_DIRS))
         env = "^"+env[strlen(DOMAINS_DIRS)+1..strlen(env)-1];
     return sprintf(formatString, age, lev, nom, ip, idle, blk, env);
 }
 
-protected private string query_people_time() {
+private string query_people_time() {
     string tzone;
     if(this_player()) tzone = this_player()->GetProperty("timezone");
     if(!tzone || !valid_timezone(tzone)) tzone = query_tz();

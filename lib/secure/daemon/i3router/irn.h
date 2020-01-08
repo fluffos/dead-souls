@@ -43,7 +43,7 @@ nosave mapping chan_conv = ([
 mapping irn_connections = ([]);
 mapping irn_sockets = ([]);
 
-nosave void write_data(int fd, mixed data);
+protected void write_data(int fd, mixed data);
 nosave varargs void SendList(mixed data, int fd, string type);
 varargs void SendWholeList(int fd,string type);
 protected void begin_socket_handoff(int i);
@@ -86,7 +86,7 @@ void irn_checkstat(){
             map_delete(irn_sockets, key);
         }
 
-        if(!irn_connections[val["name"]] || 
+        if(!irn_connections[val["name"]] ||
                 irn_connections[val["name"]]["fd"] != key){
             trr("IRN checkstat: there is a conflicted record in irn_sockets.");
         }
@@ -96,7 +96,7 @@ void irn_checkstat(){
         if(!PingMap) PingMap = ([]);
         if(!key ||!sizeof(key)|| !val) continue;
 
-        if(irn_ping_enabled && key != my_name && 
+        if(irn_ping_enabled && key != my_name &&
                 (time() - PingMap[key]) > irn_timeout ){
             trr("IRN ping timeout for "+key+"!","red");
             trr("Last ping was "+time_elapsed(time() - PingMap[key])+" ago.");
@@ -159,7 +159,7 @@ void irn_checkstat(){
         trr("expected "+(sizeof(routers) -1)+" connections, "+identify(routers));
         trr("got: "+sizeof(irn_connections)+", "+identify(irn_connections));
         foreach(string key, mixed val in routers){
-            if(key != my_name && 
+            if(key != my_name &&
                     member_array(key, keys(irn_connections)) == -1){
                 stragglers += ({ key });
             }
@@ -187,7 +187,7 @@ void check_desync(){
         }
     }
 }
-        
+
 nosave int GoodPeer(int fd, mixed data){
     string ip = explode(socket_address(fd)," ")[0];
     if(!irn_enabled) return 0;
@@ -229,7 +229,7 @@ varargs nosave int ValidatePeer(int fd, mixed data, int outbound){
         server_log("ok_ips: "+identify(ok_ips));
         return 0;
     }
-    if(!arrayp(data) || sizeof(data) < 5){ 
+    if(!arrayp(data) || sizeof(data) < 5){
         trr("IRN ValidatePeer: bad packet");
         return 0;
     }
@@ -291,7 +291,7 @@ protected string id_mud(int fd){
         foreach(string key, mixed val in routers){
             if(!key || !sizeof(key)) continue;
             if(key == my_name){
-                continue;         
+                continue;
             }
         }
         SaveObject(SAVE_ROUTER);
@@ -350,7 +350,7 @@ varargs void irn_setup(int clear, string whom){
         }
         trr("About to try connecting to: "+identify(name));
 
-        tmp_fd = socket_create(MUD, "irn_read_callback","irn_close_callback"); 
+        tmp_fd = socket_create(MUD, "irn_read_callback","irn_close_callback");
         if(tmp_fd < 0){
             trr("irn: Couldn't create socket. errorcode: "+socket_error(tmp_fd));
             return;
@@ -436,7 +436,7 @@ protected void irn_close_callback(int fd){
     trr("I'm wanting to close "+id_mud(fd)+" on fd"+fd+" now.");
 }
 
-nosave void irn_read_callback(int fd, mixed data){
+protected void irn_read_callback(int fd, mixed data){
     int i;
     string tmp="";
     mapping MudList = ([]);
@@ -472,7 +472,7 @@ nosave void irn_read_callback(int fd, mixed data){
                 if(val["name"] == data[2]){
                     if(fd != key){
                         map_delete(irn_sockets, key);
-                    } 
+                    }
                 }
             }
         if(!irn_connections[data[2]]) irn_connections[data[2]] = ([]);
@@ -561,7 +561,7 @@ nosave void irn_read_callback(int fd, mixed data){
                     data[6][6] = replace_string(data[6][6],key,val);
                 }
             }
-        } 
+        }
         if(!MudList[data[6][2]] || !MudList[data[6][2]]["connect_time"]){
             desynced += ({ data[2] });
             desynced = singular_array(desynced);
@@ -580,7 +580,7 @@ nosave void irn_read_callback(int fd, mixed data){
             }
         PingMap[data[2]] = time();
         break;
-        default : 
+        default :
         if(!ValidatePeer(fd, data)) {
             trr("irn: Invalid peer: "+identify(socket_status(fd)),"red");
             this_object()->close_connection(fd);
@@ -688,12 +688,12 @@ varargs void SendWholeList(int fd, string type){
 protected void SendMessage(mixed data){
     string routername, cible;
     mapping tmpinfo = this_object()->query_mudinfo();
-    mixed tmpdata; 
+    mixed tmpdata;
     mixed *packet;
     int *but;
     trr("irn: received SendMessage call","white");
     if(!irn_enabled) return;
-    if(tmpinfo && sizeof(data) > 4 && sizeof(tmpinfo[data[4]]) && 
+    if(tmpinfo && sizeof(data) > 4 && sizeof(tmpinfo[data[4]]) &&
             cible = tmpinfo[data[4]]["router"]){
         if(mapp(tmpdata = this_object()->query_irn_connections()[cible])){
             but = ({ tmpdata["fd"] });

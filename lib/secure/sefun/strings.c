@@ -51,8 +51,8 @@ string trim(string str) {
 
     j = strlen(str) - 1;
     whitespace = ({ ' ', '\t' });
-    while(member_array(str[i], whitespace) != -1) i++;
-    while(i < j  && member_array(str[j], whitespace) != -1) j--;
+    while(member_array(str[i..i], whitespace) != -1) i++;
+    while(i < j  && member_array(str[j..j], whitespace) != -1) j--;
     return str[i..j];
 }
 
@@ -96,7 +96,7 @@ varargs string wrap(string str, int x) {
         rm(tmpfile);
         str += "\n*** TRUNCATED ***\n";
         return sprintf("%-=" + x + "s\n", str);
-    } 
+    }
 }
 
 varargs mixed convert_string(string str, int flag) {
@@ -148,14 +148,14 @@ varargs mixed convert_string(string str, int flag) {
                 tmp = convert_string(str, 1);
                 str = tmp[1];
                 while(str[0] == ' ' || str[0] == '\t') str = str[1..];
-                if( str[0] != ':' ) 
+                if( str[0] != ':' )
                     error("Illegally formatting mapping: " + str + "\n");
                 cle = tmp[0];
                 tmp = convert_string(str[1..], 1);
                 ret[0][cle] = tmp[0];
                 str = tmp[1];
                 while(str[0] == ' ' || str[0] == '\t') str = str[1..];
-                if( str[0] != ',' && str[0] != ']' ) 
+                if( str[0] != ',' && str[0] != ']' )
                     error("Illegally formatted mapping: " + str + "n");
                 else if( str[0] != ']' ) {
                     str = str[1..];
@@ -252,14 +252,14 @@ string reverse_string(string str) {
 }
 
 int starts_with(string primary, string sub){
-    string rev, junk; 
+    string rev, junk;
     //primary = replace_string(primary,"\t"," ");
     if(!primary) return 0;
     rev = reverse_string(primary);
     rev = trim(rev);
     if(!rev) return 0;
     primary = reverse_string(rev);
-    if(!sscanf(primary,sub+" %s",junk) > 0) 
+    if(!sscanf(primary,sub+" %s",junk) > 0)
         sscanf(primary,sub+"%s",junk);
     if(junk) return 1;
 
@@ -383,8 +383,8 @@ varargs mixed read_matching_line(string target, string substring, int i, string 
 //If you try to use replace_matching_line and it doesn't work,
 //it may be that the file in question is not a .c file. This sefun
 //keys on .c file syntax to know where lines begin and end. If the
-//string you're editing doesn't have, for example, semicolons, 
-//your line replacememnt probably won't work well. Instead use the 
+//string you're editing doesn't have, for example, semicolons,
+//your line replacememnt probably won't work well. Instead use the
 //sefun replace_line.
 varargs mixed replace_matching_line(string target, string substring, string replace, int i, string exclude){
     int omit, done, tail_search, tag_it;
@@ -510,7 +510,7 @@ string last_string_element(string str, string delimiter){
     return "";
 }
 
-varargs string first_string_element(string str, string delimiter, int stripfirst){    
+varargs string first_string_element(string str, string delimiter, int stripfirst){
     if(!str || !delimiter || !grepp(str,delimiter)) return "";
     return explode(str,delimiter)[0];
 }
@@ -532,7 +532,7 @@ varargs mixed homedir(mixed ob, int cre){
     initial = name[0..0];
     if(!user_exists(name)) return 0;
     if(cre || directory_exists("/realms/"+name)) return "/realms/"+name;
-    else return DIR_ESTATES + "/"+initial+"/"+name; 
+    else return DIR_ESTATES + "/"+initial+"/"+name;
 }
 
 varargs mixed random_numbers(int n, int integer){
@@ -677,7 +677,7 @@ varargs mixed print_long_string(object who, string str, int catted){
     global_temp_file = generate_tmp();
     lines = explode(str,"\n");
     foreach(string line in lines){
-        if(sizeof(line) > __LARGEST_PRINTABLE_STRING__ / 2) 
+        if(sizeof(line) > __LARGEST_PRINTABLE_STRING__ / 2)
             line = implode(chunk_string(line,who->GetScreen()[0]),"\n");
         ret += line+"\n";
     }
@@ -743,7 +743,7 @@ string unmorse(string msg) {
             }
         }
         tmp += " ";
-    } 
+    }
     return tmp;
 }
 
@@ -798,7 +798,7 @@ int query_common_ascii(string str){
     mixed *ret_arr = ({});
     int i;
     int lst = sizeof(str) - 1;
-    if(sizeof(str) == 1){ 
+    if(sizeof(str) == 1){
         check_arr = ({ str[0] });
     }
     else {
@@ -850,7 +850,7 @@ string *read_big_file(string str) {
     while(chunks){
         chunks--;
         if(chunks){
-            tmp = read_bytes(str, currchunk, bmax);           
+            tmp = read_bytes(str, currchunk, bmax);
             currchunk += bmax;
         }
         if(rem && !chunks){

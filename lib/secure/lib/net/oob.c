@@ -24,7 +24,7 @@ mapping TranslatedFiles = ([]);
 
 int eventDumpFiles();
 
-protected private void validate() {
+private void validate() {
     if( !(master()->valid_apply(({ "SECURE" }))) )
         error("Illegal attempt to access LIB_OOB: "+get_stack()+" "+identify(previous_object(-1)));
 }
@@ -34,7 +34,7 @@ void eventID(string str){
     mud = str;
 }
 
-nosave void create(mixed alpha, mixed beta, mixed gamma, mixed delta){
+protected void create(mixed alpha, mixed beta, mixed gamma, mixed delta){
     trr("LIB_OOB.create: I am a new OOB object, name: "+file_name(),mcolor,MSG_OOB);
     set_heart_beat(1);
     if(clonep()){
@@ -123,14 +123,14 @@ int eventRead(mixed data) {
         else socket::eventCloseSocket();
     }
 
-    if((data[0] == "oob-file-end" || data[0] == "oob-reply" || data[0] == "oob-file-error") 
+    if((data[0] == "oob-file-end" || data[0] == "oob-reply" || data[0] == "oob-file-error")
             && globalvar && arrayp(globalvar)){
         if(globalvar[0] == "oob-file-req"){
             if(stringp(globalvar[1])) {
                 client::eventWrite(globalvar);
                 globalvar = ({ "oob-file-req", 0 });
             }
-            else if(sizeof(globalvar[1])){ 
+            else if(sizeof(globalvar[1])){
                 client::eventWrite(({"oob-file-req", globalvar[1][0] }));
                 globalvar[1] -= ({ globalvar[1][0] });
             }
@@ -166,7 +166,7 @@ int eventRead(mixed data) {
 
         if(file_exists("/secure/upgrades/txt/upgrades."+liblevel)){
             ok_files = explode(read_file("/secure/upgrades/txt/upgrades."+liblevel),"\n");
-            if(data[1] == "/secure/upgrades/txt/upgrades.txt") 
+            if(data[1] == "/secure/upgrades/txt/upgrades.txt")
                 sendfile = "/secure/upgrades/txt/upgrades."+liblevel;
             else sendfile = data[1];
             ok_files += ({ "/secure/upgrades/txt/upgrades."+liblevel });
@@ -202,12 +202,12 @@ int eventRead(mixed data) {
         if(data[1] == "No token found for your mud."){
             call_out( (: eventWrite(begin_packet) :), 2);
             trr(file_name()+": No auth token yet. Retrying in 2 seconds.",mcolor,MSG_OOB);
-        } 
+        }
         if(data[1] == "That's a directory."){
             mkdir(data[2]);
             if(mudlib_version() == "2.3a5") client::eventDestruct();
         }
-    }    
+    }
     if(data[0] == "mail"){
         string *ret = ({ OOB_D->FindMud(this_object()) }) + ( data - ({ data[0] }) );
         REMOTEPOST_D->incoming_post(ret);

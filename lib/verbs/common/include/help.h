@@ -6,7 +6,7 @@ mixed can_help_str(string str);
 mixed do_help_str(string str);
 int CanAccess(object who, string index);
 varargs void HelpMenu(string index);
-protected private void LoadIndices();
+private void LoadIndices();
 string GetHelp(string str);
 string GetHelpByIndex(string index, string topic);
 varargs string *GetIndices(string topic);

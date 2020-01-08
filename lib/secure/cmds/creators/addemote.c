@@ -16,16 +16,16 @@ protected void MainMenu();
 protected void EditErrorMessage(string emote);
 protected void ShowEmote(string emote);
 protected void AddEmote(string emote);
-nosave void AddRule(string rule, string emote);
+protected void AddRule(string rule, string emote);
 
-protected private void validate() {
+private void validate() {
     if(!this_player()) return 0;
     if( !(master()->valid_apply(({ "ASSIST" }))) &&
             !member_group(this_player(), "EMOTES") )
         error("Illegal attempt to access addemote: "+get_stack()+" "+identify(previous_object(-1)));
 }
 
-nosave void EnterEmote(string emote, string* emotes) {
+protected void EnterEmote(string emote, string* emotes) {
     int x = to_int(emote);
     validate();
     if( x < 1 || x > sizeof(emotes) ) {
@@ -43,7 +43,7 @@ nosave void EnterEmote(string emote, string* emotes) {
     ShowEmote(emote);
 }
 
-nosave void EnterEditChoice(string str, string* rules, string emote) {
+protected void EnterEditChoice(string str, string* rules, string emote) {
     int x = to_int(str);
     validate();
     if( x < 1 || x > sizeof(rules) ) {
@@ -76,7 +76,7 @@ nosave void EnterEditChoice(string str, string* rules, string emote) {
     }
 }
 
-nosave void AddAdverbs(string adv, string emote, string* rules,
+protected void AddAdverbs(string adv, string emote, string* rules,
         string* verbs, string msg) {
     string* adverbs;
     validate();
@@ -92,7 +92,7 @@ nosave void AddAdverbs(string adv, string emote, string* rules,
     this_player()->eventPrint("Emote '" + emote + "' added.");
 }
 
-nosave void AddMessage(string msg, string emote, string* rules,
+protected void AddMessage(string msg, string emote, string* rules,
         string* verbs) {
     validate();
     if( !msg || msg == "" ) {
@@ -108,7 +108,7 @@ nosave void AddMessage(string msg, string emote, string* rules,
     input_to((: AddAdverbs :), emote, rules, verbs, msg);
 }
 
-nosave void AddVerbs(string list, string emote, string* rules) {
+protected void AddVerbs(string list, string emote, string* rules) {
     string* verbs = map(explode(list, ","), (: trim :));
     validate();
 
@@ -116,7 +116,7 @@ nosave void AddVerbs(string list, string emote, string* rules) {
     input_to((: AddMessage :), emote, rules, verbs);
 }
 
-nosave void AddRule(string rule, string emote) {
+protected void AddRule(string rule, string emote) {
     string* rules = map(explode(rule, ","), (: trim :));
     validate();
 
@@ -127,7 +127,7 @@ nosave void AddRule(string rule, string emote) {
     input_to((: AddVerbs :), emote, rules);
 }
 
-nosave void AddErrorMessage(string msg, string emote) {
+protected void AddErrorMessage(string msg, string emote) {
     validate();
     if( !msg || msg == "" ) {
         this_player()->eventPrint("Which message? [q to quit] ", MSG_PROMPT);

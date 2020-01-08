@@ -270,7 +270,7 @@ object *GetPartyMembers(string name) {
     return 0;
 }
 
-nosave void RemoveInvitiation(string name, object who) {
+protected void RemoveInvitiation(string name, object who) {
     if( !Parties[name] ) return;
     if( member_array(who, ((class party)Parties[name])->Invited) == -1 )
         return;

@@ -7,7 +7,7 @@
 
 inherit LIB_DAEMON;
 
-protected private mapping file_mapping(string *files);
+private mapping file_mapping(string *files);
 nosave private string display_ls(mixed targ, int aflag, int lflag, int tflag,
         int nflag, int bflag, int sflag);
 nosave private string long_list(string dir, mixed *files);
@@ -46,7 +46,7 @@ int cmd(string str) {
     }
     for(i=0, maxi = sizeof(paths), files = ({}); i<maxi; i++)
         if(tmp = wild_card(paths[i])) files += tmp;
-    if(!sizeof(files)) { 
+    if(!sizeof(files)) {
         message("error", "No such file or directory.", this_player());
         return 1;
     }
@@ -61,7 +61,7 @@ int cmd(string str) {
         return 1;
     }
     for(i=0; i<maxi; i++){
-        show += display_ls(dirs[i], all_files, long_details, time_sort, 
+        show += display_ls(dirs[i], all_files, long_details, time_sort,
                 no_load_info, brief, size);
     }
     if(!moref && check_string_length(show)) previous_object()->eventPrint(show);
@@ -71,7 +71,7 @@ int cmd(string str) {
 
 nosave int is_dir(string str) { return (file_size(str) == -2); }
 
-protected private mapping file_mapping(string *files) {
+private mapping file_mapping(string *files) {
     mapping borg;
     string *tmp;
     string dir;
@@ -102,7 +102,7 @@ nosave private string display_ls(mixed targ, int aflag, int lflag, int tflag,
         if(!bflag) ret = cles[i]+":\n";
         if(!aflag) targ[cles[i]] = filter(targ[cles[i]], "filter_dots",
                 this_object());
-        if(tflag) 
+        if(tflag)
             targ[cles[i]]=sort_array(targ[cles[i]],"time_sort",this_object());
         if(lflag) ret += long_list(cles[i], targ[cles[i]]);
         else ret += short_list(cles[i], targ[cles[i]], nflag, sflag);
@@ -135,7 +135,7 @@ nosave private string long_list(string dir, mixed *files) {
     for(i=0, maxi=sizeof(files); i<maxi; i++) {
         if(files[i][1] == -2) loaded = "";
         else loaded = (find_object(dir+files[i][0]) ? "*" : "");
-        ret += sprintf("%:-3s%:-5s%:-30s %d\t%s", 
+        ret += sprintf("%:-3s%:-5s%:-30s %d\t%s",
                 loaded, acc, ctime(files[i][2]),
                 files[i][1], files[i][0]);
         if(files[i][1] == -2) ret += "/\n";

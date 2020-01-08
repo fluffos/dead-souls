@@ -8,7 +8,7 @@
 
 inherit LIB_DAEMON;
 
-nosave void LsedFile(string file, string *cmds, int num_cmds);
+protected void LsedFile(string file, string *cmds, int num_cmds);
 
 mixed cmd(string args) {
     string *files, *lines, *tmp;
@@ -48,7 +48,7 @@ mixed cmd(string args) {
     return 1;
 }
 
-nosave void LsedFile(string file, string *cmds, int num_cmds) {
+protected void LsedFile(string file, string *cmds, int num_cmds) {
     string ret;
     int i;
 
@@ -61,7 +61,7 @@ nosave void LsedFile(string file, string *cmds, int num_cmds) {
         ret = ed_cmd(cmds[i]);
         if( query_ed_mode() == -1 ) {
             message("system", "lsed: Script quit unexpectedly on line " +
-                    (i+1) + " for file " + file + " with message: " + ret, 
+                    (i+1) + " for file " + file + " with message: " + ret,
                     this_player());
             return;
         }

@@ -5,16 +5,16 @@
  *    modified for IIPS 3.1 940513
  */
 
-#include <lib.h> 
-#include <save.h> 
-#include <daemons.h> 
-#include <objects.h> 
+#include <lib.h>
+#include <save.h>
+#include <daemons.h>
+#include <objects.h>
 #include "remotepost.h"
 
 inherit LIB_DAEMON;
 
-private mapping __MailQueue; 
-nosave private mapping __IncomingMail; 
+private mapping __MailQueue;
+nosave private mapping __IncomingMail;
 mapping Old = ([]);
 mapping Outgoing = ([]);
 nosave string SaveFile;
@@ -22,20 +22,20 @@ nosave string SaveFile;
 nosave int count = 0;
 
 void create() {
-    string *muds; 
-    int i; 
+    string *muds;
+    int i;
     daemon::create();
     SaveFile = save_file(SAVE_MAILQUEUE);
     SetNoClean(1);
-    __MailQueue = ([]); 
-    __IncomingMail = ([]); 
+    __MailQueue = ([]);
+    __IncomingMail = ([]);
     if(file_exists(SaveFile)){
-        restore_mailqueue(); 
+        restore_mailqueue();
     }
-    i = sizeof(muds = keys(__MailQueue)); 
-    while(i--) __MailQueue[muds[i]][0]["in transit"] = 0; 
+    i = sizeof(muds = keys(__MailQueue));
+    while(i--) __MailQueue[muds[i]][0]["in transit"] = 0;
     set_heart_beat(1);
-} 
+}
 
 void heart_beat(){
     count++;
@@ -53,39 +53,39 @@ void heart_beat(){
     }
 }
 
-string postal_check(string mud) { 
+string postal_check(string mud) {
     if(file_name(previous_object()) != SERVICES_D) return 0;
     if(!__MailQueue[mud = replace_string(lower_case(mud), " ", ".")]) return 0;
-    if(__MailQueue[mud][0]["in transit"]) return 0; 
-    __MailQueue[mud][0]["in transit"] = 1; 
-    return __MailQueue[mud][0]["post"][0]; 
-} 
+    if(__MailQueue[mud][0]["in transit"]) return 0;
+    __MailQueue[mud][0]["in transit"] = 1;
+    return __MailQueue[mud][0]["post"][0];
+}
 
-string next_post(string mud) { 
-    int x; 
+string next_post(string mud) {
+    int x;
     if(file_name(previous_object(0)) != SERVICES_D) return 0;
 
     if(!__MailQueue[mud = replace_string(lower_case(mud), " ", ".")]) return 0;
-    x = __MailQueue[mud][0]["in transit"]++; 
-    if(sizeof(__MailQueue[mud][0]["post"]) == x) { 
+    x = __MailQueue[mud][0]["in transit"]++;
+    if(sizeof(__MailQueue[mud][0]["post"]) == x) {
         if( !sizeof(__MailQueue[mud] = __MailQueue[mud][1..]) )
-            map_delete(__MailQueue, mud); 
-        save_mailqueue(); 
-        return 0; 
-    } 
-    return __MailQueue[mud][0]["post"][x]; 
-} 
+            map_delete(__MailQueue, mud);
+        save_mailqueue();
+        return 0;
+    }
+    return __MailQueue[mud][0]["post"][x];
+}
 
-string resend_post(string mud) { 
+string resend_post(string mud) {
     if(file_name(previous_object(0)) != SERVICES_D) return 0;
     if(!__MailQueue[mud = replace_string(lower_case(mud), " ", ".")]) return 0;
-    __MailQueue[mud][0]["in transit"] = 1; 
-    return __MailQueue[mud][0]["post"][0]; 
-} 
+    __MailQueue[mud][0]["in transit"] = 1;
+    return __MailQueue[mud][0]["post"][0];
+}
 
 int send_post(mapping borg, string mud) {
-    string *msg, *tmp, *muds = ({}); 
-    int i, maxi, x, y; 
+    string *msg, *tmp, *muds = ({});
+    int i, maxi, x, y;
     mapping TmpMap = ([]);
 
     if(file_name(previous_object(0)) != LOCALPOST_D &&
@@ -107,8 +107,8 @@ int send_post(mapping borg, string mud) {
         }
     }
 
-    borg["to"] = convert_names(borg["to"]); 
-    borg["cc"] = convert_names(borg["cc"]); 
+    borg["to"] = convert_names(borg["to"]);
+    borg["cc"] = convert_names(borg["cc"]);
     borg["from"] = sprintf("%s@%s", convert_name(borg["from"]),
             mud_name());
 
@@ -124,8 +124,8 @@ int send_post(mapping borg, string mud) {
         }
         if(!Outgoing) Outgoing = ([]);
         if(!Outgoing[destination]) Outgoing[destination] = ([]);
-        Outgoing[destination][borg["id"]] = 
-            ({	  
+        Outgoing[destination][borg["id"]] =
+            ({
              "mail",
              borg["id"],
              borg["from"],
@@ -137,9 +137,9 @@ int send_post(mapping borg, string mud) {
              borg["message"],
              });
     }
-    save_mailqueue(); 
+    save_mailqueue();
     return 1;
-} 
+}
 
 int outgoing_sent(string destination, string id){
     if(base_name(previous_object(0)) != LIB_OOB){
@@ -152,8 +152,8 @@ int outgoing_sent(string destination, string id){
     return 1;
 }
 
-int incoming_post(mixed *packet){ 
-    mapping borg; 
+int incoming_post(mixed *packet){
+    mapping borg;
     string from = packet[2];
     if(base_name(previous_object(0)) != LIB_OOB){
         return 0;
@@ -169,30 +169,30 @@ int incoming_post(mixed *packet){
          "subject" : packet[7],
          "message" : packet[8]
          ]);
-    LOCALPOST_D->send_post(copy(borg)); 
-    return 1; 
-} 
+    LOCALPOST_D->send_post(copy(borg));
+    return 1;
+}
 
-protected private string *local_targets(string *str) {
-    string a, b; 
+private string *local_targets(string *str) {
+    string a, b;
     int i;
 
     i = sizeof(str);
     while(i--) {
         sscanf(str[i], "%s@%s", a, b);
-        if(replace_string(lower_case(b), " ", ".") == 
+        if(replace_string(lower_case(b), " ", ".") ==
                 replace_string(lower_case(mud_name()), " ", ".")) str[i] = a;
     }
     return str;
-} 
+}
 
-protected private void save_mailqueue() { 
+private void save_mailqueue() {
     SaveObject(SaveFile);
-} 
+}
 
-protected private void restore_mailqueue() { 
+private void restore_mailqueue() {
     RestoreObject(SaveFile);
-} 
+}
 
 string *convert_names(string *noms) {
     string a, b;

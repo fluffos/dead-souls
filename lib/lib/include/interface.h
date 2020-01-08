@@ -4,7 +4,7 @@
 protected void create();
 protected string process_input(string str);
 protected void terminal_type(string str);
-nosave void window_size(int width, int height);
+protected void window_size(int width, int height);
 void receive_message(string msg_class, string msg);
 protected void receive_snoop(string msg);
 

@@ -140,7 +140,7 @@ int GetPort(){
     return port;
 }
 
-private protected void eventError(string name) {
+private void eventError(string name) {
     object file = new(LIB_FILE, name);
 
     eventWrite(file->GetBuffer(), 1);

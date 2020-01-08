@@ -475,8 +475,8 @@ string SetShort(string str){
     else return object::SetShort(str);
 }
 
-string SetLong(string str){
-    if(strsrch(str, "$N") == -1) return object::GetLong();
+mixed SetLong(mixed str){
+    if(stringp(str) && strsrch(str, "$N") == -1) return object::GetLong();
     else return object::SetLong(str);
 }
 

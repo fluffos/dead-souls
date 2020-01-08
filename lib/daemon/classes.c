@@ -41,7 +41,7 @@ protected void create() {
     SaveObject(SaveFile);
 }
 
-protected private void validate() {
+private void validate() {
     if( !(master()->valid_apply(({ PRIV_ASSIST }))) )
         error("Illegal attempt to modify class data");
 }
@@ -61,7 +61,7 @@ int ClassMember(string my_class, string query_class) {
 
 void AddClass(string file) {
     mapping cls = ([]);
-    string* lines, tmp;
+    string* lines, *tmp;
     string class_name;
     player = 1;
     validate();
@@ -159,7 +159,7 @@ mixed GetClass(string str){
 }
 
 int GetPlayerClass(string str){
-    if(!Classes[str]) return ;
+    if(!Classes[str]) return 0;
     return Classes[str]["Player"];
 }
 

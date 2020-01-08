@@ -15,7 +15,7 @@ varargs int LimitTravel(int requested, int maximum, int lessthan){
     else return requested;
 }
 
-varargs nosave void create(int x, int y, int z) {
+varargs protected void create(int x, int y, int z) {
     string n, s, e, w, u, d;
     string ne, nw, se, sw;
 
@@ -115,7 +115,7 @@ varargs void SetLongAndItems(int x, int y, int z) {
                 ]) );
 
     if(y == 10) {
-        AddItem( ({ "rock wall","wall","stone wall"}), 
+        AddItem( ({ "rock wall","wall","stone wall"}),
                 "This vast stone wall prevents further travel north." );
     }
     else if(y == 1) {

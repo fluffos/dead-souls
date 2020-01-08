@@ -9,7 +9,7 @@
 
 private nosave object Leader;
 
-nosave void create(){ Leader = 0; }
+protected void create(){ Leader = 0; }
 
 mixed direct_follow_liv(){
     if( this_object() == this_player() )
@@ -47,7 +47,7 @@ int IsFollowing(object ob){
     return 0;
 }
 
-/* 
+/*
  * eventFollow() needs to be overriden by child classes to provide the
  * actual move support.
  */

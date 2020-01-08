@@ -25,7 +25,7 @@ void create() {
     __Posts = ({});
 }
 
-protected private void save_board() {
+private void save_board() {
     if(!__CurrentID){
         return;
     }
@@ -39,14 +39,14 @@ protected private void save_board() {
             //tc("__Owner: "+__Owner);
         }
         i = strlen(__CurrentID);
-        while(i--) 
+        while(i--)
             if((__CurrentID[i] < 'a' || __CurrentID[i] > 'z') && __CurrentID[i] != '_')
                 error("Illegal bulletin board id.");
     }
     SaveObject(save_file(DIR_BOARDS+"/"+__CurrentID));
 }
 
-protected private int restore_board() {
+private int restore_board() {
     if(!__CurrentID){
         return 0;
     }
@@ -63,7 +63,7 @@ protected private int restore_board() {
     return 1;
 }
 
-protected private int valid_access() {
+private int valid_access() {
     string str;
     //tc("stack: "+get_stack(1));
     if(this_player() && adminp(this_player())) true();
@@ -144,7 +144,7 @@ mapping query_post(string id, int post) {
     return copy(__Posts[post]);
 }
 
-mapping *query_posts(string id) { 
+mapping *query_posts(string id) {
     if(__CurrentID != id) {
         __CurrentID = id;
         restore_board();

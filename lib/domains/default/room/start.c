@@ -16,8 +16,8 @@ void create() {
     SetClimate("indoors");
     SetAmbientLight(30);
     SetShort("The start room");
-    SetLong( (: DoDesc :));
-    SetExits( ([ 
+    SetLong( DoDesc() );
+    SetExits( ([
                 "south" : "/domains/default/room/wiz_hall",
                 ]) );
     SetNoModify(1);

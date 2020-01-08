@@ -65,22 +65,22 @@ protected mapping muds_on_this_fd(int fd);
 protected mapping muds_not_on_this_fd(int fd);
 void write_data(int fd, mixed data);
 protected void close_connection(int fd);
-nosave void broadcast_data(mapping targets, mixed data);
+protected void broadcast_data(mapping targets, mixed data);
 
 // Ones with their own files...
 string clean_fd(string fd);
 protected void broadcast_chanlist(string channame);
 void broadcast_mudlist(string mudname);
 nosave varargs void Debug(string str, int level);
-nosave void process_channel(int fd, mixed *info);
-nosave void process_startup_req(int protocol, mixed info, int fd);
-nosave void read_callback(int fd, mixed info);
-nosave void remove_mud(string mudname, int forced);
-nosave void send_chanlist_reply(string mudname, int old_chanid);
+protected void process_channel(int fd, mixed *info);
+protected void process_startup_req(int protocol, mixed info, int fd);
+protected void read_callback(int fd, mixed info);
+protected void remove_mud(string mudname, int forced);
+protected void send_chanlist_reply(string mudname, int old_chanid);
 protected void send_mudlist(string mudname);
-nosave void send_mudlist_updates(string updating_mudname, int old_mudlist_id);
+protected void send_mudlist_updates(string updating_mudname, int old_mudlist_id);
 protected void send_startup_reply(string mudname);
-nosave void send_error(string mud, string user, string errcode, string errmsg, mixed *info);
+protected void send_error(string mud, string user, string errcode, string errmsg, mixed *info);
 void send_full_mudlist(string mud);
 // core_stuff.h...
 protected void create();
@@ -160,7 +160,7 @@ varargs void write_data(int fd, mixed data, int override){
     }
 }
 
-nosave void broadcast_data(mapping targets, mixed data){
+protected void broadcast_data(mapping targets, mixed data){
     object imc2d = find_object(IMC2_SERVER_D);
     RSOCKET_D->broadcast_data(targets, data);
     if(imc2d) imc2d->broadcast_data(targets, data);

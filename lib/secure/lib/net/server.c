@@ -27,7 +27,7 @@ private nosave string       SocketObject   = 0;
 private nosave int          SocketType     = STREAM;
 private nosave mapping      Sockets        = ([]);
 
-nosave void eventSocketError(string msg, int code);
+protected void eventSocketError(string msg, int code);
 
 /* ******************* server.c attributes ************************ */
 int GetDestructOnClose() {
@@ -48,7 +48,7 @@ protected int SetSocketType(int x ) {
 
 /* ******************** server.c events *************************** */
 protected int eventClose(mixed sock) {
-    mapping s; 
+    mapping s;
 
     trr("LIB_SERVER: eventClose trying to close: "+identify(sock),mcolor,mclass);
     if(mapp(sock)) {
@@ -84,7 +84,7 @@ int eventCreateSocket(int port) {
     int x;
     Listen["Blocking"] = 0; /* servers are not blocking to start */
     x = socket_create(SocketType,
-            "eventServerReadCallback", 
+            "eventServerReadCallback",
             "eventServerAbortCallback");
     if( x < 0 ) {
         eventSocketError("Error in socket_create().", x);
@@ -157,7 +157,7 @@ protected void eventServerListenCallback(int fd) {
 
     trr("server:eventServerListenCallback: fd: "+fd+", "+socket_address(fd),mcolor,mclass);
     x = socket_accept(fd,
-            "eventServerReadCallback", 
+            "eventServerReadCallback",
             "eventServerWriteCallback");
     if( x < 0 ) {
         trr("Error in socket_accept().",mcolor,mclass);
@@ -171,7 +171,7 @@ protected void eventServerListenCallback(int fd) {
     eventNewConnection(new(SocketObject, x, this_object()));
 }
 
-nosave void eventServerReadCallback(int fd, mixed val) {
+protected void eventServerReadCallback(int fd, mixed val) {
     trr("server:eventServerReadCallback: fd: "+fd+", "+socket_address(fd),mcolor,mclass);
     trr("server: I think that Sockets["+fd+"] is: "+identify(Sockets[fd]),mcolor,mclass);
     if( !Sockets[fd] || !Sockets[fd]["Owner"] ) {
@@ -216,7 +216,7 @@ protected void eventServerWriteCallback(int fd) {
             case EECALLBACK:
                 sock["Blocking"] = 1;
                 break;
-            case EEWOULDBLOCK: 
+            case EEWOULDBLOCK:
                 call_out( (: eventServerWriteCallback :), 0, fd);
                 return;
             case EEALREADY:
@@ -239,7 +239,7 @@ protected void eventServerWriteCallback(int fd) {
     }
 }
 
-nosave void eventSocketError(string msg, int code) {
+protected void eventSocketError(string msg, int code) {
     log_file("servers", "Error code: " + code + "\n" + msg + "\n");
     trr("LIB_SERVER Error code: " + code + "\n" + msg + "\n","red",mclass);
 }
@@ -305,7 +305,7 @@ varargs int eventWrite(object owner, mixed val, int close) {
 }
 
 /* ******************** server.c driver applies ******************* */
-varargs nosave void create(int port, int type, string socket_obj) {
+varargs protected void create(int port, int type, string socket_obj) {
     daemon::create();
     SetNoClean(1);
 

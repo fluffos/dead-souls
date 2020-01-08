@@ -12,7 +12,7 @@ string globaltemp;
 
 protected mixed Report();
 
-protected private void validate() {
+private void validate() {
     if( !(master()->valid_apply(({ "ASSIST" }))) ){
         log_file("adm/file","Illegal attempt to access FILE_D: "+get_stack()+" "+identify(previous_object(-1))+"\n");
         error("Illegal attempt to access FILE_D: "+get_stack()+" "+identify(previous_object(-1)));
@@ -56,7 +56,7 @@ mixed ReadDir(string str){
     if(directory_exists(str)){
         foreach(string element in get_dir(str)){
             if(file_exists(str+element)) all_files += ({ str+element });
-            if(directory_exists(str+element) && 
+            if(directory_exists(str+element) &&
                     strsrch(str+element,"/realms") &&
                     strsrch(str+element,"/estates") &&
                     strsrch(str+element,"/secure/save") &&
@@ -142,16 +142,16 @@ int SearchFiles(string str){
     foreach(string element in all_files){
         string tmpstr, tmpelement;
 
-        if(!cased){ 
+        if(!cased){
             tmpelement = lower_case(element);
             tmpstr = lower_case(str);
-        } 
+        }
         else {
             tmpelement = element;
             tmpstr = str;
-        }  
+        }
 
-        if(!strict && grepp(last_string_element(tmpelement,"/"), tmpstr)) ret += element + "\n"; 
+        if(!strict && grepp(last_string_element(tmpelement,"/"), tmpstr)) ret += element + "\n";
         else if(strict && last_string_element(tmpelement,"/") == tmpstr) ret += element + "\n";
     }
     write("Matches:");

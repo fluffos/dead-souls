@@ -15,7 +15,7 @@ int SetDenominator(int denom){
     else return Denominator = denom;
 }
 
-string SetLong(string str){
+mixed SetLong(mixed str){
     item::SetLong(str);
     if(!BaseLong) BaseLong = str;
     return BaseLong;

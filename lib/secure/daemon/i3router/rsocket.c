@@ -135,7 +135,7 @@ protected void listen_callback(int fd){
     }
 }
 
-nosave void read_callback(int fd, mixed info){
+protected void read_callback(int fd, mixed info){
 
     validate(fd);
     if(bufferp(info)){
@@ -159,13 +159,13 @@ protected void write_callback(int fd){
     if(sockets[fd]["write_status"] == EEALREADY) {
         write_data(fd, sockets[fd]["pending"]);
         map_delete(sockets[fd], "pending");
-    } 
+    }
     else {
         sockets[fd]["write_status"] = EESUCCESS;
     }
 }
 
-nosave void write_data_retry(int fd, mixed data, int counter){
+protected void write_data_retry(int fd, mixed data, int counter){
     int rc;
     int maxtry;
 
@@ -206,7 +206,7 @@ nosave void write_data_retry(int fd, mixed data, int counter){
                 if(counter < 2 || counter > maxtry-1)
                     trr("RSOCKET_D write_data_retry "+counter+" to "+
                             ROUTER_D->query_connected_fds()[fd]+", fd"+fd+" error,  code "+rc+": " + socket_error(rc));
-                call_out( (: write_data_retry :), 2 , fd, data, counter + 1 ); 
+                call_out( (: write_data_retry :), 2 , fd, data, counter + 1 );
                 return;
             }
     }
@@ -288,7 +288,7 @@ int GetVerbose(){
 }
 
 varargs void yenta(mixed arg1, mixed arg2){
-    if(verbose){ 
+    if(verbose){
         if(arg2) server_log(arg1, arg2);
         else server_log(arg1);
     }

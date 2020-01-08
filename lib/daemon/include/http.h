@@ -3,7 +3,7 @@
 
 protected void create();
 protected void Setup();
-nosave void eventRead(int fd, string str);
-private nosave void eventGetFile(int fd, string file);
+protected void eventRead(int fd, string str);
+private void eventGetFile(int fd, string file);
 
 #endif /* __HTTP_H__ */

@@ -7,9 +7,9 @@
 #include <lib.h>
 #include <privs.h>
 #include <objects.h>
-#include <daemons.h> 
-#include <save.h> 
-#include <dirs.h> 
+#include <daemons.h>
+#include <save.h>
+#include <dirs.h>
 
 #ifndef GUEST_ALLOWED
 #define GUEST_ALLOWED 1
@@ -21,12 +21,12 @@
 
 inherit LIB_DAEMON;
 
-string *__Names, *__Sites, *__WatchNames, *__WatchSites; 
-string *__Allowed, *__Guests, *__IllegalSubStrings; 
+string *__Names, *__Sites, *__WatchNames, *__WatchSites;
+string *__Allowed, *__Guests, *__IllegalSubStrings;
 mapping __TmpBanish;
 nosave string SaveFile;
 
-protected private int valid_access(object ob);
+private int valid_access(object ob);
 void register_site(string str);
 void temporary_register(string str, int time);
 string query_temp_sites();
@@ -52,24 +52,24 @@ string *query_illegal_substrings();
 void add_guest(string str);
 void remove_guest(string str);
 string *query_guests();
-protected private void save_banish();
+private void save_banish();
 int GetGuest(string str);
 int valid_name(string str);
 int eventConnect(string nom, string ip);
-nosave private int match_ip(string ip, string *sites);
+private int match_ip(string ip, string *sites);
 void setup_blacklist();
 
-void create() { 
+void create() {
     daemon::create();
     SetNoClean(1);
     SaveFile = save_file(SAVE_BANISH);
-    __Names = ({"template"}); 
-    __Sites = ({}); 
-    __WatchNames = ({}); 
-    __WatchSites = ({}); 
-    __Allowed = ({}); 
-    __Guests = ({}); 
-    __IllegalSubStrings = ({}); 
+    __Names = ({"template"});
+    __Sites = ({});
+    __WatchNames = ({});
+    __WatchSites = ({});
+    __Allowed = ({});
+    __Guests = ({});
+    __IllegalSubStrings = ({});
     __TmpBanish=([]);
     if(unguarded( (: file_exists(SaveFile) :) )){
         RestoreObject(SaveFile);
@@ -77,7 +77,7 @@ void create() {
     if(!__TmpBanish) __TmpBanish = ([]);
     clean_temp_sites();
     setup_blacklist();
-} 
+}
 
 void setup_blacklist(){
     if(file_exists(CFG_IP_BLACKLIST)){
@@ -87,9 +87,9 @@ void setup_blacklist(){
     save_banish();
 }
 
-protected private int valid_access(object ob) { 
+private int valid_access(object ob) {
     return master()->valid_apply( ({ "ASSIST" }) );
-} 
+}
 
 int valid_cap_name(string cap, string nom) {
     int i;
@@ -110,13 +110,13 @@ int valid_cap_name(string cap, string nom) {
     return 1;
 }
 
-void register_site(string str) { 
-    if(!valid_access(previous_object())) return; 
+void register_site(string str) {
+    if(!valid_access(previous_object())) return;
     if(member_array(str, keys(__TmpBanish))!=-1)
-        map_delete(__TmpBanish,str);   
-    __Sites = distinct_array(__Sites + ({ str }) ); 
-    save_banish(); 
-} 
+        map_delete(__TmpBanish,str);
+    __Sites = distinct_array(__Sites + ({ str }) );
+    save_banish();
+}
 
 void temporary_register(string str, int foo) {
     if(!valid_access(previous_object())) return;
@@ -161,184 +161,184 @@ void clean_temp_sites() {
         }
     }
     save_banish();
-    call_out("clean_temp_sites", 900); 
+    call_out("clean_temp_sites", 900);
 }
 
-void unregister_site(string str) { 
-    if(!valid_access(previous_object())) return; 
-    __Sites -= ({ str }); 
-    save_banish(); 
-} 
+void unregister_site(string str) {
+    if(!valid_access(previous_object())) return;
+    __Sites -= ({ str });
+    save_banish();
+}
 
-string *query_registered() { 
+string *query_registered() {
     if(!valid_access(previous_object())) return ({});
     return __Sites;
-} 
+}
 
-void banish_name(string str) { 
+void banish_name(string str) {
     if(!valid_access(previous_object())) return;
-    unguarded( (: log_file, "banish", 
+    unguarded( (: log_file, "banish",
                 this_player()->GetName() + " banished " + str + "." :) );
-    __Names = distinct_array(__Names + ({ lower_case(str) })); 
-    save_banish(); 
-} 
+    __Names = distinct_array(__Names + ({ lower_case(str) }));
+    save_banish();
+}
 
-void unbanish_name(string str) { 
-    if(!valid_access(previous_object())) return; 
-    __Names -= ({ lower_case(str) }); 
-    save_banish(); 
-} 
+void unbanish_name(string str) {
+    if(!valid_access(previous_object())) return;
+    __Names -= ({ lower_case(str) });
+    save_banish();
+}
 
-string *query_banished() { 
-    if(!valid_access(previous_object())) return ({}); 
-    return __Names; 
-} 
+string *query_banished() {
+    if(!valid_access(previous_object())) return ({});
+    return __Names;
+}
 
-void watch_site(string str) { 
-    if(!valid_access(previous_object())) return; 
-    __WatchSites = distinct_array(__WatchSites + ({ str })); 
-    save_banish(); 
-} 
+void watch_site(string str) {
+    if(!valid_access(previous_object())) return;
+    __WatchSites = distinct_array(__WatchSites + ({ str }));
+    save_banish();
+}
 
-void unwatch_site(string str) { 
-    if(!valid_access(previous_object())) return; 
-    __WatchSites -= ({ str }); 
-    save_banish(); 
-} 
+void unwatch_site(string str) {
+    if(!valid_access(previous_object())) return;
+    __WatchSites -= ({ str });
+    save_banish();
+}
 
-string *query_watched_sites() { 
-    if(!valid_access(previous_object())) return ({}); 
-    return __WatchSites; 
-} 
+string *query_watched_sites() {
+    if(!valid_access(previous_object())) return ({});
+    return __WatchSites;
+}
 
-void watch_name(string str) { 
-    if(!valid_access(previous_object())) return; 
-    __WatchNames = distinct_array(__WatchNames + ({ lower_case(str) })); 
-    save_banish(); 
-} 
+void watch_name(string str) {
+    if(!valid_access(previous_object())) return;
+    __WatchNames = distinct_array(__WatchNames + ({ lower_case(str) }));
+    save_banish();
+}
 
-void unwatch_name(string str) { 
-    if(!valid_access(previous_object())) return; 
-    __WatchNames -= ({ lower_case(str) }); 
-    save_banish(); 
-} 
+void unwatch_name(string str) {
+    if(!valid_access(previous_object())) return;
+    __WatchNames -= ({ lower_case(str) });
+    save_banish();
+}
 
-string *query_watched_names() { 
-    if(!valid_access(previous_object())) return ({}); 
-    return __WatchNames; 
-} 
+string *query_watched_names() {
+    if(!valid_access(previous_object())) return ({});
+    return __WatchNames;
+}
 
-void allow_name(string str) { 
-    if(!valid_access(previous_object())) return; 
-    __Allowed = distinct_array(__Allowed + ({ lower_case(str) })); 
-    save_banish(); 
-} 
+void allow_name(string str) {
+    if(!valid_access(previous_object())) return;
+    __Allowed = distinct_array(__Allowed + ({ lower_case(str) }));
+    save_banish();
+}
 
-void unallow_name(string str) { 
-    if(!valid_access(previous_object())) return; 
-    __Allowed -= ({ lower_case(str) }); 
-    save_banish(); 
-} 
+void unallow_name(string str) {
+    if(!valid_access(previous_object())) return;
+    __Allowed -= ({ lower_case(str) });
+    save_banish();
+}
 
-string *query_allowed() { 
-    if(!valid_access(previous_object())) return ({}); 
-    return __Allowed; 
-} 
+string *query_allowed() {
+    if(!valid_access(previous_object())) return ({});
+    return __Allowed;
+}
 
-void set_illegal_substring(string str) { 
-    if(!valid_access(previous_object())) return; 
-    __IllegalSubStrings = distinct_array(__IllegalSubStrings + 
-            ({ lower_case(str) })); 
-    save_banish(); 
-} 
+void set_illegal_substring(string str) {
+    if(!valid_access(previous_object())) return;
+    __IllegalSubStrings = distinct_array(__IllegalSubStrings +
+            ({ lower_case(str) }));
+    save_banish();
+}
 
-void remove_illegal_substring(string str) { 
-    if(!valid_access(previous_object())) return; 
-    __IllegalSubStrings -= ({ lower_case(str) }); 
-    save_banish(); 
-} 
+void remove_illegal_substring(string str) {
+    if(!valid_access(previous_object())) return;
+    __IllegalSubStrings -= ({ lower_case(str) });
+    save_banish();
+}
 
-string *query_illegal_substrings() {  
-    if(!valid_access(previous_object())) return ({}); 
-    else return __IllegalSubStrings; 
-} 
+string *query_illegal_substrings() {
+    if(!valid_access(previous_object())) return ({});
+    else return __IllegalSubStrings;
+}
 
-void add_guest(string str) { 
-    if(!valid_access(previous_object())) return; 
-    __Guests = distinct_array(__Guests + ({ lower_case(str) })); 
-    save_banish(); 
-} 
+void add_guest(string str) {
+    if(!valid_access(previous_object())) return;
+    __Guests = distinct_array(__Guests + ({ lower_case(str) }));
+    save_banish();
+}
 
-void remove_guest(string str) { 
-    if(!valid_access(previous_object())) return; 
-    __Guests -= ({ lower_case(str) }); 
-    save_banish(); 
-} 
+void remove_guest(string str) {
+    if(!valid_access(previous_object())) return;
+    __Guests -= ({ lower_case(str) });
+    save_banish();
+}
 
-string *query_guests() { 
-    if(!valid_access(previous_object())) return ({}); 
-    else return __Guests; 
-} 
+string *query_guests() {
+    if(!valid_access(previous_object())) return ({});
+    else return __Guests;
+}
 
-protected private void save_banish() { 
+private void save_banish() {
     SaveObject(SaveFile);
-} 
+}
 
-int GetGuest(string str) { 
+int GetGuest(string str) {
     if(base_name(previous_object()) != LIB_CONNECT ) return 0;
-    else return (member_array(lower_case(str), __Guests) != -1); 
-} 
+    else return (member_array(lower_case(str), __Guests) != -1);
+}
 
-int valid_name(string str) { 
-    int i, x; 
+int valid_name(string str) {
+    int i, x;
 
     if(base_name(previous_object()) != LIB_CONNECT ) return 0;
-    if(member_array(str, __Names) != -1) return 0; 
+    if(member_array(str, __Names) != -1) return 0;
     if(!GUEST_ALLOWED && lower_case(str) == "guest") return 0;
     i = sizeof(__IllegalSubStrings);
     while(i--) if(strsrch(str, __IllegalSubStrings[i]) != -1) return 0;
-    if((x = strlen(str)) > MAX_USER_NAME_LENGTH) return 0; 
-    if(x < MIN_USER_NAME_LENGTH) return 0; 
-    for(i=0; i<x; i++)  
-        if(str[i] < 'a' || str[i] > 'z') return 0; 
-    return 1; 
-} 
+    if((x = strlen(str)) > MAX_USER_NAME_LENGTH) return 0;
+    if(x < MIN_USER_NAME_LENGTH) return 0;
+    for(i=0; i<x; i++)
+        if(str[i] < 'a' || str[i] > 'z') return 0;
+    return 1;
+}
 
 int eventConnect(string nom, string ip) {
     if(base_name(previous_object()) != LIB_CONNECT ) return 0;
-    if(member_array(nom, __WatchNames) != -1) { 
+    if(member_array(nom, __WatchNames) != -1) {
         log_file("watch/names", sprintf("%s from %s at %s\n", nom, ip,
-                    ctime(time()))); 
-    } 
-    if(match_ip(ip, __WatchSites)) { 
-        log_file("watch/"+ip, sprintf("%s at %s\n", nom, ctime(time()))); 
-    } 
-    if(member_array(nom, __Allowed) != -1) { 
-        log_file("watch/allowed", sprintf("%s from %s at %s\n", nom, ip,
-                    ctime(time()))); 
-        __Allowed -= ({ nom }); 
-        save_banish(); 
-        return 1; 
+                    ctime(time())));
     }
-    if(match_ip(ip, __Sites)) { 
-        if(user_exists(nom)) { 
+    if(match_ip(ip, __WatchSites)) {
+        log_file("watch/"+ip, sprintf("%s at %s\n", nom, ctime(time())));
+    }
+    if(member_array(nom, __Allowed) != -1) {
+        log_file("watch/allowed", sprintf("%s from %s at %s\n", nom, ip,
+                    ctime(time())));
+        __Allowed -= ({ nom });
+        save_banish();
+        return 1;
+    }
+    if(match_ip(ip, __Sites)) {
+        if(user_exists(nom)) {
             log_file("watch/"+ip, sprintf("%s allowed in from %s at %s\n",
-                        nom, ip, 
-                        ctime(time()))); 
-            return 1; 
-        } 
-        else { 
+                        nom, ip,
+                        ctime(time())));
+            return 1;
+        }
+        else {
             log_file("watch/"+ip, sprintf("%s failed from %s at %s\n"
                         , nom,
-                        ip, 
-                        ctime(time()))); 
-            return 0; 
-        } 
-    } 
-    return 1; 
-} 
+                        ip,
+                        ctime(time())));
+            return 0;
+        }
+    }
+    return 1;
+}
 
-nosave private int match_ip(string ip, string *sites) { 
+private int match_ip(string ip, string *sites) {
     foreach(string site in sites) {
         int i;
 

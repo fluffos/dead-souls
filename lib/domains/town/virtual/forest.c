@@ -33,7 +33,7 @@ mixed SearchFun(object who, string str){
     return "You find a fishing pole!";
 }
 
-varargs nosave void create(int x, int y) {
+varargs protected void create(int x, int y) {
     string n, s, e, w;
     string ne, nw, se, sw;
     string fly;
@@ -134,7 +134,7 @@ varargs void SetLongAndItems(int x, int y, int z) {
     if(x == -3 && y == 25) str += "\n%^GREEN%^There is a cave entrance in the cliff wall.%^RESET%^";
     SetItems( ([ "forest" : "It is so vast.",
                 ({"woods","trees","vegetation","plants"}) : "Thick, foreboding and "
-                "oppressive, these seem to add to an air of danger and claustrophobia.", 
+                "oppressive, these seem to add to an air of danger and claustrophobia.",
                 "no path" : "You observe the presence of its absence.",
                 ({"mountain","mountains"}): "The snow capped peaks of the great "
                 "northern range are faintly visible from here.",
@@ -144,7 +144,7 @@ varargs void SetLongAndItems(int x, int y, int z) {
                 "canopy, almost a ceiling through which little light can pass.",
                 ]) );
     if(y == max_north) {
-        AddItem( ({ "river", "stream", "great river"}), 
+        AddItem( ({ "river", "stream", "great river"}),
                 "This narrow but powerful river presents an insurmountable "
                 "obstacle to further travel east." );
         AddItem( ({ "slope","road","plateau"}), "Looks like that's "
@@ -152,7 +152,7 @@ varargs void SetLongAndItems(int x, int y, int z) {
                 "on the Frontiers.");
     }
     if(x == -4 && y == 25) {
-        AddItem(({"cave","opening","entrance","cave entrance"}) , 
+        AddItem(({"cave","opening","entrance","cave entrance"}) ,
                 "This is a rather scary looking opening in the cliff wall, leading "
                 "north into the ground.");
         AddEnter("cave","/domains/town/room/cave_entrance");
@@ -180,7 +180,7 @@ varargs void SetLongAndItems(int x, int y, int z) {
     if( !random(50) ){
         str += "  Burnt wood, scattered rocks and twigs, and other signs "
             "of an abandoned camp site are scattered about.";
-        AddItem( ({ "twigs", "sticks", "kindling", "wood", "burnt wood" }) , 
+        AddItem( ({ "twigs", "sticks", "kindling", "wood", "burnt wood" }) ,
                 "Though long since burnt to nothing, scattered kindling "
                 "and burnt wood lie about as a memory of travellers who have "
                 "passed through");
@@ -188,7 +188,7 @@ varargs void SetLongAndItems(int x, int y, int z) {
             SetSearch( (: SearchFun :) );
         }
     }
-    else if( !random(10) ) 
+    else if( !random(10) )
         SetSmell("default", "You smell a distant camp fire.");
     if( !random(55) )
         inv["/domains/town/npc/forest_orc"] = random(2)+1;
@@ -203,7 +203,7 @@ varargs void SetLongAndItems(int x, int y, int z) {
     if( !random(75) )
         inv["/domains/town/npc/spider"] = 1;
 
-    else if( !random(14) ) 
+    else if( !random(14) )
         SetListen("default", "You hear voices in the distance.");
     SetLong(str);
     SetDayLight(25);

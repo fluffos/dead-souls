@@ -1,6 +1,6 @@
 /*    /secure/cmds/adm/rid.c
  *    from the Dead Souls Object Library
- *    command to get rid of players 
+ *    command to get rid of players
  *    created by Descartes of Borg 951015
  */
 
@@ -11,7 +11,7 @@
 
 inherit LIB_DAEMON;
 
-varargs nosave void EndRid(string str, string reason);
+varargs protected void EndRid(string str, string reason);
 
 varargs int cmd(string who, string reason) {
     object ob = previous_object();
@@ -42,12 +42,12 @@ varargs int cmd(string who, string reason) {
         if( !(ob->eventDestruct()) ) destruct(ob);
     }
     file = player_save_file(str);
-    targetdir = DIR_RID + "/" + str[0..0] + "/" + str; 
+    targetdir = DIR_RID + "/" + str[0..0] + "/" + str;
     mkdir_recurse(targetdir);
     if( rename(file, save_file(targetdir + "/" + str + ".bak")) ) {
         write("Rename failed, security violation logged.");
         log_file("security", "\n*****\nRid violation attempted\n"
-                "Target: " + who + "\nCall stack:\n" + 
+                "Target: " + who + "\nCall stack:\n" +
                 sprintf("%O\n", previous_object(-1)));
         return 1;
     }
@@ -64,7 +64,7 @@ varargs int cmd(string who, string reason) {
     return 1;
 }
 
-varargs nosave void EndRid(string who, string reason) {
+varargs protected void EndRid(string who, string reason) {
     string file, str, actor;
     object foo = previous_object();
 

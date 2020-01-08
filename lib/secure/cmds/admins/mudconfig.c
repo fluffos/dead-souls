@@ -10,7 +10,7 @@ string GetHelp();
 inherit LIB_DAEMON;
 
 string ret_string = "";
-string* config, config2, keywords;
+string* config, *config2, *keywords;
 string* bools = ({ "enable","disable","on","off","1","0" });
 string* yesbools = ({ "enable","on","1","yes" });
 string* nobools = ({ "disable","off","0","no" });
@@ -41,7 +41,7 @@ int ProcessInet(string which, string arg);
 varargs nosave int ModDefaultDomain(string which, string arg);
 varargs nosave int ModCfg(string which, string arg);
 
-protected private void validate() {
+private void validate() {
     if(!this_player()) return 0;
     if( !(master()->valid_apply(({ "ASSIST" }))) )
         error("Illegal attempt to access mudconfig: "+get_stack()+" "+identify(previous_object(-1)));

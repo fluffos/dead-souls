@@ -14,9 +14,9 @@
 
 inherit LIB_DAEMON;
 
-protected private void GetPassword(string input);
-protected private void GetYesOrNo(string input);
-protected private void EndSuicide(string who);
+private void GetPassword(string input);
+private void GetYesOrNo(string input);
+private void EndSuicide(string who);
 
 string home_dir = "";
 string newfile, tmp, gwho = "";
@@ -56,7 +56,7 @@ mixed cmd(string str) {
     return 1;
 }
 
-protected private void GetPassword(string input) {
+private void GetPassword(string input) {
     string tmp;
     if( !sizeof(input) ) {
         this_player()->eventPrint("Suicide aborted.");
@@ -69,11 +69,11 @@ protected private void GetPassword(string input) {
     }
     this_player()->eventPrint("\nLeave a suicide note? (a)bort, (y)es, (N)o :\n",
             MSG_EDIT);
-    input_to((: GetYesOrNo :)); 
+    input_to((: GetYesOrNo :));
     return;
 }
 
-protected private void GetYesOrNo(string input) {
+private void GetYesOrNo(string input) {
     tmp = this_player()->GetKeyName();
     if( !sizeof(input) || (input = lower_case(input))[0] != 'y' ) {
         if( input && input[0] == 'a' ) {
@@ -90,7 +90,7 @@ protected private void GetYesOrNo(string input) {
     this_player()->eventEdit(DIR_TMP + "/" + tmp, (: EndSuicide, tmp :));
 }
 
-protected private void EndSuicide(string who) {
+private void EndSuicide(string who) {
     string file;
     object *ob;
     string whocheck = cleaned_end(base_name(this_player()));
@@ -102,7 +102,7 @@ protected private void EndSuicide(string who) {
         return;
     }
     gwho = who;
-    home_dir = homedir(this_player()); 
+    home_dir = homedir(this_player());
     if(!directory_exists(DIR_TMP + "/suicide/")) mkdir (DIR_TMP + "/suicide/");
 
     file = DIR_TMP + "/" + who;
@@ -136,7 +136,7 @@ protected private void EndSuicide(string who) {
         home_dir = "";
         gwho = "";
     }
-    this_player()->eventPrint("You have suicided.  Please try " 
+    this_player()->eventPrint("You have suicided.  Please try "
             "again another time.");
     environment(this_player())->eventPrint(
             this_player()->GetName()+" has ended "+

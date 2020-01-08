@@ -33,7 +33,7 @@ int PreExit(mixed arg1, mixed arg2){
 }
 #endif
 
-varargs nosave void create(int x, int y) {
+varargs protected void create(int x, int y) {
     string n, s, e, w;
     string ne, nw, se, sw;
     string fly;
@@ -125,7 +125,7 @@ varargs void SetLongAndItems(int x, int y, int z) {
                 ]) );
 
     if(y == max_north) {
-        AddItem( ({ "rock wall","wall","stone wall"}), 
+        AddItem( ({ "rock wall","wall","stone wall"}),
                 "This vast stone wall prevents further travel north." );
     }
     else if(y == max_south) {

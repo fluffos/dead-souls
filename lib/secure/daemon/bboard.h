@@ -2,9 +2,9 @@
 #define __BBOARD_H
 
 void create();
-protected private void save_board();
-protected private void restore_board();
-protected private int valid_access();
+private void save_board();
+private void restore_board();
+private int valid_access();
 void add_post(string id, string who, string subj, string msg);
 void remove_post(string id, int post);
 void mark_read(string id, int post, string reader);

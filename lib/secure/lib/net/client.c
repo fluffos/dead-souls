@@ -25,7 +25,7 @@ private nosave class client Socket;
 protected void eventClose(class client sock);
 protected void eventRead(mixed val);
 protected void eventSocketClose();
-nosave void eventSocketError(string str, int x);
+protected void eventSocketError(string str, int x);
 
 function SetRead(function f) { return (Read = f); }
 
@@ -52,7 +52,7 @@ int eventCreateSocket(string host, int port) {
         eventSocketError("Error in socket_bind().", x);
         return x;
     }
-    x = socket_connect(Socket->Descriptor, host + " " + port, 
+    x = socket_connect(Socket->Descriptor, host + " " + port,
             "eventReadCallback", "eventWriteCallback");
     if( x != EESUCCESS ) {
         eventClose(Socket);
@@ -68,7 +68,7 @@ protected void eventAbortCallback(int fd) {
     eventClose(Socket);
 }
 
-nosave void eventReadCallback(int fd, mixed val) {
+protected void eventReadCallback(int fd, mixed val) {
     if( functionp(Read) ) evaluate(Read, val);
     else eventRead(val);
 }
@@ -122,7 +122,7 @@ protected void eventWrite(mixed val) {
 protected void eventClose(mixed arg) {
     class client sock;
     if(!arg) return;
-    if(classp(arg)) sock = arg; 
+    if(classp(arg)) sock = arg;
     if(!classp(arg)){
         trr("arg: "+identify(arg),"yellow");
         trr("prevs: "+identify(previous_object(-1)),"yellow");
@@ -145,7 +145,7 @@ int eventDestruct() {
     return daemon::eventDestruct();
 }
 
-nosave void eventSocketError(string str, int x) { 
-    if( LogFile ) 
+protected void eventSocketError(string str, int x) {
+    if( LogFile )
         log_file(LogFile, ctime(time()) + "\n" + socket_error(x) + "\n");
 }

@@ -9,9 +9,9 @@
 
 inherit LIB_DAEMON;
 
-nosave void eventOrderTitles(string *titles, int maxi);
-nosave void GetTitle(string which, string *titles, int maxi);
-nosave void GetDest(string which, string *titles, int i, int maxi);
+protected void eventOrderTitles(string *titles, int maxi);
+protected void GetTitle(string which, string *titles, int maxi);
+protected void GetDest(string which, string *titles, int i, int maxi);
 
 mixed cmd(string args) {
     string *titles;
@@ -25,7 +25,7 @@ mixed cmd(string args) {
         update("/secure/daemon/finger");
         return 1;
     }
-    if( !(maxi = sizeof(titles = this_player()->GetTitles())) ) 
+    if( !(maxi = sizeof(titles = this_player()->GetTitles())) )
         return "You are totally unaccomplished.";
     if( args == "1" || args == "2" ) {
         this_player()->SetTitleLength(to_int(args));
@@ -36,7 +36,7 @@ mixed cmd(string args) {
         return 1;
     }
     if( maxi == 1 ) {
-        message("system", "You have only one title: " + titles[0], 
+        message("system", "You have only one title: " + titles[0],
                 this_player());
         return 1;
     }
@@ -64,18 +64,18 @@ mixed cmd(string args) {
     return 1;
 }
 
-nosave void eventOrderTitles(string *titles, int maxi) {
+protected void eventOrderTitles(string *titles, int maxi) {
     int i;
 
     message("system", "You have the following titles:", this_player());
     for(i=0; i<maxi; i++)
         message("system", "\t" + (i+1) + " " + titles[i], this_player());
-    message("prompt", "Move which (q to quit)? [" + (maxi) + "] ", 
+    message("prompt", "Move which (q to quit)? [" + (maxi) + "] ",
             this_player());
     input_to((: GetTitle :), titles, maxi);
 }
 
-nosave void GetTitle(string which, string *titles, int maxi) {
+protected void GetTitle(string which, string *titles, int maxi) {
     int x;
 
     if( which == "q" ) {
@@ -96,7 +96,7 @@ nosave void GetTitle(string which, string *titles, int maxi) {
     input_to( (: GetDest :), titles, x, maxi );
 }
 
-nosave void GetDest(string which, string *titles, int i, int maxi) {
+protected void GetDest(string which, string *titles, int i, int maxi) {
     string *tmp;
     int j, maxj, x;
 

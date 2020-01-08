@@ -11,7 +11,7 @@ inherit LIB_DAEMON;
 
 private mapping Currencies;
 int LastInflation;
-string oba; 
+string oba;
 nosave string SaveFile;
 
 protected void create() {
@@ -30,7 +30,7 @@ protected void create() {
     RestoreObject(SaveFile);
     i = sizeof(borg = keys(Currencies));
     temps = percent(time()-LastInflation, 4800000)* 0.01;
-    while(i--) { 
+    while(i--) {
         tmp = temps * Currencies[borg[i]]["inflation"];
         Currencies[borg[i]]["rate"] += tmp*Currencies[borg[i]]["rate"];
     }
@@ -46,7 +46,7 @@ string ewrite(string str){
     return read_file("/save/test.txt");
 }
 
-protected private void validate() {
+private void validate() {
     if( !(master()->valid_apply(({ PRIV_ASSIST }))) ){
         write(identify(previous_object(-1)));
         error("Illegal attempt to modify economy data");
@@ -90,8 +90,8 @@ float __Query(string type, string key) {
     else return Currencies[type][key];
 }
 
-string *__QueryCurrencies() { 
+string *__QueryCurrencies() {
     if(sizeof(Currencies))
-        return keys(Currencies); 
+        return keys(Currencies);
     else return ({});
 }

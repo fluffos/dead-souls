@@ -14,7 +14,7 @@ inherit LIB_DAEMON;
 nosave private string Error, SeeAlso = "";
 nosave private mapping Indices;
 
-protected private void LoadIndices();
+private void LoadIndices();
 string GetHelp(string str);
 string GetHelpByIndex(string index, string topic);
 string GetTopic(string index, string topic);
@@ -44,7 +44,7 @@ int CanAccess(object who, string index) {
     }
 }
 
-protected private void LoadIndices() {
+private void LoadIndices() {
     string* tmp;
     function f;
     string dir;

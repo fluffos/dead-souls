@@ -42,7 +42,7 @@ nosave private void load_folder(string who, string folder) {
     }
 }
 
-protected private void save_folder() {
+private void save_folder() {
     string file;
 
     if(!__Owner || !__Folder) return;
@@ -70,7 +70,7 @@ void add_post(string who, string folder, mapping borg) {
             borg["message"] = LETTERS_D->query_letter(borg["id"]);
             LOCALPOST_D->send_post(borg, fwd);
             return;
-        } 
+        }
         else if(user_exists(fwd)) {
             this_object()->add_post(fwd, "new", borg);
             return;
@@ -107,7 +107,7 @@ void delete_posts(string who, string folder, int *del) {
             __BoxInfo[i] = 0;
         }
     }
-    __BoxInfo = sort_array(filter(__BoxInfo, "filter_folder", 
+    __BoxInfo = sort_array(filter(__BoxInfo, "filter_folder",
                 this_object()), "sort_folder", this_object());
     save_folder();
 }

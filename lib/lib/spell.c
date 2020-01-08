@@ -76,7 +76,7 @@ int GetDamage(){
     return damage;
 }
 
-varargs nosave void SetDamage(int type, mixed* rest...){
+varargs protected void SetDamage(int type, mixed* rest...){
     DamageType = type;
     if( arrayp(rest[0]) ){
         rest = rest[0];

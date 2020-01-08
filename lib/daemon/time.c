@@ -29,8 +29,10 @@ protected void create() {
     i = sizeof(lines = filter(explode(read_file(CFG_TIME), "\n"),
                 (: $1 && $1 != "" && $1[0] != '#' :)));
     foreach(string line in lines) {
-        string *words;
-        if( sizeof(words = explode(line, ":")) != 3 ) continue;
+        string *words = explode(line, ":");
+        if( sizeof(words) != 3 )  {
+          continue;
+        }
         Zones[words[0]] = ([]);
         Zones[words[0]]["offset"] = to_int(words[1]) - x;
         Zones[words[0]]["name"] = words[2];
@@ -40,6 +42,7 @@ protected void create() {
 int GetOffset(string tzone) {
     if(LOCAL_TIME) return 0;
     if(!tzone) tzone = query_tz();
+    if(!Zones || sizeof(Zones) == 0) return 0;
     if( !Zones[tzone] ) return 0;
     else return Zones[tzone]["offset"];
 }

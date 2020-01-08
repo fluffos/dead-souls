@@ -463,7 +463,7 @@ int GetMoonLight() {
 }
 
 string GetLong(string arg) {
-    string* arr, mn;
+    string* arr, *mn;
     object env;
     string tmp;
     int i;

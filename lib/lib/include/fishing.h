@@ -9,7 +9,7 @@ mixed CanStop(object who, string str);
 mixed CanCast(object who, string str);
 
 mixed eventCast(object who, object pole, string str);
-nosave void eventCatch(object who, string fish, object pole);
+protected void eventCatch(object who, string fish, object pole);
 mixed eventStop(object who, string str);
 
 int SetChance(int x);
