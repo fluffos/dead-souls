@@ -7,12 +7,16 @@
 - [ ] : Don't require special configs from FluffOS 2019.
 - [ ] : No warning or errors
 
-## How to test for now
+## How to test and contribute
 
-1. Get FluffOS v2019 release, change ```#define OLD_ED to #undef OLD_ED in local_options```
-2. cp driver bin/ && cd bin/
-3. ./driver mudos.cfg
-4. Connect to http://localhost:5555 and play!
+```
+git clone --recurse-submodules https://github.com/fluffos/dead-souls.git
+cd dead-souls
+./build.sh
+./run.sh
+```
+
+Connect to http://localhost:5555 and play!
 
 ## Admin
 

@@ -1,4 +1,5 @@
 /.idea
+/build
 /lib/log
 /lib/secure/log
 /lib/secure/save
