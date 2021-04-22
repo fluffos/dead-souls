@@ -12,11 +12,12 @@
 1. Get FluffOS v2019 release, change ```#define OLD_ED to #undef OLD_ED in local_options```
 2. cp driver bin/ && cd bin/
 3. ./driver mudos.cfg
-4. Connect to http://localhost:5555 and play!
 
-## Admin
-
-the current testing admin account is ```sunyc``` and password is ```12345```.
+1. Edit ```lib/secure/cfg/groups.cfg``` and replace ```sunyc``` with the lower-case name of your admin character you will create below.
+2. Connect via web browser to http://localhost:5555 or via mudclient to localhost port 6666.
+3. Select Creator instead of player.
+4. Set your character name to match the name you used above.
+5. Enjoy!
 
 ## Screenshot
 
