@@ -13,6 +13,8 @@
 2. cp driver bin/ && cd bin/
 3. ./driver mudos.cfg
 
+## Admin
+
 1. Edit ```lib/secure/cfg/groups.cfg``` and replace ```sunyc``` with the lower-case name of your admin character you will create below.
 2. Connect via web browser to http://localhost:5555 or via mudclient to localhost port 6666.
 3. Select Creator instead of player.
