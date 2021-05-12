@@ -20,7 +20,11 @@ Connect to http://localhost:5555 and play!
 
 ## Admin
 
-the current testing admin account is ```sunyc``` and password is ```12345```.
+1. Edit ```lib/secure/cfg/groups.cfg``` and replace ```sunyc``` with the lower-case name of your admin character you will create below.
+2. Connect via web browser to http://localhost:5555 or via mudclient to localhost port 6666.
+3. Select Creator instead of player.
+4. Set your character name to match the name you used above.
+5. Enjoy!
 
 ## Screenshot
 
@@ -28,4 +32,4 @@ the current testing admin account is ```sunyc``` and password is ```12345```.
 
 ## Contribution
 
-Send PR to fix stuff! 
+Send PR to fix stuff!

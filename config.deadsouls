@@ -8,6 +8,7 @@
 name : DeadSouls-FluffOS2019
 
 # port number to accept users on
+port number : 6666
 external_port_1 : websocket 5555
 websocket http dir: ./www
 #external_port_1 : telnet 5555
