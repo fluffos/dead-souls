@@ -11,12 +11,10 @@ name : DeadSouls-FluffOS2019
 port number : 6666
 external_port_1 : websocket 5555
 websocket http dir: ./www
+#external_port_1 : telnet 5555
 
 # pathname of mudlib
-mudlib directory : ../lib
-
-# pathname of driver/config dir
-binary directory : ../bin
+mudlib directory : ./lib
 
 # fd6 stuff is what allows portbind to work properly. If
 # you want to have the mud accept connections on port 23 but run
@@ -57,12 +55,6 @@ global include file : <global.h>
 # This time should be substantially longer than the swapping time.
 time to clean up : 2100000000
 
-# How long time until an unused object is swapped out.
-# Machine with too many players and too little memory: 900 (15 minutes)
-# Machine with few players and lot of memory: 10000
-# Machine with infinite memory: 0 (never swap).
-time to swap : 0
-
 # How many seconds until an object is reset again.
 time to reset : 2100000000
 
@@ -98,11 +90,6 @@ maximum read file size : 200000
 # max number of bytes you allow to be read and written with read_bytes
 # and write_bytes
 maximum byte transfer : 10000
-
-# Reserve an extra memory area from malloc(), to free when we run out
-# of memory and allow the mudlib to shutdown.
-# If this value is 0, no area will be reserved.
-reserved size : 0
 
 # Define the size of the shared string hash table.  This number should
 # a prime, probably between 1000 and 30000; if you set it to about 1/5
