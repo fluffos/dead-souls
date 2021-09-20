@@ -1,8 +1,8 @@
 /.idea
+/.vscode
 /build
 /lib/log
 /lib/secure/log
 /lib/secure/save
 /lib/save/*.o
-/lib/tmp
 /lib/daemon/tmp

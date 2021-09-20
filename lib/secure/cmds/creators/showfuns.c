@@ -35,9 +35,9 @@ mixed cmd(string str) {
         tmp = "";
         lines = explode(content, "\n");
         ob = load_object(str);
-        fs = functions(ob);
         if(!ob) return "File cannot be loaded.";
         else arr = query_local_functions(ob);
+        fs = functions(ob);
         raw_lines = filter(lines, (: reverse_memberp($1, types) :) );
         lines = filter(raw_lines, (: reverse_memberp($1, arr) :) );
         foreach(string func in arr){

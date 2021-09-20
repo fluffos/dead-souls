@@ -26,7 +26,7 @@
  style="color: rgb(0, 102, 0);"><br style="color: rgb(0, 102, 0);"><span
  style="color: rgb(0, 102, 0);">inherit LIB_VERB;</span><br
  style="color: rgb(0, 102, 0);"><br style="color: rgb(0, 102, 0);"><span
- style="color: rgb(0, 102, 0);">static void create() {</span><br
+ style="color: rgb(0, 102, 0);">protected void create() {</span><br
  style="color: rgb(0, 102, 0);"><span style="color: rgb(0, 102, 0);">    verb::create();</span><br
  style="color: rgb(0, 102, 0);"><span style="color: rgb(0, 102, 0);">    SetVerb("buy");</span><br
  style="color: rgb(0, 102, 0);"><span style="color: rgb(0, 102, 0);">    SetSynonyms("purchase");</span><br
@@ -49,7 +49,7 @@
  style="color: rgb(0, 102, 0); font-weight: bold;">#include &lt;lib.h&gt; </span><br>// This include statement allows us to use macros, or nicknames, <br>// for certain things. Specifically, the lib include gives us<br>// knowledge of what we mean by LIB_VERB.<br><br><span
  style="color: rgb(0, 102, 0); font-weight: bold;">inherit LIB_VERB;</span><br>// This line tells us that we will be inheriting all the<br>// functions and variables defined in /lib/verb.c .<br><br
  style="color: rgb(0, 102, 0);"><span
- style="color: rgb(0, 102, 0); font-weight: bold;">static void create() {</span><br>// The create function is like main() in C/C++. A function that<br>// is *always* called when an object is loaded. Therefore,<br>// anything important goes inside here.<br><br
+ style="color: rgb(0, 102, 0); font-weight: bold;">protected void create() {</span><br>// The create function is like main() in C/C++. A function that<br>// is *always* called when an object is loaded. Therefore,<br>// anything important goes inside here.<br><br
  style="font-weight: bold;"><span
  style="color: rgb(0, 102, 0); font-weight: bold;">    verb::create();</span><br>// The :: operator is called the "scope resolution operator".<br>// That's a fancy way of saying that we are trying to use<br>// a function that exists somewhere in the inheritance tree, and<br>// not in this individual file. The verb::create() line above<br>// is saying "At this point, execute any directives in the<br>// create() function of LIB_VERB". This is necessary because <br>// the create() function we define here will override the create()<br>// function we inherit, and that overridden function might have<br>// had important stuff in it we need to have happen. <br>//    If you didn't understand any of that, you should probably<br>// stop reading this tutorial and get started on reading<br>// the Creator's manual.<br><br><span
  style="color: rgb(0, 102, 0); font-weight: bold;">    SetVerb("buy");</span><br>// This identifies what word the parser should associate<br>// with this verb.<br><br><span

@@ -751,15 +751,15 @@ string unmorse(string msg) {
 
 string unpinkfish(string str){
     if(!str) error("String required.");
-    str = replace_string(str,"\%\%\^\^","0^^0");
-    str = replace_string(str,"\%\^","\%\%\^\^");
-    str = replace_string(str,"0^^0","\%\%\^\^");
+    str = replace_string(str,"%%^^","0^^0");
+    str = replace_string(str,"%^","%%^^");
+    str = replace_string(str,"0^^0","%%^^");
     return str;
 }
 
 string repinkfish(string str){
     if(!str) error("String required.");
-    str = replace_string(str,"\%\%\^\^","\%\^");
+    str = replace_string(str,"%%^^","%^");
     return str;
 }
 

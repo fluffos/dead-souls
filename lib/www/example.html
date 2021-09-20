@@ -139,7 +139,7 @@ make
 sure that our modifications are actually being saved.</p>
 <div class="inputcontainer">
 <span class="command">more here</span>
-<pre>#include &lt;lib.h&gt;<br>#include "/realms/testycre/customdefs.h"<br><br>inherit LIB_ROOM;<br><br>static void create() {<br> room::create();<br> SetClimate("indoors");<br> SetAmbientLight(30);<br> SetShort("Room 2");<br> SetLong("This is the second test room.");<br> SetExits(([<br> "west" : "/realms/testycre/area/room/test1",<br> ]));<br><br> SetItems( ([<br> "template" : "That's what this is.",<br> ]) );<br><br> SetInventory(([<br> ]));<br>}<br><br>void init(){<br> ::init();<br>}<br></pre>
+<pre>#include &lt;lib.h&gt;<br>#include "/realms/testycre/customdefs.h"<br><br>inherit LIB_ROOM;<br><br>protected void create() {<br> room::create();<br> SetClimate("indoors");<br> SetAmbientLight(30);<br> SetShort("Room 2");<br> SetLong("This is the second test room.");<br> SetExits(([<br> "west" : "/realms/testycre/area/room/test1",<br> ]));<br><br> SetItems( ([<br> "template" : "That's what this is.",<br> ]) );<br><br> SetInventory(([<br> ]));<br>}<br><br>void init(){<br> ::init();<br>}<br></pre>
 </div>
 <a name="npc"></a>
 <h1>NPC Creation <a class="backtotop" href="#top">(Back to Top)</a></h1>
@@ -252,7 +252,7 @@ SetAdjectives modification complete.
 for us.</p>
 <div class="inputcontainer">
 <span class="command">about dude</span>
-<pre>/realms/testycre/area/npc/guy.c<br><br>#include &lt;lib.h&gt;<br><br>inherit LIB_SENTIENT;<br><br>static void create() {<br> sentient::create();<br> SetKeyName("guy");<br> SetAdjectives( ({"just some", "random", "some"}) );<br> SetId( ({"dude", "fellow", "fella"}) );<br> SetShort("The Dude");<br> SetLong("This is just some random guy.");<br> SetLevel(1);<br> SetRace("human");<br> SetClass("explorer");<br> SetGender("male");<br>}<br><br>void init(){<br> ::init();<br></pre>
+<pre>/realms/testycre/area/npc/guy.c<br><br>#include &lt;lib.h&gt;<br><br>inherit LIB_SENTIENT;<br><br>protected void create() {<br> sentient::create();<br> SetKeyName("guy");<br> SetAdjectives( ({"just some", "random", "some"}) );<br> SetId( ({"dude", "fellow", "fella"}) );<br> SetShort("The Dude");<br> SetLong("This is just some random guy.");<br> SetLevel(1);<br> SetRace("human");<br> SetClass("explorer");<br> SetGender("male");<br>}<br><br>void init(){<br> ::init();<br></pre>
 </div>
 <a name="weapons"></a>
 <h1>Weapon Creation <a class="backtotop" href="#top">(Back to Top)</a></h1>
@@ -301,7 +301,7 @@ Luckily, this is easy to fix.</p>
 <p>Now we'll look at the hammer's file to see how it looks.</p>
 <div class="inputcontainer">
 <span class="command">about hammer</span>
-<pre>/realms/testycre/area/weap/hammer.c<br><br>#include &lt;lib.h&gt;<br>#include &lt;damage_types.h&gt;<br>#include &lt;vendor_types.h&gt;<br><br>inherit LIB_ITEM;<br><br>static void create() {<br> item::create();<br> SetKeyName("hammer");<br> SetId( ({"hammer", "warhammer"}) );<br> SetAdjectives( ({ "generic" }));<br> SetShort("a generic weapon");<br> SetLong("A weapon of indeterminate proportions.");<br> SetMass(50);<br> SetVendorType(VT_WEAPON);<br> SetClass(30);<br> SetDamageType(BLADE);<br> SetWeaponType("blade");<br><br>}<br>void init(){<br> ::init();<br>}<br></pre>
+<pre>/realms/testycre/area/weap/hammer.c<br><br>#include &lt;lib.h&gt;<br>#include &lt;damage_types.h&gt;<br>#include &lt;vendor_types.h&gt;<br><br>inherit LIB_ITEM;<br><br>protected void create() {<br> item::create();<br> SetKeyName("hammer");<br> SetId( ({"hammer", "warhammer"}) );<br> SetAdjectives( ({ "generic" }));<br> SetShort("a generic weapon");<br> SetLong("A weapon of indeterminate proportions.");<br> SetMass(50);<br> SetVendorType(VT_WEAPON);<br> SetClass(30);<br> SetDamageType(BLADE);<br> SetWeaponType("blade");<br><br>}<br>void init(){<br> ::init();<br>}<br></pre>
 </div>
 <p>We can now set the hammer's damage type to blunt for a nice crushing
 effect.</p>
@@ -328,7 +328,7 @@ effect.</p>
 set.</p>
 <div class="inputcontainer">
 <span class="command">about hammer</span>
-<pre>/realms/testycre/area/weap/hammer.c<br><br>#include &lt;lib.h&gt;<br>#include &lt;damage_types.h&gt;<br>#include &lt;vendor_types.h&gt;<br><br>inherit LIB_ITEM;<br><br>static void create() {<br> item::create();<br> SetKeyName("hammer");<br> SetId( ({"hammer", "warhammer"}) );<br> SetAdjectives( ({ "generic" }));<br> SetShort("a generic weapon");<br> SetLong("A weapon of indeterminate proportions.");<br> SetHands(2);<br> SetMass(700);<br> SetVendorType(VT_WEAPON);<br> SetClass(30);<br> SetDamageType(BLUNT);<br><br> SetWeaponType("blunt");<br>}<br><br>void init(){<br> ::init();<br>}<br></pre>
+<pre>/realms/testycre/area/weap/hammer.c<br><br>#include &lt;lib.h&gt;<br>#include &lt;damage_types.h&gt;<br>#include &lt;vendor_types.h&gt;<br><br>inherit LIB_ITEM;<br><br>protected void create() {<br> item::create();<br> SetKeyName("hammer");<br> SetId( ({"hammer", "warhammer"}) );<br> SetAdjectives( ({ "generic" }));<br> SetShort("a generic weapon");<br> SetLong("A weapon of indeterminate proportions.");<br> SetHands(2);<br> SetMass(700);<br> SetVendorType(VT_WEAPON);<br> SetClass(30);<br> SetDamageType(BLUNT);<br><br> SetWeaponType("blunt");<br>}<br><br>void init(){<br> ::init();<br>}<br></pre>
 </div>
 <p>Now we'll set that short description.</p>
 <div class="inputcontainer">
@@ -371,7 +371,7 @@ SetAdjectives modification complete.
 <p>And finally, look at our hammer file.</p>
 <div class="inputcontainer">
 <span class="command">about hammer</span>
-<pre>/realms/testycre/area/weap/hammer.c<br><br>#include &lt;lib.h&gt;<br>#include &lt;damage_types.h&gt;<br>#include &lt;vendor_types.h&gt;<br><br>inherit LIB_ITEM;<br><br>static void create() {<br> item::create();<br> SetKeyName("hammer");<br> SetAdjectives( ({"large", "heavy", "war"}) );<br> SetId( ({"hammer", "warhammer"}) );<br> SetShort("a heavy war hammer");<br> SetLong("This is an extremely large and heavy hammer designed to be wielded<br>  in both hands and used to hurt people very badly indeed.");<br> SetHands(2);<br> SetMass(700);<br> SetVendorType(VT_WEAPON);<br> SetClass(30);<br> SetDamageType(BLUNT);<br><br> SetWeaponType("blunt");<br>}<br><br>void init(){<br> ::init();<br>}<br></pre>
+<pre>/realms/testycre/area/weap/hammer.c<br><br>#include &lt;lib.h&gt;<br>#include &lt;damage_types.h&gt;<br>#include &lt;vendor_types.h&gt;<br><br>inherit LIB_ITEM;<br><br>protected void create() {<br> item::create();<br> SetKeyName("hammer");<br> SetAdjectives( ({"large", "heavy", "war"}) );<br> SetId( ({"hammer", "warhammer"}) );<br> SetShort("a heavy war hammer");<br> SetLong("This is an extremely large and heavy hammer designed to be wielded<br>  in both hands and used to hurt people very badly indeed.");<br> SetHands(2);<br> SetMass(700);<br> SetVendorType(VT_WEAPON);<br> SetClass(30);<br> SetDamageType(BLUNT);<br><br> SetWeaponType("blunt");<br>}<br><br>void init(){<br> ::init();<br>}<br></pre>
 </div>
 <p>It's a pretty heavy hammer, so let's make sure our guy can wield it.</p>
 <div class="inputcontainer">
@@ -401,7 +401,7 @@ SetInventory modification complete.
 <p>And check the guy's file.</p>
 <div class="inputcontainer">
 <span class="command">about guy</span>
-<pre>/realms/testycre/area/npc/guy.c<br><br>#include &lt;lib.h&gt;<br><br>inherit LIB_SENTIENT;<br><br>static void create() {<br> sentient::create();<br> SetKeyName("guy");<br> SetAdjectives( ({"just some", "random", "some"}) );<br> SetId( ({"dude", "fellow", "fella"}) );<br> SetShort("The Dude");<br> SetLong("This is just some random guy.");<br> SetInventory(([<br> "/realms/testycre/area/weap/hammer" : "wield hammer",<br> ]));<br> SetLevel(10);<br> SetRace("human");<br> SetClass("explorer");<br> SetGender("male");<br>}<br><br>void init(){<br> ::init();<br>}<br></pre>
+<pre>/realms/testycre/area/npc/guy.c<br><br>#include &lt;lib.h&gt;<br><br>inherit LIB_SENTIENT;<br><br>protected void create() {<br> sentient::create();<br> SetKeyName("guy");<br> SetAdjectives( ({"just some", "random", "some"}) );<br> SetId( ({"dude", "fellow", "fella"}) );<br> SetShort("The Dude");<br> SetLong("This is just some random guy.");<br> SetInventory(([<br> "/realms/testycre/area/weap/hammer" : "wield hammer",<br> ]));<br> SetLevel(10);<br> SetRace("human");<br> SetClass("explorer");<br> SetGender("male");<br>}<br><br>void init(){<br> ::init();<br>}<br></pre>
 </div>
 <a name="armor"></a>
 <h1>Armor Creation <a class="backtotop" href="#top">(Back to Top)</a></h1>
@@ -502,7 +502,7 @@ SetAdjectives modification complete.
 #include &lt;damage_types.h&gt;
 inherit LIB_ARMOR;
 
-static void create(){
+protected void create(){
  armor::create();
  SetKeyName("helmet");
  SetAdjectives( ({"iron", "thick", "viking",
@@ -510,8 +510,8 @@ static void create(){
 "protective"}) );
  SetId( ({"helm", "headgear", "cover"}) );
  SetShort("a horned viking helmet");
- SetLong("Vikings didn't really wear horned helmets into combat, but this one 
- does look formidable with its large bull horns and thick iron construction. It 
+ SetLong("Vikings didn't really wear horned helmets into combat, but this one
+ does look formidable with its large bull horns and thick iron construction. It
  should prove very protective.");
  SetMass(50);
  SetDamagePoints(100);
@@ -536,7 +536,7 @@ Exit from ed.
 
 <span class="command">modify helmet protection</span>
 Your armor can protect against one or more of the following types of
-damage: 
+damage:
 blunt, blade, knife, water, shock, cold, heat, gas, acid, magic, poison,
 disease, trauma, ..
 
@@ -584,7 +584,7 @@ Exit from ed.
 #include &lt;damage_types.h&gt;
 inherit LIB_ARMOR;
 
-static void create(){
+protected void create(){
  armor::create();
  SetKeyName("helmet");
  SetAdjectives( ({"iron", "thick", "viking",
@@ -592,8 +592,8 @@ static void create(){
  "protective"}) );
  SetId( ({"helm", "headgear", "cover"}) );
  SetShort("a horned viking helmet");
- SetLong("Vikings didn't really wear horned helmets into combat, but this one 
- does look formidable with its large bull horns and thick iron construction. 
+ SetLong("Vikings didn't really wear horned helmets into combat, but this one
+ does look formidable with its large bull horns and thick iron construction.
  It should prove very protective.");
  SetMass(200);
  SetDamagePoints(100);
@@ -701,7 +701,7 @@ A horned viking helmet (worn)
 
 inherit LIB_ROOM;
 
-static void create() {
+protected void create() {
  room::create();
  SetClimate("indoors");
  SetAmbientLight(30);
