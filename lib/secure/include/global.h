@@ -1,6 +1,10 @@
 #ifndef __GLOBAL_H
 #define __GLOBAL_H
 
+#ifdef FLUFFOS
+#define __FLUFFOS__
+#endif
+
 #define CONFIG_H "/secure/include/config.h"
 #define NETWORK_H "/secure/include/network.h"
 #define ROOMS_H "/secure/include/rooms.h"

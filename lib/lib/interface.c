@@ -33,7 +33,7 @@ protected void create(){
     editor::create();
     nmsh::create();
     Terminal = "ansi";
-    Screen = ({ 80, 20 });
+    Screen = ({ 80, 30 });
     Blocked = ([]);
 }
 
