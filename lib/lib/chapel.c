@@ -12,7 +12,7 @@
 inherit LIB_ROOM;
 
 private int AllowSacrifice, SacrificeType;
-private string* Classes, Religion, Deities, DeityIds;
+private string* Classes, *Religion, *Deities, *DeityIds;
 
 /*     **********  /lib/chapel.c apply methods  **********     */
 protected void create(){

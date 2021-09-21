@@ -29,9 +29,6 @@ object load_object(string str) {
     }
     if(!stringp(str)) error("Bad argument 1 to load_object().\n");
     if(ob = find_object(str)) return ob;
-    if(grepp(str, "cratylus")){
-        string proof = read_file(str,4,3);
-    }
     catch(call_other(str, "???"));
     return find_object(str);
 }

@@ -731,7 +731,6 @@ string unmorse(string msg) {
     mapping morse = ([]);
     string tmp = "";
     string *phrase = ({});
-    int x, i;
     foreach(mixed key, mixed val in Morse){
         morse[val] = key;
     }

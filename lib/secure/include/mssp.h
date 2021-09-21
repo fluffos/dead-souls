@@ -6,7 +6,7 @@ string mssp_reply(){
     int i;
     string ret, ip = query_intermud_ip();
     string intermud = "";
-   
+
     if(find_object(INTERMUD_D)) intermud += "i3";
     if(find_object(IMC2_D)){
         if(sizeof(intermud)) intermud += "\t";
@@ -129,7 +129,6 @@ string mssp_reply(){
 }
 
 mapping mssp_map(){
-    string text = mssp_reply();
     mapping ret = ([]), tmp = add_maps(reply, notes);
     foreach(mixed key, mixed val in tmp){
         if(undefinedp(val)) continue;

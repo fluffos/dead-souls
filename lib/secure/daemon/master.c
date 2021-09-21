@@ -775,7 +775,7 @@ int player_exists(string nom) {
 string domain_file(string str) {
     string nom, tmp;
     if(sscanf(str, DOMAINS_DIRS+"/%s/%s", nom, tmp) == 2) return nom;
-    return 0;
+    return "BACKBONE";
 }
 
 string author_file(string str) {
@@ -783,7 +783,7 @@ string author_file(string str) {
 
     if(sscanf(str, REALMS_DIRS+"/%s/%s", nom, tmp) == 2) return nom;
     else if(sscanf(str, ESTATES_DIRS+"/%s/%s/%s", tmp, nom, tmp2) == 3) return nom;
-    return 0;
+    return "NONAME";
 }
 
 protected int slow_shutdown() {
@@ -1131,7 +1131,7 @@ mixed eventPromise(){
 }
 
 int ReadName(){
-    string line_string, nameline, tmp;
+    string line_string, tmp;
     string *line_array;
     int port = query_host_port();
     MudName = "DeadSoulsNew";
@@ -1162,13 +1162,16 @@ int ReadName(){
 }
 
 // Compat with PACKAGE_UID
-string get_root_uid() {
-  return "ROOT";
+string get_root_uid()
+{
+    return "ROOT";
 }
-string get_bb_uid() {
-  return "BACKBONE";
+string get_bb_uid()
+{
+    return "BACKBONE";
 }
 
-string creator_file() {
-  return "";
+string creator_file(string filename)
+{
+    return filename;
 }
