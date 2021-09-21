@@ -40,7 +40,7 @@ master file : /secure/daemon/master
 simulated efun file : /secure/sefun/sefun
 
 # file to swap out objects; not used if time to swap is 0
-swap file : /secure/tmp/swap
+# swap file : /secure/tmp/swap
 
 # alternate debug.log file name (assumed to be in specified 'log directory')
 debug log file : runtime
@@ -60,10 +60,10 @@ time to reset : 2100000000
 
 # Maximum number of bits in a bit field. They are stored in printable
 # strings, 6 bits per byte.
-maximum bits in a bitfield : 1200
+# maximum bits in a bitfield : 1200
 
 # Max number of local variables in a function.
-maximum local variables : 35
+# maximum local variables : 35
 
 # Maximum amount of "eval cost" per thread - execution is halted when
 # it is exceeded.
@@ -73,23 +73,23 @@ maximum evaluation cost : 30000000
 maximum array size : 64000
 
 # This is the maximum allowed size of a variable of type 'buffer'.
-maximum buffer size : 400000
+# maximum buffer size : 400000
 
 # Max size for a mapping
-maximum mapping size : 64000
+# maximum mapping size : 64000
 
 # Max inherit chain size
-inherit chain size : 30
+# inherit chain size : 30
 
 # maximum length of a string variable
-maximum string length : 200000
+# maximum string length : 200000
 
 # Max size of a file allowed to be read by 'read_file()'.
-maximum read file size : 200000
+# maximum read file size : 200000
 
 # max number of bytes you allow to be read and written with read_bytes
 # and write_bytes
-maximum byte transfer : 10000
+# maximum byte transfer : 10000
 
 # Define the size of the shared string hash table.  This number should
 # a prime, probably between 1000 and 30000; if you set it to about 1/5
@@ -97,13 +97,13 @@ maximum byte transfer : 10000
 # (number of comparisons to find a string) very close to 1, as found strings
 # are automatically moved to the head of a hash chain.  You will never
 # need more, and you will still get good results with a smaller table.
-hash table size : 7001
+# hash table size : 7001
 
 # Object hash table size.
 # Define this like you did with the strings; probably set to about 1/4 of
 # the number of objects in a game, as the distribution of accesses to
 # objects is somewhat more uniform than that of strings.
-object table size : 1501
+# object table size : 1501
 
 # default no-matching-action message
 default fail message : What?
@@ -120,15 +120,15 @@ maximum users : 40
 
 # Define the maximum stack size of the stack machine. This stack will also
 # contain all local variables and arguments.  (unused currently)
-evaluator stack size : 1000
+# evaluator stack size : 1000
 
 # Define the size of the compiler stack. This defines how complex
 # expressions the compiler can parse.  (unused currently)
 compiler stack size : 200
 
 # Define the maximum call depth for functions. (unused currently)
-maximum call depth : 30
+# maximum call depth : 30
 
 # There is a hash table for living objects, used by find_living().
 # (unused currently)
-living hash table size : 100
+# living hash table size : 100

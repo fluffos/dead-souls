@@ -17,7 +17,7 @@ string SetTalesDir(string dir);
 string GetTalesDir();
 mapping SetTale(mapping tale);
 mapping GetTale();
-array GetTaleKeys();
+mixed *GetTaleKeys();
 string SetNoTaleMessage(string notalemessage);
 string GetNoTaleMessage();
 int GetTellingTale();
@@ -62,12 +62,12 @@ string SetNoTaleMessage(string notalemessage){
 
 string GetTalesDir(){ return TalesDir; }
 mapping GetTale(){ return Tales; }
-array GetTaleKeys(){ return keys( Tales ); }
+mixed *GetTaleKeys(){ return keys( Tales ); }
 string GetNoTaleMessage(){ return NoTaleMessage; }
 int GetTellingTale(){ return AlreadyTellingTale; }
 
 void PickTale( string taletotell ){
-   mixed* msg;
+    mixed* msg;
     string file, *files;
     int y;
 

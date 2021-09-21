@@ -27,6 +27,8 @@
 #undef debug
 #endif /* debug */
 
+#define __HAS_RUSAGE__
+
 //#ifdef DEBUG
 //#define debug(x, y)      (find_player(x) || master())->eventPrint(x)
 //#endif /* DEBUG */
