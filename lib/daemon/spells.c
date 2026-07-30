@@ -22,7 +22,8 @@ protected void create() {
 }
 
 void eventReloadSpells() {
-    string* spells, prayers;
+    //string* spells, prayers;
+    string *spells, *prayers; //fixes issue where get_dir gets confused under fluffos2019 - kreezxil April 28, 2024
 
     Spells = ([]);
     spells = get_dir(DIR_SPELLS "/*.c");
