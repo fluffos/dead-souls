@@ -1,7 +1,7 @@
 #ifndef s_rooms_h
 #define s_rooms_h
 
-#include <dirs.h>
+#include "dirs.h"
 
 #define ROOM_ZERO        "/domains/town/room/start"
 #define ROOM_ARCH        "/secure/room/arch"

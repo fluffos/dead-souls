@@ -1,7 +1,7 @@
 #ifndef s_save_h
 #define s_save_h
 
-#include <dirs.h>
+#include "dirs.h"
 
 #define SAVE_BANISH        DIR_SAVE "/banish"
 #define SAVE_BOOKS         DIR_SAVE "/books"

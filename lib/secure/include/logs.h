@@ -1,7 +1,7 @@
 #ifndef s_logs_h
 #define s_logs_h
 
-#include <dirs.h>
+#include "dirs.h"
 #include CONFIG_H
 
 #if ENABLE_INSTANCES

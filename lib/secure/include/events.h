@@ -1,7 +1,7 @@
 #ifndef s_events_h
 #define s_events_h
 
-#include <dirs.h>
+#include "dirs.h"
 
 #define LIB_ACTIVATE     DIR_EVENTS "/activate"
 #define LIB_AIM          DIR_EVENTS "/aim"

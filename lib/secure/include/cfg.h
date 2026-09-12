@@ -1,7 +1,7 @@
 #ifndef __CFG_H__
 #define __CFG_H__
 
-#include <dirs.h>
+#include "dirs.h"
 
 #define CFG_ALIASES		DIR_SECURE_CFG "/aliases.cfg"
 #define CFG_CLASSES             DIR_SECURE_CFG "/classes"

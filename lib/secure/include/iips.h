@@ -1,7 +1,7 @@
 #ifndef __IIPS_H 
 #define __IIPS_H 
 
-#include <dirs.h> 
+#include "dirs.h" 
 
 #define POSTAL_ID              "imaginary mailer" 
 

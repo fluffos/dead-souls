@@ -11,10 +11,10 @@
 #define SECRETS_H "/secure/include/secrets.h"
 
 #include CONFIG_H
-#include <lib.h>
+#include "lib.h"
 
 #if COMPAT_MODE
-#include <compat.h>
+#include "compat.h"
 #endif
 
 #define DAY_ONE           720550800

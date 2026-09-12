@@ -12,7 +12,7 @@
 #define DisableAnd     9
  
 #define SaveFile "/daemon/soul/soul"
-#define FallBackFile "/daemon/soul/default.c"
+#define FallBackFile "/daemon/soul/default.lpc"
 #define SOUL_ADVERBS "/daemon/adverbs"
  
 #endif /* s_soul_h */

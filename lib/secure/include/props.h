@@ -1,7 +1,7 @@
 #ifndef s_props_h
 #define s_props_h
 
-#include <dirs.h>
+#include "dirs.h"
 
 #define LIB_AMBIANCE      DIR_PROPS "/ambiance"
 #define LIB_BODY_MASS     DIR_PROPS "/body_mass"

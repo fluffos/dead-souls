@@ -47,10 +47,10 @@ string tmpstr;
 
 // Other things that could be #define'd...
 // INVIS(x) !visible(x)
-// TELL_BOT "/u/t/timbot/imc2_invalidtells.c"
-// TELL_BOTS ([ "timbot" : "/u/t/timbot/imc2_tellbot.c" ])
-// CHAN_BOT "/u/t/timbot/imc2_chans.c"
-// CHAN_BOTS ([ "ichat" : "/u/t/timbot/imc2_ichat.c" ])
+// TELL_BOT "/u/t/timbot/imc2_invalidtells.lpc"
+// TELL_BOTS ([ "timbot" : "/u/t/timbot/imc2_tellbot.lpc" ])
+// CHAN_BOT "/u/t/timbot/imc2_chans.lpc"
+// CHAN_BOTS ([ "ichat" : "/u/t/timbot/imc2_ichat.lpc" ])
 // USER_EXISTS(x) user_exists(x)
 
 // Debugging

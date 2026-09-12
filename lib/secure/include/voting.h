@@ -1,7 +1,7 @@
 #ifndef __INC_VOTING
 #define __INC_VOTING
 
-#include <dirs.h>
+#include "dirs.h"
 
 #define VOTE_ERROR                  0
 #define VOTE_SUCCESS                1
@@ -18,7 +18,7 @@
 #define VOTE_DAY_COUNT              7
 
 #define SAVE_VOTES                  DIR_VOTES "/voting"
-#define VOTE_ROOM                   "/domains/Ylsrim/room/vote_hall.c"
+#define VOTE_ROOM                   "/domains/Ylsrim/room/vote_hall.lpc"
 
 mixed eventSave();
 mixed eventStartVoting();
