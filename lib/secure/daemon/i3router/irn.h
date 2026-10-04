@@ -596,8 +596,7 @@ protected void irn_read_callback(int fd, mixed data){
 
 protected varargs void SendList(mixed data, int fd, string type){
     int *targets = ({});
-    string *cmuds = this_object()->query_connected_muds();
-    mixed *outbound = ({});
+    this_object()->query_connected_muds();
     mapping tmp = ([]);
     if(!type || !sizeof(type)) type = "irn-mudlist-delta";
     if(type == "mudlist") type = "irn-mudlist-delta";

@@ -3,10 +3,14 @@
 #include <vendor_types.h>
 #include <daemons.h>
 
-inherit LIB_SHOOT;
 inherit LIB_AIM;
 inherit LIB_SURFACE;
 inherit LIB_ACTIVATE;
+
+/* LIB_AIM and LIB_SURFACE (through LIB_ITEM's LIB_SHOOT) both define these two; the driver kept
+ * the later inherit's, which is what the zpem has always run on. */
+int MustCarry(int i) { return surface::MustCarry(i); }
+int MustWield(int i) { return surface::MustWield(i); }
 
 nosave int active = 0;
 

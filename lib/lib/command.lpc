@@ -43,7 +43,6 @@ protected void create() {
 
 protected string process_input(string args) {
   string verb, real_verb, tmpalias, orig;
-  object env = environment(this_object());
   string *talks = ({ "emote", "tell", "reply", "say", "whisper",
     "yell", "shout", "speak" });
   string *filecmds = ({ "ced", "clone", "goto", "rehash", "reset",
@@ -367,7 +366,6 @@ int LimbCertain(string str) {
 
 varargs int eventRetryCommand(string lastcmd, int errtype, mixed args) {
   string ret;
-  string *tmp_arr = ({});
   string *prep_arr = MASTER_D->parse_command_prepos_list();
   mixed err;
   int i;

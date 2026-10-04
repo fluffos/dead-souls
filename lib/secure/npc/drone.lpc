@@ -9,10 +9,10 @@ string GetOwner();
 int ListenUp(int foo);
 int itemcheck, listening;
 mixed arguments;
-string owner, mm, vv, printvar, owner;
+string owner, mm, vv, printvar;
 string mensaje, clase_mensaje, desc, control_code;
 object dude, ww, ownerob;
-void doPrint(string str1, string str2);
+varargs int doPrint(string str1, string str2);
 
 void validate() {
   if (base_name(previous_object()) != "/secure/obj/control" ||

@@ -1,4 +1,3 @@
-#define __DIR__ "/domains/amigara/virtual/"
 
 mixed compile_object(string file) {
   string *path;

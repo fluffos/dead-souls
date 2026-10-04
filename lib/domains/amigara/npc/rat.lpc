@@ -26,6 +26,5 @@ void init() {
 }
 
 void heart_beat() {
-  object env = environment();
   ::heart_beat();
 }

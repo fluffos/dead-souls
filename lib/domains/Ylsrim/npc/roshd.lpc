@@ -81,7 +81,7 @@ protected void create() {
 
 int JoinGuild(object ob, string verb, string what) {
   string keyname = ob->GetKeyName();
-  string name = ob->GetName();
+  ob->GetName();
   if (ob->GetClass() == "fighter") {
     eventForce("say You're already in, genius.");
     return 1;

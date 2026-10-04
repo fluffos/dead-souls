@@ -205,7 +205,7 @@ string GetHelp(string str) {
 }
 
 string GetHelpByIndex(string index, string topic) {
-  mixed *tmparr, fun;
+  mixed *tmparr, *fun;
   mapping tmpmap;
   object ob;
   string help, file, tmpstr;
@@ -508,7 +508,7 @@ string GetHelpByIndex(string index, string topic) {
 }
 
 varargs string *GetIndices(string topic) {
-  string *topics, val;
+  string *topics, *val;
   string ind, tmp;
 
   if (!topic) {

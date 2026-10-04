@@ -3,7 +3,7 @@
 
 inherit LIB_BARKEEP;
 
-string *flatterers, specials;
+string *flatterers, *specials;
 string save_str = "";
 string saved_str = "";
 

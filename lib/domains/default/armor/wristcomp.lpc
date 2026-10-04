@@ -141,7 +141,6 @@ int CanReceive(object ob) {
 }
 
 varargs mixed eventUninstallModule(object which, int auto) {
-  object *contents = all_inventory();
   object module = previous_object();
   if (which) module = which;
   if (!auto) say(this_player()->GetName() + " operates " + possessive(this_player()) + " "
