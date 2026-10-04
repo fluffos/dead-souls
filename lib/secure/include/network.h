@@ -1,7 +1,7 @@
 #ifndef __NETWORK_H 
 #define __NETWORK_H 
 
-#include <socket.h> 
+#include "socket.h" 
 
 #define MUD                       0 
 #define STREAM                    1 

@@ -1,7 +1,7 @@
 #ifndef s_std_h
 #define s_std_h
 
-#include <dirs.h>
+#include "dirs.h"
 
 #define LIB_ACCESS       DIR_SSTD "/access"
 #define LIB_ARMOR        DIR_STD  "/armor"

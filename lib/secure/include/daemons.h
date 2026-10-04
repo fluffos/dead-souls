@@ -1,7 +1,7 @@
 #ifndef s_daemons_h
 #define s_daemons_h
 
-#include <dirs.h>
+#include "dirs.h"
 
 #define ADMIN_D              DIR_SECURE_DAEMONS "/admin"
 #define ADVANCE_D            DIR_SECURE_DAEMONS "/advance"

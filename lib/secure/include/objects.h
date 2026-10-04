@@ -1,7 +1,7 @@
 #ifndef s_objects_h
 #define s_objects_h
 
-#include <dirs.h>
+#include "dirs.h"
 
 #define OBJ_DEED                DIR_OBJ "/deed"
 #define OBJ_ORDER               DIR_OBJ "/order"

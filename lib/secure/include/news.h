@@ -1,7 +1,7 @@
 #ifndef s_news_h
 #define s_news_h
 
-#include <dirs.h>
+#include "dirs.h"
 
 #define NEWS_ADMIN              DIR_NEWS "/admin"
 #define NEWS_AVATAR             DIR_NEWS "/avatar"

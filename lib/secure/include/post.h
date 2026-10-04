@@ -1,7 +1,7 @@
 #ifndef __POST_H 
 #define __POST_H 
 
-#include <dirs.h> 
+#include "dirs.h" 
 
 #define POSTAL_ID              "imaginary mailer" 
 #define POSTAL_PROMPT          "% " 

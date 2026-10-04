@@ -1,7 +1,7 @@
 #ifndef __COMMANDS_H
 #define __COMMANDS_H
 
-#include <dirs.h>
+#include "dirs.h"
 
 #define CD                    "/cmds/dev/cd"
 #define CMD_ADDCLASS          (DIR_SECURE_ADMIN_CMDS "/addclass")

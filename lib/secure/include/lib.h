@@ -2,14 +2,14 @@
 #define s_lib_h
 
 //#include <lpuni.h>
-#include <dirs.h>
+#include "dirs.h"
 
-#include <comp.h>
-#include <events.h>
-#include <lvs.h>
-#include <props.h>
-#include <std.h>
-#include <user.h>
+#include "comp.h"
+#include "events.h"
+#include "lvs.h"
+#include "props.h"
+#include "std.h"
+#include "user.h"
 
 #define LIB_AUTH           DIR_SECURE_LIB "/auth"
 #define LIB_BANK           DIR_LIB        "/bank"

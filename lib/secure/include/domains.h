@@ -1,7 +1,7 @@
 #ifndef s_domains_h
 #define s_domains_h
 
-#include <dirs.h>
+#include "dirs.h"
 
 #define DOMAIN_TOWN      DOMAINS_DIRS "/town" 
 #define DOMAIN_NM3       DOMAINS_DIRS "/praxis" 

@@ -1,7 +1,7 @@
 #ifndef __CGI_H__
 #define __CGI_H__
 
-#include <dirs.h>
+#include "dirs.h"
 
 #define CGI_CREWEB              DIR_CGI "/who"
 #define CGI_EDIT                DIR_CGI "/edit"

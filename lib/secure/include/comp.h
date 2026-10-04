@@ -1,7 +1,7 @@
 #ifndef s_comp_h
 #define s_comp_h
 
-#include <dirs.h>
+#include "dirs.h"
 
 #define LIB_CONTAINER    DIR_COMP "/container"
 #define LIB_HOLDER       DIR_COMP "/holder"
