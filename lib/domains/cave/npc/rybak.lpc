@@ -43,7 +43,7 @@ void init() {
   ::init();
 }
 
-int eventList(object who, string cmd, string args) {
+varargs int eventList(object who, string cmd, string args) {
   int ret = ::eventList(who, cmd, args);
   if (ret) {
     eventForce("speak Help yourself to the grog and water. They're " +

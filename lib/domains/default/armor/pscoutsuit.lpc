@@ -221,8 +221,7 @@ string *QueryBane() {
 }
 
 void heart_beat() {
-  int notify;
-  string str, envname;
+  string envname;
   object env = environment();
   object room = room_environment();
   if (!env || !room) return;

@@ -34,7 +34,7 @@ void eventID(string str) {
   mud = str;
 }
 
-protected void create(mixed alpha, mixed beta, mixed gamma, mixed delta) {
+varargs protected void create(mixed alpha, mixed beta, mixed gamma, mixed delta) {
   trr("LIB_OOB.create: I am a new OOB object, name: " + file_name(), mcolor, MSG_OOB);
   set_heart_beat(1);
   if (clonep()) {

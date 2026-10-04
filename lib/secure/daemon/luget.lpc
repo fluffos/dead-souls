@@ -42,9 +42,7 @@ protected int ProcessData(int fd) {
   int i;
   int nullify = 0;
   string where;
-  string tmp = "";
   string data = FilesMap[fd]["contents"];
-  mixed tmp2 = "";
   string *nullifiers = ({ "HTTP/", "HTTP0^0", "Date:", "Server:", "Last-Modified:", "ETag:",
     "Accept-Ranges:", "Content-Length:", "Connection:", "Content-Type:", "X-Pad:" });
   string *tmparr = ({});

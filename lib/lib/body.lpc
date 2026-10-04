@@ -214,7 +214,7 @@ mixed direct_turn_liv() {
 
 void eventCheckEnvironment() {
   object env = environment();
-  int i, roomres, breathdam;
+  int i, breathdam;
   int restype;
   float j, k;
 
@@ -601,7 +601,7 @@ varargs int eventReceiveDamage(mixed agent, int type, int x, int internal,
   mixed limbs) {
   string tmp = GetResistance(type);
   string agentname;
-  int fp, basedam, tmpdam, dmgred;
+  int fp, basedam, dmgred;
 
   if (agent && stringp(agent)) {
     agentname = agent;
@@ -1625,7 +1625,7 @@ varargs mixed GetWielded(string limb) {
  * or for the overall health points
  */
 
-varargs nosave int AddHealthPoints(int x, string limb, mixed agent) {
+varargs protected int AddHealthPoints(int x, string limb, mixed agent) {
   int y = 0;
   string agentname;
 

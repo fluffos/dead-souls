@@ -83,7 +83,7 @@ varargs protected void create(int x, int y) {
 }
 
 varargs void SetLongAndItems(int x, int y, int z) {
-  mapping inv, items;
+  mapping inv;
   string str;
   ::SetLongAndItems(x, y);
 

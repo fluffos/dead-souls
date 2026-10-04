@@ -97,7 +97,7 @@ varargs mixed eventShoot(object shooter, mixed target, string direction) {
   return 1;
 }
 
-int eventTurnOff() {
+varargs int eventTurnOff() {
   object *inv;
   if (!active) {
     write("It's already inactive.");
@@ -123,7 +123,7 @@ int eventTurnOff() {
   return 1;
 }
 
-int eventTurnOn() {
+varargs int eventTurnOn() {
   if (active) {
     write("It's already active.");
     return 1;

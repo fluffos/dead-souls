@@ -20,7 +20,7 @@ protected void Delete(string *args);
 protected void Report(string *args);
 protected void EndReport(string type, string data, string file);
 varargs protected void View(string *args, int print);
-nosave string GetBugString(int id, mapping bugs);
+protected string GetBugString(int id, mapping bugs);
 
 protected void create() {
   daemon::create();
@@ -444,7 +444,7 @@ varargs protected void View(string *args, int print) {
   }
 }
 
-nosave string GetBugString(int id, mapping bugs) {
+protected string GetBugString(int id, mapping bugs) {
   string tmp;
 
   tmp = "%^YELLOW%^Bug ID:%^RESET%^ " + id + "\n";

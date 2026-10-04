@@ -18,7 +18,6 @@ int PreExit(mixed args...) {
 }
 
 protected void create() {
-  object ob;
   room::create();
   SetClimate("indoors");
   SetAmbientLight(30);

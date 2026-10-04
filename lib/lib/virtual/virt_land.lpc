@@ -73,7 +73,7 @@ string SetResetMessage(mixed str) { Reset_Message = str; }
 
 /******************* virt_land.c attributes *******************/
 
-void SetCoordinates(int x, int y, int z) {
+varargs void SetCoordinates(int x, int y, int z) {
   CoordX = x;
   CoordY = y;
   CoordZ = z;

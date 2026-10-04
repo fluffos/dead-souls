@@ -15,7 +15,7 @@ private nosave int FD = -1;
 
 protected void Setup();
 
-void eventRead(int fd, string str);
+varargs void eventRead(int fd, string str);
 protected void eventProcess(int fd, string str);
 
 protected void create(int fd, object owner) {
@@ -24,7 +24,7 @@ protected void create(int fd, object owner) {
   Connections = ([]);
 }
 
-protected void eventSocketClosed(int fd) {
+varargs protected void eventSocketClosed(int fd) {
   map_delete(Connections, fd);
 }
 
@@ -37,7 +37,7 @@ void eventRead(string str) {
   eventProcess(FD, str);
 }
 
-nosave private void eventProcess(int fd, string str) {
+private void eventProcess(int fd, string str) {
   string tmp, cmd, arg, file, val;
   int x;
   if (Connections[fd] && Connections[fd]["in edit"] > 0) {

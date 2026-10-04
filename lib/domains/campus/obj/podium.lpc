@@ -92,7 +92,6 @@ int RestrictedAction() {
 }
 
 int eventSay(string args) {
-  string foo;
 
   if (!sizeof(args)) return 0;
   args = replace_string(args, "\n", "");

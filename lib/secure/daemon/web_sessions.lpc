@@ -118,7 +118,6 @@ void ReceiveErrorReport(string report) {
 }
 
 mixed eventWebCreate(string operand, string args, string name, string shibboleth) {
-  mixed ret = "";
   int exists;
   validate(name, shibboleth);
   if (!operand || !args) return "Invalid arguments.";

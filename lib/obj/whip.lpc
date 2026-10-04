@@ -74,6 +74,6 @@ void heart_beat() {
   }
 }
 
-int CanSell() {
+varargs int CanSell() {
   return 0;
 }

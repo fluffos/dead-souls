@@ -10,7 +10,6 @@ mixed CanGo(object who, string dir) {
 }
 
 protected void create() {
-  object ob;
   room::create();
   SetAmbientLight(30);
   SetNoClean(1);

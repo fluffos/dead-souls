@@ -65,7 +65,7 @@ varargs protected void validate(int i) {
   }
 }
 
-protected void create(mixed arg) {
+varargs protected void create(mixed arg) {
   item::create();
   AnsiMap2 = ([]);
   if (arg && stringp(arg)) ip = arg;
@@ -526,7 +526,6 @@ string eventBolo(string str) {
 
   if (grepp(str, "Your last transaction:")) {
     string s1, s2, s3, s4;
-    int i1;
     if (sscanf(str, "%s" + local_currency + "%s:%s\n%s", s1, s2, s3, s4) == 4) {
       balance = atoi(trim(s3));
     }

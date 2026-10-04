@@ -131,7 +131,7 @@ protected int filter_mortal(object ob) {
 
 protected int filter_undead(object ob) { return ob->query_ghost(); }
 
-nosave int general_sort(object alpha, object beta) {
+protected int general_sort(object alpha, object beta) {
   int x, y;
 
   if (archp(alpha)) {
@@ -156,7 +156,7 @@ nosave int general_sort(object alpha, object beta) {
     GetBaseName(beta));
 }
 
-nosave int special_sort(object alpha, object beta) {
+protected int special_sort(object alpha, object beta) {
   string a, b;
   int x, y;
 
@@ -205,7 +205,7 @@ private string calculateFormatString(int screenSize) {
   return "%:-5s %:-2s %:-" + nomSize + "s %:-" + ipSize + "s %:-5s %:-3s %:-" + envSize + "s";
 }
 
-nosave string map_info(object ob, string formatString) {
+protected string map_info(object ob, string formatString) {
   string age, nom, blk, lev, ip, env, idle;
   int x;
 

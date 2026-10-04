@@ -116,7 +116,6 @@ int RequestToken(string target) {
 varargs mixed RequestBegin(string target, mixed *data) {
   string ip;
   int port;
-  int token;
   mixed ret = 1;
   validate();
   if (!target || !(target = INTERMUD_D->GetMudName(target))) return 0;
@@ -299,7 +298,6 @@ mixed GetFile(string mud, mixed file) {
 }
 
 int eventMajorUpgrade(string mud, string *files) {
-  int interval = 0;
   validate();
   allfiles = sort_array(files, 1);
   globalmud = mud;

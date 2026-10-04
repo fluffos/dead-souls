@@ -132,7 +132,7 @@ void init() {
   ::init();
 }
 
-int eventTurnOn() {
+varargs int eventTurnOn() {
   if (active) {
     write("The killbot is already active.");
     return 1;
@@ -145,7 +145,7 @@ int eventTurnOn() {
   return 1;
 }
 
-int eventTurnOff() {
+varargs int eventTurnOff() {
   if (!active) {
     write("The killbot is already inactive.");
     return 1;

@@ -354,7 +354,7 @@ private BlindCheck(string ans, string cap) {
   if (!ans || ans == "" || lower_case(ans)[0..0] == "y") {
     receive("\nOk, disabling default overhead map.\n");
     blindmode = 1;
-  } else receive("\Ok, allowing default overhead map behavior.\n");
+  } else receive("Ok, allowing default overhead map behavior.\n");
   log_file("new_players", Name + " (" + ctime(time()) + ")\n");
   receive("\nCreate a password of at least 5 letters: \n");
   input_to((: CreatePassword :), I_NOECHO | I_NOESC, cap);

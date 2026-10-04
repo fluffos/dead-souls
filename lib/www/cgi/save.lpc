@@ -22,7 +22,6 @@ string gateway(string args) {
   string current_page = ob->GetReferer();
   string boundary = "--" + ob->GetBoundary();
   string file, junk, outfile;
-  string *tmp_arr;
   string ret = "";
   mapping Result = ([]);
   mapping ParsedPost = ([]);

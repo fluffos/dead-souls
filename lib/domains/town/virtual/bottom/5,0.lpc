@@ -6,7 +6,6 @@
 inherit LIB_ROOM;
 
 protected void create() {
-  object ob;
   room::create();
   SetAmbientLight(0);
   SetNoClean(1);

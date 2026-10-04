@@ -4,7 +4,7 @@
 inherit LIB_DAEMON;
 string *arr = ({});
 string *types = ({ "void ", "status ",
-  "string ", "string \*", "string* ",
+  "string ", "string *", "string* ",
   "int ", "int *", "int* ",
   "object ", "object *", "object* ",
   "mapping ", "mapping *", "mapping array ",
