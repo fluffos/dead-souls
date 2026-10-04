@@ -317,7 +317,7 @@ mixed eventMultiply() {
   return 1;
 }
 
-void eventSuffer(object ob) {}
+int eventSuffer(object ob) { return 0; }
 
 /* ***************  /lib/germ.c driver applies  *************** */
 

@@ -20,7 +20,7 @@ string gateway(string args) {
   object ob = previous_object();
   mapping cookie = ob->GetCookie();
   string current_page = ob->GetReferer();
-  string boundary = "--" + ob->GetBoundary();
+  ob->GetBoundary();
   string file, junk, outfile;
   string ret = "";
   mapping Result = ([]);

@@ -37,7 +37,6 @@ inherit LIB_SHADOW_HOOK;
 
 private int Age, WhereBlock, Brief, LoginTime, BirthTime, RescueBit;
 private string Password, Email, RealName, Rank, LoginSite, HostSite, WebPage;
-private nosave string globaltmp;
 private mapping News;
 private class marriage * Marriages;
 private nosave int LastAge, Setup, quitting;
@@ -334,7 +333,6 @@ string GetEmail() {
 }
 
 varargs string *SetId(string *bogus) {
-  int i;
   string tmp;
 
   UserId = ({ GetKeyName() });
@@ -547,7 +545,7 @@ mixed SetParanoia(string str, mixed val) {
 }
 
 protected nomask void NotifyReceipt(object ob) {
-  string what, msg;
+  string what;
   if (playerp(this_object())) what = ob->GetShort();
   if (creatorp(this_object())) what = identify(ob);
   tell_player(this_object(), what + ", a thing " +

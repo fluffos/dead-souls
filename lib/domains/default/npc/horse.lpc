@@ -1,8 +1,6 @@
 #include <lib.h>
 
 inherit LIB_SENTIENT;
-inherit LIB_MOUNT;
-inherit LIB_DOMESTICATE;
 
 protected void create() {
   sentient::create();

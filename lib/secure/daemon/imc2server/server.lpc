@@ -468,7 +468,7 @@ varargs void construct_startup(mixed fd, mixed info, string client) {
 }
 
 #if CALL_OUT_COMPLETE_STARTUP
-nosave complete_startup(int fd, mixed packet, string s1, mixed other) {
+protected complete_startup(int fd, mixed packet, string s1, mixed other) {
   string checkmud = ROUTER_D->query_connected_fds()[fd];
   if (checkmud) {
     return;

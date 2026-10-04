@@ -89,7 +89,7 @@ protected int Page(mixed tmpfile) {
   int endline, tmpcurrline, err;
   mixed tmparr, tmparr2;
   mapping file = ([]);
-  int waschar = this_object()->GetCharmode();
+  this_object()->GetCharmode();
   foreach (mixed clef, mixed val in tmpfile) {
     if (clef) file += ([ clef: val ]);
   }

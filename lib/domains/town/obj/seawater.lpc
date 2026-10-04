@@ -2,11 +2,20 @@
 #include <meal_types.h>
 #include <jump.h>
 
-inherit LIB_BASE_DUMMY;
 inherit LIB_FLASK;
 inherit LIB_JUMP;
 inherit LIB_EXITS;
 inherit LIB_ENTER;
+
+/* Two inherits define GetDoor, ResolveObjectName, SetDoor(); the later one was already in effect: name it. */
+string GetDoor() { return enter::GetDoor(); }
+string ResolveObjectName(string file) { return enter::ResolveObjectName(file); }
+varargs void SetDoor(string door, string side) { enter::SetDoor(door, side); }
+
+/* An invisible fixture of its room, like LIB_DUMMY: isDummy() and the invisibility are what
+ * LIB_BASE_DUMMY adds to an item that anything here uses (its knock, scratch and enter verbs only ever
+ * refused).  Inheriting it next to LIB_FLASK gave the object two copies of everything the two share. */
+int isDummy() { return 1; }
 
 varargs int eventJump(mixed args...) {
   return ::eventJump(args...);
@@ -21,8 +30,8 @@ mixed direct_enter_into_obj() {
 }
 
 protected void create() {
-  base_dummy::create();
   flask::create();
+  SetNoSink(1);
   SetKeyName("seawater");
   SetId(({ "sea", "sea water", "ocean", "water" }));
   SetAdjectives("calm", "lovely");

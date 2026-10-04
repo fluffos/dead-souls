@@ -11,6 +11,13 @@ inherit LIB_ENTER;
 inherit LIB_EXITS;
 inherit LIB_READ;
 
+/* Two inherits define GetDoor, GetEnter, ResolveObjectName, SetDoor, SetLanguage(); the later one was already in effect: name it. */
+mixed GetDoor(string dir) { return exits::GetDoor(dir); }
+string GetEnter(string dir) { return exits::GetEnter(dir); }
+string ResolveObjectName(string file) { return exits::ResolveObjectName(file); }
+string SetDoor(string dir, string file) { return exits::SetDoor(dir, file); }
+int SetLanguage(string str) { return read::SetLanguage(str); }
+
 private object *DummyItems = ({});
 mapping ItemsMap = ([]);
 private nosave mixed global_item;
@@ -109,7 +116,7 @@ mixed direct_fly_word_str() {
 
 int eventDrive(string direction) {
   string travel_cmd, s1, s2;
-  object *guys = get_livings(this_object());
+  get_livings(this_object());
   if (interactive(this_object())) return 0;
   if (sscanf(direction, "%s %s", s1, s2) == 2) {
     if (s1 == "enter" || s1 == "into") travel_cmd = "enter";

@@ -511,7 +511,7 @@ protected int Destruct() {
 /*  *****************   /lib/combat.c events  ***************** */
 
 varargs int eventDie(mixed agent) {
-  object ob, env = room_environment();
+  object ob;
   int x;
   if (this_object()->GetGodMode()) return 0;
 
