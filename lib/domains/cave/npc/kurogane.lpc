@@ -52,7 +52,6 @@ void heart_beat() {
 
 int eventDie(mixed agent) {
   object player;
-  string *quests;
   if (!objectp(player = agent) || !interactive(player)) {
     return ::eventDie(agent);
   }

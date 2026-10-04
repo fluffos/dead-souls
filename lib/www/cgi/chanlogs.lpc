@@ -22,8 +22,6 @@ void validate() {
 string gateway(mixed args) {
   mapping Logs = ([]);
   int *times = ({});
-  string err, full_name, path, junk1, junk2;
-  int i;
   object ob = previous_object();
   string current_page = ob->GetReferer();
   mapping cookie = ob->GetCookie();

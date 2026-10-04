@@ -6,7 +6,7 @@ protected void create();
 int eventMoralAct(int degree);
 
 int AddSkillPoints(string skill, int x);
-nosave string SetSkillModifier(string skill, string stat);
+protected string SetSkillModifier(string skill, string stat);
 string GetSkillModifier(string skill);
 string SetClass(string classes);
 string GetClass();

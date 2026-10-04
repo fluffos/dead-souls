@@ -1210,7 +1210,6 @@ varargs mixed DestructEmptyVirtual(object ob) {
 }
 
 mixed eventPostRelease(object ob) {
-  mixed *inv;
   mixed ret = ::eventPostRelease(ob);
   DestructEmptyVirtual(ob);
   return ret;
@@ -1278,7 +1277,7 @@ string SetCoordinates(string str) {
   return ret;
 }
 
-void SetSky() {
+varargs void SetSky() {
   if (GetMedium() != MEDIUM_LAND && GetMedium() != MEDIUM_SURFACE) {
     return;
   }

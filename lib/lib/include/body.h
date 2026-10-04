@@ -39,7 +39,7 @@ varargs int AddFingers(string limb, int x);
 int GetFingers(string limb);
 varargs object *GetWorn(string limb);
 varargs mixed GetWielded(string limb);
-varargs nosave int AddHealthPoints(int x, string limb, mixed agent);
+varargs protected int AddHealthPoints(int x, string limb, mixed agent);
 varargs int GetHealthPoints(string limb);
 varargs int GetMaxHealthPoints(string limb);
 int AddMagicPoints(int x);

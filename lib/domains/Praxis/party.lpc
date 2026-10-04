@@ -153,8 +153,6 @@ int look_treat() {
 }
 
 int cmd_pour(string str) {
-  object ob;
-  string *words;
 
   //    if(!str) return notify_fail("Pour what?\n");
   //    if(this_player()->query_mp() < 10)

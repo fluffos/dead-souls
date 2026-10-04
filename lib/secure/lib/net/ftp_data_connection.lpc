@@ -29,7 +29,7 @@ private nosave function Write;
 private nosave function Close;
 private nosave class data_conn Socket;
 
-varargs nosave int eventClose(class data_conn sock, int aboted);
+varargs int eventClose(class data_conn sock, int aboted);
 protected void eventRead(mixed val);
 protected void eventSocketClose();
 protected void eventSocketError(string str, int x);
@@ -190,7 +190,7 @@ void eventWrite(mixed val) {
     Socket->Descriptor);
 }
 
-varargs nosave int eventClose(class data_conn sock, int aborted) {
+varargs int eventClose(class data_conn sock, int aborted) {
   if (!sock) return 0;
   if (!aborted && socket_close(sock->Descriptor) != EESUCCESS) {
     return 0;

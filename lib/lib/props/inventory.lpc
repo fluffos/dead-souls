@@ -108,7 +108,7 @@ varargs void reset() {
 }
 
 void heart_beat() {
-  int i, howmany;
+  int howmany;
   counter++;
   if (!InventoryCheck || !sizeof(InventoryCheck)) return;
   foreach (mixed key, mixed val in InventoryCheck) {

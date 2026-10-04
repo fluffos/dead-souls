@@ -130,7 +130,7 @@ private int set_current(mixed val) {
 
 void start_post(string str) {
   string *args;
-  int i, maxi; ;
+  int maxi; ;
 
   if (str && str != "") {
     maxi = sizeof(args = explode(str, ","));
@@ -182,14 +182,14 @@ private void secondary_prompt() {
     this_player());
 }
 
-varargs nosave private void postal_error(string str, string ind, mixed args) {
+varargs private void postal_error(string str, string ind, mixed args) {
   message("mail", sprintf("\n%%^RED%%^%s\n", str), this_player());
   primary_prompt();
   if (args) input_to(sprintf("%s_cmd", (ind ? ind : __CurrentMenu)), args);
   else input_to(sprintf("%s_cmd", (ind ? ind : __CurrentMenu)));
 }
 
-varargs nosave private void postal_success(string str, string ind, mixed args) {
+varargs private void postal_success(string str, string ind, mixed args) {
   message("mail", sprintf("\n%%^GREEN%%^%s\n", str), this_player());
   secondary_prompt();
   if (args) input_to(sprintf("%s_cmd", (ind ? ind : __CurrentMenu)), args);
@@ -266,7 +266,7 @@ varargs protected void options(string str) {
   option_menu();
 }
 
-nosave private void help(string arg, string ind) {
+private void help(string arg, string ind) {
   if (!ind) ind = __CurrentMenu;
   if (arg && arg != "") {
     help_cmd(arg, ind);
@@ -584,8 +584,8 @@ protected void get_folder(string str) {
   change_folder(str);
 }
 
-nosave private void delete_letter(string cmd, string args) {
-  int x, i, from, to, maxi;
+private void delete_letter(string cmd, string args) {
+  int i, from, to, maxi;
 
   if (args == "" || !args) {
     from = __Current;
@@ -655,7 +655,6 @@ protected void unread_delete(string str, int *milk) {
 }
 
 private void quit_box(string cmd) {
-  int i;
 
   if (__Options["quit"]) {
     message("prompt", "Do you really wish to quit (default 'n')? \n",
@@ -728,7 +727,7 @@ protected void confirm_delete(string str) {
   input_to("confirm_delete");
 }
 
-nosave private void save_letter(string cmd, string args) {
+private void save_letter(string cmd, string args) {
   string *tmp;
   string folder;
   int letter, i, maxi;
@@ -822,7 +821,7 @@ void end_read() {
   input_to("index_cmd");
 }
 
-nosave private void alias_members(string cmd, string args) {
+private void alias_members(string cmd, string args) {
   string *members, *old_members;
   string grp;
 
@@ -889,7 +888,7 @@ protected void get_members(string str, string *args) {
   alias_members(args[0], sprintf("%s %s", args[1], str));
 }
 
-nosave private void alias_creation(string cmd, string args) {
+private void alias_creation(string cmd, string args) {
   string *members;
 
   if (args == "" || !args) {
@@ -1012,7 +1011,7 @@ protected void really_change_option(string str, int x) {
 }
 
 private void reply(string str) {
-  int x, i;
+  int x;
 
   if (str == "" || !str) x = __Current;
   else x = to_int(str) - 1;
@@ -1079,7 +1078,7 @@ private string query_reply_text() {
   return sprintf("\n>%s\n", replace_string(tmp, "\n", "\n>"));
 }
 
-nosave private void forward_letter(string str, int flag) {
+private void forward_letter(string str, int flag) {
   string *args;
   int i, x;
 
@@ -1285,7 +1284,6 @@ protected void get_to(string str) {
 }
 
 protected void get_subject(string str) {
-  string tmp;
 
   if (str == "" || !str) {
     message("prompt", "No subject given.  Continue (default 'n')? \n",

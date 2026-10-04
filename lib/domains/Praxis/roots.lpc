@@ -1,7 +1,7 @@
 inherit "/lib/std/room";
 
 void create() {
-  object pedestal, box;
+  object pedestal;
   object for_test_only;
 
   ::create();

@@ -70,7 +70,6 @@ varargs mixed eventPage(mixed val, mixed msg_class, function f, mixed args...) {
   if ((maxi = sizeof(files)) > 1) {
     int i;
     for (i = 0; i < maxi; i++) {
-      mapping tmp = files[i];
 
       if (i != maxi - 1) {
         files[i]["Callback"] = (: Page, files[i + 1] :);

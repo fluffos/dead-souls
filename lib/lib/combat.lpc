@@ -398,7 +398,7 @@ int GetCombatBonus(int level) {
   }
 }
 
-nosave int GetDamage(int power, string skill) {
+protected int GetDamage(int power, string skill) {
   int x = GetSkillLevel(skill);
 
   if (power < 1) {

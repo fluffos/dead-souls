@@ -57,7 +57,7 @@ string i3_name(string str) {
 }
 
 int is_lpmud(string mud) {
-  string family, truename = i3_name(mud);
+  string truename = i3_name(mud);
   mapping info = ROUTER_D->query_mudinfo()[truename];
   if (!info) return 0;
   if (stringp(info["mud_type"]) && grepp(info["mud_type"], "LP")) {
@@ -223,7 +223,6 @@ mixed translate_packet(mixed data, int fd) {
   if (data[0] == "chanlist-reply") {
     foreach (mixed foo in data) {
       string hub = data[2];
-      string rname = "LPMuds.net";
       mapping chans = data[7];
       foreach (string chan, mixed arr in chans) {
         string owner = replace_string(arr[0], " ", "_");

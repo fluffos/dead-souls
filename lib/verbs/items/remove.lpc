@@ -36,7 +36,6 @@ mixed can_remove_obj() {
 }
 
 mixed can_remove_obj_out_of_obj() {
-  int light;
 
   if (intp(check_light())) return this_player()->CanManipulate();
   else return check_light();

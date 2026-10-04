@@ -44,7 +44,7 @@ mapping irn_connections = ([]);
 mapping irn_sockets = ([]);
 
 protected void write_data(int fd, mixed data);
-nosave varargs void SendList(mixed data, int fd, string type);
+protected varargs void SendList(mixed data, int fd, string type);
 varargs void SendWholeList(int fd,string type);
 protected void begin_socket_handoff(int i);
 
@@ -188,7 +188,7 @@ void check_desync(){
     }
 }
 
-nosave int GoodPeer(int fd, mixed data){
+protected int GoodPeer(int fd, mixed data){
     string ip = explode(socket_address(fd)," ")[0];
     if(!irn_enabled) return 0;
     if(member_array(ip,ok_ips) == -1){
@@ -219,7 +219,7 @@ nosave int GoodPeer(int fd, mixed data){
     return 1;
 }
 
-varargs nosave int ValidatePeer(int fd, mixed data, int outbound){
+varargs protected int ValidatePeer(int fd, mixed data, int outbound){
     string ip = explode(socket_address(fd)," ")[0];
     mixed tmp;
     mixed name;
@@ -594,7 +594,7 @@ protected void irn_read_callback(int fd, mixed data){
     }
 }
 
-nosave varargs void SendList(mixed data, int fd, string type){
+protected varargs void SendList(mixed data, int fd, string type){
     int *targets = ({});
     string *cmuds = this_object()->query_connected_muds();
     mixed *outbound = ({});
@@ -757,7 +757,7 @@ string Report(){
     if(sizeof(irn_connections))
         foreach(mixed key, mixed val in irn_connections){
             if(!key) continue;
-            if(!irn_connections[key]) return;
+            if(!irn_connections[key]) return 0;
             ret += key+":"+irn_connections[key]["fd"]+" ";
         }
     ret += "\n";

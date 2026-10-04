@@ -5,7 +5,6 @@ inherit LIB_DAEMON;
 
 int eventConsider(object whom, object opponent) {
   int score = 0;
-  int tmp = 0;
   int protection = 0;
   string *attack_types = ({});
   object *dam_types = ({});

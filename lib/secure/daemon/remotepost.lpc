@@ -84,8 +84,7 @@ string resend_post(string mud) {
 }
 
 int send_post(mapping borg, string mud) {
-  string *msg, *tmp, *muds = ({});
-  int i, maxi, x, y;
+  string *muds = ({});
   mapping TmpMap = ([]);
 
   if (file_name(previous_object(0)) != LOCALPOST_D &&

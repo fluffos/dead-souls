@@ -53,7 +53,7 @@ string GetCapName();
 int ResetLevel();
 string SetClass(string str);
 string SetClan(string clan);
-varargs nosave int AddHealthPoints(int x, string limb, object agent);
+varargs protected int AddHealthPoints(int x, string limb, object agent);
 int GetLanguageLevel(string lang);
 int is_living();
 mapping *GetDeaths();

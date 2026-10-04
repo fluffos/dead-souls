@@ -59,8 +59,6 @@ varargs void eventReloadVerbs(mixed val) {
   }
   cache = ({});
   foreach (verb in verbs) {
-    object ob;
-    string *verb_list;
     cache += ({ verb });
     verbs -= ({ verb });
     if (sizeof(cache) > 9 || !sizeof(verbs)) {

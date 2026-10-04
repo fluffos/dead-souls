@@ -51,7 +51,7 @@ protected void close_callback(int fd) {
   debug("I'm wanting to close fd" + fd + " now.");
 }
 
-nosave mixed read_callback(int fd, mixed data) {
+mixed read_callback(int fd, mixed data) {
   int i;
   string tmp = "";
   mixed tmp2;

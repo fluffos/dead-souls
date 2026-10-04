@@ -20,7 +20,7 @@ protected void create() {
 
 varargs mixed eventShoot(mixed device, mixed target, string dir, string whom) {
   mixed attackable;
-  object tmpob, who = this_player();
+  object who = this_player();
 
   if (!device || !objectp(device) || target == device) {
     write("You can't shoot that with that.");

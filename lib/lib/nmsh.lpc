@@ -289,7 +289,7 @@ string GetPromptString() {
 varargs nomask string GetPrompt(int withbuff) {
   string ret, ret2 = "";
   mixed tmp;
-  int x, y;
+  int y;
 
   if (withbuff) ret2 = this_object()->GetCharbuffer();
 
@@ -378,7 +378,7 @@ varargs nomask string GetPrompt(int withbuff) {
 
 varargs nomask string write_prompt(string str) {
   string ret, uncolor;
-  int diff, tmp, bottom = GetScreen()[1];
+  int tmp, bottom = GetScreen()[1];
   int side = GetScreen()[0];
 
   if (!this_object()) return "";

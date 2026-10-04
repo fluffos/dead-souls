@@ -71,7 +71,7 @@ protected void broadcast_data(mapping targets, mixed data);
 string clean_fd(string fd);
 protected void broadcast_chanlist(string channame);
 void broadcast_mudlist(string mudname);
-nosave varargs void Debug(string str, int level);
+protected varargs void Debug(string str, int level);
 protected void process_channel(int fd, mixed *info);
 protected void process_startup_req(int protocol, mixed info, int fd);
 protected void read_callback(int fd, mixed info);
@@ -429,7 +429,6 @@ void check_discs() {
 
   if (sizeof(fds))
     foreach (mixed element in sort_array(fds, 1)) {
-      string lost_mud;
       if (!intp(element)) continue;
       if (!socket_status(element) ||
         socket_status(element)[1] == "CLOSED" || !GetRemoteIP(element) ||

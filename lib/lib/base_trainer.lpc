@@ -202,7 +202,7 @@ int eventTrain(object who, string verb, string skill) {
   return 1;
 }
 
-nosave int ContinueTraining(object who, string skill, int x) {
+protected int ContinueTraining(object who, string skill, int x) {
   if (!who || !Students[who->GetKeyName()]) return 0;
   if (!present(who, environment()) ||
     member_array(who, this_object()->GetEnemies()) != -1) {

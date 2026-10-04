@@ -30,7 +30,7 @@ protected void CheckBlind(string str) {
   if (!str || str == "" || lower_case(str)[0..0] == "y") {
     receive("\nOk, disabling default overhead map.\n");
     blindmode = 1;
-  } else receive("\Ok, allowing default overhead map behavior.\n");
+  } else receive("Ok, allowing default overhead map behavior.\n");
   receive("\nCreate a password of at least 5 letters: \n");
   input_to((: InputPassword :), I_NOECHO | I_NOESC);
 }

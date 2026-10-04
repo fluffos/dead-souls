@@ -30,16 +30,16 @@ string *modals = antimodals + ({ "channelpipes", "fastcombat",
 string *inet_services = ({ "oob", "hftp", "ftp", "http", "rcp", "inet" });
 
 protected int NotImplemented(string which);
-varargs nosave int TestFun(string which, string arg);
-varargs nosave int ModIntermud(string which, string arg);
-varargs nosave int ModRouter(string which, string arg);
-nosave int ProcessModal(string which, string arg);
-varargs nosave int ModStartRoom(string which, string arg);
-nosave int ProcessOther(string which, string arg);
-nosave int ProcessString(string which, string arg);
+varargs protected int TestFun(string which, string arg);
+varargs protected int ModIntermud(string which, string arg);
+varargs protected int ModRouter(string which, string arg);
+protected int ProcessModal(string which, string arg);
+varargs protected int ModStartRoom(string which, string arg);
+protected int ProcessOther(string which, string arg);
+protected int ProcessString(string which, string arg);
 int ProcessInet(string which, string arg);
-varargs nosave int ModDefaultDomain(string which, string arg);
-varargs nosave int ModCfg(string which, string arg);
+varargs protected int ModDefaultDomain(string which, string arg);
+varargs protected int ModCfg(string which, string arg);
 
 private void validate() {
   if (!this_player()) return 0;
@@ -201,13 +201,13 @@ protected int NotImplemented(string which) {
   return 1;
 }
 
-varargs nosave int TestFun(string which, string arg) {
+varargs protected int TestFun(string which, string arg) {
   validate();
   write("Which: " + which + " arg: " + arg);
   return 1;
 }
 
-varargs nosave int ModStartRoom(string which, string arg) {
+varargs protected int ModStartRoom(string which, string arg) {
   if (!arg) {
     write("Please specify the absolute path to the room's file.");
     return 1;
@@ -244,7 +244,7 @@ varargs nosave int ModStartRoom(string which, string arg) {
   return 1;
 }
 
-varargs nosave int ModDefaultDomain(string which, string arg) {
+varargs protected int ModDefaultDomain(string which, string arg) {
   if (!arg) {
     write("Please specify the absolute path to the domain, eg: /domains/MystyShyre");
     return 1;
@@ -284,7 +284,7 @@ varargs nosave int ModDefaultDomain(string which, string arg) {
   return 1;
 }
 
-varargs nosave int ModRouter(string which, string arg) {
+varargs protected int ModRouter(string which, string arg) {
   string preloads = read_file(CFG_PRELOAD);
   string *load_lines = explode(preloads, "\n");
   string *ret_arr = ({});
@@ -359,7 +359,7 @@ varargs nosave int ModRouter(string which, string arg) {
   }
 }
 
-varargs nosave int ModIntermud(string which, string arg) {
+varargs protected int ModIntermud(string which, string arg) {
   validate();
   write("Which: " + which + " arg: " + arg);
   if (arg == "restrict") {
@@ -441,7 +441,7 @@ varargs nosave int ModIntermud(string which, string arg) {
   return 1;
 }
 
-nosave int ProcessOther(string which, string arg) {
+protected int ProcessOther(string which, string arg) {
   int junk;
   validate();
 
@@ -489,7 +489,7 @@ nosave int ProcessOther(string which, string arg) {
   return 1;
 }
 
-nosave int ProcessString(string which, string arg) {
+protected int ProcessString(string which, string arg) {
   object ob;
   validate();
 
@@ -524,7 +524,7 @@ nosave int ProcessString(string which, string arg) {
   return 1;
 }
 
-nosave int ProcessModal(string which, string arg) {
+protected int ProcessModal(string which, string arg) {
   int junk;
   validate();
   if (!arg) {
@@ -855,7 +855,7 @@ int ProcessInet(string which, string arg) {
   return 1;
 }
 
-varargs nosave int ModCfg(string which, string arg) {
+varargs protected int ModCfg(string which, string arg) {
   int port, oldport, newport, ret, justbooted;
   string *line_array;
   string mconfig, nameline, portline, newline, newfile;

@@ -25,7 +25,7 @@ protected void create() {
   Synonyms = ({});
 }
 
-nosave string SetErrorMessage(string str) { return (ErrorMessage = str); }
+string SetErrorMessage(string str) { return (ErrorMessage = str); }
 
 string GetErrorMessage() { return ErrorMessage; }
 

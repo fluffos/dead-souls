@@ -69,9 +69,7 @@ void eventLoadRogues() {
 
 int CheckBot(string str) {
   object cloan, foo;
-  int allset, err, already_watched = 0;
-  string *immune;
-  string name;
+  int err, already_watched = 0;
 
   if (!str) str = "foo";
   str = lower_case(str);

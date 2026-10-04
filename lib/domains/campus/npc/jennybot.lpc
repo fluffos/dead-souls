@@ -9,7 +9,6 @@ string *watchlist = ({});
 nosave string save_file = save_file("/domains/campus/save/jennybot");
 
 mixed GreetingResponse(object who, mixed foo, string message, mixed bar) {
-  int greet;
   message = lower_case(message);
   if (!strsrch(message, "hi") || !strsrch(message, "hello") ||
     !strsrch(message, "hey") || !strsrch(message, "sup")) {

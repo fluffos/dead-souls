@@ -27,7 +27,7 @@ private nosave function Write;
 private nosave function Close;
 private nosave class client Socket;
 
-varargs nosave int eventClose(class client sock, int aborted);
+varargs int eventClose(class client sock, int aborted);
 protected void eventRead(mixed val);
 protected void eventSocketClose();
 protected void eventSocketError(string str, int x);
@@ -150,7 +150,7 @@ void eventWrite(mixed val) {
   else eventWriteCallback(Socket->Descriptor);
 }
 
-varargs nosave int eventClose(class client sock, int aborted) {
+varargs int eventClose(class client sock, int aborted) {
   if (!sock) return 0;
   if (!aborted && socket_close(sock->Descriptor) != EESUCCESS) {
     return 0;
